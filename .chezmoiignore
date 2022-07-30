@@ -17,5 +17,5 @@ README.md
 .config/sketchybar/
 .config/skhd/
 .config/yabai/
-.qutebrowser
+.qutebrowser/
 {{- end }}
