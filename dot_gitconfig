@@ -1,4 +1,4 @@
-; vim:fenc=utf-8:ft=gitconfig
+# vim:ft=gitconfig:fenc=utf-8:fdm=marker
 
 ; identity & authentication
 [include]

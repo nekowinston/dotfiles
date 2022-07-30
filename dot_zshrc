@@ -1,4 +1,4 @@
-# vim:fileencoding=utf-8:foldmethod=marker
+# vim:ft=zsh:fenc=utf-8:fdm=marker
 
 # load starship
 eval "$(starship init zsh)"

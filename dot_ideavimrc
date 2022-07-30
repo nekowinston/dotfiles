@@ -1,3 +1,4 @@
+" vim:ft=vim:fenc=utf-8:fdm=marker
 """ map leader to <space> ----------------------------------------------------
 let mapleader=" "
 
@@ -56,4 +57,3 @@ nnoremap <C-H> <C-W><C-H>
 sethandler <C-D> a:vim
 sethandler <C-U> a:vim
 sethandler <C-R> n:ide
-
