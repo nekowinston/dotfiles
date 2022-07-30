@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 UNREAD_ONLY=true
 MAIL_DIR=~/.local/share/mail
@@ -6,12 +6,12 @@ MAIL_DIR=~/.local/share/mail
 mailcount=0
 
 if [[ -d ${MAIL_DIR} ]]; then
-  for dir in ${MAIL_DIR}/*/; do
+  for dir in "${MAIL_DIR}"/*/; do
     # get file count for the unread mailbox, add to count
     mailcount=$(( $( ls ${dir}INBOX/new | wc -l ) + $mailcount ))
 
     # also add the rest of the inbox if var is set
-    if !($UNREAD_ONLY); then
+    if ! ($UNREAD_ONLY); then
       mailcount=$(( $( ls ${dir}INBOX/cur | wc -l ) + $mailcount ))
     fi
 
@@ -19,4 +19,3 @@ if [[ -d ${MAIL_DIR} ]]; then
 fi
 
 echo ${mailcount}
-

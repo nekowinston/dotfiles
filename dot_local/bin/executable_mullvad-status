@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
-while read LINE; do
+while read -r LINE; do
   if echo "$LINE" | grep -q 'Connected'; then
     # get the relay (3rd word) | drop the wireguard/openvpn suffix | make it uppercase
     # just replace this with whatever style you like
-    OUTPUT=$(echo $LINE | cut -d " " -f 3 | cut -d "-" -f 1 | tr '/a-z/' '/A-Z/')
+    OUTPUT=$(echo "$LINE" | cut -d " " -f 3 | cut -d "-" -f 1 | tr '/a-z/' '/A-Z/')
     ICON=" "
   else
     ICON=" "
   fi
 
-  echo $ICON $OUTPUT
+  echo "$ICON" "$OUTPUT"
 done < <(mullvad status listen)
