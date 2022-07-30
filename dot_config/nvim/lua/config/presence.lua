@@ -101,6 +101,6 @@ require("presence"):setup({
 		end
 	end,
 	git_commit_text = "Committing changes",
-	plugin_manager_text = "🤹 Plugins",
+	plugin_manager_text = "🤹 Managing Plugins",
 	line_number_text = "L%s of %s",
 })
