@@ -1,0 +1,152 @@
+# See dunst(5) for all configuration options
+# vim:ft=cfg
+[global]
+  frame_width = 3
+  frame_color = "#89B4FA"
+  font = Victor Mono 12
+
+  width = 300
+  height = 300
+
+  # Allow a small subset of html markup:
+  markup = yes
+
+  # The format of the message.
+  format = "<b>%a</b>\n%s %p\n%b"
+
+  # Sort messages by urgency.
+  sort = yes
+
+  # Show how many messages are currently hidden (because of geometry).
+  indicate_hidden = yes
+
+  # Alignment of message text.
+  # Possible values are "left", "center" and "right".
+  alignment = left
+
+  # The frequency with wich text that is longer than the notification
+  # window allows bounces back and forth.
+  # This option conflicts with "word_wrap".
+  # Set to 0 to disable.
+  bounce_freq = 5
+
+
+  # Show age of message if message is older than show_age_threshold
+  # seconds.
+  # Set to -1 to disable.
+  show_age_threshold = 60
+
+  # Split notifications into multiple lines if they don't fit into
+  # geometry.
+  word_wrap = no
+
+  # Ignore newlines '\n' in notifications.
+  ignore_newline = no
+
+  # Shrink window if it's smaller than the width.  Will be ignored if
+  # width is 0.
+  shrink = yes
+
+  # The transparency of the window.  Range: [0; 100].
+  transparency = 5
+
+  # Don't remove messages, if the user is idle (no mouse or keyboard input)
+  # for longer than idle_threshold seconds.
+  idle_threshold = 30
+
+  # Which monitor should the notifications be displayed on.
+  monitor = 0
+
+  # Display notification on focused monitor.  Possible modes are:
+  #   keyboard: follow window with keyboard focus
+  follow = keyboard
+
+  # Should a notification popped up from history be sticky or timeout
+  # as if it would normally do.
+  sticky_history = yes
+
+  # Maximum amount of notifications kept in history
+  history_length = 20
+
+  # Display indicators for URLs (U) and actions (A).
+  show_indicators = yes
+
+  # The height of a single line.  If the height is smaller than the
+  # font height, it will get raised to the font height.
+  # This adds empty space above and under the text.
+  line_height = 2
+
+  # Draw a line of "separator_height" pixel height between two
+  # notifications.
+  # Set to 0 to disable.
+  separator_height = 1
+
+  # Padding between text and separator.
+  # padding = 8
+  padding = 2
+
+  # Padding between text and icon.
+  text_icon_padding = 4
+
+  # Define a color for the separator.
+  # possible values are:
+  #  * auto: dunst tries to find a color fitting to the background;
+  #  * foreground: use the same color as the foreground;
+  #  * frame: use the same color as the frame;
+  #  * anything else will be interpreted as a X color.
+  separator_color= frame
+
+  # Print a notification on startup.
+  # This is mainly for error detection, since dbus (re-)starts dunst
+  # automatically after a crash.
+  startup_notification = false
+
+  # dmenu path.
+  dmenu = /usr/bin/dmenu -p dunst:
+
+  # Browser for opening urls in context menu.
+  browser = firefox
+
+  # Align icons left/right/off
+  icon_position = left
+
+  # Paths to default icons.
+  icon_path = /usr/share/icons/Papirus-Dark/16x16/status/:/usr/share/icons/Papirus-Dark/16x16/devices/:/usr/share/icons/Papirus-Dark/16x16/legacy/
+
+  min_icon_size=24
+  max_icon_size=64
+
+[shortcuts]
+
+  # Shortcuts are specified as [modifier+][modifier+]...key
+  # Available modifiers are "ctrl", "mod1" (the alt-key), "mod2",
+  # "mod3" and "mod4" (windows-key).
+  # Xev might be helpful to find names for keys.
+
+  # Close notification.
+  close = mod1+space
+
+  # Close all notifications.
+  # close_all = ctrl+shift+space
+  close_all = ctrl+mod1+space
+
+  # Redisplay last message(s).
+  # On the US keyboard layout "grave" is normally above TAB and left
+  # of "1".
+  history = ctrl+mod4+h
+
+  # Context menu.
+  context = ctrl+mod1+c
+
+[urgency_low]
+background = "#1e1e2e"
+foreground = "#cdd6f4"
+
+[urgency_normal]
+background = "#1e1e2e"
+foreground = "#cdd6f4"
+
+[urgency_critical]
+background = "#1e1e2e"
+foreground = "#cdd6f4"
+frame_color = "#fab387"

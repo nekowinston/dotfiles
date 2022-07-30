@@ -1,0 +1,32 @@
+# vim: filetype=neomuttrc
+{{ if eq .chezmoi.os "darwin" -}}
+source /usr/local/share/mutt-wizard/mutt-wizard.muttrc
+{{ else }}
+source /usr/share/mutt-wizard/mutt-wizard.muttrc
+{{- end }}
+# use thread sorting
+set sort="threads"
+set sort_aux="reverse-last-date-received"
+
+# compose with pandoc / Markdown
+macro compose m \
+"<enter-command>set pipe_decode<enter>\
+<pipe-message>docker run -i -v /tmp:/tmp --rm pandoc/core -f gfm -t plain -o /tmp/msg.txt<enter>\
+<pipe-message>docker run -i -v /tmp:/tmp -v ~/.config/mutt/templates/work.html:/mutt/templates/work.html --rm pandoc/core -s -f gfm --self-contained -o /tmp/msg.html --resource-path /mutt/templates/ --template work<enter>\
+<enter-command>unset pipe_decode<enter>\
+<attach-file>/tmp/msg.txt<enter>\
+<attach-file>/tmp/msg.html<enter>\
+<tag-entry><previous-entry><tag-entry><group-alternatives>" \
+"Convert markdown to HTML5 and plaintext alternative content types"
+
+# khard / vdirsyncer as an autocompleting addressbook
+set query_command = "khard email --parsable %s"
+bind editor <Tab> complete-query
+bind editor ^T    complete
+
+# default account
+source ~/.config/mutt/accounts/1-personal.muttrc
+
+# swap between accounts
+macro index,pager i1 '<sync-mailbox><enter-command>source ~/.config/mutt/accounts/1-personal.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to personal"
+macro index,pager i2 '<sync-mailbox><enter-command>source ~/.config/mutt/accounts/2-work.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to work"

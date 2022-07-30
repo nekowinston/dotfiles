@@ -1,0 +1,14 @@
+.antigen/antigen.zsh:
+  type: file
+  url: "https://raw.githubusercontent.com/zsh-users/antigen/master/bin/antigen.zsh"
+  refreshPeriod: 168h
+
+.config/tmux/plugins/tpm:
+  type: git-repo
+  url: "https://github.com/tmux-plugins/tpm"
+  refreshPeriod: 168h
+
+.config/wezterm/colors/catppuccin:
+  type: git-repo
+  url: "https://github.com/catppuccin/wezterm.git"
+  refreshPeriod: 168h

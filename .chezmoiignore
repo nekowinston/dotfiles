@@ -1,0 +1,21 @@
+# ignore the README, of course...
+README.md
+{{- if ne .chezmoi.os "linux" }}
+# ignore linux configuration
+.config/dunst/
+.config/i3/
+.config/polybar/
+.config/rofi/
+.config/picom.conf
+.config/redshift.conf
+.local/bin/launch_polybar
+.xscreensaver
+.Xmodmap
+{{- end }}
+{{- if ne .chezmoi.os "darwin" }}
+# ignore macOS configuration
+.config/sketchybar/
+.config/skhd/
+.config/yabai/
+.qutebrowser
+{{- end }}

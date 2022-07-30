@@ -1,0 +1,7 @@
+export EDITOR=nvim
+export TERMINAL=wezterm
+{{ if eq .chezmoi.os "darwin" -}}
+# homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
+FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+{{- end -}}

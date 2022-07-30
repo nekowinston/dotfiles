@@ -1,0 +1,20 @@
+encryption: gpg
+
+gpg:
+  recipient: hey@winston.sh
+
+edit:
+  command: nvim
+diff:
+  command: nvim
+  args:
+    - "-d"
+    - "{{`{{ .Destination }}`}}"
+    - "{{`{{ .Target }}`}}"
+merge:
+  command: nvim
+  args:
+    - "-d"
+    - "{{`{{ .Destination }}`}}"
+    - "{{`{{ .Source }}"
+    - "{{ .Target }}`}}"

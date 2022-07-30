@@ -1,0 +1,78 @@
+; vim:fenc=utf-8:ft=gitconfig
+
+; identity & authentication
+[include]
+  path = ~/.config/git/pseudonym
+
+; using 'pass' as the password manager
+[credential]
+  helper = !pass-git-helper $@
+  useHttpPath = true
+
+; change identity based on the cwd
+; work
+[includeIf "gitdir:~/git/work/"]
+  path = ~/.config/git/work
+; freelance
+[includeIf "gitdir:~/git/freelance/"]
+  path = ~/.config/git/personal
+
+[core]
+  excludesfile = ~/.config/git/gitignore
+  autocrlf = input
+  pager = diff-so-fancy | less --tabs=4 -RFX
+
+[interactive]
+	diffFilter = diff-so-fancy --patch
+
+[alias]
+  up = "!git remote update -p; git merge --ff-only @{u}"
+  patch = "!git --no-pager diff --no-color"
+  zip = "!git archive --format=zip --output=$(basename $(git rev-parse --show-toplevel)).zip $(git rev-parse --short HEAD)"
+  gzip = "!git archive --format=tar.gz --output=$(basename $(git rev-parse --show-toplevel)).tar.gz $(git rev-parse --short HEAD)"
+  logo = log --format=format:'%>|(8)%Cblue%h%Creset %Cgreen%><(14)%ar%Creset %C(dim)[%G?]%Creset %s%C(yellow)%d%Creset'
+  lol = log --graph --format=format:'%>|(14)%Cblue%h%Creset %Cgreen%><(14)%ar%Creset %C(dim)[%G?]%Creset %s%C(yellow)%d%Creset'
+  lola = log --graph --format=format:'%>|(14)%Cblue%h%Creset %Cgreen%><(14)%ar%Creset %C(dim)[%G?]%Creset %s%C(yellow)%d%Creset' --all
+	yolo = !git commit -m \"chore: $(curl -s whatthecommit.com/index.txt)\"
+
+[commit]
+  gpgSign = true
+
+[push]
+  default = current
+
+[format]
+  signoff = true
+
+[grep]
+  lineNumber = true
+
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+
+[init]
+  defaultBranch = main
+
+[color]
+  branch = auto
+  diff = auto
+  status = auto
+
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+
+[color "diff"]
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = cyan

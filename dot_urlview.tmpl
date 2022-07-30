@@ -1,0 +1,6 @@
+REGEXP (((http|https|ftp|gopher)|mailto)[.:][^ >"\t]*|www\.[-a-z0-9.]+)[^ .,;\t>">\):]
+{{ if eq .chezmoi.os "darwin" -}}
+COMMAND open -a "Firefox" %s
+{{ else }}
+COMMAND /usr/bin/firefox -new-tab %s
+{{- end -}}

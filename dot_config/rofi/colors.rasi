@@ -1,0 +1,21 @@
+/* colors */
+
+* {
+  al:   #00000000;
+  bg:   #2A212CFF;
+  bga:  #0a0a0aFF;
+  fg:   #FF80BFFF;
+  ac:   #fdd835FF;
+  se:   #fdd8351A;
+  drac-bgd: #2A212C;
+  drac-cur: #544158;
+  drac-fgd: #F8F8F2;
+  drac-cmt: #9F70A9;
+  drac-cya: #80FFEA;
+  drac-grn: #8AFF80;
+  drac-ora: #FFCA80;
+  drac-pnk: #FF80BF;
+  drac-pur: #9580FF;
+  drac-red: #FF9580;
+  drac-yel: #FFFF80;
+}
