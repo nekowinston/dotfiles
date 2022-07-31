@@ -5,6 +5,11 @@ if pgrep -xq Music; then
   TRACK=$(osascript -e 'tell application "Music" to name of current track as string' 2>/dev/null || echo "")
   ARTIST=$(osascript -e 'tell application "Music" to album artist of current track as string' 2>/dev/null || echo "")
 
+  # fall back to artist, if album artist is unavailable, or generic
+  if [ "$ARTIST" = "" ] || [ "$ARTIST" = "Various Artists" ]; then
+    ARTIST=$(osascript -e 'tell application "Music" to artist of current track as string' 2>/dev/null || echo "")
+  fi
+
   if [ "$STATE" = "playing" ]; then
     ICON=""
     LABEL="$ARTIST - $TRACK"
