@@ -16,7 +16,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 require("utils")
-require("lsp")
+pcall(require, "lsp")
 
 -- custom packer command
 local packer_cmd = function(callback)
