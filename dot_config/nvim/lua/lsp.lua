@@ -13,7 +13,7 @@ require("mason-lspconfig").setup({ automatic_installation = true })
 vim.opt.completeopt = "menu,menuone,noselect"
 
 -- debug mode enabled
-vim.lsp.set_log_level("debug")
+-- vim.lsp.set_log_level("debug")
 
 -- Setup nvim-cmp.
 local cmp = require("cmp")
