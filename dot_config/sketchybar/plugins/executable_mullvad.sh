@@ -3,19 +3,18 @@
 # path where mullvad is kept
 PATH=/usr/local/bin:$PATH
 
-if command -v mullvad &> /dev/null; then
-  MULLVAD_STATUS=$(mullvad status)
+if ! [ -x "$(command -v mullvad)" ]; then
+  sketchybar --set "$NAME" icon=" " label=""
+fi
 
-  if echo "$MULLVAD_STATUS" | grep -q 'Connected'; then
-    OUTPUT=$(mullvad status | cut -d " " -f 3 | cut -d "-" -f 1 | tr '/a-z/' '/A-Z/')
+while read -r LINE; do
+  if echo "$LINE" | grep -q 'Connected'; then
+    # regex grep the relay, e.g. se7 for sweden-7
+    OUTPUT=$(echo "$LINE" | grep -oE "\w{2}\d+")
     ICON=" "
   else
     ICON=" "
   fi
 
-else
-  ICON=" "
-  OUTPUT=""
-fi
-
-sketchybar --set "$NAME" icon="$ICON" label="$OUTPUT"
+  sketchybar --set "$NAME" icon="$ICON" label="${OUTPUT^^}"
+done < <(mullvad status listen)

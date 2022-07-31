@@ -1,14 +1,19 @@
 #!/usr/bin/env bash
 
+# if mullvad is not installed
+if ! [ -x "$(command -v mullvad)" ]; then
+  echo " "
+  exit 1
+fi
+
 while read -r LINE; do
   if echo "$LINE" | grep -q 'Connected'; then
-    # get the relay (3rd word) | drop the wireguard/openvpn suffix | make it uppercase
-    # just replace this with whatever style you like
-    OUTPUT=$(echo "$LINE" | cut -d " " -f 3 | cut -d "-" -f 1 | tr '/a-z/' '/A-Z/')
+    # regex grep the relay, e.g. se7 for sweden-7
+    OUTPUT=$(echo "$LINE" | grep -oE "\w{2}\d+")
     ICON=" "
   else
     ICON=" "
   fi
 
-  echo "$ICON" "$OUTPUT"
+  echo "$ICON" "${OUTPUT^^}"
 done < <(mullvad status listen)
