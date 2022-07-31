@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-sketchybar --set "$NAME" label="$(bar_date)" icon=" "
+sketchybar --set "$NAME" label="$(~/.local/bin/bar_date)" icon=" "
