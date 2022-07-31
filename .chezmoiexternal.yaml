@@ -5,6 +5,12 @@
   url: "https://raw.githubusercontent.com/zsh-users/antigen/master/bin/antigen.zsh"
   refreshPeriod: 168h
 
+# neovim packer
+.local/share/nvim/site/pack/packer/start/packer.nvim:
+  type: git-repo
+  url: "https://github.com/wbthomason/packer.nvim"
+  refreshPeriod: 168h
+
 # tmux plugin manager
 .config/tmux/plugins/tpm:
   type: git-repo
