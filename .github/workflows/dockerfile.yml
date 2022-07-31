@@ -1,0 +1,15 @@
+name: Build Demo Dockerfile
+
+on: [push]
+
+jobs:
+  build-demo-dockerfile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build Dockerfile
+        uses: VaultVulp/gp-docker-action@1.2.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          image-name: dotfiles
+          image-tag: latest
