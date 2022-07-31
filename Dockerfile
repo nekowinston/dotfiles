@@ -41,6 +41,8 @@ RUN mkdir ./neovim && \
 
 # copy the dotfiles
 COPY --chown=demo:demo . /home/demo/.local/share/chezmoi
+# make sure the ownership is correct
+RUN chown -R demo:demo /home/demo/.local
 
 # install them
 RUN chezmoi init
