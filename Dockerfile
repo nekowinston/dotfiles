@@ -22,9 +22,9 @@ RUN pacman -Sy \
 RUN useradd -m demo && \
   echo "demo ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/demo
 USER demo
+WORKDIR /home/demo
 
 # install yay, might be used at a later point
-# WORKDIR /home/demo
 # RUN git clone https://aur.archlinux.org/yay-bin.git && \
 #   cd yay-bin && \
 #   makepkg -si --noconfirm && \
