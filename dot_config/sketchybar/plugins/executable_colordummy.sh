@@ -148,3 +148,8 @@ sketchybar \
   --set tasks \
     icon.color=$(color red) \
     label.color=$(color red)
+
+# set the yabai colours as well
+yabai -m config active_window_border_color $(color pink)
+yabai -m config normal_window_border_color $(color mauve)
+yabai -m config insert_feedback_color $(color yellow)
