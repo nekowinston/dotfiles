@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if [[ -x "$(command -v ddate)" ]]; then
+  ddate +'%{%A, %b %d%}'
+else
+  date +'%A, %b %d'
+fi
