@@ -80,8 +80,7 @@ yabai -m config left_padding                 8
 yabai -m config right_padding                8
 yabai -m config window_gap                   8
 
-# when using uebersicht, add a 30 rel px gap on the top
-yabai -m config external_bar all:30:0
-# yabai -m config external_bar all:0:0
+# for sketchybar, add a 32 rel px gap on the top
+yabai -m config external_bar all:32:0
 
 printf "\n\n\nRELOAD: finished loading yabai conf\n"
