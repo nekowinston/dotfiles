@@ -59,6 +59,19 @@ Here's what's included:
   - [polybar](https://github.com/polybar/polybar) as the menubar.
 - Custom binaries for both menubars.
 
+### Notes
+
+Fonts: You'll need [Victor Mono](https://rubjo.github.io/victor-mono/), [Inter](https://rsms.me/inter/), and Nerd Fonts Symbols, which you can find [here](https://github.com/ryanoasis/nerd-fonts/releases/download/2.2.0-RC/NerdFontsSymbolsOnly.zip). Victor Mono and Inter are also available in these packages:
+
+```bash
+# macOS - homebrew
+brew tap homebrew/cask-fonts
+brew install font-victor-mono font-inter
+
+# Arch AUR - use your favourite AUR helper
+yay -S inter-font ttf-victor-mono
+```
+
 ### Performance
 
 My philosophy regarding the neovim setup, can be roughly summed up as:
