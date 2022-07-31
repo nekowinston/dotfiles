@@ -1,4 +1,4 @@
-# ignore the README, of course...
+Dockerfile
 README.md
 {{- if ne .chezmoi.os "linux" }}
 # ignore linux configuration
