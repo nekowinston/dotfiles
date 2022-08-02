@@ -8,10 +8,10 @@ sudo yabai --load-sa
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 
 # ensure that there are always 10 spaces
-spacestocreate=$(expr 10 - "$(yabai -m query --spaces | jq length)")
+spacestocreate=$((10 - $(yabai -m query --spaces | jq length)))
 while [ "$spacestocreate" -gt 0 ]; do
   yabai -m space --create
-  spacestocreate=$(expr "$spacestocreate" - 1)
+  spacestocreate=$((spacestocreate - 1))
 done
 # }}}
 
