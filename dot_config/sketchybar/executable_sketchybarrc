@@ -8,7 +8,7 @@ sketchybar --bar \
   blur_radius=10 \
   position=top \
   padding_left=0 \
-  padding_right=4 \
+  padding_right=4
 
 # colors are managed seperately in the colordummy,
 # which listens to theme_changed events,
@@ -17,8 +17,7 @@ sketchybar -m --add event theme_changed AppleInterfaceThemeChangedNotification
 sketchybar \
   --add item colordummy left \
   --set colordummy \
-    icon.drawing=off \
-    label.drawing=off \
+    drawing=off \
     script="$PLUGIN_DIR/colordummy.sh" \
   --subscribe colordummy theme_changed
 
@@ -50,24 +49,18 @@ SPACE_ICONS=(
 )
 for i in "${!SPACE_ICONS[@]}"
 do
-  if [[ $i == 0 ]]; then
-    lbgp=0
-  else
-    lbgp=1
-  fi
-
   sketchybar \
     --add space "space.$i" left \
-    --set "space.$i" associated_space=$(($i+1)) \
+    --set "space.$i" associated_space=$((i+1)) \
       icon="${SPACE_ICONS[i]}" \
       icon.padding_left=8 \
       icon.padding_right=8 \
-      background.padding_left="$lbgp" \
+      background.padding_left=1 \
       background.padding_right=1 \
       background.height=32 \
       label.drawing=off \
       script="$PLUGIN_DIR/space.sh" \
-      click_script="yabai -m space --focus $(($i+1))"
+      click_script="yabai -m space --focus $((i+1))"
 done
 
 # window title
@@ -99,11 +92,13 @@ sketchybar \
   --set clock \
     script="$PLUGIN_DIR/clock.sh" \
     update_freq=10 \
+    lazy=true \
 \
   --add item date right \
   --set date \
     script="$PLUGIN_DIR/ddate.sh" \
     update_freq=60 \
+    lazy=true \
 \
   --add item mullvad right \
   --set mullvad \
@@ -113,22 +108,26 @@ sketchybar \
   --set battery \
     update_freq=30 \
     script="$PLUGIN_DIR/battery.sh" \
+    lazy=true \
   --subscribe battery system_woke \
 \
   --add item sound right \
   --set sound \
     script="$PLUGIN_DIR/sound.sh" \
     update_freq=5 \
+    lazy=true \
 \
   --add item mail right \
   --set mail \
     script="$PLUGIN_DIR/mailIndicator.sh" \
     update_freq=10 \
+    lazy=true \
 \
   --add item tasks right \
   --set tasks \
     script="$PLUGIN_DIR/tasks.sh" \
-    update_freq=10
+    update_freq=10 \
+    lazy=true
 
 ##### fin #####
 sketchybar --update

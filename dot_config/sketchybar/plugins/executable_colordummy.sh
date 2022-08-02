@@ -111,7 +111,6 @@ sketchybar \
   --set /space/ \
     icon.color=$(color mauve 128) \
     icon.highlight_color=$(color pink) \
-    background.highlight_color=$(color pink) \
 \
   --set window_title \
     icon.color=$(color text) \
