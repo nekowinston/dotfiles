@@ -18,7 +18,7 @@
   path = ~/.config/git/personal
 
 [core]
-  excludesfile = ~/.config/git/gitignore
+  excludesfile = ~/.config/git/ignore
   autocrlf = input
   pager = diff-so-fancy | less --tabs=4 -RFX
 
