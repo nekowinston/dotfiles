@@ -18,11 +18,6 @@
   refreshPeriod: 168h
 
 # colors
-.config/wezterm/colors/catppuccin:
-  type: git-repo
-  url: "https://github.com/catppuccin/wezterm.git"
-  refreshPeriod: 168h
-
 .config/qutebrowser/catppuccin:
   type: git-repo
   url: "https://github.com/catppuccin/qutebrowser.git"

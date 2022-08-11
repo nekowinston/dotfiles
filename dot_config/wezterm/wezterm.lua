@@ -1,13 +1,6 @@
 -- vim:foldmethod=marker:foldlevel=1
 local wezterm = require("wezterm")
 
-local catppuccin = require("colors/catppuccin/catppuccin").setup({
-	sync_flavours = {
-		light = "latte",
-		dark = "mocha",
-	},
-})
-
 -- fonts I like, with the settings I prefer {{{
 -- kept seperately from the rest of the config so that I can easily change them
 local fonts = {
@@ -36,51 +29,6 @@ local fonts = {
 		weight = "DemiBold",
 	}),
 }
--- }}}
-
--- make numbers superscript or subscript {{{
----@diagnostic disable-next-line: unused-local,unused-function
-local function style_number(number, style)
-	local superscript = {
-		"⁰",
-		"¹",
-		"²",
-		"³",
-		"⁴",
-		"⁵",
-		"⁶",
-		"⁷",
-		"⁸",
-		"⁹",
-	}
-	local subscript = {
-		"₀",
-		"₁",
-		"₂",
-		"₃",
-		"₄",
-		"₅",
-		"₆",
-		"₇",
-		"₈",
-		"₉",
-	}
-
-	local numbers = (style == "super") and superscript or subscript
-
-	local number_string = tostring(number)
-	local result = ""
-	for i = 1, #number_string do
-		local char = number_string:sub(i, i)
-		local nr = tonumber(char)
-		if number then
-			result = result .. numbers[nr + 1]
-		else
-			result = result .. char
-		end
-	end
-	return result
-end
 -- }}}
 
 -- custom tab bar {{{
@@ -149,9 +97,6 @@ local function get_os()
 		return "linux"
 	elseif string.find(target, "darwin") then
 		return "macos"
-	else
-		-- who cares
-		return "OH GOD PLEASE NO"
 	end
 end
 
@@ -232,7 +177,7 @@ return {
 	window_decorations = "RESIZE",
 	window_padding = window_padding,
 	-- theme
-	colors = catppuccin,
+	color_scheme = "Catppuccin Mocha",
 	-- nightly only
 	clean_exit_codes = { 130 },
 }
