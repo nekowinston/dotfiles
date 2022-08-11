@@ -110,6 +110,7 @@ function twm() {
       ;;
   esac
 }
+alias sbks='launchctl kickstart -k "gui/${UID}/homebrew.mxcl.sketchybar"'
 
 function icat() {
   if [ "$TERM_PROGRAM" = "WezTerm" ]; then
