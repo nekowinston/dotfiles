@@ -1,6 +1,40 @@
 -- vim:foldmethod=marker:foldlevel=1
 local wezterm = require("wezterm")
 
+local function get_os()
+	local target = wezterm.target_triple
+	if string.find(target, "linux") then
+		return "linux"
+	elseif string.find(target, "darwin") then
+		return "macos"
+	end
+end
+
+local opt
+if get_os() == "linux" then
+	opt = {
+		window_padding = {
+			left = 0,
+			right = 0,
+			top = 0,
+			bottom = 0
+		},
+		font_size = 14,
+		sync = false
+	}
+elseif get_os() == "macos" then
+	opt = {
+		window_padding = {
+			left = 2,
+			right = 2,
+			top = 2,
+			bottom = 2
+		},
+		font_size = 18,
+		sync = true
+	}
+end
+
 -- fonts I like, with the settings I prefer {{{
 -- kept seperately from the rest of the config so that I can easily change them
 local fonts = {
@@ -91,32 +125,6 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 end)
 -- }}}
 
-local function get_os()
-	local target = wezterm.target_triple
-	if string.find(target, "linux") then
-		return "linux"
-	elseif string.find(target, "darwin") then
-		return "macos"
-	end
-end
-
-local window_padding = {}
-if get_os() == "linux" then
-	window_padding = {
-		left = 0,
-		right = 0,
-		top = 0,
-		bottom = 0,
-	}
-elseif get_os() == "macos" then
-	window_padding = {
-		left = 2,
-		right = 2,
-		top = 2,
-		bottom = 2,
-	}
-end
-
 local act = wezterm.action
 
 return {
@@ -167,7 +175,7 @@ return {
 		{ key = "v", mods = "LEADER", action = "ActivateCopyMode" },
 	},
 	-- font
-	font_size = 18,
+	font_size = opt.font_size,
 	font = fonts.victor,
 	use_fancy_tab_bar = false,
 	tab_bar_at_bottom = true,
@@ -175,7 +183,7 @@ return {
 	tab_max_width = 32,
 	-- window
 	window_decorations = "RESIZE",
-	window_padding = window_padding,
+	window_padding = opt.window_padding,
 	-- theme
 	color_scheme = "Catppuccin Mocha",
 	-- nightly only
