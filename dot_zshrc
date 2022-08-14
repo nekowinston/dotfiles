@@ -157,6 +157,10 @@ if [ -x "$(command -v pyenv)" ]; then
   eval "$(pyenv init -)"
 fi
 
+# ruby
+if [ -x "$(command -v rbenv)" ]; then
+  eval "$(rbenv init - zsh)"
+fi
 # }}}
 
 ### technical BS {{{

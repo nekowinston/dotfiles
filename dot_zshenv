@@ -52,7 +52,6 @@ export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 # yarn
 export PATH="$PATH:$HOME/.yarn/bin"
-export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
 ### GO ###
 export PATH="$PATH:$HOME/go/bin"
