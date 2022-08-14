@@ -10,6 +10,8 @@ README.md
 .config/picom.conf
 .config/redshift.conf
 .local/bin/launch_polybar
+.local/bin/mullvad-status
+.local/bin/media-status
 .xscreensaver
 .Xmodmap
 {{- end }}
