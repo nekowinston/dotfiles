@@ -1,11 +1,18 @@
 # vim:ft=zsh:fenc=utf-8:fdm=marker
-
 # load starship
 eval "$(starship init zsh)"
 
 ### plugins via antigen {{{
+# don't pollute $HOME with antigen
+ADOTDIR="$HOME/.local/share/antigen"
+if [[ ! -d "$ADOTDIR" ]]; then
+  mkdir -p "$ADOTDIR"
+  curl -L https://git.io/antigen > "$ADOTDIR/antigen.zsh"
+  chmod +x "$ADOTDIR"
+fi
+
 # load antigen
-source "$HOME/.antigen/antigen.zsh"
+source "$ADOTDIR/antigen.zsh"
 
 antigen use oh-my-zsh
 
@@ -25,11 +32,9 @@ antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-syntax-highlighting
 
 antigen apply
-
 # }}}
 
 ### basics {{{
-
 # history
 export HISTFILE="$HOME/.zhistory"
 export HISTSIZE=10000
@@ -44,11 +49,10 @@ setopt HIST_IGNORE_DUPS
 function bitch() {
   [ "$1" = "you" ] && [ "$2" = "better" ] && sudo "${@:3}"
 }
-
 # }}}
 
 ### aliases & functions {{{
-## basics, from common to peculiar tweaks {{{
+## basics {{{
 # use exa+lsd to list directories, if available, falling back to ls aliases
 if [ -x "$(command -v lsd)" ] && [ -x "$(command -v exa)" ]; then
   # add a bit more space between the file icon & name
@@ -86,7 +90,7 @@ alias switch_yubikeys='gpg-connect-agent "scd serialno" "learn --force" /bye'
 
 # list tty devices on macOS, useful for Arduino & other boards
 alias lstty='ls /dev | grep -E "^(tty\.|cu\.)" --color=never'
-#}}}
+## }}}
 
 ## OS-dependent tweaks {{{
 # manage yabai & ecosystem easier
@@ -111,7 +115,7 @@ function twm() {
   esac
 }
 alias sbks='launchctl kickstart -k "gui/${UID}/homebrew.mxcl.sketchybar"'
-
+alias onefetch='onefetch --true-color=never'
 function icat() {
   if [ "$TERM_PROGRAM" = "WezTerm" ]; then
     wezterm imgcat "$@"
@@ -121,7 +125,7 @@ function icat() {
     echo 'No image viewer defined for this terminal'
   fi
 }
-#}}}
+## }}}
 
 ## development {{{
 # use the combination of colordiff & diff-so-fancy
@@ -135,7 +139,6 @@ if [ -x "$(command -v colordiff)" ] && [ -x "$(command -v diff-so-fancy)" ]; the
     kubectl diff "$@" | diff-so-fancy
   }
 fi
-# }}}
 
 ## chezmoi
 alias cma='chezmoi add'
@@ -147,8 +150,7 @@ alias cmm='chezmoi merge'
 alias cmrm='chezmoi remove'
 alias cmst='chezmoi status'
 alias cmup='chezmoi update'
-
-alias onefetch='onefetch --true-color=never'
+## }}}
 ### }}}
 
 ### languages & frameworks {{{
@@ -161,6 +163,9 @@ fi
 if [ -x "$(command -v rbenv)" ]; then
   eval "$(rbenv init - zsh)"
 fi
+
+# node
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 # }}}
 
 ### technical BS {{{
@@ -168,8 +173,5 @@ fi
 function set_win_title(){
   echo -ne "\033]0;$(basename "$PWD")\007"
 }
-
 precmd_functions+=(set_win_title)
 # }}}
-
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
