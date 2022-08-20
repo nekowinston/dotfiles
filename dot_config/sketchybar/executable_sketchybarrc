@@ -103,6 +103,7 @@ sketchybar \
   --add item mullvad right \
   --set mullvad \
     script="$PLUGIN_DIR/mullvad.sh" \
+    update_freq=30 \
 \
   --add item battery right \
   --set battery \
