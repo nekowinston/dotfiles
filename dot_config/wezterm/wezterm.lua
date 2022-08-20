@@ -1,40 +1,72 @@
--- vim:foldmethod=marker:foldlevel=1
+-- vim:foldmethod=marker
 local wezterm = require("wezterm")
 
 -- fonts I like, with the settings I prefer {{{
 -- kept seperately from the rest of the config so that I can easily change them
 local fonts = {
-	cascadia = wezterm.font({
-		family = "Cascadia Code",
-		harfbuzz_features = {
-			"ss01=1",
-			"ss19=1",
+	cascadia = {
+		font = {
+			family = "Cascadia Code",
+			harfbuzz_features = {
+				"ss01=1",
+				"ss19=1",
+			},
 		},
-	}),
-	comic = wezterm.font("Comic Code Ligatures"),
-	fira = wezterm.font({
-		family = "Fira Code",
-		harfbuzz_features = {
-			"cv06=1",
-			"cv14=1",
-			"cv32=1",
-			"ss04=1",
-			"ss07=1",
-			"ss09=1",
+		size = 18,
+	},
+	comic = {
+		font = {
+			family = "Comic Code Ligatures",
 		},
-	}),
-	fantasque = wezterm.font("Fantasque Sans Mono"),
-	victor = wezterm.font({
-		family = "Victor Mono",
-		weight = "DemiBold",
-	}),
+		size = 18,
+	},
+	fira = {
+		font = {
+			family = "Fira Code",
+			harfbuzz_features = {
+				"cv06=1",
+				"cv14=1",
+				"cv32=1",
+				"ss04=1",
+				"ss07=1",
+				"ss09=1",
+			},
+		},
+		size = 18,
+	},
+	fantasque = {
+		font = {
+			family = "Fantasque Sans Mono",
+			weight = "Regular",
+		},
+		size = 20,
+	},
+	victor = {
+		font = {
+			family = "Victor Mono",
+			weight = "DemiBold",
+		},
+		size = 18,
+	},
 }
+
+local function get_font(name)
+	return {
+		font = wezterm.font_with_fallback({
+			fonts[name].font,
+			"Nerd Font Symbols",
+			"Apple Color Emoji",
+		}),
+		size = fonts[name].size,
+	}
+end
 -- }}}
 
 -- custom tab bar {{{
 ---@diagnostic disable-next-line: unused-local
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
 	local RIGHT_DIVIDER = utf8.char(0xe0bc)
+	local colours = config.resolved_palette.tab_bar
 
 	local active_tab_index = 0
 	for _, t in ipairs(tabs) do
@@ -43,11 +75,11 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 		end
 	end
 
-	local active_bg = config.colors.tab_bar.active_tab.bg_color
-	local active_fg = config.colors.tab_bar.active_tab.fg_color
-	local inactive_bg = config.colors.tab_bar.inactive_tab.bg_color
-	local inactive_fg = config.colors.tab_bar.inactive_tab.fg_color
-	local new_tab_bg = config.colors.tab_bar.new_tab.bg_color
+	local active_bg = colours.active_tab.bg_color
+	local active_fg = colours.active_tab.fg_color
+	local inactive_bg = colours.inactive_tab.bg_color
+	local inactive_fg = colours.inactive_tab.fg_color
+	local new_tab_bg = colours.new_tab.bg_color
 
 	local s_bg, s_fg, e_bg, e_fg
 
@@ -100,36 +132,35 @@ local function get_os()
 	end
 end
 
-local window_padding = {}
-if get_os() == "linux" then
-	window_padding = {
+local window_padding = {
+	linux = {
 		left = 0,
 		right = 0,
 		top = 0,
 		bottom = 0,
-	}
-elseif get_os() == "macos" then
-	window_padding = {
+	},
+	macos = {
 		left = 2,
 		right = 2,
 		top = 2,
 		bottom = 2,
-	}
-end
-
-local act = wezterm.action
+	},
+}
 
 local function scheme_for_appearance(appearance)
-  if appearance:find 'Dark' then
-    return 'Catppuccin Mocha'
-  else
-    return 'Catppuccin Latte'
-  end
+	-- default to dark mode, so I don't burn out my eyes
+	if not appearance:find("Dark") then
+		return "Catppuccin Latte"
+	else
+		return "Catppuccin Mocha"
+	end
 end
 
+local font = get_font("victor")
+local act = wezterm.action
 
 return {
-	---- keyboard shortcuts
+	-- keyboard shortcuts {{{
 	disable_default_key_bindings = false,
 	leader = { key = "s", mods = "CTRL", timeout_milliseconds = 5000 },
 	keys = {
@@ -166,6 +197,7 @@ return {
 		{ key = "8", mods = "LEADER", action = act({ ActivateTab = 7 }) },
 		{ key = "9", mods = "LEADER", action = act({ ActivateTab = 8 }) },
 		{ key = "9", mods = "LEADER", action = act({ ActivateTab = 9 }) },
+		{ key = "0", mods = "LEADER", action = act({ ActivateTab = -1 }) },
 		-- 'c' to create a new tab
 		{ key = "c", mods = "LEADER", action = act({ SpawnTab = "CurrentPaneDomain" }) },
 		-- 'x' to kill the current pane
@@ -175,16 +207,17 @@ return {
 		-- 'v' to visually select in the current pane
 		{ key = "v", mods = "LEADER", action = "ActivateCopyMode" },
 	},
+	-- }}}
 	-- font
-	font_size = 18,
-	font = fonts.victor,
+	font = font.font,
+	font_size = font.size,
 	use_fancy_tab_bar = false,
 	tab_bar_at_bottom = true,
 	hide_tab_bar_if_only_one_tab = true,
 	tab_max_width = 32,
 	-- window
 	window_decorations = "RESIZE",
-	window_padding = window_padding,
+	window_padding = window_padding[get_os()],
 	-- theme
 	color_scheme = scheme_for_appearance(wezterm.gui.get_appearance()),
 	-- nightly only
