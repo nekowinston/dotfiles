@@ -9,12 +9,16 @@ cmd + ctrl - j : yabai -m window --focus south
 cmd + ctrl - k : yabai -m window --focus north
 cmd + ctrl - l : yabai -m window --focus east
 
+cmd + ctrl - e : yabai -m space --balance
+cmd + ctrl - r : yabai -m space --rotate 270
+
 # move window
 cmd + shift - h : yabai -m window --warp west
 cmd + shift - j : yabai -m window --warp south
 cmd + shift - k : yabai -m window --warp north
 cmd + shift - l : yabai -m window --warp east
 
+cmd + shift - s: yabai -m window --toggle sticky; yabai -m window --toggle border
 cmd + shift - d: yabai -m window --toggle float
 
 cmd + shift - return : open -na "WezTerm.app"
@@ -23,6 +27,11 @@ cmd - f2 : open -na "Firefox"
 cmd - f3 : wezterm start ranger $HOME
 # alternative: open Finder
 # cmd - f3 : open "$HOME"
+
+cmd + shift + alt + ctrl - h : yabai -m window --stack west
+cmd + shift + alt + ctrl - l : yabai -m window --stack east
+cmd + shift + alt + ctrl - k : if [ "$(yabai -m query --spaces --space | jq -r '.type')" = "stack" ]; then (yabai -m window --focus stack.next || yabai -m window --focus stack.first); else yabai -m window --focus next || yabai -m window --focus first; fi
+cmd + shift + alt + ctrl - j : if [ "$(yabai -m query --spaces --space | jq -r '.type')" = "stack" ]; then (yabai -m window --focus stack.prev || yabai -m window --focus stack.last); else yabai -m window --focus prev || yabai -m window --focus last; fi
 
 # restart yabai
 cmd + alt - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
