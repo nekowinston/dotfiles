@@ -17,6 +17,12 @@
   url: "https://github.com/tmux-plugins/tpm"
   refreshPeriod: 168h
 
+# discocss
+.local/bin/discocss:
+  type: file
+  url: "https://raw.githubusercontent.com/mlvzk/discocss/master/discocss"
+  refreshPeriod: 168h
+
 # colors
 .config/qutebrowser/catppuccin:
   type: git-repo
