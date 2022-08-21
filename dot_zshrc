@@ -32,6 +32,11 @@ antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-syntax-highlighting
 
 antigen apply
+
+# https://github.com/ohmyzsh/ohmyzsh/issues/10728
+if [[ ! -d "$ZSH_CACHE_DIR/completions" ]]; then
+  mkdir -p "$ZSH_CACHE_DIR/completions"
+fi
 # }}}
 
 ### basics {{{
@@ -83,7 +88,7 @@ if [[ -x "$(command -v newsboat)" ]]; then
   alias nb='newsboat -C ~/.config/newsboat/config -u ~/.config/newsboat/urls'
 fi
 
-[[ -x "$(command -v nvim)" ]] && alias tt='taskwarrior-tui'
+[[ -x "$(command -v taskwarrior-tui)" ]] && alias tt='taskwarrior-tui'
 
 # switch between yubikeys for the same GPG key
 alias switch_yubikeys='gpg-connect-agent "scd serialno" "learn --force" /bye'
