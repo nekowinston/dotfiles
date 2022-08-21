@@ -1,9 +1,4 @@
 -- use transparency in terminal only
-local useTransparentBG = true
-if vim.g.neovide then
-  useTransparentBG = false
-end
-
 vim.g.catppuccin_flavour = "mocha"
 
 require("catppuccin").setup({

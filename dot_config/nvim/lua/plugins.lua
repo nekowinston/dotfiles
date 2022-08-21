@@ -20,14 +20,12 @@ return packer.startup(function(use)
 	use({
 		"catppuccin/nvim",
 		as = "catppuccin",
-		branch = "dev",
 		config = function()
 			require("config/catppuccin")
 		end,
 	})
 	use({
 		"Pocco81/true-zen.nvim",
-		branch = "main",
 		config = function()
 			require("true-zen").setup({
 				modes = {
@@ -418,10 +416,15 @@ return packer.startup(function(use)
 			vim.g.vimwiki_list = {
 				{
 					auto_export = 1,
-					path_html = "~/.local/share/vimwiki/",
 					path = "~/.local/share/vimwiki/",
 					syntax = "markdown",
 					ext = ".md",
+					path_html = "~/vimwiki/",
+					template_path = "~/.config/vimwiki/templates/",
+					template_default = "default",
+					template_ext = ".tpl",
+					custom_wiki2html = "vimwiki_markdown",
+					html_filename_parameterization = 1,
 				},
 			}
 		end,
@@ -456,7 +459,7 @@ return packer.startup(function(use)
 			local auto_dark_mode = require("auto-dark-mode")
 			auto_dark_mode.setup({
 				---@diagnostic disable-next-line: assign-type-mismatch
-				update_interval = 5000,
+				update_interval = 1000,
 				set_dark_mode = function()
 					vim.cmd("Catppuccin mocha")
 				end,
