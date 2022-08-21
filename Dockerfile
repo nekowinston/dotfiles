@@ -6,6 +6,7 @@ RUN pacman -Sy \
   fd \
   git \
   go \
+  neovim \
   nodejs \
   npm \
   python \
@@ -30,14 +31,6 @@ WORKDIR /home/demo
 #   makepkg -si --noconfirm && \
 #   cd .. && \
 #   rm -rf yay-bin
-
-# install the latest neovim-nightly build
-ADD --chown=demo:demo https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz /home/demo/nvim-linux64.tar.gz
-RUN mkdir ./neovim && \
-  tar -xzvf nvim-linux64.tar.gz -C . && \
-  rm /home/demo/nvim-linux64.tar.gz && \
-  sudo cp -r ./nvim-linux64/* /usr/ && \
-  rm -rf ./neovim
 
 # copy the dotfiles
 COPY --chown=demo:demo . /home/demo/.local/share/chezmoi
