@@ -461,7 +461,7 @@ return packer.startup(function(use)
 				---@diagnostic disable-next-line: assign-type-mismatch
 				update_interval = 1000,
 				set_dark_mode = function()
-					vim.cmd("Catppuccin mocha")
+					vim.cmd("Catppuccin frappe")
 				end,
 				set_light_mode = function()
 					vim.cmd("Catppuccin latte")

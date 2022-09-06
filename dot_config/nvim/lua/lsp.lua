@@ -16,7 +16,11 @@ vim.opt.completeopt = "menu,menuone,noselect"
 -- vim.lsp.set_log_level("debug")
 
 -- Setup nvim-cmp.
-local cmp = require("cmp")
+local present, cmp = pcall(require, "cmp")
+if not present then
+	return
+end
+
 cmp.setup({
 	snippet = {
 		expand = function(args)
@@ -113,8 +117,11 @@ local common_config = {
 	capabilities = capabilities,
 }
 
-local lsp = require("lspconfig")
--- joke language
+local present, lsp = pcall(require, "lspconfig")
+if not present then
+	return
+end
+
 lsp.sumneko_lua.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
@@ -233,5 +240,3 @@ lsp.yamlls.setup({
 
 --- Documentation
 lsp.ltex.setup(common_config)
--- lsp.marksman.setup(common_config)
--- lsp.prosemd_lsp.setup(common_config)
