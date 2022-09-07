@@ -125,7 +125,7 @@ function icat() {
   if [ "$TERM_PROGRAM" = "WezTerm" ]; then
     wezterm imgcat "$@"
   elif [ "$TERM" = "xterm-kitty" ]; then
-    kitty +kitten imgcat "$@"
+    kitty +kitten icat "$@"
   else
     echo 'No image viewer defined for this terminal'
   fi
