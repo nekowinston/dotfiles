@@ -61,32 +61,49 @@ local function get_font(name)
 end
 -- }}}
 
-local function superscript(number)
-    local numbers = {
-        "⁰",
-        "¹",
-        "²",
-        "³",
-        "⁴",
-        "⁵",
-        "⁶",
-        "⁷",
-        "⁸",
-        "⁹",
-    }
-    local number_string = tostring(number)
-    local result = ""
-    for i = 1, #number_string do
-        local char = number_string:sub(i, i)
-        local number = tonumber(char)
-        if number then
-            result = result .. numbers[number + 1]
-        else
-            result = result .. char
-        end
-    end
-    return result
+-- superscript/subscript {{{
+local function numberStyle(number, script)
+	local scripts = {
+		superscript = {
+			"⁰",
+			"¹",
+			"²",
+			"³",
+			"⁴",
+			"⁵",
+			"⁶",
+			"⁷",
+			"⁸",
+			"⁹",
+		},
+		subscript = {
+			"₀",
+			"₁",
+			"₂",
+			"₃",
+			"₄",
+			"₅",
+			"₆",
+			"₇",
+			"₈",
+			"₉",
+		},
+	}
+	local numbers = scripts[script]
+	local number_string = tostring(number)
+	local result = ""
+	for i = 1, #number_string do
+		local char = number_string:sub(i, i)
+		local num = tonumber(char)
+		if num then
+			result = result .. numbers[num + 1]
+		else
+			result = result .. char
+		end
+	end
+	return result
 end
+-- }}}
 
 -- custom tab bar {{{
 -- @diagnostic disable-next-line: unused-local
@@ -145,14 +162,13 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 	return {
 		{ Background = { Color = s_bg } },
 		{ Foreground = { Color = s_fg } },
-		{ Text = " " .. tab.tab_index + 1 .. ": " .. tab.active_pane.title .. superscript(count) .. " " },
+		{ Text = " " .. tab.tab_index + 1 .. ": " .. tab.active_pane.title .. numberStyle(count, "superscript") .. " " },
 		{ Background = { Color = e_bg } },
 		{ Foreground = { Color = e_fg } },
 		{ Text = RIGHT_DIVIDER },
 	}
 end)
 -- }}}
-
 
 local function get_os()
 	local target = wezterm.target_triple
@@ -163,6 +179,8 @@ local function get_os()
 	end
 end
 
+-- different padding on macOS and Linux
+-- this is because the macOS window borders are "on the inside" of the window
 local window_padding = {
 	linux = {
 		left = 0,
@@ -179,11 +197,10 @@ local window_padding = {
 }
 
 local function scheme_for_appearance(appearance)
-	-- default to dark mode, so I don't burn out my eyes
-	if not appearance:find("Dark") then
-		return "Catppuccin Latte"
-	else
+	if appearance:find("Dark") then
 		return "Catppuccin Frappe"
+	else
+		return "Catppuccin Latte"
 	end
 end
 
@@ -254,5 +271,5 @@ return {
 	-- nightly only
 	clean_exit_codes = { 130 },
 	-- bell
-	audible_bell = "Disabled"
+	audible_bell = "Disabled",
 }
