@@ -157,12 +157,12 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 	end
 
 	local muxpanes = wezterm.mux.get_tab(tab.tab_id):panes()
-	local count = #muxpanes == 1 and "" or #muxpanes .. " "
+	local count = #muxpanes == 1 and "" or #muxpanes
 
 	return {
 		{ Background = { Color = s_bg } },
 		{ Foreground = { Color = s_fg } },
-		{ Text = " " .. tab.tab_index + 1 .. ": " .. tab.active_pane.title .. numberStyle(count, "superscript") },
+		{ Text = " " .. tab.tab_index + 1 .. ": " .. tab.active_pane.title .. numberStyle(count, "superscript") .. " " },
 		{ Background = { Color = e_bg } },
 		{ Foreground = { Color = e_fg } },
 		{ Text = RIGHT_DIVIDER },
