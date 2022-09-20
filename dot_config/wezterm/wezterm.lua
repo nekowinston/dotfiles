@@ -106,7 +106,7 @@ end
 -- }}}
 
 -- custom tab bar {{{
--- @diagnostic disable-next-line: unused-local
+---@diagnostic disable-next-line: unused-local
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
 	local RIGHT_DIVIDER = utf8.char(0xe0bc)
 	local colours = config.resolved_palette.tab_bar
@@ -162,7 +162,7 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 	return {
 		{ Background = { Color = s_bg } },
 		{ Foreground = { Color = s_fg } },
-		{ Text = " " .. tab.tab_index + 1 .. ": " .. tab.active_pane.title .. numberStyle(count, "superscript") .. " " },
+		{ Text = " " .. tab.tab_index + 1 .. ": " .. tab.active_pane.title .. numberStyle(count, "superscript") },
 		{ Background = { Color = e_bg } },
 		{ Foreground = { Color = e_fg } },
 		{ Text = RIGHT_DIVIDER },
