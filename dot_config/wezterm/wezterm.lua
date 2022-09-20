@@ -54,7 +54,6 @@ local function get_font(name)
 	return {
 		font = wezterm.font_with_fallback({
 			fonts[name].font,
-			"Nerd Font Symbols",
 			"Apple Color Emoji",
 		}),
 		size = fonts[name].size,
@@ -62,8 +61,35 @@ local function get_font(name)
 end
 -- }}}
 
+local function superscript(number)
+    local numbers = {
+        "⁰",
+        "¹",
+        "²",
+        "³",
+        "⁴",
+        "⁵",
+        "⁶",
+        "⁷",
+        "⁸",
+        "⁹",
+    }
+    local number_string = tostring(number)
+    local result = ""
+    for i = 1, #number_string do
+        local char = number_string:sub(i, i)
+        local number = tonumber(char)
+        if number then
+            result = result .. numbers[number + 1]
+        else
+            result = result .. char
+        end
+    end
+    return result
+end
+
 -- custom tab bar {{{
----@diagnostic disable-next-line: unused-local
+-- @diagnostic disable-next-line: unused-local
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
 	local RIGHT_DIVIDER = utf8.char(0xe0bc)
 	local colours = config.resolved_palette.tab_bar
@@ -112,16 +138,21 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 		e_bg = inactive_bg
 		e_fg = inactive_bg
 	end
+
+	local muxpanes = wezterm.mux.get_tab(tab.tab_id):panes()
+	local count = #muxpanes == 1 and "" or #muxpanes .. " "
+
 	return {
 		{ Background = { Color = s_bg } },
 		{ Foreground = { Color = s_fg } },
-		{ Text = " " .. tab.tab_index + 1 .. ": " .. tab.active_pane.title .. " " },
+		{ Text = " " .. tab.tab_index + 1 .. ": " .. tab.active_pane.title .. superscript(count) .. " " },
 		{ Background = { Color = e_bg } },
 		{ Foreground = { Color = e_fg } },
 		{ Text = RIGHT_DIVIDER },
 	}
 end)
 -- }}}
+
 
 local function get_os()
 	local target = wezterm.target_triple
@@ -222,4 +253,6 @@ return {
 	color_scheme = scheme_for_appearance(wezterm.gui.get_appearance()),
 	-- nightly only
 	clean_exit_codes = { 130 },
+	-- bell
+	audible_bell = "Disabled"
 }
