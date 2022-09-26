@@ -68,6 +68,10 @@ require("presence"):setup({
 		["helmfile.yaml"] = {
 			"helmfile",
 			"https://raw.githubusercontent.com/helm/community/main/art/images/Logo-Tweak-Dark.png",
+		},
+		["prisma"] = {
+			"Prisma",
+			"https://avatars.githubusercontent.com/u/17219288"
 		}
 	},
 	-- Rich Presence text options
