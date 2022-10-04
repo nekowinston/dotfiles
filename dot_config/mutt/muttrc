@@ -1,9 +1,6 @@
 # vim: filetype=neomuttrc
-{{ if eq .chezmoi.os "darwin" -}}
-source /usr/local/share/mutt-wizard/mutt-wizard.muttrc
-{{ else }}
-source /usr/share/mutt-wizard/mutt-wizard.muttrc
-{{- end }}
+source ~/.config/mutt/mw.muttrc
+
 # use thread sorting
 set sort="threads"
 set sort_aux="reverse-last-date-received"

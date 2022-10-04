@@ -1,0 +1,10 @@
+application/pdf; openfile %s ;
+application/pgp-encrypted; gpg -d '%s'; copiousoutput;
+application/pgp-keys; gpg --import '%s'; copiousoutput;
+audio/*; mpv %s ;
+image/*; openfile %s ;
+text/html; openfile %s ; nametemplate=%s.html
+# text/html; lynx -assume_charset=%{charset} -display_charset=utf-8 -dump -width=1024 %s; nametemplate=%s.html; copiousoutput;
+text/html; w3m -I %{charset} -T text/html ; copiousoutput;
+text/plain; $EDITOR %s ;
+video/*; openfile %s ;
