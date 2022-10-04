@@ -156,6 +156,16 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 		e_fg = inactive_bg
 	end
 
+	wezterm.log_info(config)
+	if (tab.active_pane.title == "vim") then
+		config.window_padding = {
+			left = 2,
+			right = 2,
+			top = 2,
+			bottom = 2,
+		}
+	end
+
 	local muxpanes = wezterm.mux.get_tab(tab.tab_id):panes()
 	local count = #muxpanes == 1 and "" or #muxpanes
 
@@ -169,32 +179,6 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 	}
 end)
 -- }}}
-
-local function get_os()
-	local target = wezterm.target_triple
-	if string.find(target, "linux") then
-		return "linux"
-	elseif string.find(target, "darwin") then
-		return "macos"
-	end
-end
-
--- different padding on macOS and Linux
--- this is because the macOS window borders are "on the inside" of the window
-local window_padding = {
-	linux = {
-		left = 0,
-		right = 0,
-		top = 0,
-		bottom = 0,
-	},
-	macos = {
-		left = 2,
-		right = 2,
-		top = 2,
-		bottom = 2,
-	},
-}
 
 local function scheme_for_appearance(appearance)
 	if appearance:find("Dark") then
@@ -261,11 +245,17 @@ return {
 	font_size = font.size,
 	use_fancy_tab_bar = false,
 	tab_bar_at_bottom = true,
-	hide_tab_bar_if_only_one_tab = true,
 	tab_max_width = 32,
 	-- window
 	window_decorations = "RESIZE",
-	window_padding = window_padding[get_os()],
+	window_padding = {
+		left = 0,
+		right = 0,
+		top = 0,
+		bottom = 0,
+	},
+	-- don't attempt to resize the window (tiling wm)
+	adjust_window_size_when_changing_font_size = false,
 	-- theme
 	color_scheme = scheme_for_appearance(wezterm.gui.get_appearance()),
 	-- nightly only
