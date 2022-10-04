@@ -8,32 +8,32 @@ else
 fi
 
 if [[ $THEME == 'dark' ]]; then
-  ROSEWATER="f5e0dc"
-  FLAMINGO="f2cdcd"
-  PINK="f5c2e7"
-  MAUVE="cba6f7"
-  RED="f38ba8"
-  MAROON="eba0ac"
-  PEACH="fab387"
-  YELLOW="f9e2af"
-  GREEN="a6e3a1"
-  TEAL="94e2d5"
-  SKY="89dceb"
-  SAPPHIRE="74c7ec"
-  BLUE="89b4fa"
-  LAVENDER="b4befe"
-  TEXT="cdd6f4"
-  SUBTEXT1="bac2de"
-  SUBTEXT0="a6adc8"
-  OVERLAY2="9399b2"
-  OVERLAY1="7f849c"
-  OVERLAY0="6c7086"
-  SURFACE2="585b70"
-  SURFACE1="45475a"
-  SURFACE0="313244"
-  BASE="1e1e2e"
-  MANTLE="181825"
-  CRUST="11111b"
+  ROSEWATER="f2d5cf"
+  FLAMINGO="eebebe"
+  PINK="f4b8e4"
+  MAUVE="ca9ee6"
+  RED="e78284"
+  MAROON="ea999c"
+  PEACH="ef9f76"
+  YELLOW="e5c890"
+  GREEN="a6d189"
+  TEAL="81c8be"
+  SKY="99d1db"
+  SAPPHIRE="85c1dc"
+  BLUE="8caaee"
+  LAVENDER="babbf1"
+  TEXT="c6d0f5"
+  SUBTEXT1="b5bfe2"
+  SUBTEXT0="a5adce"
+  OVERLAY2="949cbb"
+  OVERLAY1="838ba7"
+  OVERLAY0="737994"
+  SURFACE2="626880"
+  SURFACE1="51576d"
+  SURFACE0="414559"
+  BASE="303446"
+  MANTLE="292c3c"
+  CRUST="232634"
 else
   ROSEWATER="dc8a78"
   FLAMINGO="dd7878"
@@ -102,7 +102,7 @@ function color() {
 
 sketchybar \
   --bar \
-    color=$(color crust 200) \
+    color=$(color crust) \
 \
   --default \
     icon.color=$(color pink) \
