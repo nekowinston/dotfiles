@@ -8,7 +8,7 @@ set argtextobj
 " enable gcc / gc+motion to toggle comments
 set commentary
 " jump around text easier, with <space> as leader
-Plug 'easymotion/vim-easymotion'
+set easymotion
 " highlight yank. duh.
 set highlightedyank
 " vim navigation for the dir tree view
@@ -57,3 +57,6 @@ nnoremap <C-H> <C-W><C-H>
 sethandler <C-D> a:vim
 sethandler <C-U> a:vim
 sethandler <C-R> n:ide
+
+map <a-<> <Action>(PreviousTab)
+map <a->> <Action>(NextTab)
