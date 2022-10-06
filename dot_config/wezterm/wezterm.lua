@@ -4,41 +4,12 @@ local wezterm = require("wezterm")
 -- fonts I like, with the settings I prefer {{{
 -- kept seperately from the rest of the config so that I can easily change them
 local fonts = {
-	cascadia = {
-		font = {
-			family = "Cascadia Code",
-			harfbuzz_features = {
-				"ss01=1",
-				"ss19=1",
-			},
-		},
-		size = 18,
-	},
 	comic = {
-		font = {
-			family = "Comic Code Ligatures",
-		},
-		size = 18,
-	},
-	fira = {
-		font = {
-			family = "Fira Code",
-			harfbuzz_features = {
-				"cv06=1",
-				"cv14=1",
-				"cv32=1",
-				"ss04=1",
-				"ss07=1",
-				"ss09=1",
-			},
-		},
+		font = "Comic Code Ligatures",
 		size = 18,
 	},
 	fantasque = {
-		font = {
-			family = "Fantasque Sans Mono",
-			weight = "Regular",
-		},
+		font = "Fantasque Sans Mono",
 		size = 20,
 	},
 	victor = {
@@ -118,8 +89,8 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 		end
 	end
 
-	local active_bg = colours.active_tab.bg_color
-	local active_fg = colours.active_tab.fg_color
+	local active_bg = config.resolved_palette.ansi[6]
+	local active_fg = colours.background
 	local inactive_bg = colours.inactive_tab.bg_color
 	local inactive_fg = colours.inactive_tab.fg_color
 	local new_tab_bg = colours.new_tab.bg_color
@@ -156,16 +127,6 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 		e_fg = inactive_bg
 	end
 
-	wezterm.log_info(config)
-	if (tab.active_pane.title == "vim") then
-		config.window_padding = {
-			left = 2,
-			right = 2,
-			top = 2,
-			bottom = 2,
-		}
-	end
-
 	local muxpanes = wezterm.mux.get_tab(tab.tab_id):panes()
 	local count = #muxpanes == 1 and "" or #muxpanes
 
@@ -177,6 +138,42 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 		{ Foreground = { Color = e_fg } },
 		{ Text = RIGHT_DIVIDER },
 	}
+end)
+-- }}}
+
+-- custom status {{{
+---@diagnostic disable-next-line: unused-local
+wezterm.on('update-status', function(window, pane)
+	local palette = window:effective_config().resolved_palette
+	local firstTabActive = window:mux_window():tabs_with_info()[1].is_active
+
+	local RIGHT_DIVIDER = utf8.char(0xe0b0)
+	local text = '   '
+
+	if window:leader_is_active() then
+		text = '   '
+	end
+
+	local divider_bg = firstTabActive and palette.ansi[6] or palette.tab_bar.inactive_tab.bg_color
+
+	window:set_left_status(wezterm.format({
+		{ Foreground = { Color = palette.background } },
+		{ Background = { Color = palette.ansi[5] } },
+		{ Text = text },
+		{ Background = { Color = divider_bg } },
+		{ Foreground = { Color = palette.ansi[5] } },
+		{ Text = RIGHT_DIVIDER },
+	}))
+
+	-- an idea for a future right hand side info?
+	-- window:set_right_status(wezterm.format({
+	-- 	{ Foreground = { Color = palette.tab_bar.background } },
+	-- 	{ Background = { Color = palette.ansi[8] } },
+	-- 	{ Text = RIGHT_DIVIDER },
+	-- 	{ Background = { Color = palette.ansi[8]  } },
+	-- 	{ Foreground = { Color = palette.background } },
+	-- 	{ Text = '   [||      ]   12.8% ' },
+	-- }))
 end)
 -- }}}
 
@@ -192,8 +189,8 @@ local font = get_font("victor")
 local act = wezterm.action
 
 return {
+	disable_default_key_bindings = true,
 	-- keyboard shortcuts {{{
-	disable_default_key_bindings = false,
 	leader = { key = "s", mods = "CTRL", timeout_milliseconds = 5000 },
 	keys = {
 		-- use 'Backslash' to split horizontally
@@ -238,6 +235,55 @@ return {
 		{ key = "z", mods = "LEADER", action = "TogglePaneZoomState" },
 		-- 'v' to visually select in the current pane
 		{ key = "v", mods = "LEADER", action = "ActivateCopyMode" },
+		-- 'r' to rotate panes
+		{ key = "r", mods = "LEADER", action = act.RotatePanes('Clockwise') },
+		{key = ' ', mods = 'LEADER', action = act.QuickSelect},
+		{
+		  key = 'o',
+		  mods = 'LEADER',
+		  action = wezterm.action.QuickSelectArgs {
+			label = 'open url',
+			patterns = {
+			  'https?://\\S+',
+			},
+			action = wezterm.action_callback(function(window, pane)
+			  local url = window:get_selection_text_for_pane(pane)
+			  wezterm.log_info('opening: ' .. url)
+			  wezterm.open_with(url)
+			end),
+		  },
+		},
+		-- copypasta
+		{ key = 'Enter', mods = 'ALT', action = act.ToggleFullScreen },
+
+		{ key = '-', mods = 'CTRL', action = act.DecreaseFontSize },
+		{ key = '-', mods = 'SUPER', action = act.DecreaseFontSize },
+		{ key = '=', mods = 'CTRL', action = act.IncreaseFontSize },
+		{ key = '=', mods = 'SUPER', action = act.IncreaseFontSize },
+		{ key = '0', mods = 'CTRL', action = act.ResetFontSize },
+		{ key = '0', mods = 'SUPER', action = act.ResetFontSize },
+
+		{ key = 'c', mods = 'SHIFT|CTRL', action = act.CopyTo 'Clipboard' },
+		{ key = 'c', mods = 'SUPER', action = act.CopyTo 'Clipboard' },
+		{ key = 'v', mods = 'SHIFT|CTRL', action = act.PasteFrom 'Clipboard' },
+		{ key = 'v', mods = 'SUPER', action = act.PasteFrom 'Clipboard' },
+
+		{ key = 'f', mods = 'SHIFT|CTRL', action = act.Search 'CurrentSelectionOrEmptyString' },
+		{ key = 'f', mods = 'SUPER', action = act.Search 'CurrentSelectionOrEmptyString' },
+
+		{ key = 'l', mods = 'SHIFT|CTRL', action = act.ShowDebugOverlay },
+
+		{ key = 'p', mods = 'LEADER', action = act.PaneSelect{ alphabet =  '1234567890', mode =  'Activate' } },
+		{ key = 'P', mods = 'LEADER', action = act.PaneSelect{ alphabet =  '1234567890', mode =  'SwapWithActive' } },
+		{ key = 'R', mods = 'LEADER', action = act.ReloadConfiguration },
+
+		-- mostly OS defaults
+		{ key = 'n', mods = 'SHIFT|CTRL', action = act.SpawnWindow },
+		{ key = 'n', mods = 'SUPER', action = act.SpawnWindow },
+		{ key = 't', mods = 'SHIFT|CTRL', action = act.SpawnTab 'CurrentPaneDomain' },
+		{ key = 't', mods = 'SUPER', action = act.SpawnTab 'CurrentPaneDomain' },
+		{ key = 'w', mods = 'SHIFT|CTRL', action = act.CloseCurrentTab{ confirm = true } },
+		{ key = 'w', mods = 'SUPER', action = act.CloseCurrentTab{ confirm = true } },
 	},
 	-- }}}
 	-- font
@@ -262,4 +308,8 @@ return {
 	clean_exit_codes = { 130 },
 	-- bell
 	audible_bell = "Disabled",
+	-- biggest mistake
+	max_fps = 240,
+	-- scrollbar, currently hidden by default, but better make sure
+	enable_scroll_bar = false
 }
