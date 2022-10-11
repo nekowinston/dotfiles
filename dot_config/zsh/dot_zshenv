@@ -2,10 +2,10 @@
 
 ### COMMON ###
 export EDITOR=nvim
-export HISTFILE=~/.config/zsh/history
+export HISTFILE="$HOME/.config/zsh/history"
 # don't write a less history
 export LESSHISTFILE=-
-export GNUPGHOME=~/.config/gnupg
+export GNUPGHOME="$HOME/.config/gnupg"
 
 # check if .local/bin is directory, if not create it
 if [ ! -d "$HOME/.local/bin" ]; then
@@ -32,7 +32,8 @@ fi
 ### KUBERNETES ###
 export KUBECONFIG="$HOME/.config/kube/config"
 export KUBECACHEDIR="$HOME/.cache/kube"
-export KREW_ROOT="$HOME/.local/krew"
+export KREW_ROOT="$HOME/.local/share/krew"
+export MINIKUBE_HOME="$HOME/.local/share/minikube"
 # add to path if ".krew" exists or $KREW_ROOT is set
 if [ -d "$KREW_ROOT" ]; then
   export PATH="$KREW_ROOT/bin:$PATH"
@@ -40,20 +41,22 @@ fi
 export KUBE_EDITOR="$EDITOR"
 
 ### PYTHON ###
+export PYENV_ROOT="$HOME/.local/share/pyenv"
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-if [ -d "$HOME/.pyenv/bin" ]; then
-  export PATH="$PATH:$HOME/.pyenv/bin"
+if [ -d "$PYENV_ROOT/bin" ]; then
+  export PATH="$PATH:$PYENV_ROOT/bin"
 fi
 
 ### RUST ###
 export CARGO_HOME="$HOME/.local/share/cargo"
+export RUSTUP_HOME="$HOME/.local/share/rustup"
 if [ -f "$CARGO_HOME/env" ]; then
   . "$CARGO_HOME/env"
 fi
 export PATH="$PATH:$CARGO_HOME/bin"
 
 ### NODE ###
-export NVM_DIR="$HOME/.config/nvm"
+export NVM_DIR="$HOME/.local/share/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 # yarn
 export PATH="$PATH:$HOME/.yarn/bin"
@@ -61,3 +64,6 @@ export PATH="$PATH:$HOME/.yarn/bin"
 ### GO ###
 export GOPATH="$HOME/.local/share/go"
 export PATH="$PATH:$GOPATH/bin"
+
+# RUBY
+export RBENV_ROOT="$HOME/.local/share/rbenv"
