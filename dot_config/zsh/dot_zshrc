@@ -41,7 +41,7 @@ fi
 
 ### basics {{{
 # history
-export HISTFILE="$HOME/.zhistory"
+export HISTFILE="$ZDOTDIR/.zhistory"
 export HISTSIZE=10000
 export SAVEHIST=10000
 setopt HIST_IGNORE_ALL_DUPS

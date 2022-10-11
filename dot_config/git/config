@@ -1,8 +1,10 @@
 # vim:ft=gitconfig:fenc=utf-8:fdm=marker
 
 ; identity & authentication
-[include]
-  path = ~/.config/git/pseudonym
+[user]
+  name = winston
+  email = hey@winston.sh
+  signingkey = A476C39610E53A689A57BD0D0B89BC45007EE9CC
 
 ; using 'pass' as the password manager
 [credential]
