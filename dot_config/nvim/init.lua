@@ -34,6 +34,12 @@ Nmap("<C-J>", "<C-W>j")
 Nmap("<C-K>", "<C-W>k")
 Nmap("<C-L>", "<C-W>l")
 Nmap("<C-H>", "<C-W>h")
+
+-- merge conflicts
+Nmap("<leader>gd", ":Gvdiff!<CR>")
+Nmap("gdh", ":diffget //2<CR>")
+Nmap("gdl", ":diffget //3<CR>")
+
 -- escape :terminal easier
 vim.cmd([[tnoremap <Esc> <C-\><C-n>]])
 
@@ -45,9 +51,9 @@ vim.o.expandtab = true
 -- indentation autocmds for some filetypes
 vim.cmd([[
 " smol spaces for soydev
-autocmd FileType html,css,js,jsreact,ts,tsreact,json,yaml setlocal ts=2 sw=2 sts=0 et
+autocmd FileType html,lua,css,js,jsreact,ts,tsreact,json,yaml setlocal ts=2 sw=2 sts=0 et
 " Tabs, yikes
-autocmd FileType go,lua setlocal ts=4 sw=4 sts=4 noet
+autocmd FileType go setlocal ts=4 sw=4 sts=4 noet
 " Spaces, based languages
 autocmd FileType python,rust setlocal ts=4 sw=4 sts=4 et
 autocmd FileType markdown let g:table_mode_corner='|'
@@ -55,22 +61,32 @@ autocmd FileType markdown let g:table_mode_corner='|'
 
 -- auto-compile when lua files in `~/.config/nvim/*` change
 vim.api.nvim_create_autocmd("BufWritePost", {
-	pattern = "*.lua",
-	callback = function()
-		local cfg_path = vim.fn.resolve(vim.fn.stdpath("config"))
-		vim.defer_fn(function()
-			if vim.fn.expand("%:p"):match(cfg_path) then
-				vim.cmd("silent! PackerCompile")
-			end
-		end, 0)
-	end,
+  pattern = "*.lua",
+  callback = function()
+    local cfg_path = vim.fn.resolve(vim.fn.stdpath("config"))
+    vim.defer_fn(function()
+      if vim.fn.expand("%:p"):match(cfg_path) then
+        vim.cmd("silent! PackerCompile")
+      end
+    end, 0)
+  end,
+})
+
+local wr_group = vim.api.nvim_create_augroup("WinResize", { clear = true })
+
+-- resize splits when vim window is resized
+vim.api.nvim_create_autocmd("VimResized", {
+  group = wr_group,
+  pattern = "*",
+  command = "wincmd =",
+  desc = "Automatically resize windows when the host window size changes.",
 })
 
 -- neovide settings {{{
 if vim.g.neovide then
-	vim.cmd("cd $HOME")
-	vim.g.neovide_cursor_vfx_mode = "ripple"
-	vim.g.neovide_input_macos_alt_is_meta = true
-	vim.o.guifont = "VictorMono Nerd Font:h18"
+  vim.cmd("cd $HOME")
+  vim.g.neovide_cursor_vfx_mode = "ripple"
+  vim.g.neovide_input_macos_alt_is_meta = true
+  vim.o.guifont = "VictorMono Nerd Font:h18"
 end
 -- }}}
