@@ -58,7 +58,7 @@ APPS_UNMANAGED=(
 "System Preferences"
 )
 for app in "${APPS_UNMANAGED[@]}"; do
-  yabai -m rule --add app="^$app\$" manage=off border=off
+  yabai -m rule --add app="^$app\$" manage=off
 done
 
 APPS_OPACITY=(
