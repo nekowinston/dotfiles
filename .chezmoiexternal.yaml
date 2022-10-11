@@ -11,13 +11,6 @@
   url: "https://github.com/wbthomason/packer.nvim"
   refreshPeriod: 168h
 
-# discocss
-.local/bin/discocss:
-  type: file
-  url: "https://raw.githubusercontent.com/mlvzk/discocss/master/discocss"
-  refreshPeriod: 168h
-  executable: true
-
 # tmux plugin manager
 .config/tmux/plugins/tpm:
   type: git-repo
