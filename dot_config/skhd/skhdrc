@@ -21,7 +21,7 @@ cmd + shift - l : yabai -m window --warp east
 cmd + shift - s: yabai -m window --toggle sticky; yabai -m window --toggle border
 cmd + shift - d: yabai -m window --toggle float
 
-cmd + shift - return : wezterm-gui start
+cmd + shift - return : open -na "WezTerm"
 cmd - f2 : open -na "Firefox"
 # open Ranger
 cmd - f3 : wezterm start ranger $HOME

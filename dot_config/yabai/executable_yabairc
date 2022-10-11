@@ -3,85 +3,72 @@
 
 # Link to skhrc for <g-f>: ~/.config/skhd/skhdrc
 
-# when SIP is disabled {{{
 sudo yabai --load-sa
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 
 # ensure that there are always 10 spaces
-spacestocreate=$((10 - $(yabai -m query --spaces | jq length)))
-while [ "$spacestocreate" -gt 0 ]; do
+spacestocreate=10
+spaces=$((spacestocreate - $(yabai -m query --spaces | jq length)))
+while [ "$spaces" -gt 0 ]; do
   yabai -m space --create
-  spacestocreate=$((spacestocreate - 1))
+  spaces=$((spaces - 1))
 done
-# }}}
 
-# apps which should
-# - not be managed
-# - not stick
-# - a layer above
+yabai -m config \
+  mouse_follows_focus          off \
+  focus_follows_mouse          off \
+  mouse_modifier               fn \
+  mouse_action1                move \
+  mouse_action2                resize \
+  mouse_drop_action            swap \
+  window_origin_display        default \
+  window_placement             second_child \
+  active_window_border_color   0xfff5c2e7 \
+  normal_window_border_color   0xffb4befe \
+  insert_feedback_color        0xfff9e2af \
+  window_border                on \
+  window_border_width          2 \
+  window_opacity               on \
+  window_opacity_duration      0.1 \
+  normal_window_opacity        1.0 \
+  window_shadow                float \
+  auto_balance                 off \
+  split_ratio                  0.50 \
+  layout                       bsp \
+  top_padding                  5 \
+  bottom_padding               5 \
+  left_padding                 5 \
+  right_padding                5 \
+  window_gap                   5 \
+  window_animation_duration    0.1 \
+  external_bar all:32:0
+
 APPS_ABOVE=(
 "JetBrains Toolbox"
 "Mullvad VPN"
 "Sip"
 "iStat Menus Status"
 )
+for app in "${APPS_ABOVE[@]}"; do
+  yabai -m rule --add app="^$app\$" manage=off sticky=off layer=above border=off
+done
 
 APPS_UNMANAGED=(
 "CleanShot X"
 "System Preferences"
 )
-
-# special rules for windows/apps
-for app in "${APPS_ABOVE[@]}"; do
-  yabai -m rule --add app="^$app\$" manage=off sticky=off layer=above border=off
-done
 for app in "${APPS_UNMANAGED[@]}"; do
   yabai -m rule --add app="^$app\$" manage=off border=off
 done
 
-# global settings
-# MOUSE FOCUS: useless when SIP is enabled, borked when disabled.
-# yabai -m config mouse_follows_focus          on
-# yabai -m config focus_follows_mouse          on
+APPS_OPACITY=(
+"Alacritty"
+"kitty"
+"WezTerm"
+"wezterm-gui"
+)
+for app in "${APPS_OPACITY[@]}"; do
+  yabai -m rule --add app="^$app\$" opacity=0.95
+done
 
-# MOUSE MODIFIER: this actually works, wewlad.
-# shit experience though, since CMD + click is commonly used throughout apps.
-yabai -m config mouse_modifier               fn
-yabai -m config mouse_action1                move
-yabai -m config mouse_action2                resize
-yabai -m config mouse_drop_action            swap
-
-# a sad imitation of i3
-yabai -m config window_origin_display        default
-yabai -m config window_placement             second_child
-# keep this turned off if you want to take screenshots...
-# -> https://github.com/koekeishiya/yabai/discussions/1079
-#yabai -m config window_topmost               off
-
-# welcome to the ricefields, motherfucker
-yabai -m config active_window_border_color   0xfff5c2e7
-yabai -m config normal_window_border_color   0xffb4befe
-yabai -m config insert_feedback_color        0xfff9e2af
-yabai -m config window_border                on
-yabai -m config window_border_width          4
-yabai -m config window_opacity               off
-# SIP disabled only? FeelsBadMan
-yabai -m config window_shadow                float
-
-# other shit
-yabai -m config auto_balance                 off
-yabai -m config split_ratio                  0.50
-
-# general space settings
-yabai -m config layout                       bsp
-yabai -m config top_padding                  5
-yabai -m config bottom_padding               5
-yabai -m config left_padding                 5
-yabai -m config right_padding                5
-yabai -m config window_gap                   5
-yabai -m config window_animation_duration    0
-
-# for sketchybar, add a 32 rel px gap on the top
-yabai -m config external_bar all:32:0
-
-printf "\n\n\nRELOAD: finished loading yabai conf\n"
+echo "$(date -Iseconds): [RELOAD] finished loading yabai conf"
