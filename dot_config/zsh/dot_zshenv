@@ -5,6 +5,7 @@ export EDITOR=nvim
 export HISTFILE=~/.config/zsh/history
 # don't write a less history
 export LESSHISTFILE=-
+export GNUPGHOME=~/.config/gnupg
 
 # check if .local/bin is directory, if not create it
 if [ ! -d "$HOME/.local/bin" ]; then
