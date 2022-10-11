@@ -8,7 +8,7 @@
 
 ; using 'pass' as the password manager
 [credential]
-  helper = !pass-git-helper $@
+	helper = gopass
   useHttpPath = true
 
 ; change identity based on the cwd
