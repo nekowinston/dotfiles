@@ -56,6 +56,7 @@ fi
 export PATH="$PATH:$CARGO_HOME/bin"
 
 ### NODE ###
+export NODE_REPL_HISTORY=""
 export NVM_DIR="$HOME/.local/share/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 # yarn
