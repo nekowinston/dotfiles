@@ -146,6 +146,7 @@ if [ -x "$(command -v colordiff)" ] && [ -x "$(command -v diff-so-fancy)" ]; the
 fi
 
 ## chezmoi
+alias cm='chezmoi'
 alias cma='chezmoi add'
 alias cmap='chezmoi apply'
 alias cmcd='cd $(chezmoi source-path)'

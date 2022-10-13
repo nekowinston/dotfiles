@@ -40,14 +40,14 @@ color.error=
 color.debug=
 
 # Task state
-color.completed=
-color.deleted=
-color.active=
-color.recurring=
-color.scheduled=
-color.until=
-color.blocked=
-color.blocking=
+color.completed=green
+color.deleted=red
+color.active=blue
+color.recurring=yellow
+color.scheduled=magenta
+color.until=yellow
+color.blocked=red
+color.blocking=red
 
 # Project
 color.project.none=
@@ -60,7 +60,7 @@ color.uda.priority.M=
 # Tags
 color.tag.next=
 color.tag.none=
-color.tagged=
+color.tagged=cyan
 
 # Due
 color.due=

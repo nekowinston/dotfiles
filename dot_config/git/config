@@ -6,9 +6,8 @@
   email = hey@winston.sh
   signingkey = A476C39610E53A689A57BD0D0B89BC45007EE9CC
 
-; using 'pass' as the password manager
 [credential]
-	helper = gopass
+  helper = gopass
   useHttpPath = true
 
 ; change identity based on the cwd
@@ -25,7 +24,7 @@
   pager = diff-so-fancy | less --tabs=4 -RFX
 
 [interactive]
-	diffFilter = diff-so-fancy --patch
+  diffFilter = diff-so-fancy --patch
 
 [alias]
   up = "!git remote update -p; git merge --ff-only @{u}"
@@ -35,7 +34,7 @@
   logo = log --format=format:'%>|(8)%Cblue%h%Creset %Cgreen%><(14)%ar%Creset %C(dim)[%G?]%Creset %s%C(yellow)%d%Creset'
   lol = log --graph --format=format:'%>|(14)%Cblue%h%Creset %Cgreen%><(14)%ar%Creset %C(dim)[%G?]%Creset %s%C(yellow)%d%Creset'
   lola = log --graph --format=format:'%>|(14)%Cblue%h%Creset %Cgreen%><(14)%ar%Creset %C(dim)[%G?]%Creset %s%C(yellow)%d%Creset' --all
-	yolo = !git commit -m \"chore: $(curl -s whatthecommit.com/index.txt)\"
+  yolo = !git commit -m \"chore: $(curl -s whatthecommit.com/index.txt)\"
 
 [commit]
   gpgSign = true

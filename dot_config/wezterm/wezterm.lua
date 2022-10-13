@@ -37,6 +37,7 @@ local function get_font(name)
 		size = fonts[name].size,
 	}
 end
+
 -- }}}
 
 -- superscript/subscript {{{
@@ -81,6 +82,7 @@ local function numberStyle(number, script)
 	end
 	return result
 end
+
 -- }}}
 
 -- custom tab bar {{{
@@ -140,7 +142,14 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 	return {
 		{ Background = { Color = s_bg } },
 		{ Foreground = { Color = s_fg } },
-		{ Text = " " .. tab.tab_index + 1 .. ": " .. tab.active_pane.title .. numberStyle(count, "superscript") .. " " },
+		{
+			Text = " "
+				.. tab.tab_index + 1
+				.. ": "
+				.. tab.active_pane.title
+				.. numberStyle(count, "superscript")
+				.. " ",
+		},
 		{ Background = { Color = e_bg } },
 		{ Foreground = { Color = e_fg } },
 		{ Text = RIGHT_DIVIDER },
@@ -150,15 +159,15 @@ end)
 
 -- custom status {{{
 ---@diagnostic disable-next-line: unused-local
-wezterm.on('update-status', function(window, pane)
+wezterm.on("update-status", function(window, pane)
 	local palette = window:effective_config().resolved_palette
 	local firstTabActive = window:mux_window():tabs_with_info()[1].is_active
 
 	local RIGHT_DIVIDER = utf8.char(0xe0b0)
-	local text = '   '
+	local text = "   "
 
 	if window:leader_is_active() then
-		text = '   '
+		text = "   "
 	end
 
 	local divider_bg = firstTabActive and palette.ansi[6] or palette.tab_bar.inactive_tab.bg_color
@@ -233,18 +242,18 @@ return {
 		{ key = "8", mods = "LEADER", action = act({ ActivateTab = 7 }) },
 		{ key = "9", mods = "LEADER", action = act({ ActivateTab = 8 }) },
 		{ key = "9", mods = "LEADER", action = act({ ActivateTab = 9 }) },
-		{ key = "0", mods = "LEADER", action = act({ ActivateTab = -1 })},
-		{ key = "1", mods = "SUPER",  action = act({ ActivateTab = 0 }) },
-		{ key = "2", mods = "SUPER",  action = act({ ActivateTab = 1 }) },
-		{ key = "3", mods = "SUPER",  action = act({ ActivateTab = 2 }) },
-		{ key = "4", mods = "SUPER",  action = act({ ActivateTab = 3 }) },
-		{ key = "5", mods = "SUPER",  action = act({ ActivateTab = 4 }) },
-		{ key = "6", mods = "SUPER",  action = act({ ActivateTab = 5 }) },
-		{ key = "7", mods = "SUPER",  action = act({ ActivateTab = 6 }) },
-		{ key = "8", mods = "SUPER",  action = act({ ActivateTab = 7 }) },
-		{ key = "9", mods = "SUPER",  action = act({ ActivateTab = 8 }) },
-		{ key = "9", mods = "SUPER",  action = act({ ActivateTab = 9 }) },
-		{ key = "0", mods = "SUPER",  action = act({ ActivateTab = -1 })},
+		{ key = "0", mods = "LEADER", action = act({ ActivateTab = -1 }) },
+		{ key = "1", mods = "SUPER", action = act({ ActivateTab = 0 }) },
+		{ key = "2", mods = "SUPER", action = act({ ActivateTab = 1 }) },
+		{ key = "3", mods = "SUPER", action = act({ ActivateTab = 2 }) },
+		{ key = "4", mods = "SUPER", action = act({ ActivateTab = 3 }) },
+		{ key = "5", mods = "SUPER", action = act({ ActivateTab = 4 }) },
+		{ key = "6", mods = "SUPER", action = act({ ActivateTab = 5 }) },
+		{ key = "7", mods = "SUPER", action = act({ ActivateTab = 6 }) },
+		{ key = "8", mods = "SUPER", action = act({ ActivateTab = 7 }) },
+		{ key = "9", mods = "SUPER", action = act({ ActivateTab = 8 }) },
+		{ key = "9", mods = "SUPER", action = act({ ActivateTab = 9 }) },
+		{ key = "0", mods = "SUPER", action = act({ ActivateTab = -1 }) },
 		-- 'c' to create a new tab
 		{ key = "c", mods = "LEADER", action = act({ SpawnTab = "CurrentPaneDomain" }) },
 		-- 'x' to kill the current pane
@@ -254,57 +263,57 @@ return {
 		-- 'v' to visually select in the current pane
 		{ key = "v", mods = "LEADER", action = "ActivateCopyMode" },
 		-- 'r' to rotate panes
-		{ key = "r", mods = "LEADER", action = act.RotatePanes('Clockwise') },
-		{key = ' ', mods = 'LEADER', action = act.QuickSelect},
+		{ key = "r", mods = "LEADER", action = act.RotatePanes("Clockwise") },
+		{ key = " ", mods = "LEADER", action = act.QuickSelect },
 		{
-		  key = 'o',
-		  mods = 'LEADER',
-		  action = wezterm.action.QuickSelectArgs {
-			label = 'open url',
-			patterns = {
-			  'https?://\\S+',
-			},
-			action = wezterm.action_callback(function(window, pane)
-			  local url = window:get_selection_text_for_pane(pane)
-			  wezterm.log_info('opening: ' .. url)
-			  wezterm.open_with(url)
-			end),
-		  },
+			key = "o",
+			mods = "LEADER",
+			action = wezterm.action.QuickSelectArgs({
+				label = "open url",
+				patterns = {
+					"https?://\\S+",
+				},
+				action = wezterm.action_callback(function(window, pane)
+					local url = window:get_selection_text_for_pane(pane)
+					wezterm.log_info("opening: " .. url)
+					wezterm.open_with(url)
+				end),
+			}),
 		},
 		-- copypasta
-		{ key = 'Enter', mods = 'ALT', action = act.ToggleFullScreen },
+		{ key = "Enter", mods = "ALT", action = act.ToggleFullScreen },
 
-		{ key = '-', mods = 'CTRL', action = act.DecreaseFontSize },
-		{ key = '-', mods = 'SUPER', action = act.DecreaseFontSize },
-		{ key = '=', mods = 'CTRL', action = act.IncreaseFontSize },
-		{ key = '=', mods = 'SUPER', action = act.IncreaseFontSize },
-		{ key = '0', mods = 'CTRL', action = act.ResetFontSize },
-		{ key = '0', mods = 'SUPER', action = act.ResetFontSize },
+		{ key = "-", mods = "CTRL", action = act.DecreaseFontSize },
+		{ key = "-", mods = "SUPER", action = act.DecreaseFontSize },
+		{ key = "=", mods = "CTRL", action = act.IncreaseFontSize },
+		{ key = "=", mods = "SUPER", action = act.IncreaseFontSize },
+		{ key = "0", mods = "CTRL", action = act.ResetFontSize },
+		{ key = "0", mods = "SUPER", action = act.ResetFontSize },
 
-		{ key = 'c', mods = 'SHIFT|CTRL', action = act.CopyTo 'Clipboard' },
-		{ key = 'c', mods = 'SUPER', action = act.CopyTo 'Clipboard' },
-		{ key = 'v', mods = 'SHIFT|CTRL', action = act.PasteFrom 'Clipboard' },
-		{ key = 'v', mods = 'SUPER', action = act.PasteFrom 'Clipboard' },
+		{ key = "c", mods = "SHIFT|CTRL", action = act.CopyTo("Clipboard") },
+		{ key = "c", mods = "SUPER", action = act.CopyTo("Clipboard") },
+		{ key = "v", mods = "SHIFT|CTRL", action = act.PasteFrom("Clipboard") },
+		{ key = "v", mods = "SUPER", action = act.PasteFrom("Clipboard") },
 
-		{ key = 'f', mods = 'SHIFT|CTRL', action = act.Search 'CurrentSelectionOrEmptyString' },
-		{ key = 'f', mods = 'SUPER', action = act.Search 'CurrentSelectionOrEmptyString' },
+		{ key = "f", mods = "SHIFT|CTRL", action = act.Search("CurrentSelectionOrEmptyString") },
+		{ key = "f", mods = "SUPER", action = act.Search("CurrentSelectionOrEmptyString") },
 
-		{ key = 'l', mods = 'SHIFT|CTRL', action = act.ShowDebugOverlay },
+		{ key = "l", mods = "SHIFT|CTRL", action = act.ShowDebugOverlay },
 
-		{ key = 'p', mods = 'LEADER', action = act.PaneSelect{ alphabet = 'asdfghjkl;', mode =  'Activate' } },
-		{ key = 'P', mods = 'LEADER', action = act.PaneSelect{ alphabet = 'asdfghjkl;', mode =  'SwapWithActive' } },
+		{ key = "p", mods = "LEADER", action = act.PaneSelect({ alphabet = "asdfghjkl;", mode = "Activate" }) },
+		{ key = "P", mods = "LEADER", action = act.PaneSelect({ alphabet = "asdfghjkl;", mode = "SwapWithActive" }) },
 
-		{ key = 'p', mods = 'SUPER', action = act.PaneSelect{ alphabet = 'asdfghjkl;', mode =  'Activate' } },
-		{ key = 'P', mods = 'SUPER', action = act.PaneSelect{ alphabet = 'asdfghjkl;', mode =  'SwapWithActive' } },
-		{ key = 'R', mods = 'LEADER', action = act.ReloadConfiguration },
+		{ key = "p", mods = "SUPER", action = act.PaneSelect({ alphabet = "asdfghjkl;", mode = "Activate" }) },
+		{ key = "P", mods = "SUPER", action = act.PaneSelect({ alphabet = "asdfghjkl;", mode = "SwapWithActive" }) },
+		{ key = "R", mods = "LEADER", action = act.ReloadConfiguration },
 
 		-- mostly OS defaults
-		{ key = 'n', mods = 'SHIFT|CTRL', action = act.SpawnWindow },
-		{ key = 'n', mods = 'SUPER', action = act.SpawnWindow },
-		{ key = 't', mods = 'SHIFT|CTRL', action = act.SpawnTab 'CurrentPaneDomain' },
-		{ key = 't', mods = 'SUPER', action = act.SpawnTab 'CurrentPaneDomain' },
-		{ key = 'w', mods = 'SHIFT|CTRL', action = act.CloseCurrentTab{ confirm = true } },
-		{ key = 'w', mods = 'SUPER', action = act.CloseCurrentTab{ confirm = true } },
+		{ key = "n", mods = "SHIFT|CTRL", action = act.SpawnWindow },
+		{ key = "n", mods = "SUPER", action = act.SpawnWindow },
+		{ key = "t", mods = "SHIFT|CTRL", action = act.SpawnTab("CurrentPaneDomain") },
+		{ key = "t", mods = "SUPER", action = act.SpawnTab("CurrentPaneDomain") },
+		{ key = "w", mods = "SHIFT|CTRL", action = act.CloseCurrentTab({ confirm = true }) },
+		{ key = "w", mods = "SUPER", action = act.CloseCurrentTab({ confirm = true }) },
 	},
 	-- }}}
 	-- font
@@ -332,5 +341,5 @@ return {
 	-- biggest mistake
 	max_fps = 240,
 	-- scrollbar, currently hidden by default, but better make sure
-	enable_scroll_bar = false
+	enable_scroll_bar = false,
 }
