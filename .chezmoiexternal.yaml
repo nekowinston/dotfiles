@@ -18,15 +18,7 @@
   refreshPeriod: 168h
 
 # colors
-.config/qutebrowser/catppuccin:
-  type: git-repo
-  url: "https://github.com/catppuccin/qutebrowser.git"
-  refreshPeriod: 168h
 .config/kitty/catppuccin:
   type: git-repo
   url: "https://github.com/catppuccin/kitty.git"
-  refreshPeriod: 168h
-.config/alacritty/catppuccin:
-  type: git-repo
-  url: "https://github.com/catppuccin/alacritty.git"
   refreshPeriod: 168h
