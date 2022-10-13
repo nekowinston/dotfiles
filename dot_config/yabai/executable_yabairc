@@ -50,11 +50,12 @@ APPS_ABOVE=(
 "iStat Menus Status"
 )
 for app in "${APPS_ABOVE[@]}"; do
-  yabai -m rule --add app="^$app\$" manage=off sticky=off layer=above border=off
+  yabai -m rule --add app="^$app\$" manage=off sticky=on layer=above border=off
 done
 
+yabai -m rule --add app="^CleanShot X\$" manage=off border=off
+
 APPS_UNMANAGED=(
-"CleanShot X"
 "System Preferences"
 )
 for app in "${APPS_UNMANAGED[@]}"; do
