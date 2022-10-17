@@ -7,6 +7,7 @@ local conceal = function()
   local blacklist = {
     [home .. "/git/work"] = "Using nvim at work.",
     [home .. "/git/freelance"] = "Using nvim to freelance.",
+    [vim.fn.resolve(vim.fn.stdpath("config"))] = "Stuck in the hell of nvim config.",
   }
 
   local cur_file = vim.fn.expand("%:p")

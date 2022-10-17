@@ -1,20 +1,38 @@
-require("utils")
-
-vim.cmd([[packadd packer.nvim]])
-local packer = require("packer")
-if not packer then
-  return
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath("data")
+    .. "/site/pack/packer/start/packer.nvim"
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({
+      "git",
+      "clone",
+      "--depth",
+      "1",
+      "https://github.com/wbthomason/packer.nvim",
+      install_path,
+    })
+    vim.cmd([[packadd packer.nvim]])
+    return true
+  end
+  return false
 end
 
--- slow internet...
-packer.init({
-  git = { clone_timeout = 180 },
-  profile = {
-    enable = true,
-  },
+local packer_bootstrap = ensure_packer()
+
+-- auto-compile when lua files in `~/.config/nvim/*` change
+vim.api.nvim_create_autocmd("BufWritePost", {
+  pattern = "*.lua",
+  callback = function()
+    local cfg_path = vim.fn.resolve(vim.fn.stdpath("config"))
+    vim.defer_fn(function()
+      if vim.fn.expand("%:p"):match(cfg_path) then
+        vim.cmd("silent! PackerCompile")
+      end
+    end, 0)
+  end,
 })
 
-return packer.startup(function(use)
+return require("packer").startup(function(use)
   -- Packer managing itself
   use("wbthomason/packer.nvim")
   -- startup time or some shit
@@ -37,7 +55,6 @@ return packer.startup(function(use)
       require("config/gitsigns")
     end,
   })
-
   -- rainbow indents
   use({
     "lukas-reineke/indent-blankline.nvim",
@@ -102,7 +119,10 @@ return packer.startup(function(use)
       require("config/treesitter")
     end,
   })
-  use({ "p00f/nvim-ts-rainbow", requires = "nvim-treesitter/nvim-treesitter" })
+  use({
+    "p00f/nvim-ts-rainbow",
+    requires = "nvim-treesitter/nvim-treesitter",
+  })
 
   -- show possible key combos
   use({
@@ -114,7 +134,6 @@ return packer.startup(function(use)
 
   -- syntax
   use("alker0/chezmoi.vim")
-  use("digitaltoad/vim-pug")
   use("ron-rs/ron.vim")
   use("elkowar/yuck.vim")
 
@@ -137,16 +156,8 @@ return packer.startup(function(use)
     end,
   })
   use("ggandor/lightspeed.nvim")
-  -- make those above work in repeat commands
 
-  use({
-    "windwp/nvim-autopairs",
-    config = function()
-      local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-      local cmp = require("cmp")
-      cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-    end,
-  })
+  use("windwp/nvim-autopairs")
   use({
     "windwp/nvim-ts-autotag",
     config = function()
@@ -161,7 +172,7 @@ return packer.startup(function(use)
     "TimUntersberger/neogit",
     requires = "nvim-lua/plenary.nvim",
     config = function()
-      Nmap("<leader>ng", "<Cmd>Neogit<CR>")
+      Map("n", "<leader>ng", "<Cmd>Neogit<CR>")
     end,
   })
   use("dhruvasagar/vim-table-mode")
@@ -169,8 +180,7 @@ return packer.startup(function(use)
     "kyazdani42/nvim-tree.lua",
     config = function()
       require("nvim-tree").setup({ update_cwd = true })
-      Nmap("<C-n>", ":NvimTreeToggle<CR>")
-      Nmap("<leader>r", ":NvimTreeRefresh<CR>")
+      Map("n", "<C-n>", ":NvimTreeToggle<CR>")
     end,
   })
   use({
@@ -183,27 +193,19 @@ return packer.startup(function(use)
     "simrat39/symbols-outline.nvim",
     config = function()
       require("symbols-outline").setup()
-      Nmap("<leader>so", ":SymbolsOutline<CR>")
+      Map("n", "<leader>so", ":SymbolsOutline<CR>")
     end,
   })
 
   -- databases
+  use("tpope/vim-dadbod")
+  use("kristijanhusak/vim-dadbod-completion")
   use({
     "kristijanhusak/vim-dadbod-ui",
-    requires = "tpope/vim-dadbod",
     config = function()
-      Nmap("<leader>db", ":DBUIToggle<CR>")
+      Map("n", "<leader>db", ":DBUIToggle<CR>")
       vim.g.db_ui_use_nerd_fonts = true
       vim.g.db_ui_win_position = "right"
-    end,
-  })
-  use({
-    "kristijanhusak/vim-dadbod-completion",
-    requires = { { "tpope/vim-dadbod" }, { "hrsh7th/nvim-cmp" } },
-    config = function()
-      require("cmp").setup.buffer({
-        sources = { { name = "vim-dadbod-completion" } },
-      })
     end,
   })
 
@@ -212,13 +214,11 @@ return packer.startup(function(use)
     "nvim-telescope/telescope.nvim",
     requires = "nvim-lua/plenary.nvim",
     config = function()
-      -- Find files using Telescope command-line sugar.
-      Nmap("<leader>fc", "<cmd>Telescope conventional_commits<CR>")
-      Nmap("<leader>fr", "<cmd>Telescope asynctasks all<CR>")
-      Nmap("<leader>ff", "<cmd>Telescope find_files<CR>")
-      Nmap("<leader>fg", "<cmd>Telescope live_grep<CR>")
-      Nmap("<leader>fb", "<cmd>Telescope buffers<CR>")
-      Nmap("<leader>fh", "<cmd>Telescope help_tags<CR>")
+      Map("n", "<leader>fr", "<cmd>Telescope asynctasks all<CR>")
+      Map("n", "<leader>fb", "<cmd>Telescope buffers<CR>")
+      Map("n", "<leader>ff", "<cmd>Telescope find_files<CR>")
+      Map("n", "<leader>fg", "<cmd>Telescope live_grep<CR>")
+      Map("n", "<leader>fh", "<cmd>Telescope help_tags<CR>")
     end,
   })
   use({
@@ -258,16 +258,6 @@ return packer.startup(function(use)
       require("telescope").load_extension("packer")
     end,
   })
-  use({
-    "olacin/telescope-cc.nvim",
-    requires = {
-      { "nvim-telescope/telescope.nvim" },
-      { "nvim-lua/popup.nvim" },
-    },
-    config = function()
-      require("telescope").load_extension("conventional_commits")
-    end,
-  })
 
   use({
     "andweeb/presence.nvim",
@@ -291,36 +281,22 @@ return packer.startup(function(use)
   use("hrsh7th/cmp-vsnip")
   use("hrsh7th/vim-vsnip")
   use("petertriho/cmp-git")
-
-  use({
-    "simrat39/rust-tools.nvim",
-    config = function()
-      require("rust-tools").setup({})
-    end,
-  })
-  use("b0o/schemastore.nvim")
-  --
-  use({
-    "folke/trouble.nvim",
-    config = function()
-      require("trouble").setup({})
-    end,
-  })
+  use("rafamadriz/friendly-snippets")
+  use("jose-elias-alvarez/null-ls.nvim")
   use({
     "glepnir/lspsaga.nvim",
+    branch = "main",
     config = function()
       require("config/lspsaga")
     end,
   })
-  --
+
+  use("b0o/schemastore.nvim")
   use({
     "github/copilot.vim",
     config = function()
-      Imap(
-        "<C-J>",
-        "copilot#Accept(<Tab>)",
-        { noremap = true, silent = true, expr = true }
-      )
+      local opt = { noremap = true, silent = true, expr = true }
+      Map("i", "<C-J>", "copilot#Accept(<Tab>)", opt)
       vim.g.copilot_no_tab_map = true
     end,
   })
@@ -348,6 +324,7 @@ return packer.startup(function(use)
     end,
   })
   use("tools-life/taskwiki")
+
   use({
     "skywind3000/asyncrun.vim",
     config = function()
@@ -389,5 +366,9 @@ return packer.startup(function(use)
         auto_dark_mode.init()
       end,
     })
+  end
+
+  if packer_bootstrap then
+    require("packer").sync()
   end
 end)

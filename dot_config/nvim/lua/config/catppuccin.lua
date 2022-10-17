@@ -47,7 +47,7 @@ require("catppuccin").setup({
     },
     barbar = false,
     bufferline = true,
-    dashboard = false,
+    dashboard = true, -- manually set
     fern = false,
     gitgutter = false,
     gitsigns = true,
@@ -64,20 +64,20 @@ require("catppuccin").setup({
     vim_sneak = false,
   },
   custom_highlights = {
-    DashboardShortCut = { fg = colors.yellow },
-    DashboardHeader = { fg = colors.red },
+    DashboardHeader = { fg = colors.pink },
     DashboardCenter = { fg = colors.peach },
+    DashboardShortCut = { fg = colors.yellow },
     DashboardFooter = { fg = colors.maroon },
   },
 })
 
 vim.api.nvim_command("colorscheme catppuccin")
 
-vim.api.nvim_create_autocmd("ColorScheme", {
-  pattern = "*",
-  callback = function()
-    package.loaded["feline"] = nil
-    package.loaded["catppuccin.groups.integrations.feline"] = nil
-    require("config.feline")
-  end,
-})
+-- vim.api.nvim_create_autocmd("ColorScheme", {
+--   pattern = "*",
+--   callback = function()
+--     package.loaded["feline"] = nil
+--     package.loaded["catppuccin.groups.integrations.feline"] = nil
+--     require("config.feline")
+--   end,
+-- })

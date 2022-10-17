@@ -12,12 +12,9 @@ require("mason-lspconfig").setup({ automatic_installation = true })
 
 vim.opt.completeopt = "menu,menuone,noselect"
 
--- debug mode enabled
--- vim.lsp.set_log_level("debug")
-
--- Setup nvim-cmp.
 local present, cmp = pcall(require, "cmp")
-if not present then
+if not present or not cmp then
+  vim.pretty_print("cmp not found")
   return
 end
 
@@ -27,64 +24,65 @@ cmp.setup({
       vim.fn["vsnip#anonymous"](args.body)
     end,
   },
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
   mapping = cmp.mapping.preset.insert({
-    ["<C-Space>"] = cmp.mapping.complete(),
-    ["<C-e>"] = cmp.mapping.abort(),
-    ["<Tab>"] = cmp.mapping.confirm({ select = true }),
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      -- This little snippet will confirm with tab, and if no entry is selected, will confirm the first item
+      if cmp.visible() then
+        local entry = cmp.get_selected_entry()
+        if not entry then
+          cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+        else
+          cmp.confirm()
+        end
+      else
+        fallback()
+      end
+    end, { "i", "s", "c" }),
   }),
   sources = cmp.config.sources({
     { name = "nvim_lsp" },
     { name = "vsnip" },
-  }, { { name = "buffer" } }),
+    { name = "vim-dadbod-completion" },
+  }, {
+    { name = "buffer" },
+  }),
 })
 
--- Set configuration for specific filetype.
 cmp.setup.filetype("gitcommit", {
   sources = cmp.config.sources({
     { name = "cmp_git" },
-  }, { { name = "buffer" } }),
+  }, {
+    { name = "buffer" },
+  }),
 })
--- search
-cmp.setup.cmdline("/", {
+
+cmp.setup.cmdline({ "/", "?" }, {
   mapping = cmp.mapping.preset.cmdline(),
-  sources = { { name = "buffer" } },
+  sources = {
+    { name = "buffer" },
+  },
 })
--- Use cmdline & path source for ':'
+
 cmp.setup.cmdline(":", {
   mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources(
-    { {
-      name = "path",
-      option = { trailing_slash = true },
-    } },
-    { { name = "cmdline" } }
-  ),
+  sources = cmp.config.sources({
+    { name = "path" },
+  }, {
+    { name = "cmdline" },
+  }),
 })
 
--- Setup lspconfig.
-local capabilities = require("cmp_nvim_lsp").update_capabilities(
+local capabilities = require("cmp_nvim_lsp").default_capabilities(
   vim.lsp.protocol.make_client_capabilities()
 )
-
--- Mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local opts = { noremap = true, silent = true }
-vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
-
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
 ---@diagnostic disable-next-line: unused-local
 local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-
-  -- disable diagnostics on Helm files
-  if vim.bo[bufnr].buftype ~= "" or vim.bo[bufnr].filetype == "helm" then
-    vim.diagnostic.disable()
-  end
 
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -103,22 +101,17 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, bufopts)
   vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
   vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-  vim.keymap.set("n", "<space>nf", function() end, bufopts)
 end
+local lspconfig = require("lspconfig")
 
-local common_config = {
-  on_attach = on_attach,
+lspconfig.gopls.setup({
   capabilities = capabilities,
-}
-
-local present, lsp = pcall(require, "lspconfig")
-if not present then
-  return
-end
-
-lsp.sumneko_lua.setup({
   on_attach = on_attach,
+})
+
+lspconfig.sumneko_lua.setup({
   capabilities = capabilities,
+  on_attach = on_attach,
   settings = {
     Lua = {
       workspace = {
@@ -129,8 +122,7 @@ lsp.sumneko_lua.setup({
         preloadFileSize = 10000,
       },
       diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = { "vim" },
+        globals = { "vim" }, -- Get the server to recognize the `vim` global
       },
       telemetry = {
         enable = false,
@@ -138,22 +130,9 @@ lsp.sumneko_lua.setup({
     },
   },
 })
-
---- the cool kids
-lsp.bashls.setup(common_config)
-lsp.gopls.setup(common_config)
-lsp.pyright.setup(common_config)
-lsp.rust_analyzer.setup(common_config)
-
---- Web Development
-lsp.cssls.setup(common_config)
-local emmet_cap = require("cmp_nvim_lsp").update_capabilities(
-  vim.lsp.protocol.make_client_capabilities()
-)
-emmet_cap.textDocument.completion.completionItem.snippetSupport = true
-lsp.emmet_ls.setup({
+lspconfig["emmet_ls"].setup({
+  capabilities = capabilities,
   on_attach = on_attach,
-  capabilities = emmet_cap,
   filetypes = {
     "javascriptreact",
     "typescriptreact",
@@ -165,67 +144,49 @@ lsp.emmet_ls.setup({
     "scss",
   },
 })
--- lsp.html.setup(common_config)
-lsp.tailwindcss.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-  settings = {
-    emmetCompletions = true,
-  },
-})
-
--- soydev
-lsp.prismals.setup(common_config)
-lsp.svelte.setup(common_config)
 -- attach tsserver only when there's a 'package.json' file in the CWD
-lsp.tsserver.setup({
-  on_attach = on_attach,
+lspconfig.tsserver.setup({
   capabilities = capabilities,
-  root_dir = lsp.util.root_pattern("package.json"),
+  on_attach = on_attach,
+  root_dir = lspconfig.util.root_pattern("package.json"),
 })
 -- attach deno only when there's a 'deps.ts' file in the CWD
-lsp.denols.setup({
-  on_attach = on_attach,
+lspconfig.denols.setup({
   capabilities = capabilities,
-  root_dir = lsp.util.root_pattern("deps.ts"),
+  on_attach = on_attach,
+  root_dir = lspconfig.util.root_pattern("deps.ts"),
   single_file_support = false,
 })
 
--- data formats
-lsp.dockerls.setup(common_config)
-lsp.graphql.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-  root_dir = lsp.util.root_pattern(
-    ".graphqlrc*",
-    ".graphql.config.*",
-    "graphql.config.*"
-  ),
-  settings = {
-    graphql = {
-      schemaPath = "schema.graphql",
-    },
+local null = require("null-ls")
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
+null.setup({
+  sources = {
+    null.builtins.formatting.gofmt,
+    null.builtins.formatting.stylua,
+    null.builtins.formatting.stylua,
+    null.builtins.formatting.deno_fmt,
   },
-})
-lsp.jsonls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-  settings = {
-    json = {
-      schemas = require("schemastore").json.schemas(),
-      validate = { enable = true },
-    },
-  },
-})
-lsp.yamlls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-  settings = {
-    yaml = {
-      ["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/v1.18.0-standalone-strict/all.json"] = "/*.k8s.yaml",
-    },
-  },
+  on_attach = function(client, bufnr)
+    if client.supports_method("textDocument/formatting") then
+      vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        group = augroup,
+        buffer = bufnr,
+        callback = function()
+          vim.lsp.buf.format({ bufnr = bufnr })
+        end,
+      })
+    end
+  end,
 })
 
---- Documentation
-lsp.ltex.setup(common_config)
+local toggle_formatters = function()
+  null.toggle({ methods = null.methods.FORMATTING })
+end
+
+vim.api.nvim_create_user_command("ToggleFormatters", toggle_formatters, {})
+
+local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())

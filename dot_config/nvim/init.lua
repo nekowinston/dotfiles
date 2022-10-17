@@ -7,12 +7,11 @@ pcall(require, "lsp")
 vim.o.termguicolors = true
 -- map leader to space
 vim.g.mapleader = " "
--- allow mouse in normal/visual mode
-vim.o.mouse = "nv"
+vim.o.cmdheight = 0
 -- line numbers
+vim.o.mouse = ""
 vim.o.number = true
 vim.o.relativenumber = true
-vim.o.numberwidth = 5
 -- scroll offsets
 vim.o.scrolloff = 5
 vim.o.sidescrolloff = 15
@@ -29,64 +28,50 @@ vim.o.splitright = true
 -- redefine word boundaries - '_' is a word seperator, this helps with snake_case
 vim.opt.iskeyword:remove("_")
 
+function Map(mode, shortcut, command, opt)
+  opt = opt or { noremap = true, silent = true }
+  vim.keymap.set(mode, shortcut, command, opt)
+end
+
 -- easier split navigation
-Nmap("<C-J>", "<C-W>j")
-Nmap("<C-K>", "<C-W>k")
-Nmap("<C-L>", "<C-W>l")
-Nmap("<C-H>", "<C-W>h")
-
+Map("n", "<C-J>", "<C-W>j")
+Map("n", "<C-K>", "<C-W>k")
+Map("n", "<C-L>", "<C-W>l")
+Map("n", "<C-H>", "<C-W>h")
+Map("n", "<C-W>\\", ":vsplit<CR>")
+Map("n", "<C-W>-", ":split<CR>")
+Map("n", "<C-W>x", ":q<CR>")
 -- merge conflicts
-Nmap("<leader>gd", ":Gvdiff!<CR>")
-Nmap("gdh", ":diffget //2<CR>")
-Nmap("gdl", ":diffget //3<CR>")
-
+Map("n", "<leader>gd", ":Gvdiff!<CR>")
+Map("n", "gdh", ":diffget //2<CR>")
+Map("n", "gdl", ":diffget //3<CR>")
+-- clipboard
+Map("n", "<leader>p", '"+p')
+Map("n", "<leader>y", '"+y')
 -- escape :terminal easier
 vim.cmd([[tnoremap <Esc> <C-\><C-n>]])
 
 -- indentations settings
 vim.o.shiftwidth = 2
 vim.o.tabstop = 2
-vim.o.softtabstop = 2
+vim.o.softtabstop = 0
 vim.o.expandtab = true
--- indentation autocmds for some filetypes
 vim.cmd([[
-" smol spaces for soydev
 autocmd FileType html,lua,css,js,jsreact,ts,tsreact,json,yaml setlocal ts=2 sw=2 sts=0 et
-" Tabs, yikes
 autocmd FileType go setlocal ts=4 sw=4 sts=4 noet
-" Spaces, based languages
 autocmd FileType python,rust setlocal ts=4 sw=4 sts=4 et
 autocmd FileType markdown let g:table_mode_corner='|'
 ]])
 
--- auto-compile when lua files in `~/.config/nvim/*` change
-vim.api.nvim_create_autocmd("BufWritePost", {
-  pattern = "*.lua",
-  callback = function()
-    local cfg_path = vim.fn.resolve(vim.fn.stdpath("config"))
-    vim.defer_fn(function()
-      if vim.fn.expand("%:p"):match(cfg_path) then
-        vim.cmd("silent! PackerCompile")
-      end
-    end, 0)
-  end,
-})
-
-local wr_group = vim.api.nvim_create_augroup("WinResize", { clear = true })
-
--- resize splits when vim window is resized
 vim.api.nvim_create_autocmd("VimResized", {
-  group = wr_group,
   pattern = "*",
   command = "wincmd =",
   desc = "Automatically resize windows when the host window size changes.",
 })
-
--- neovide settings {{{
-if vim.g.neovide then
-  vim.cmd("cd $HOME")
-  vim.g.neovide_cursor_vfx_mode = "ripple"
-  vim.g.neovide_input_macos_alt_is_meta = true
-  vim.o.guifont = "VictorMono Nerd Font:h18"
-end
--- }}}
+vim.api.nvim_create_autocmd("TextYankPost", {
+  pattern = "*",
+  callback = function()
+    vim.highlight.on_yank({ higroup = "IncSearch", timeout = 200 })
+  end,
+  desc = "Highlight yanked text",
+})
