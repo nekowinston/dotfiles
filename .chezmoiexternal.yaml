@@ -16,9 +16,3 @@
   type: git-repo
   url: "https://github.com/tmux-plugins/tpm"
   refreshPeriod: 168h
-
-# colors
-.config/kitty/catppuccin:
-  type: git-repo
-  url: "https://github.com/catppuccin/kitty.git"
-  refreshPeriod: 168h
