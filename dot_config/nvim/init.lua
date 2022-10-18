@@ -1,13 +1,13 @@
 -- vim:fdm=marker
-pcall(require, "impatient")
-pcall(require, "plugins")
-pcall(require, "lsp")
+require("impatient")
+require("plugins")
+require("lsp")
 
 -- true colors
 vim.o.termguicolors = true
 -- map leader to space
 vim.g.mapleader = " "
-vim.o.cmdheight = 0
+vim.o.cmdheight = 1
 -- line numbers
 vim.o.mouse = ""
 vim.o.number = true

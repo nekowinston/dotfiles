@@ -1,7 +1,7 @@
 require("bufferline").setup({
   options = {
     show_close_icon = false,
-    separator_style = "slant",
+    separator_style = "thin",
     show_buffer_close_icons = false,
     offsets = { { filetype = "NvimTree" } },
     left_mouse_command = "buffer %d",

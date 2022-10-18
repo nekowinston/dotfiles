@@ -3,10 +3,10 @@ function string.starts(self, str)
 end
 
 local conceal = function()
-  local home = os.getenv("HOME")
+  local home = vim.fn.expand("$HOME") .. "/Code/"
   local blacklist = {
-    [home .. "/git/work"] = "Using nvim at work.",
-    [home .. "/git/freelance"] = "Using nvim to freelance.",
+    [vim.fn.resolve(home .. "work")] = "Using nvim at work.",
+    [vim.fn.resolve(home .. "freelance")] = "Using nvim to freelance.",
     [vim.fn.resolve(vim.fn.stdpath("config"))] = "Stuck in the hell of nvim config.",
   }
 

@@ -1,11 +1,10 @@
-local home = os.getenv("HOME")
 local db = require("dashboard")
 
 db.custom_header = function()
   local cringe = {
     "Have fun coding!",
-    "Sisyphus wasn't forbidden to smile.",
-    "Pro tip: Run :q! to exit. Now!",
+    "neovim got rid of the :smile command.",
+    "Pro tip: You can use :q to exit. Do it. Now!",
   }
   local random_cringe = cringe[math.random(#cringe)]
   return {
@@ -34,34 +33,48 @@ db.custom_header = function()
   }
 end
 
+local padding = 25
+local function pad(string)
+  local str = string
+  for _ = 1, padding - #string do
+    str = str .. " "
+  end
+  return str
+end
+
 db.custom_center = {
   {
     icon = "  ",
-    desc = "Open Projects                           ",
+    desc = pad("Open Projects"),
     action = "Telescope project",
+    shortcut = "SPC f p",
   },
   {
     icon = "  ",
-    desc = "Find File                               ",
+    desc = pad("Find File"),
     action = "Telescope find_files find_command=rg,--hidden,--files",
+    shortcut = "SPC f f",
   },
   {
     icon = "  ",
-    desc = "File Browser                            ",
+    desc = pad("File Browser"),
     action = "Telescope file_browser",
+    shortcut = "SPC f b",
   },
   {
     icon = "  ",
-    desc = "Find word                               ",
+    desc = pad("Find word"),
     action = "Telescope live_grep",
+    shortcut = "SPC f g",
   },
   {
     icon = "  ",
-    desc = "Open Settings                           ",
+    desc = pad("Open Settings"),
     action = function()
-      vim.cmd("cd " .. home .. "/.config/nvim/")
-      vim.cmd("edit init.lua")
+      local confpath = vim.fn.resolve(vim.fn.stdpath("config"))
+      require("telescope.builtin").find_files({ cwd = confpath })
     end,
+    shortcut = "SPC f s",
   },
 }
 
