@@ -13,7 +13,7 @@ RUN pacman -Sy \
   ripgrep \
   starship \
   tree-sitter \
-  ttf-nerd-fonts-symbols \
+  ttf-nerd-fonts-symbols-common \
   unzip \
   zip \
   zsh \
