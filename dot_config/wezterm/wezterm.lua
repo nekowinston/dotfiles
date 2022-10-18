@@ -23,6 +23,7 @@ local fonts = {
 		font = {
 			family = "Victor Mono",
 			weight = "DemiBold",
+			harfbuzz_features = { "ss02=1" },
 		},
 		size = 18,
 	},
