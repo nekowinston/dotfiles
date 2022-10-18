@@ -1,7 +1,7 @@
 -- vim:fdm=marker
-require("impatient")
-require("plugins")
-require("lsp")
+pcall(require, "impatient")
+pcall(require, "plugins")
+pcall(require, "lsp")
 
 -- true colors
 vim.o.termguicolors = true
