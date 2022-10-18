@@ -42,7 +42,7 @@ RUN chezmoi init
 RUN chezmoi apply -x encrypted
 
 # set up antigen
-RUN zsh -c "zsh ~/.zshrc; exit 0"
+RUN zsh -c "zsh ~/.config/zsh/.zshrc; exit 0"
 # set up neovim with PackerSync
 RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
