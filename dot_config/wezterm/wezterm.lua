@@ -4,6 +4,10 @@ local wezterm = require("wezterm")
 -- fonts I like, with the settings I prefer {{{
 -- kept seperately from the rest of the config so that I can easily change them
 local fonts = {
+	berkeley = {
+		font = "Berkeley Mono",
+		size = 16,
+	},
 	comic = {
 		font = "Comic Code Ligatures",
 		size = 18,
@@ -194,15 +198,22 @@ wezterm.on("update-status", function(window, pane)
 end)
 -- }}}
 
+local darkTheme = "Catppuccin Frappe"
+local lightTheme = "Catppuccin Latte"
+
 local function scheme_for_appearance(appearance)
+	wezterm.log_info(appearance)
+	if string.match(wezterm.target_triple, "linux") then
+		return darkTheme
+	end
 	if appearance:find("Dark") then
-		return "Catppuccin Frappe"
+		return darkTheme
 	else
-		return "Catppuccin Latte"
+		return lightTheme
 	end
 end
 
-local font = get_font("victor")
+local font = get_font("berkeley")
 local act = wezterm.action
 
 return {
@@ -330,6 +341,10 @@ return {
 		right = 0,
 		top = 0,
 		bottom = 0,
+	},
+	inactive_pane_hsb = {
+		saturation = 1.0,
+		brightness = 0.8,
 	},
 	-- don't attempt to resize the window (tiling wm)
 	adjust_window_size_when_changing_font_size = false,
