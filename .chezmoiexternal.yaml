@@ -16,3 +16,9 @@
   type: git-repo
   url: "https://github.com/tmux-plugins/tpm"
   refreshPeriod: 168h
+
+# colorscheme stuff
+.local/share/catppuccin/btop:
+  type: git-repo
+  url: "https://github.com/catppuccin/btop"
+  refreshPeriod: 168h
