@@ -35,7 +35,7 @@ require("gitsigns").setup({
   numhl = false,
   signcolumn = true,
   word_diff = false,
-  watch_gitdir = { interval = 1000, follow_files = true },
+  watch_gitdir = { enable = false, interval = 1000, follow_files = true },
   attach_to_untracked = true,
   -- current line highlighting
   current_line_blame = true,
