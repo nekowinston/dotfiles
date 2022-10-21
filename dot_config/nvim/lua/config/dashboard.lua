@@ -42,7 +42,15 @@ local function pad(string)
   return str
 end
 
+db.session_directory = vim.fn.stdpath("cache") .. "/sessions"
+
 db.custom_center = {
+  {
+    icon = "  ",
+    desc = pad("Restore last session"),
+    shortcut = "SPC s l",
+    action = "SessionLoad",
+  },
   {
     icon = "  ",
     desc = pad("Open Projects"),
@@ -50,22 +58,10 @@ db.custom_center = {
     shortcut = "SPC f p",
   },
   {
-    icon = "  ",
-    desc = pad("Find File"),
-    action = "Telescope find_files find_command=rg,--hidden,--files",
-    shortcut = "SPC f f",
-  },
-  {
     icon = "  ",
     desc = pad("File Browser"),
     action = "Telescope file_browser",
     shortcut = "SPC f b",
-  },
-  {
-    icon = "  ",
-    desc = pad("Find word"),
-    action = "Telescope live_grep",
-    shortcut = "SPC f g",
   },
   {
     icon = "  ",
@@ -87,3 +83,8 @@ db.custom_footer = function()
     plugCount .. " regrets",
   }
 end
+
+vim.api.nvim_create_autocmd(
+  "VimLeavePre",
+  { pattern = "*", command = "SessionSave" }
+)

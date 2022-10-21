@@ -7,7 +7,7 @@ pcall(require, "lsp")
 vim.o.termguicolors = true
 -- map leader to space
 vim.g.mapleader = " "
-vim.o.cmdheight = 1
+vim.o.cmdheight = 0
 -- line numbers
 vim.o.mouse = ""
 vim.o.number = true
