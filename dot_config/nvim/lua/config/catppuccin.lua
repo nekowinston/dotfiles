@@ -81,7 +81,8 @@ require("catppuccin").setup({
     DashboardCenter = { fg = colors.peach },
     DashboardShortCut = { fg = colors.yellow },
     DashboardFooter = { fg = colors.maroon },
-    TelescopeBorder = { fg = colors.overlay0 },
+    FloatBorder = { fg = colors.overlay0 },
+    TelescopeBorder = { link = "FloatBorder" },
   },
   color_overrides = {
     mocha = darkmode_overrides,
