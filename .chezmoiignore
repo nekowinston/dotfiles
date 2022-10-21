@@ -1,6 +1,7 @@
 .github/
 Dockerfile
 README.md
+.config/nvim/plugin
 {{- if ne .chezmoi.os "linux" }}
 # ignore linux configuration
 .config/dunst/
