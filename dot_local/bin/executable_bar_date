@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [[ -x "$(command -v ddate)" ]]; then
-  ddate +'%{%A, %b %d%}'
+  ddate +"%{%a, %b %e%N%nCelebrate %H\!%}"
 else
   date +'%A, %b %d'
 fi

@@ -110,25 +110,7 @@ sketchybar \
     update_freq=30 \
     script="$PLUGIN_DIR/battery.sh" \
     lazy=true \
-  --subscribe battery system_woke \
-\
-  --add item sound right \
-  --set sound \
-    script="$PLUGIN_DIR/sound.sh" \
-    update_freq=5 \
-    lazy=true \
-\
-  --add item mail right \
-  --set mail \
-    script="$PLUGIN_DIR/mailIndicator.sh" \
-    update_freq=10 \
-    lazy=true \
-\
-  --add item tasks right \
-  --set tasks \
-    script="$PLUGIN_DIR/tasks.sh" \
-    update_freq=10 \
-    lazy=true
+  --subscribe battery system_woke
 
 ##### fin #####
 sketchybar --update
