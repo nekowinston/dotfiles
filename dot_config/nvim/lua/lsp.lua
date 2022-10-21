@@ -18,12 +18,12 @@ if not present or not cmp then
 end
 
 local has_words_before = function()
-  local line, col = table.unpack(vim.api.nvim_win_get_cursor(0))
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0
-      and vim.api
-      .nvim_buf_get_lines(0, line - 1, line, true)[1]
-      :sub(col, col)
-      :match("%s")
+    and vim.api
+        .nvim_buf_get_lines(0, line - 1, line, true)[1]
+        :sub(col, col)
+        :match("%s")
       == nil
 end
 
@@ -42,8 +42,14 @@ cmp.setup({
     end,
   },
   window = {
-    completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
+    completion = {
+      border = { "╔", "═", "╗", "║", "╝", "═", "╚", "║" },
+      winhighlight = "Normal:CmpPmenu,FloatBorder:CmpBorder,CursorLine:PmenuSel,Search:None",
+    },
+    documentation = {
+      border = { "╔", "═", "╗", "║", "╝", "═", "╚", "║" },
+      winhighlight = "Normal:CmpPmenu,FloatBorder:CmpBorder,CursorLine:PmenuSel,Search:None",
+    },
   },
   mapping = cmp.mapping.preset.insert({
     ["<C-b>"] = cmp.mapping.scroll_docs(-4),
@@ -78,6 +84,13 @@ cmp.setup({
   }, {
     { name = "buffer" },
   }),
+  formatting = {
+    format = require("lspkind").cmp_format({
+      mode = "symbol_text",
+      maxwidth = 50,
+      ellipsis_char = "...",
+    }),
+  },
 })
 
 cmp.setup.filetype("gitcommit", {
@@ -98,7 +111,7 @@ cmp.setup.cmdline({ "/", "?" }, {
 cmp.setup.cmdline(":", {
   mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources({
-    { name = "path" },
+    { name = "path", option = { trailing_slash = true } },
   }, {
     { name = "cmdline" },
   }),
@@ -184,6 +197,20 @@ lspconfig.denols.setup({
   on_attach = on_attach,
   root_dir = lspconfig.util.root_pattern("deps.ts"),
   single_file_support = false,
+})
+lspconfig.ltex.setup({
+  capabilities = capabilities,
+  on_attach = function(client, bufnr)
+    require("ltex_extra").setup({
+      load_langs = { "en-US", "de-AT" },
+      init_check = true,
+      path = vim.fn.stdpath("data") .. "/dictionary",
+    })
+    on_attach(client, bufnr)
+  end,
+  settings = {
+    ltex = {},
+  },
 })
 
 local null = require("null-ls")

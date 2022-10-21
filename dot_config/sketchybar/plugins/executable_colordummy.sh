@@ -34,6 +34,10 @@ if [[ $THEME == 'dark' ]]; then
   BASE="303446"
   MANTLE="292c3c"
   CRUST="232634"
+  # overrides
+  BASE="000000"
+  MANTLE="000000"
+  CRUST="000000"
 else
   ROSEWATER="dc8a78"
   FLAMINGO="dd7878"

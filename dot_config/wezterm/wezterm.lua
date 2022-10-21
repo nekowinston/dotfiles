@@ -5,7 +5,10 @@ local wezterm = require("wezterm")
 -- kept seperately from the rest of the config so that I can easily change them
 local fonts = {
 	berkeley = {
-		font = "Berkeley Mono",
+		font = {
+			family = "Berkeley Mono",
+			weight = "Bold",
+		},
 		size = 16,
 	},
 	comic = {
@@ -198,11 +201,16 @@ wezterm.on("update-status", function(window, pane)
 end)
 -- }}}
 
-local darkTheme = "Catppuccin Frappe"
+local custom = wezterm.color.get_builtin_schemes()["Catppuccin Mocha"]
+custom.background = "#000000"
+custom.tab_bar.background = "#040404"
+custom.tab_bar.inactive_tab.bg_color = "#0f0f0f"
+custom.tab_bar.new_tab.bg_color = "#080808"
+
+local darkTheme = "OLEDppuccin"
 local lightTheme = "Catppuccin Latte"
 
 local function scheme_for_appearance(appearance)
-	wezterm.log_info(appearance)
 	if string.match(wezterm.target_triple, "linux") then
 		return darkTheme
 	end
@@ -287,7 +295,6 @@ return {
 				},
 				action = wezterm.action_callback(function(window, pane)
 					local url = window:get_selection_text_for_pane(pane)
-					wezterm.log_info("opening: " .. url)
 					wezterm.open_with(url)
 				end),
 			}),
@@ -349,6 +356,9 @@ return {
 	-- don't attempt to resize the window (tiling wm)
 	adjust_window_size_when_changing_font_size = false,
 	-- theme
+	color_schemes = {
+		["OLEDppuccin"] = custom,
+	},
 	color_scheme = scheme_for_appearance(wezterm.gui.get_appearance()),
 	-- nightly only
 	clean_exit_codes = { 130 },
@@ -358,4 +368,5 @@ return {
 	max_fps = 240,
 	-- scrollbar, currently hidden by default, but better make sure
 	enable_scroll_bar = false,
+	hide_tab_bar_if_only_one_tab = true,
 }

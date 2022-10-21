@@ -24,7 +24,6 @@ return packer.startup({
     use({
       "catppuccin/nvim",
       as = "catppuccin",
-      run = ":CatppuccinCompile",
       config = function()
         require("config/catppuccin")
       end,
@@ -41,18 +40,7 @@ return packer.startup({
     use({
       "lukas-reineke/indent-blankline.nvim",
       config = function()
-        require("indent_blankline").setup({
-          space_char_blankline = " ",
-          show_current_conext = true,
-          char_highlight_list = {
-            "IndentBlanklineIndent1",
-            "IndentBlanklineIndent2",
-            "IndentBlanklineIndent3",
-            "IndentBlanklineIndent4",
-            "IndentBlanklineIndent5",
-            "IndentBlanklineIndent6",
-          },
-        })
+        require("indent_blankline").setup({})
         vim.g.indent_blankline_filetype_exclude = {
           "dashboard",
           "help",
@@ -83,27 +71,6 @@ return packer.startup({
             component_separators = { left = "", right = "" },
             section_separators = { left = "", right = "" },
           },
-          sections = {
-            lualine_x = {
-              {
-                "diagnostics",
-                sources = { "nvim_lsp" },
-                -- Displays diagnostics for the defined severity types
-                sections = { "error", "warn", "info", "hint" },
-                diagnostics_color = {
-                  -- Same values as the general color option can be used here.
-                  error = "DiagnosticError", -- Changes diagnostics' error color.
-                  warn = "DiagnosticWarn", -- Changes diagnostics' warn color.
-                  info = "DiagnosticInfo", -- Changes diagnostics' info color.
-                  hint = "DiagnosticHint", -- Changes diagnostics' hint color.
-                },
-                symbols = { error = "E", warn = "W", info = "I", hint = "H" },
-                colored = true, -- Displays diagnostics status in color if set to true.
-                update_in_insert = false, -- Update diagnostics in insert mode.
-                always_visible = false, -- Show diagnostics even if there are none.
-              },
-            },
-          },
         })
       end,
     })
@@ -126,6 +93,8 @@ return packer.startup({
         require("config/treesitter")
       end,
     })
+    use("nvim-treesitter/playground")
+
     use({
       "p00f/nvim-ts-rainbow",
       requires = "nvim-treesitter/nvim-treesitter",
@@ -219,9 +188,23 @@ return packer.startup({
       "nvim-telescope/telescope.nvim",
       requires = "nvim-lua/plenary.nvim",
       config = function()
+        require("telescope").setup({
+          defaults = {
+            borderchars = {
+              "═",
+              "║",
+              "═",
+              "║",
+              "╔",
+              "╗",
+              "╝",
+              "╚",
+            },
+          },
+        })
         Map("n", "<leader>fr", "<cmd>Telescope asynctasks all<CR>")
         Map("n", "<leader>fb", "<cmd>Telescope file_browser<CR>")
-        Map("n", "<leader>ff", "<cmd>Telescope find_files<CR>")
+        Map("n", "<leader>fd", "<cmd>Telescope find_files<CR>")
         Map("n", "<leader>fg", "<cmd>Telescope live_grep<CR>")
         Map("n", "<leader>fh", "<cmd>Telescope help_tags<CR>")
         Map("n", "<leader>fp", "<cmd>Telescope project<CR>")
@@ -284,6 +267,7 @@ return packer.startup({
     use("hrsh7th/cmp-vsnip")
     use("hrsh7th/vim-vsnip")
     use("petertriho/cmp-git")
+    use("onsails/lspkind.nvim")
     use("rafamadriz/friendly-snippets")
     use("jose-elias-alvarez/null-ls.nvim")
     use({
@@ -293,13 +277,14 @@ return packer.startup({
         require("config/lspsaga")
       end,
     })
+    use({ "barreiroleo/ltex-extra.nvim" })
 
     use("b0o/schemastore.nvim")
     use({
       "github/copilot.vim",
       config = function()
         local opt = { noremap = true, silent = true, expr = true }
-        Map("i", "<C-J>", "copilot#Accept(<Tab>)", opt)
+        Map("i", "<C-J>", 'copilot#Accept("<CR>")', opt)
         vim.g.copilot_no_tab_map = true
       end,
     })
@@ -352,7 +337,9 @@ return packer.startup({
   end,
   config = {
     display = {
-      open_fn = require("packer.util").float,
+      open_fn = function()
+        return require("packer.util").float({ border = "double" })
+      end,
     },
   },
 })
