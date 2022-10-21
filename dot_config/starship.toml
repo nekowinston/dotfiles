@@ -17,49 +17,19 @@ $git_commit\
 $git_state\
 $git_metrics\
 $git_status\
-$hg_branch\
 $cmd_duration\
 $status\
 $fill\
 $package\
-$buf\
-$c\
-$cmake\
-$cobol\
-$conda\
-$crystal\
-$dart\
 $deno\
-$dotnet\
-$elixir\
-$elm\
-$erlang\
 $golang\
-$haskell\
 $helm\
-$java\
-$julia\
-$kotlin\
 $lua\
-$nim\
-$nix_shell\
 $nodejs\
-$ocaml\
-$perl\
 $php\
-$pulumi\
-$purescript\
 $python\
-$red\
-$rlang\
-$ruby\
 $rust\
-$scala\
-$spack\
-$swift\
-$vlang\
 $vagrant\
-$zig\
 $aws\
 $azure\
 $gcloud\
@@ -118,7 +88,7 @@ format = '\[[$symbol$branch]($style)\]'
 format = '\[[ﮫ $duration]($style)\]'
 
 [fill]
-symbol = '─'
+symbol = ' '
 style = 'fg:black'
 
 ### LANGUAGE VERSION INDICATORS
@@ -264,7 +234,7 @@ format = '\[[$symbol$account(@$domain)(\($region\))]($style)\]'
 [kubernetes]
 symbol = ' '
 format = '\[[$symbol($cluster/$namespace)]($style)\]'
-disabled = false
+disabled = true
 
 [openstack]
 symbol = ' '
