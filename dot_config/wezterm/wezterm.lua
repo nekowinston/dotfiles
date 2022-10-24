@@ -188,16 +188,6 @@ wezterm.on("update-status", function(window, pane)
 		{ Foreground = { Color = palette.ansi[5] } },
 		{ Text = RIGHT_DIVIDER },
 	}))
-
-	-- an idea for a future right hand side info?
-	-- window:set_right_status(wezterm.format({
-	-- 	{ Foreground = { Color = palette.tab_bar.background } },
-	-- 	{ Background = { Color = palette.ansi[8] } },
-	-- 	{ Text = RIGHT_DIVIDER },
-	-- 	{ Background = { Color = palette.ansi[8]  } },
-	-- 	{ Foreground = { Color = palette.background } },
-	-- 	{ Text = '   [||      ]   12.8% ' },
-	-- }))
 end)
 -- }}}
 
