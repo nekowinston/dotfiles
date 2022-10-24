@@ -7,7 +7,7 @@
   signingkey = A476C39610E53A689A57BD0D0B89BC45007EE9CC
 
 [credential]
-  helper = gopass
+	helper = gopass
   useHttpPath = true
 
 ; change identity based on the cwd
@@ -39,8 +39,12 @@
 [commit]
   gpgSign = true
 
+[tag]
+  gpgSign = true
+
 [push]
   default = current
+  gpgSign = "if-asked"
 
 [format]
   signoff = true
