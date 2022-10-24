@@ -268,6 +268,7 @@ return packer.startup({
     use("hrsh7th/vim-vsnip")
     use("petertriho/cmp-git")
     use("onsails/lspkind.nvim")
+    use("ray-x/go.nvim")
     use("rafamadriz/friendly-snippets")
     use("jose-elias-alvarez/null-ls.nvim")
     use({
