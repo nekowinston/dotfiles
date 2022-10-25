@@ -12,10 +12,10 @@
 
 ; change identity based on the cwd
 ; work
-[includeIf "gitdir:~/git/work/"]
+[includeIf "gitdir:~/Code/work/"]
   path = ~/.config/git/work
 ; freelance
-[includeIf "gitdir:~/git/freelance/"]
+[includeIf "gitdir:~/Code/freelance/"]
   path = ~/.config/git/personal
 
 [core]
