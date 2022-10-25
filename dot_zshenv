@@ -1,3 +1,9 @@
 # vim:ft=zsh:fenc=utf-8
 export ZDOTDIR=$HOME/.config/zsh
 . $ZDOTDIR/.zshenv
+
+if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+  export GDK_BACKEND=wayland
+  export QT_QPA_PLATFORM=wayland-egl
+  export MOZ_ENABLE_WAYLAND=1
+fi
