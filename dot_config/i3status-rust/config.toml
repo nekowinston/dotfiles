@@ -1,0 +1,49 @@
+icons = "awesome"
+theme = "ctp_mocha"
+
+[[block]]
+interval = 60
+block = "github"
+hide_if_total_is_zero = true
+format = "{total}|{author}|{comment}|{mention}|{review_requested}"
+warning = ["mention","review_requested"]
+info = ["total"]
+
+[[block]]
+block = "taskwarrior"
+interval = 60
+format = "{count} open tasks [{filter_name}]"
+format_singular = "{count} open task [{filter_name}]"
+data_location = "~/.local/share/task"
+[[block.filters]]
+name = "today"
+filter = "+PENDING +OVERDUE or +DUETODAY"
+[[block.filters]]
+name = "CTP"
+filter = "status:pending project.not:catppuccin githubnamespace:catppuccin"
+[[block.filters]]
+name = "CTP - Ready"
+filter = "status:pending project:catppuccin +ready_for_review"
+
+[[block]]
+block = "pomodoro"
+length = 25
+break_length = 5
+message = "Take a break!"
+break_message = "Back to work!"
+notifier = "notifysend"
+
+[[block]]
+block = "pacman"
+interval = 3600
+format = "{pacman}"
+hide_when_uptodate = true
+critical_updates_regex = "(linux|linux-lts|linux-zen)"
+
+[[block]]
+block = "sound"
+
+[[block]]
+block = "time"
+interval = 5
+format = "%R"

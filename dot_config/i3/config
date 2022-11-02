@@ -1,74 +1,80 @@
-# vim:ft=i3config
+# vim:ft=i3config:fdm=marker
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-# Set mod key (Mod1=<Alt>, Mod4=<Super>)
-set $mod Mod4
+# main mod key
+set $mod      Mod4
+# modFocus is set to Mod+Ctrl for macOS compatibility
+set $modFocus Mod4+Ctrl
+set $modMove  Mod4+Shift
+# hyper - CMD+Shift+Control+Alt
+set $hyper    Mod4+Mod1+Shift+Ctrl
+# programs to easily switch
+set $browser  firefox
+set $fileman  thunar
+set $terminal wezterm-gui start
+set $pwman    1password --quick-access
 
 # Set DPI value
 set_from_resource $dpi Xft.dpi 96
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
 default_border pixel 2
-default_floating_border normal
-
-# Hide borders
-hide_edge_borders none
+default_floating_border pixel 2
+default_orientation auto
 
 # change borders
-bindsym $mod+u border none
-bindsym $mod+y border pixel 2
+bindsym $mod+Shift+b border none
+bindsym $mod+b border pixel 2
 bindsym $mod+n border normal
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font xft:Inter 11
+font xft:Inter 14
+title_align center
 
 # Use Mouse+$mod to drag floating windows
 floating_modifier $mod
 
-# start a terminal
-bindsym $mod+Shift+Return exec wezterm
-
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # Start Applications
-bindsym $mod+F2 exec firefox
-bindsym $mod+F3 exec wezterm start ranger
-bindsym $mod+ShiftF3 exec pcmanfm
-bindsym $mod+t exec --no-startup-id pkill picom
-bindsym $mod+Ctrl+p --release exec --no-startup-id flameshot gui
-bindsym $mod+Ctrl+t exec --no-startup-id picom --experimental-backends -b
-bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
-
-focus_follows_mouse yes
+bindsym $mod+Shift+Return  exec $terminal
+bindsym $mod+e             exec --no-startup-id $fileman
+bindsym $mod+t             exec --no-startup-id pkill picom
+bindsym $mod+Ctrl+t        exec --no-startup-id picom --experimental-backends -b
+bindsym $mod+Ctrl+x        exec --no-startup-id xkill
+bindsym $hyper+p --release exec --no-startup-id flameshot gui
 
 # change focus
-bindsym $mod+Ctrl+h focus left
-bindsym $mod+Ctrl+j focus down
-bindsym $mod+Ctrl+k focus up
-bindsym $mod+Ctrl+l focus right
-
-# alternatively, you can use the cursor keys:
-bindsym $mod+Ctrl+Left focus left
-bindsym $mod+Ctrl+Down focus down
-bindsym $mod+Ctrl+Up focus up
-bindsym $mod+Ctrl+Right focus right
-
+bindsym $modFocus+h     focus left
+bindsym $modFocus+j     focus down
+bindsym $modFocus+k     focus up
+bindsym $modFocus+l     focus right
+bindsym $modFocus+Left  focus left
+bindsym $modFocus+Down  focus down
+bindsym $modFocus+Up    focus up
+bindsym $modFocus+Right focus right
 # move focused window
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
+bindsym $modMove+h      move left
+bindsym $modMove+j      move down
+bindsym $modMove+k      move up
+bindsym $modMove+l      move right
+bindsym $modMove+Left   move left
+bindsym $modMove+Down   move down
+bindsym $modMove+Up     move up
+bindsym $modMove+Right  move right
 
-# alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+# move workspaces across monitors
+bindsym $modMove+greater move workspace to output right
+bindsym $modMove+less    move workspace to output left
 
 # workspace back and forth (with/without active container)
-workspace_auto_back_and_forth no
+workspace_auto_back_and_forth yes
 
 # split orientation
 bindsym $mod+q split toggle
@@ -77,13 +83,10 @@ bindsym $mod+q split toggle
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+bindsym $mod+s layout toggle
 
 # toggle tiling / floating
 bindsym $mod+Shift+d floating toggle
-
 # change focus between tiling / floating windows
 bindsym $mod+d focus mode_toggle
 
@@ -95,110 +98,50 @@ bindsym $mod+a focus parent
 
 # move the currently focused window to the scratchpad
 bindsym $mod+Shift+Tab move scratchpad
-
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
 bindsym $mod+Tab scratchpad show
+
+bindsym $mod+m [class="discord"] scratchpad show
 
 # Workspace names
 # to display names or symbols instead of plain workspace numbers you can use
 # something like: set $ws1 1:mail
 #                 set $ws2 2:
-set $ws1 1
-set $ws2 2
-set $ws3 3
-set $ws4 4
-set $ws5 5
-set $ws6 6
-set $ws7 7
-set $ws8 8
-set $ws9 9
+set $ws1  1:Ⅰ
+set $ws2  2:Ⅱ
+set $ws3  3:Ⅲ
+set $ws4  4:Ⅳ
+set $ws5  5:Ⅴ
+set $ws6  6:Ⅵ
+set $ws7  7:Ⅶ
+set $ws8  8:Ⅷ
+set $ws9  9:Ⅸ
+set $ws10 10:Ⅹ
 
 # switch to workspace
-bindsym $mod+Ctrl+1 workspace $ws1
-bindsym $mod+Ctrl+2 workspace $ws2
-bindsym $mod+Ctrl+3 workspace $ws3
-bindsym $mod+Ctrl+4 workspace $ws4
-bindsym $mod+Ctrl+5 workspace $ws5
-bindsym $mod+Ctrl+6 workspace $ws6
-bindsym $mod+Ctrl+7 workspace $ws7
-bindsym $mod+Ctrl+8 workspace $ws8
-bindsym $mod+Ctrl+9 workspace $ws9
-bindsym $mod+Ctrl+0 workspace $ws10
+bindsym $modFocus+1 workspace $ws1
+bindsym $modFocus+2 workspace $ws2
+bindsym $modFocus+3 workspace $ws3
+bindsym $modFocus+4 workspace $ws4
+bindsym $modFocus+5 workspace $ws5
+bindsym $modFocus+6 workspace $ws6
+bindsym $modFocus+7 workspace $ws7
+bindsym $modFocus+8 workspace $ws8
+bindsym $modFocus+9 workspace $ws9
+bindsym $modFocus+0 workspace $ws10
 
 # Move to workspace with focused container
-bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2; workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3; workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4; workspace $ws4
-bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
-bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
-bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
-bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
-
-### Open specific applications in specific modes
-# fullscreen
-for_window [class="Oblogout"] fullscreen enable
-
-# floating sticky
-for_window [class="Lxappearance"] floating enable sticky enable border normal
-for_window [class="Nitrogen"] floating enable sticky enable border normal
-for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
-for_window [class="qt5ct"] floating enable sticky enable border normal
-for_window [class="1Password"] floating enable sticky enable border pixel 1
-for_window [title="Blender Render"] floating enable border pixel 1
-for_window [title="(?i)SteamTinkerLaunch"] floating enable border pixel 1
-
-# floating with 1px border
-for_window [class="Galculator"] floating enable border pixel 1
-for_window [title="alsamixer"] floating enable border pixel 1
-
-# floating with normal border (titled)
-for_window [class="(?i)System-config-printer.py"] floating enable border normal
-for_window [class="(?i)virtualbox"] floating enable border normal
-for_window [class="GParted"] floating enable border normal
-for_window [class="Manjaro Settings Manager"] floating enable border normal
-for_window [class="Simple-scan"] floating enable border normal
-for_window [class="Timeset-gui"] floating enable border normal
-for_window [class="calamares"] floating enable border normal
-
-# floating without special settings
-for_window [class="Clipgrab"] floating enable
-for_window [class="Lightdm-settings"] floating enable
-for_window [class="Manjaro-hello"] floating enable
-for_window [class="Pamac-manager"] floating enable
-for_window [class="Pavucontrol"] floating enable
-for_window [class="Xfburn"] floating enable
-for_window [class="fpakman"] floating enable
-for_window [class="octopi"] floating enable
-for_window [title="File Transfer*"] floating enable
-for_window [title="MuseScore: Play Panel"] floating enable
-for_window [title="Steam Guard - Computer Authorization Required"] floating enable
-
-# general WM role settings
-for_window [window_role="pop-up"] floating enable
-for_window [window_role="task_dialog"] floating enable
-
-# super special Jetbrains Settings
-for_window [class="jetbrains-.+" title="Welcome to .+"] floating enable border pixel 1
-for_window [class="jetbrains-.+" title="win0"] floating enable
-
-# gksu via yad
-for_window [class="Yad" title="Authentication"] floating enable
-
-# switch to workspace with urgent window automatically
-for_window [urgent=latest] focus
-
-# reload the configuration file
-bindsym $mod+Shift+c reload
-
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $modMove+1 move container to workspace $ws1;  workspace $ws1
+bindsym $modMove+2 move container to workspace $ws2;  workspace $ws2
+bindsym $modMove+3 move container to workspace $ws3;  workspace $ws3
+bindsym $modMove+4 move container to workspace $ws4;  workspace $ws4
+bindsym $modMove+5 move container to workspace $ws5;  workspace $ws5
+bindsym $modMove+6 move container to workspace $ws6;  workspace $ws6
+bindsym $modMove+7 move container to workspace $ws7;  workspace $ws7
+bindsym $modMove+8 move container to workspace $ws8;  workspace $ws8
+bindsym $modMove+9 move container to workspace $ws9;  workspace $ws9
+bindsym $modMove+0 move container to workspace $ws10; workspace $ws10
 
 # Set shut down, restart and locking features
 bindsym $mod+Escape mode "$mode_system"
@@ -220,65 +163,30 @@ mode "$mode_system" {
 # Resize window (you can also use the mouse for that)
 bindsym $mod+r mode "resize"
 mode "resize" {
-  # These bindings trigger as soon as you enter the resize mode
-  # Pressing left will shrink the window’s width.
-  # Pressing right will grow the window’s width.
-  # Pressing up will shrink the window’s height.
-  # Pressing down will grow the window’s height.
   bindsym h resize shrink width 5 px or 5 ppt
   bindsym j resize grow height 5 px or 5 ppt
   bindsym k resize shrink height 5 px or 5 ppt
   bindsym l resize grow width 5 px or 5 ppt
-
-  # same bindings, but for the arrow keys
   bindsym Left resize shrink width 10 px or 10 ppt
   bindsym Down resize grow height 10 px or 10 ppt
   bindsym Up resize shrink height 10 px or 10 ppt
   bindsym Right resize grow width 10 px or 10 ppt
-
-  # exit resize mode: Enter or Escape
   bindsym Return mode "default"
   bindsym Escape mode "default"
 }
 
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id ~/.local/bin/launch_polybar
-exec --no-startup-id ~/.fehbg
 exec --no-startup-id 1password --silent
 exec --no-startup-id blueman-applet
 exec --no-startup-id dunst
-exec --no-startup-id pa-applet
 exec --no-startup-id pcmanfm -d
-exec --no-startup-id redshift
 exec --no-startup-id sleep 1; picom -b
-
-# xcursor tweak by oberon
-exec_always --no-startup-id fix_xcursor
-# caps is also ctrl
-exec_always --no-startup-id setxkbmap -option "ctrl:nocaps" -option "compose:ralt"
-
-# Theme colors
-# class                   border  backgr. text    indic.  child_border
-client.focused            #F5C2E7 #313244 #CDD6F4 #F5E0DC #FF80BF
-client.focused_inactive   #F5C2E7 #313244 #CDD6F4 #F5E0DC #9580FF
-client.unfocused          #CBA6F7 #313244 #CDD6F4 #F5E0DC #9580FF
-client.urgent             #F38BA8 #313244 #CDD6F4 #F5E0DC #FF9580
-client.placeholder        #F2CDCD #313244 #CDD6F4 #F5E0DC #282A36
-client.background         #F2CDCD
-
-#############################
-### settings for i3-gaps: ###
-#############################
+exec --no-startup-id mpd_discord_richpresence --no-idle --fork
 
 # Set inner/outer gaps
 gaps inner 8
-gaps outer 0
-
-# Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
-# gaps inner|outer current|all set|plus|minus <px>
-# gaps inner all set 10
-# gaps outer all plus 5
+gaps outer 8
 
 # Smart gaps (gaps used if only more than one container on the workspace)
 smart_gaps off
@@ -326,12 +234,54 @@ mode "$mode_gaps_outer" {
   bindsym Escape mode "default"
 }
 
+
 # rofi instead of drun
 bindsym $mod+space exec --no-startup-id rofi -show run -dpi $dpi
 
 # 1password
-bindsym $mod+backslash exec --no-startup-id 1password --quick-access
+bindsym $mod+Shift+space exec --no-startup-id $pwman
 
-# move workspaces across monitors
-bindsym $mod+Ctrl+greater move workspace to output right
-bindsym $mod+Ctrl+less move workspace to output left
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
+bindsym XF86AudioMute  exec --no-startup-id pactl set-sink-mute 0 toggle
+bindsym XF86AudioNext  exec --no-startup-id playerctl next
+bindsym XF86AudioPrev  exec --no-startup-id playerctl previous
+bindsym XF86AudioPause exec --no-startup-id playerctl play-pause
+
+# Theme colors
+# class                  border  backgr. text    indic.  child_border
+client.focused           #313244 #000000 #CDD6F4 #000000 #313244
+client.focused_inactive  #000000 #000000 #9399B2 #000000 #313244
+client.unfocused         #000000 #000000 #9399B2 #000000 #000000
+client.urgent            #313244 #313244 #F38BA8 #000000 #F38BA8
+client.placeholder       #313244 #000000 #CDD6F4 #000000 #000000
+client.background        #000000
+
+bar {
+  status_command I3RS_GITHUB_TOKEN=$(gopass git/winston) i3status-rs
+
+  tray_output primary
+  tray_padding 2
+
+  position top
+  workspace_min_width 20
+
+  # mode hide
+  # hidden_state hide
+  # modifier $mod
+
+  strip_workspace_numbers yes
+  strip_workspace_name no
+
+  colors {
+    separator #A6ADC8
+    background #1E1E2E
+    statusline #1E1E2E
+    focused_workspace #F5C2E7 #F5C2E7 #11111B
+    active_workspace #CBA6F7 #CBA6F7 #11111B
+    inactive_workspace #9399B2 #9399B2 #CDD6F4
+    urgent_workspace #F38BA8 #F38BA8 #11111B
+  }
+}
+
+include ~/.config/i3/config.d/*
