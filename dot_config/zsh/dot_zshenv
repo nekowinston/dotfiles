@@ -22,11 +22,6 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 
-### Linux
-if [[ $(uname -s) == "Linux" ]]; then
-  BROWSER="$(which firefox)"
-  export BROWSER
-fi
 ### MacOS
 if [[ -x "$(command -v brew)" ]]; then
   export PATH="/opt/homebrew/sbin:$PATH"
