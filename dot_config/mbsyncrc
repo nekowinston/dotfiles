@@ -1,0 +1,51 @@
+# vim:ft=conf:fdm=marker
+
+# personal {{{
+IMAPStore personal-remote
+Host imap.fastmail.com
+Port 993
+UserCmd "gopass mail/personal '.login'"
+PassCmd "gopass --password mail/personal"
+AuthMechs LOGIN
+SSLType IMAPS
+
+MaildirStore personal-local
+Subfolders Verbatim
+Path ~/.local/share/mail/personal/
+Inbox ~/.local/share/mail/personal/INBOX
+
+Channel personal
+Expunge Both
+Far :personal-remote:
+Near :personal-local:
+Patterns *
+Create Both
+SyncState *
+MaxMessages 0
+ExpireUnread no
+# }}}
+
+# work {{{
+IMAPStore work-remote
+Host outlook.office365.com
+Port 993
+User "gopass mail/work '.login'"
+PassCmd "gopass --password mail/work"
+AuthMechs LOGIN
+SSLType IMAPS
+
+MaildirStore work-local
+Subfolders Verbatim
+Path ~/.local/share/mail/work/
+Inbox ~/.local/share/mail/work/INBOX
+
+Channel work
+Expunge Both
+Far :work-remote:
+Near :work-local:
+Patterns *
+Create Both
+SyncState *
+MaxMessages 0
+ExpireUnread no
+# }}}
