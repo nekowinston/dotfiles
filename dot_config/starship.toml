@@ -5,6 +5,7 @@
 # directory | username@hostname | cmd duration | sudo | VCS | language versions | kubernetes
 # > input after line break
 format = """
+${custom.top}\
 $directory\
 $username\
 $hostname\
@@ -39,29 +40,29 @@ $kubernetes\
 $terraform\
 $line_break\
 $shell\
+${custom.bottom}\
 $character"""
 add_newline = true
 
+[custom.top]
+symbol = "┌"
+style = "bold cyan"
+when = true
+
+[custom.bottom]
+symbol = "└"
+style = "bold cyan"
+when = true
+
 [character]
-success_symbol = '[ﬦ](bold blue) '
-error_symbol = '[ﬦ](bold blue) '
-vicmd_symbol = '[](bold green) '
+success_symbol = '[▶](bold cyan)'
+error_symbol = '[▶](bold red)'
+vicmd_symbol = '[▷](bold cyan)'
 
 [directory]
 style = 'fg:bright-cyan'
-read_only = ' '
+read_only = ''
 use_os_path_sep = false  # fuck windows :verynice:
-
-[directory.substitutions]
-'.config' = ' '
-'Code' = ' '
-'Desktop' = ' '
-'Documents' = ' '
-'Downloads' = ' '
-'Music' = ' '
-'Pictures' = ' '
-'Work' = ' '
-'git' = ' '
 
 [username]
 format = '\[[$user]($style)\]'
