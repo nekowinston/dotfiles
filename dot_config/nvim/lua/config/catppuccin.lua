@@ -1,17 +1,4 @@
-local colors = require("catppuccin.palettes").get_palette()
 vim.g.catppuccin_flavour = "mocha"
-
-local darkmode_overrides = {
-  base = "#000000",
-  crust = "#000000",
-  mantle = "#000000",
-  -- surface0 = "#101010",
-  -- surface1 = "#141414",
-  -- surface2 = "#181818",
-  -- overlay1 = "#202020",
-  -- overlay2 = "#242424",
-  -- overlay3 = "#282828",
-}
 
 require("catppuccin").setup({
   dim_inactive = {
@@ -76,18 +63,24 @@ require("catppuccin").setup({
     vim_sneak = false,
     vimwiki = true,
   },
-  custom_highlights = {
-    DashboardHeader = { fg = colors.pink },
-    DashboardCenter = { fg = colors.peach },
-    DashboardShortCut = { fg = colors.yellow },
-    DashboardFooter = { fg = colors.maroon },
-    FloatBorder = { fg = colors.overlay0 },
-    TelescopeBorder = { link = "FloatBorder" },
+  highlight_overrides = {
+    mocha = function(colors)
+      return {
+        DashboardHeader = { fg = colors.pink },
+        DashboardCenter = { fg = colors.peach },
+        DashboardShortCut = { fg = colors.yellow },
+        DashboardFooter = { fg = colors.maroon },
+        FloatBorder = { fg = colors.overlay0 },
+        TelescopeBorder = { link = "FloatBorder" },
+      }
+    end,
   },
   color_overrides = {
-    mocha = darkmode_overrides,
-    macchiato = darkmode_overrides,
-    frappe = darkmode_overrides,
+    mocha = {
+      base = "#000000",
+      crust = "#000000",
+      mantle = "#000000",
+    },
   },
 })
 

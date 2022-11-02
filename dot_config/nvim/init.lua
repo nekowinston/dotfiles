@@ -25,6 +25,7 @@ vim.o.pumheight = 15
 -- split directions
 vim.o.splitbelow = true
 vim.o.splitright = true
+vim.o.wrap = false
 -- redefine word boundaries - '_' is a word seperator, this helps with snake_case
 vim.opt.iskeyword:remove("_")
 

@@ -29,6 +29,20 @@ return packer.startup({
       end,
     })
 
+    use({
+      "Pocco81/true-zen.nvim",
+      config = function()
+        local tz = require("true-zen")
+        tz.setup({
+          integrations = {
+            lualine = true,
+          },
+        })
+        Map("n", "<leader>zz", ":TZAtaraxis<CR>")
+        Map("n", "<leader>zf", ":TZFocus<CR>")
+      end,
+    })
+
     -- git gutter
     use({
       "lewis6991/gitsigns.nvim",
