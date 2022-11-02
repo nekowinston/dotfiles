@@ -1,0 +1,19 @@
+[general]
+taskrc = ~/.config/task/taskrc
+targets = winston_github, catppuccin_github
+
+[winston_github]
+service = github
+github.login = nekowinston
+github.username = nekowinston
+github.import_labels_as_tags = True
+github.token = @oracle:eval:gopass --password git/winston
+github.description_template = {{githubnumber}}: {{githubtitle}}
+
+[catppuccin_github]
+service = github
+github.login = nekowinston
+github.username = catppuccin
+github.import_labels_as_tags = True
+github.token = @oracle:eval:gopass --password git/winston
+github.description_template = {{githubnumber}}: {{githubtitle}}
