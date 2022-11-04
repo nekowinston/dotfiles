@@ -4,15 +4,21 @@ mpd_port = 6600
 mpd_music_dir = ~/Music
 mpd_connection_timeout = 5
 
-visualizer_data_source = localhost:5555
-
 enable_window_title = no
 external_editor = nvim
 use_console_editor = yes
 
-execute_on_song_change = notify-send -a "ncmpcpp" "Now playing" "$(mpc --format '%title% \n%artist% - %album%' current)"
+execute_on_song_change = ~/.config/mpd/notify.sh
 
+visualizer_data_source = "/tmp/mpd.fifo"
+visualizer_output_name = "my_fifo"
+visualizer_in_stereo = "yes"
+visualizer_type = "spectrum"
+visualizer_look = "+█"
+
+# looks
 user_interface = alternative
+
 alternative_header_first_line_format = $b$1$aqqu$/a$9 {%t}|{%f} $1$atqq$/a$9$/b
 alternative_header_second_line_format = {{$4$b%a$/b$9}{ - $7%b$9} }|{%D}
 
@@ -20,5 +26,3 @@ autocenter_mode = yes
 progressbar_look = ═▶
 progressbar_color = black:b
 progressbar_elapsed_color = magenta:b
-
-song_status_format = {{%b by %a - }{%t}}|{%f}
