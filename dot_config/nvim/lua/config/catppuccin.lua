@@ -46,7 +46,7 @@ require("catppuccin").setup({
     },
     barbar = false,
     bufferline = true,
-    dashboard = true, -- manually set
+    dashboard = true,
     fern = false,
     gitgutter = false,
     gitsigns = true,
@@ -70,6 +70,7 @@ require("catppuccin").setup({
         DashboardCenter = { fg = colors.peach },
         DashboardShortCut = { fg = colors.yellow },
         DashboardFooter = { fg = colors.maroon },
+        ["InlayHint"] = { fg = colors.surface0, style = { "italic" } },
         FloatBorder = { fg = colors.overlay0 },
         TelescopeBorder = { link = "FloatBorder" },
       }

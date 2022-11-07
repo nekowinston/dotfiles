@@ -20,6 +20,7 @@ vim.o.list = true
 -- always show status & tab line
 vim.o.laststatus = 3
 vim.o.showtabline = 2
+vim.g.termguicolors = false
 -- completion height
 vim.o.pumheight = 15
 -- split directions
@@ -28,6 +29,10 @@ vim.o.splitright = true
 vim.o.wrap = false
 -- redefine word boundaries - '_' is a word seperator, this helps with snake_case
 vim.opt.iskeyword:remove("_")
+
+-- netrw is handled by nvim-tree
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 function Map(mode, shortcut, command, opt)
   opt = opt or { noremap = true, silent = true }

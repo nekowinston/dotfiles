@@ -67,7 +67,6 @@ return packer.startup({
       end,
     })
 
-    -- top bar
     use({
       "akinsho/bufferline.nvim",
       config = function()
@@ -261,11 +260,19 @@ return packer.startup({
     })
 
     use({
-      "andweeb/presence.nvim",
+      "nvim-tree/nvim-tree.lua",
       config = function()
-        require("config/presence")
+        Map("n", "<C-N>", ":NvimTreeToggle<CR>")
+        require("nvim-tree").setup()
       end,
     })
+
+    -- use({
+    --   "andweeb/presence.nvim",
+    --   config = function()
+    --     require("config/presence")
+    --   end,
+    -- })
     use({ "iamcco/markdown-preview.nvim", run = "cd app && yarn install" })
 
     -- LSP
@@ -282,7 +289,10 @@ return packer.startup({
     use("hrsh7th/vim-vsnip")
     use("petertriho/cmp-git")
     use("onsails/lspkind.nvim")
-    use("ray-x/go.nvim")
+    use({
+      "ray-x/go.nvim",
+      requires = "ray-x/guihua.lua",
+    })
     use("rafamadriz/friendly-snippets")
     use("jose-elias-alvarez/null-ls.nvim")
     use({
@@ -292,6 +302,10 @@ return packer.startup({
         require("config/lspsaga")
       end,
     })
+
+    use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
+    use("theHamsta/nvim-dap-virtual-text")
+
     use({ "barreiroleo/ltex-extra.nvim" })
 
     use("b0o/schemastore.nvim")
@@ -299,7 +313,7 @@ return packer.startup({
       "github/copilot.vim",
       config = function()
         local opt = { noremap = true, silent = true, expr = true }
-        Map("i", "<C-J>", 'copilot#Accept("<CR>")', opt)
+        Map("i", "<C-J>", 'copilot#Accept("\\<CR>")', opt)
         vim.g.copilot_no_tab_map = true
       end,
     })
