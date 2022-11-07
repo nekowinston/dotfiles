@@ -9,12 +9,10 @@ fi
 
 while read -r LINE; do
   if echo "$LINE" | grep -q 'Connected'; then
-    # regex grep the relay, e.g. se7 for sweden-7
-    OUTPUT=$(echo "$LINE" | grep -oE "\w{2}\d+")
     ICON=" "
   else
     ICON=" "
   fi
 
-  sketchybar --set "$NAME" icon="$ICON" label="${OUTPUT^^}"
+  sketchybar --set "$NAME" icon="$ICON"
 done < <(mullvad status listen)

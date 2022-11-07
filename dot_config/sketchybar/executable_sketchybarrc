@@ -15,7 +15,7 @@ sketchybar --bar \
 # to swap between Catppuccin Mocha and Latte
 sketchybar -m --add event theme_changed AppleInterfaceThemeChangedNotification
 sketchybar \
-  --add item colordummy left \
+  --add item colordummy center \
   --set colordummy \
     drawing=off \
     script="$PLUGIN_DIR/colordummy.sh" \
@@ -26,26 +26,26 @@ sketchybar --default \
   updates=when_shown \
   drawing=on \
   icon.font="Symbols Nerd Font:2048-em:18.0" \
-  label.font="Inter:Regular:16.0" \
-  label.padding_left=1 \
-  label.padding_right=1 \
-  icon.padding_left=8 \
-  icon.padding_right=8
+  label.font="SF Pro:Regular:16.0" \
+  label.padding_left=2 \
+  label.padding_right=2 \
+  icon.padding_left=2 \
+  icon.padding_right=2
 # }}}
 
 ## left side of the bar {{{
 # spaces for yabai wm
 SPACE_ICONS=(
-" "
-" "
-" "
-" "
-" "
-" "
-" "
-" "
-" "
-" "
+"Ⅰ"
+"Ⅱ"
+"Ⅲ"
+"Ⅳ"
+"Ⅴ"
+"Ⅵ"
+"Ⅶ"
+"Ⅷ"
+"Ⅸ"
+"Ⅹ"
 )
 for i in "${!SPACE_ICONS[@]}"
 do
@@ -63,29 +63,6 @@ do
       click_script="yabai -m space --focus $((i+1))"
 done
 
-# window title
-sketchybar \
-  --add item window_title left \
-  --set window_title \
-    background.padding_left=8 \
-    script="$PLUGIN_DIR/window_title.sh" \
-  --subscribe window_title front_app_switched
-## }}}
-
-## middle of the bar {{{
-# Apple Music Status
-sketchybar -m --add event song_update com.apple.Music.playerInfo
-sketchybar \
---add item music center \
---set music \
-  label.font="Victor Mono:Bold Italic:16.0" \
-  script="$PLUGIN_DIR/music.sh" \
---subscribe music song_update
-# }}}
-
-## right side of the bar {{{
-# this starts at the rightmost item
-# items should be self explanatory by their name, and are separated by a blank line
 sketchybar \
 \
   --add item clock right \
@@ -94,23 +71,9 @@ sketchybar \
     update_freq=10 \
     lazy=true \
 \
-  --add item date right \
-  --set date \
-    script="$PLUGIN_DIR/ddate.sh" \
-    update_freq=60 \
-    lazy=true \
-\
   --add item mullvad right \
   --set mullvad \
     script="$PLUGIN_DIR/mullvad.sh" \
-    update_freq=30 \
-\
-  --add item battery right \
-  --set battery \
-    update_freq=30 \
-    script="$PLUGIN_DIR/battery.sh" \
-    lazy=true \
-  --subscribe battery system_woke
+    update_freq=30
 
-##### fin #####
 sketchybar --update
