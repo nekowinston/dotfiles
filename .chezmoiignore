@@ -6,6 +6,7 @@ README.md
 # ignore linux configuration
 .config/dunst/
 .config/i3/
+.config/i3status-rust/
 .config/polybar/
 .config/rofi/
 .config/picom.conf
