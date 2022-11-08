@@ -93,5 +93,6 @@
             "statusBar.foreground": "accent",
             "statusBar.noFolderForeground": "accent"
         }
-    }
+    },
+    "redhat.telemetry.enabled": false
 }
