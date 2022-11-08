@@ -23,7 +23,15 @@ def_key "n"
 def_key "N"
   previous_found_item
 
+def_key "-"
+  volume_down
+def_key "="
+  volume_up
+
+def_key "d"
+  delete_playlist_items
+
+def_key "ctrl-h"
+  master_screen
 def_key "ctrl-l"
-  toggle_lyrics_fetcher
-def_key "L"
-  show_lyrics
+  slave_screen
