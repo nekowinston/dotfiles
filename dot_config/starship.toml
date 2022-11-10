@@ -45,13 +45,13 @@ $character"""
 add_newline = true
 
 [custom.top]
-symbol = "┌"
-style = "bold cyan"
+symbol = "┌┤"
+style = "bold black"
 when = true
 
 [custom.bottom]
 symbol = "└"
-style = "bold cyan"
+style = "bold black"
 when = true
 
 [character]
@@ -60,186 +60,195 @@ error_symbol = '[▶](bold red)'
 vicmd_symbol = '[▷](bold cyan)'
 
 [directory]
+format = "[$path]($style)[$read_only]($read_only_style)[├](fg:black)"
 style = 'fg:bright-cyan'
 read_only = ''
-use_os_path_sep = false  # fuck windows :verynice:
+use_os_path_sep = false
 
 [username]
-format = '\[[$user]($style)\]'
+format = '[┤](fg:black)[$user]($style)[├](fg:black)'
 
 [sudo]
 disabled = false
-format = '\[[$symbol]($style)\]'
+format = '[┤](fg:black)[$symbol]($style)[├](fg:black)'
 style = 'fg:red'
-symbol = ' '
+symbol = ' '
 
 [git_branch]
 symbol = ' '
-format = '\[[$symbol$branch]($style)\]'
+format = '[┤](fg:black)[$symbol$branch]($style)[├](fg:black)'
 style = 'fg:bright-purple'
 
 [git_status]
-format = '(\[[$all_status$ahead_behind]($style)\] )'
+format = '([┤](fg:black)[$all_status$ahead_behind]($style)[├](fg:black))'
+ahead = "↑"
+behind = "↓"
+conflicted = "!"
+deleted = "×"
+diverged = "↕"
+modified = "~"
+renamed = "»"
+untracked = "+"
 style = 'fg:bright-purple'
 
 [hg_branch]
-format = '\[[$symbol$branch]($style)\]'
+format = '[┤](fg:black)[$symbol$branch]($style)[├](fg:black)'
 
 [cmd_duration]
-format = '\[[ﮫ $duration]($style)\]'
+format = '[┤](fg:black)[ﮫ $duration]($style)[├](fg:black)'
 
 [fill]
-symbol = ' '
+symbol = '─'
 style = 'fg:black'
 
 ### LANGUAGE VERSION INDICATORS
 [c]
-format = '\[[$symbol($version(-$name))]($style)\]'
+format = '[┤](fg:black)[$symbol($version(-$name))]($style)[├](fg:black)'
 
 [cmake]
-format = '\[[$symbol($version)]($style)\]'
+format = '[┤](fg:black)[$symbol($version)]($style)[├](fg:black)'
 
 [cobol]
-format = '\[[$symbol($version)]($style)\]'
+format = '[┤](fg:black)[$symbol($version)]($style)[├](fg:black)'
 
 [conda]
-format = '\[[$symbol$environment]($style)\]'
+format = '[┤](fg:black)[$symbol$environment]($style)[├](fg:black)'
 
 [crystal]
-format = '\[[$symbol($version)]($style)\]'
+format = '[┤](fg:black)[$symbol($version)]($style)[├](fg:black)'
 
 [dart]
-format = '\[[$symbol($version)]($style)\]'
+format = '[┤](fg:black)[$symbol($version)]($style)[├](fg:black)'
 
 [deno]
-format = '\[[$symbol($version)]($style)\]'
+format = '[┤](fg:black)[$symbol($version)]($style)[├](fg:black)'
 
 [dotnet]
-format = '\[[$symbol($version)(🎯 $tfm)]($style)\]'
+format = '[┤](fg:black)[$symbol($version)(🎯 $tfm)]($style)[├](fg:black)'
 
 [elixir]
-format = '\[[$symbol($version \(OTP $otp_version\))]($style)\]'
+format = '[┤](fg:black)[$symbol($version \(OTP $otp_version\))]($style)[├](fg:black)'
 
 [elm]
-format = '\[[$symbol($version)]($style)\]'
+format = '[┤](fg:black)[$symbol($version)]($style)[├](fg:black)'
 
 [erlang]
-format = '\[[$symbol($version)]($style)\]'
+format = '[┤](fg:black)[$symbol($version)]($style)[├](fg:black)'
 
 [golang]
 symbol = ' '
-format = '\[[$symbol($version)]($style)\]'
+format = '[┤](fg:black)[$symbol($version)]($style)[├](fg:black)'
 
 [haskell]
 symbol = ' '
-format = '\[[$symbol($version)]($style)\]'
+format = '[┤](fg:black)[$symbol($version)]($style)[├](fg:black)'
 
 [helm]
 symbol = 'ﴱ '
-format = '\[[$symbol($version)]($style)\]'
+format = '[┤](fg:black)[$symbol($version)]($style)[├](fg:black)'
 
 [java]
 symbol = ' '
-format = '\[[$symbol($version)]($style)\]'
+format = '[┤](fg:black)[$symbol($version)]($style)[├](fg:black)'
 
 [julia]
-format = '\[[$symbol($version)]($style)\]'
+format = '[┤](fg:black)[$symbol($version)]($style)[├](fg:black)'
 
 [kotlin]
-format = '\[[$symbol($version)]($style)\]'
+format = '[┤](fg:black)[$symbol($version)]($style)[├](fg:black)'
 
 [lua]
 symbol = ' '
-format = '\[[$symbol($version)]($style)\]'
+format = '[┤](fg:black)[$symbol($version)]($style)[├](fg:black)'
 
 [nim]
-format = '\[[$symbol($version)]($style)\]'
+format = '[┤](fg:black)[$symbol($version)]($style)[├](fg:black)'
 
 [nix_shell]
-format = '\[[$symbol$state( \($name\))]($style)\]'
+format = '[┤](fg:black)[$symbol$state( \($name\))]($style)[├](fg:black)'
 
 [nodejs]
 symbol = ' '
-format = '\[[$symbol($version)]($style)\]'
+format = '[┤](fg:black)[$symbol($version)]($style)[├](fg:black)'
 detect_extensions = []
 style = 'green'
 
 [ocaml]
-format = '\[[$symbol($version)(\($switch_indicator$switch_name\))]($style)\]'
+format = '[┤](fg:black)[$symbol($version)(\($switch_indicator$switch_name\))]($style)[├](fg:black)'
 
 [package]
 symbol = ' '
-format = '\[[$symbol$version]($style)\]'
+format = '[┤](fg:black)[$symbol$version]($style)[├](fg:black)'
 style = '16'
 
 [perl]
-format = '\[[$symbol($version)]($style)\]'
+format = '[┤](fg:black)[$symbol($version)]($style)[├](fg:black)'
 
 [php]
 symbol = ' '
-format = '\[[$symbol($version)]($style)\]'
+format = '[┤](fg:black)[$symbol($version)]($style)[├](fg:black)'
 
 [pulumi]
-format = '\[[$symbol$stack]($style)\]'
+format = '[┤](fg:black)[$symbol$stack]($style)[├](fg:black)'
 
 [purescript]
-format = '\[[$symbol($version)]($style)\]'
+format = '[┤](fg:black)[$symbol($version)]($style)[├](fg:black)'
 
 [python]
 symbol = ' '
-format = '\[[${symbol}${pyenv_prefix}(${version})(\($virtualenv\))]($style)\]'
+format = '[┤](fg:black)[${symbol}${pyenv_prefix}(${version})(\($virtualenv\))]($style)[├](fg:black)'
 
 [red]
-format = '\[[$symbol($version)]($style)\]'
+format = '[┤](fg:black)[$symbol($version)]($style)[├](fg:black)'
 
 [ruby]
 symbol = ' '
-format = '\[[$symbol($version)]($style)\]'
+format = '[┤](fg:black)[$symbol($version)]($style)[├](fg:black)'
 
 [rust]
 symbol = ' '
-format = '\[[$symbol($version)]($style)\]'
+format = '[┤](fg:black)[$symbol($version)]($style)[├](fg:black)'
 
 [scala]
-format = '\[[$symbol($version)]($style)\]'
+format = '[┤](fg:black)[$symbol($version)]($style)[├](fg:black)'
 
 [spack]
-format = '\[[$symbol$environment]($style)\]'
+format = '[┤](fg:black)[$symbol$environment]($style)[├](fg:black)'
 
 [swift]
 symbol = ' '
-format = '\[[$symbol($version)]($style)\]'
+format = '[┤](fg:black)[$symbol($version)]($style)[├](fg:black)'
 
 [vagrant]
-format = '\[[$symbol($version)]($style)\]'
+format = '[┤](fg:black)[$symbol($version)]($style)[├](fg:black)'
 
 [vlang]
-format = '\[[$symbol($version)]($style)\]'
+format = '[┤](fg:black)[$symbol($version)]($style)[├](fg:black)'
 
 [zig]
-format = '\[[$symbol($version)]($style)\]'
+format = '[┤](fg:black)[$symbol($version)]($style)[├](fg:black)'
 
 ### CONTEXT INDICATORS
 [aws]
 symbol = ' '
-format = '\[[$symbol($profile)(\($region\))(\[$duration\])]($style)\]'
+format = '[┤](fg:black)[$symbol($profile)(\($region\))(\[$duration[├](fg:black))]($style)\]'
 
 [docker_context]
 symbol = ' '
-format = '\[[$symbol$context]($style)\]'
+format = '[┤](fg:black)[$symbol$context]($style)[├](fg:black)'
 
 [gcloud]
 symbol = ' '
-format = '\[[$symbol$account(@$domain)(\($region\))]($style)\]'
+format = '[┤](fg:black)[$symbol$account(@$domain)(\($region\))]($style)[├](fg:black)'
 
 [kubernetes]
 symbol = ' '
-format = '\[[$symbol($cluster/$namespace)]($style)\]'
-disabled = true
+format = '[┤](fg:black)[$symbol($cluster/$namespace)]($style)[├](fg:black)'
+disabled = false
 
 [openstack]
 symbol = ' '
-format = '\[[$symbol$cloud(\($project\))]($style)\]'
+format = '[┤](fg:black)[$symbol$cloud(\($project\))]($style)[├](fg:black)'
 
 [terraform]
-format = '\[[$symbol$workspace]($style)\]'
+format = '[┤](fg:black)[$symbol$workspace]($style)[├](fg:black)'
