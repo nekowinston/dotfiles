@@ -2,3 +2,4 @@
 .idea
 *.log
 ltex.dictionary*.txt
+.gonvim/
