@@ -1,4 +1,48 @@
 require("gitsigns").setup({
+  on_attach = function(bufnr)
+    local gs = package.loaded.gitsigns
+
+    -- Navigation
+    Map("n", "]c", function()
+      if vim.wo.diff then
+        return "]c"
+      end
+      vim.schedule(function()
+        gs.next_hunk()
+      end)
+      return "<Ignore>"
+    end, { expr = true })
+
+    Map("n", "[c", function()
+      if vim.wo.diff then
+        return "[c"
+      end
+      vim.schedule(function()
+        gs.prev_hunk()
+      end)
+      return "<Ignore>"
+    end, { expr = true })
+
+    -- Actions
+    Map({ "n", "v" }, "<leader>hs", ":Gitsigns stage_hunk<CR>")
+    Map({ "n", "v" }, "<leader>hr", ":Gitsigns reset_hunk<CR>")
+    Map("n", "<leader>hS", gs.stage_buffer)
+    Map("n", "<leader>hu", gs.undo_stage_hunk)
+    Map("n", "<leader>hR", gs.reset_buffer)
+    Map("n", "<leader>hp", gs.preview_hunk)
+    Map("n", "<leader>hb", function()
+      gs.blame_line({ full = true })
+    end)
+    Map("n", "<leader>tb", gs.toggle_current_line_blame)
+    Map("n", "<leader>hd", gs.diffthis)
+    Map("n", "<leader>hD", function()
+      gs.diffthis("~")
+    end)
+    Map("n", "<leader>td", gs.toggle_deleted)
+
+    -- Text object
+    Map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
+  end,
   signs = {
     add = {
       hl = "GitSignsAdd",
