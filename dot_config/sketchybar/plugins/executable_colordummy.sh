@@ -60,11 +60,11 @@ sketchybar \
     icon.color=$(color pink) \
     label.color=$(color pink) \
 \
-  --set mullvad \
-    icon.color=$(color pink) \
-    label.color=$(color pink)
+  --set "Mullvad VPN" \
+    alias.color=$(color pink)
 
 # set the yabai colours as well
-yabai -m config active_window_border_color $(color base)
-yabai -m config normal_window_border_color $(color base)
-yabai -m config insert_feedback_color $(color base)
+yabai \
+  -m config active_window_border_color $(color base) \
+  -m config normal_window_border_color $(color crust) \
+  -m config insert_feedback_color $(color pink)

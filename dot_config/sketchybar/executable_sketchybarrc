@@ -71,9 +71,6 @@ sketchybar \
     update_freq=10 \
     lazy=true \
 \
-  --add item mullvad right \
-  --set mullvad \
-    script="$PLUGIN_DIR/mullvad.sh" \
-    update_freq=30
+  --add alias "Mullvad VPN" right
 
 sketchybar --update
