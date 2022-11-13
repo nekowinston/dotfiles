@@ -22,7 +22,7 @@ return packer.startup({
 
     -- colour scheme
     use({
-      "catppuccin/nvim",
+      "https://git.winston.sh/catppuccin/nvim",
       as = "catppuccin",
       config = function()
         require("config/catppuccin")
