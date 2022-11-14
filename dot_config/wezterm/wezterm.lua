@@ -202,16 +202,10 @@ local lightTheme = "Catppuccin Latte"
 
 local function scheme_for_appearance(appearance)
 	local f = io.popen("nvr --serverlist")
-	if f:lines() ~= nil then
-		local theme
-		if appearance:find("Dark") then
-			theme = "mocha"
-		else
-			theme = "latte"
-		end
-
+	if f ~= nil and f:lines() ~= nil then
+		local theme = appearance:find("Dark") and "dark" or "light"
 		for name in f:lines() do
-			io.popen("nvr --servername " .. name .. ' --remote-send ":Catppuccin ' .. theme .. '<CR>"')
+			io.popen("nvr --servername " .. name .. ' --remote-send ":set background=' .. theme .. '<CR>"')
 		end
 	end
 
