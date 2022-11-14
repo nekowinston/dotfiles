@@ -201,6 +201,20 @@ local darkTheme = "OLEDppuccin"
 local lightTheme = "Catppuccin Latte"
 
 local function scheme_for_appearance(appearance)
+	local f = io.popen("nvr --serverlist")
+	if f:lines() ~= nil then
+		local theme
+		if appearance:find("Dark") then
+			theme = "mocha"
+		else
+			theme = "latte"
+		end
+
+		for name in f:lines() do
+			io.popen("nvr --servername " .. name .. ' --remote-send ":Catppuccin ' .. theme .. '<CR>"')
+		end
+	end
+
 	if string.match(wezterm.target_triple, "linux") then
 		return darkTheme
 	end
