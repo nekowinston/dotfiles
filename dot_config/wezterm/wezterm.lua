@@ -205,7 +205,7 @@ local function scheme_for_appearance(appearance)
 	if f ~= nil and f:lines() ~= nil then
 		local theme = appearance:find("Dark") and "dark" or "light"
 		for name in f:lines() do
-			io.popen("nvr --servername " .. name .. ' --remote-send ":set background=' .. theme .. '<CR>"')
+			io.popen("nvr --servername " .. name .. ' -c "set background=' .. theme .. '"')
 		end
 	end
 
