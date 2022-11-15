@@ -57,7 +57,7 @@ when = true
 [character]
 success_symbol = '[▶](bold cyan)'
 error_symbol = '[▶](bold red)'
-vicmd_symbol = '[▷](bold cyan)'
+vimcmd_symbol = '[▷](bold cyan)'
 
 [directory]
 format = "[$path]($style)[$read_only]($read_only_style)[├](fg:black)"
