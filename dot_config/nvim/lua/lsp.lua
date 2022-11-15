@@ -183,7 +183,12 @@ lspconfig.sumneko_lua.setup({
 -- }}}
 
 -- webdev {{{
-lspconfig["emmet_ls"].setup({
+lspconfig.astro.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+
+lspconfig.emmet_ls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
   filetypes = {
@@ -303,12 +308,22 @@ require("go").setup({
 })
 -- }}}
 
+lspconfig.pyright.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+
 -- DOCKERFILE
 lspconfig.dockerls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
 })
 
+-- data
+lspconfig.taplo.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
 lspconfig.yamlls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
@@ -341,11 +356,14 @@ local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 null.setup({
   sources = {
-    null.builtins.formatting.gofmt,
-    null.builtins.formatting.stylua,
-    null.builtins.formatting.stylua,
+    null.builtins.formatting.autopep8,
     null.builtins.formatting.deno_fmt,
+    null.builtins.formatting.gofmt,
+    null.builtins.formatting.isort,
+    null.builtins.formatting.prettier,
     null.builtins.formatting.prettierd,
+    null.builtins.formatting.stylua,
+    null.builtins.formatting.stylua,
   },
   on_attach = function(client, bufnr)
     if client.supports_method("textDocument/formatting") then

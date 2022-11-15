@@ -123,6 +123,12 @@ return packer.startup({
 
     -- syntax
     use("alker0/chezmoi.vim")
+    use({
+      "wuelnerdotexe/vim-astro",
+      config = function()
+        vim.g.astro_typescript = "enable"
+      end,
+    })
     -- tooling
     use("gpanders/editorconfig.nvim")
     -- read and write encrypted pgp files
@@ -259,6 +265,7 @@ return packer.startup({
       end,
     })
 
+    use("nvim-tree/nvim-web-devicons")
     use({
       "nvim-tree/nvim-tree.lua",
       config = function()
