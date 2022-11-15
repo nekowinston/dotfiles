@@ -16,12 +16,16 @@ set NERDTree
 set ReplaceWithRegister
 set surround
 set textobj-entire
+" which-key, yay
+set which-key
 
 """ Common settings ----------------------------------------------------------
 " '_' is a word separator
 set iskeyword-=_
 set relativenumber
 set number
+set showcmd
+set showmode
 " scroll offset
 set scrolloff=5
 set sidescrolloff=5
@@ -32,14 +36,14 @@ map Q gq
 set ideamarks
 set ideajoin
 set ideastatusicon=gray
+set clipboard+=unnamed
 
 """ Mappings -----------------------------------------------------------------
 " IDEA binds
 map <leader>a <Action>(Annotate)
 map <leader>b <Action>(ToggleLineBreakpoint)
 map <leader>h <Action>(Vcs.ShowTabbedFileHistory)
-map <leader>r <Action>(RenameElement)
-map <leader>z <Action>(ToggleDistractionFreeMode)
+map <leader>rn <Action>(RenameElement)
 
 " plugin binds
 map <C-N> :NERDTreeToggle<CR>
@@ -58,5 +62,23 @@ sethandler <C-D> a:vim
 sethandler <C-U> a:vim
 sethandler <C-R> n:ide
 
-map <a-<> <Action>(PreviousTab)
-map <a->> <Action>(NextTab)
+map <A-<> <Action>(PreviousTab)
+map <A->> <Action>(NextTab)
+
+" Zen mode
+map <leader>zz <Action>(ToggleZenMode)
+
+" File navigation
+map <leader>ff <Action>(GotoFile)
+map <leader>fg <Action>(FindInPath)
+map <leader>fl <Action>(RecentLocations)
+map <leader>fs <Action>(NewScratchFile)
+
+map [d <Action>(GotoPreviousError)
+map ]d <Action>(GotoNextError)
+
+map [c <Action>VcsShowPrevChangeMarker
+map [c <Action>VcsShowNextChangeMarker
+
+" show hoverdoc
+map H <Action>(ShowErrorDescription)

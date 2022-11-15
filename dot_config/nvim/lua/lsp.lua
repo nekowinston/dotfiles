@@ -20,6 +20,7 @@ if not present or not cmp then
 end
 
 local has_words_before = function()
+  ---@diagnostic disable-next-line: deprecated
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0
     and vim.api
@@ -344,7 +345,7 @@ null.setup({
     null.builtins.formatting.stylua,
     null.builtins.formatting.stylua,
     null.builtins.formatting.deno_fmt,
-    null.builtins.formatting.prettier,
+    null.builtins.formatting.prettierd,
   },
   on_attach = function(client, bufnr)
     if client.supports_method("textDocument/formatting") then

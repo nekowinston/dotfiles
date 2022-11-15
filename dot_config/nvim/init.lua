@@ -52,8 +52,8 @@ Map("n", "<leader>gd", ":Gvdiff!<CR>")
 Map("n", "gdh", ":diffget //2<CR>")
 Map("n", "gdl", ":diffget //3<CR>")
 -- clipboard
-Map("n", "<leader>p", '"+p')
-Map("n", "<leader>y", '"+y')
+Map({ "n", "v" }, "<leader>p", '"+p')
+Map({ "n", "v" }, "<leader>y", '"+y')
 -- escape :terminal easier
 vim.cmd([[tnoremap <Esc> <C-\><C-n>]])
 
@@ -81,3 +81,18 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
   desc = "Highlight yanked text",
 })
+
+vim.cmd([[
+augroup toggleRelativeLineNumbers
+	autocmd!
+
+	autocmd InsertEnter,BufLeave,WinLeave,FocusLost * nested
+		    \ if &l:number && empty(&buftype) |
+		    \ setlocal norelativenumber |
+		    \ endif
+	autocmd InsertLeave,BufEnter,WinEnter,FocusGained * nested
+		    \ if &l:number && empty(&buftype) |
+		    \ setlocal relativenumber |
+		    \ endif
+augroup END
+]])

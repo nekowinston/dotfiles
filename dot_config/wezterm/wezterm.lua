@@ -200,7 +200,7 @@ custom.tab_bar.new_tab.bg_color = "#080808"
 local darkTheme = "OLEDppuccin"
 local lightTheme = "Catppuccin Latte"
 
-local function scheme_for_appearance(appearance)
+local function update_nvim(appearance)
 	local f = io.popen("nvr --serverlist")
 	if f ~= nil and f:lines() ~= nil then
 		local theme = appearance:find("Dark") and "dark" or "light"
@@ -208,10 +208,13 @@ local function scheme_for_appearance(appearance)
 			io.popen("nvr --servername " .. name .. ' -c "set background=' .. theme .. '"')
 		end
 	end
+end
 
+local function scheme_for_appearance(appearance)
 	if string.match(wezterm.target_triple, "linux") then
 		return darkTheme
 	end
+	update_nvim(appearance)
 	if appearance:find("Dark") then
 		return darkTheme
 	else
