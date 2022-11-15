@@ -181,7 +181,7 @@ exec --no-startup-id 1password --silent
 exec --no-startup-id blueman-applet
 exec --no-startup-id dunst
 exec --no-startup-id pcmanfm -d
-exec --no-startup-id sleep 1; picom -b
+exec --no-startup-id sleep 1; picom -b --experimental-backends
 exec --no-startup-id mpd_discord_richpresence --no-idle --fork
 
 # Set inner/outer gaps
