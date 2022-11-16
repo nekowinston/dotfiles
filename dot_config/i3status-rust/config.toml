@@ -1,14 +1,3 @@
-icons = "awesome"
-theme = "ctp_mocha"
-
-[[block]]
-interval = 60
-block = "github"
-hide_if_total_is_zero = true
-format = "{total}|{author}|{comment}|{mention}|{review_requested}"
-warning = ["mention","review_requested"]
-info = ["total"]
-
 [[block]]
 block = "taskwarrior"
 interval = 60
@@ -47,3 +36,11 @@ block = "sound"
 block = "time"
 interval = 5
 format = "%R"
+
+[theme]
+name = "ctp_mocha"
+[icons]
+name = "awesome"
+[icons.overrides]
+pomodoro = " "
+pomodoro_break = " "
