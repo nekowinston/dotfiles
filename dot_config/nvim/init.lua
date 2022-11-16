@@ -49,6 +49,7 @@ Map("n", "<C-W>-", ":split<CR>")
 Map("n", "<C-W>x", ":q<CR>")
 -- merge conflicts
 Map("n", "<leader>gd", ":Gvdiff!<CR>")
+Map("n", "gd", ":diffget")
 Map("n", "gdh", ":diffget //2<CR>")
 Map("n", "gdl", ":diffget //3<CR>")
 -- clipboard
@@ -74,6 +75,7 @@ vim.api.nvim_create_autocmd("VimResized", {
   command = "wincmd =",
   desc = "Automatically resize windows when the host window size changes.",
 })
+
 vim.api.nvim_create_autocmd("TextYankPost", {
   pattern = "*",
   callback = function()
@@ -82,17 +84,16 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight yanked text",
 })
 
-vim.cmd([[
-augroup toggleRelativeLineNumbers
-	autocmd!
-
-	autocmd InsertEnter,BufLeave,WinLeave,FocusLost * nested
-		    \ if &l:number && empty(&buftype) |
-		    \ setlocal norelativenumber |
-		    \ endif
-	autocmd InsertLeave,BufEnter,WinEnter,FocusGained * nested
-		    \ if &l:number && empty(&buftype) |
-		    \ setlocal relativenumber |
-		    \ endif
-augroup END
-]])
+local trnuGroup = vim.api.nvim_create_augroup("toggleRnu", {})
+vim.api.nvim_create_autocmd("InsertEnter,BufLeave,WinLeave,FocusLost", {
+  callback = function()
+    vim.opt_local.relativenumber = false
+  end,
+  group = trnuGroup,
+})
+vim.api.nvim_create_autocmd("InsertLeave,BufEnter,WinEnter,FocusGained", {
+  callback = function()
+    vim.opt_local.relativenumber = true
+  end,
+  group = trnuGroup,
+})
