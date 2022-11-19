@@ -1,69 +1,61 @@
 # vim:ft=zsh:fenc=utf-8:fdm=marker
 
-### COMMON ###
-export EDITOR="nvim"
-export HISTFILE="$HOME/.config/zsh/history"
-# don't write a less history
-export LESSHISTFILE="-"
-export GNUPGHOME="$HOME/.config/gnupg"
-export WGETRC="${XDG_CONFIG_HOME:-$HOME/.config}/wget/wgetrc"
-
-# check if .local/bin is directory, if not create it
-if [ ! -d "$HOME/.local/bin" ]; then
-  mkdir -p "$HOME/.local/bin"
-fi
-export PATH="$HOME/.local/bin:$PATH"
-
-if [ -d "/usr/local/sbin" ]; then
-  export PATH="/usr/local/sbin:$PATH"
-fi
-
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 
-### MacOS
+export EDITOR="nvim"
+export HISTFILE="$XDG_CONFIG_HOME/zsh/history"
+export LESSHISTFILE="-" # don't write a less history
+export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
+export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
+
+# antigen
+export ADOTDIR="${XDG_DATA_HOME}/antigen"
+
+if [ ! -d "$HOME/.local/bin" ];
+  then mkdir -p "$HOME/.local/bin"
+fi
+export PATH="$HOME/.local/bin:$PATH"
+
+### macOS {{{
 if [[ -x "$(command -v brew)" ]]; then
   export PATH="/opt/homebrew/sbin:$PATH"
 fi
-
-### KUBERNETES ###
-export KUBECONFIG="$HOME/.config/kube/config"
-export KUBECACHEDIR="$HOME/.cache/kube"
-export KREW_ROOT="$HOME/.local/share/krew"
-export MINIKUBE_HOME="$HOME/.local/share/minikube"
-# add to path if ".krew" exists or $KREW_ROOT is set
-if [ -d "$KREW_ROOT" ]; then
-  export PATH="$KREW_ROOT/bin:$PATH"
-fi
+#}}}
+### kubernetes {{{
 export KUBE_EDITOR="$EDITOR"
-
-### PYTHON ###
-export PYENV_ROOT="$HOME/.local/share/pyenv"
+export KUBECONFIG="$XDG_CONFIG_HOME/kube/config"
+export KUBECACHEDIR="$XDG_CACHE_HOME/kube"
+export KREW_ROOT="$XDG_DATA_HOME/krew"
+[ -d "$KREW_ROOT" ] && export PATH="$KREW_ROOT/bin:$PATH"
+export MINIKUBE_HOME="$XDG_DATA_HOME/minikube"
+#}}}
+### python {{{
+export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-if [ -d "$PYENV_ROOT/bin" ]; then
-  export PATH="$PATH:$PYENV_ROOT/bin"
-fi
-
-### RUST ###
-export CARGO_HOME="$HOME/.local/share/cargo"
-export RUSTUP_HOME="$HOME/.local/share/rustup"
+[ -d "$PYENV_ROOT/bin" ] && export PATH="$PATH:$PYENV_ROOT/bin"
+#}}}
+### rust {{{
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 if [ -f "$CARGO_HOME/env" ]; then
   . "$CARGO_HOME/env"
 fi
 export PATH="$PATH:$CARGO_HOME/bin"
-
-### NODE ###
-export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/npm/npmrc"
+#}}}
+### node {{{
+export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}/npm/npmrc"
 export NODE_REPL_HISTORY=""
-export NVM_DIR="$HOME/.local/share/nvm"
+export NVM_DIR="$XDG_DATA_HOME/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 # yarn
 export PATH="$PATH:$HOME/.yarn/bin"
-
-### GO ###
-export GOPATH="$HOME/.local/share/go"
+#}}}
+### go {{{
+export GOPATH="$XDG_DATA_HOME/go"
 export PATH="$PATH:$GOPATH/bin"
-
-# RUBY
-export RBENV_ROOT="$HOME/.local/share/rbenv"
+#}}}
+### ruby {{{
+export RBENV_ROOT="$XDG_DATA_HOME/rbenv"
+#}}}

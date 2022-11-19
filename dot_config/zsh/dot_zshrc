@@ -4,11 +4,11 @@ eval "$(starship init zsh)"
 
 ### plugins via antigen {{{
 # don't pollute $HOME with antigen
-ADOTDIR="$HOME/.local/share/antigen"
+ADOTDIR="$XDG_DATA_HOME/antigen"
 if [[ ! -d "$ADOTDIR" ]]; then
   mkdir -p "$ADOTDIR"
   curl -L https://git.io/antigen > "$ADOTDIR/antigen.zsh"
-  chmod +x "$ADOTDIR"
+  chmod +x "$ADOTDIR/antigen.zsh"
 fi
 
 # load antigen
