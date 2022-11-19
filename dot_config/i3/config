@@ -46,7 +46,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+Shift+Return  exec $terminal
 bindsym $mod+e             exec --no-startup-id $fileman
 bindsym $mod+t             exec --no-startup-id pkill picom
-bindsym $mod+Ctrl+t        exec --no-startup-id picom --experimental-backends -b
+bindsym $mod+Ctrl+t        exec --no-startup-id picom -b
 bindsym $mod+Ctrl+x        exec --no-startup-id xkill
 bindsym $hyper+p --release exec --no-startup-id flameshot gui
 
@@ -181,12 +181,12 @@ exec --no-startup-id 1password --silent
 exec --no-startup-id blueman-applet
 exec --no-startup-id dunst
 exec --no-startup-id pcmanfm -d
-exec --no-startup-id sleep 1; picom -b --experimental-backends
+exec --no-startup-id sleep 1; picom -b
 exec --no-startup-id mpd_discord_richpresence --no-idle --fork
 
 # Set inner/outer gaps
-gaps inner 8
-gaps outer 8
+gaps inner 0
+gaps outer 0
 
 # Smart gaps (gaps used if only more than one container on the workspace)
 smart_gaps off
