@@ -300,6 +300,7 @@ return packer.startup({
       "ray-x/go.nvim",
       requires = "ray-x/guihua.lua",
     })
+    use("simrat39/rust-tools.nvim")
     use("rafamadriz/friendly-snippets")
     use("jose-elias-alvarez/null-ls.nvim")
     use({

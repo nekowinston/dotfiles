@@ -308,6 +308,13 @@ require("go").setup({
 })
 -- }}}
 
+require("rust-tools").setup({
+  server = {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  },
+})
+
 lspconfig.pyright.setup({
   capabilities = capabilities,
   on_attach = on_attach,
@@ -362,7 +369,7 @@ null.setup({
     null.builtins.formatting.isort,
     null.builtins.formatting.prettier,
     null.builtins.formatting.prettierd,
-    null.builtins.formatting.stylua,
+    null.builtins.formatting.rustfmt,
     null.builtins.formatting.stylua,
   },
   on_attach = function(client, bufnr)
