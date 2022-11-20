@@ -325,8 +325,22 @@ lspconfig.dockerls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
 })
+lspconfig.bashls.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
 
 -- data
+lspconfig.jsonls.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+  settings = {
+    json = {
+      schemas = require("schemastore").json.schemas(),
+      validate = { enable = true },
+    },
+  },
+})
 lspconfig.taplo.setup({
   capabilities = capabilities,
   on_attach = on_attach,
