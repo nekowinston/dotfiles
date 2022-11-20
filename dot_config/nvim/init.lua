@@ -16,7 +16,8 @@ vim.o.relativenumber = true
 vim.o.scrolloff = 5
 vim.o.sidescrolloff = 15
 -- show leading/trailing whitespace
-vim.o.list = true
+vim.opt.list = true
+vim.opt.listchars:append("tab:»·")
 -- always show status & tab line
 vim.o.laststatus = 3
 vim.o.showtabline = 2
