@@ -214,7 +214,8 @@ local function scheme_for_appearance(appearance)
 	if string.match(wezterm.target_triple, "linux") then
 		return darkTheme
 	end
-	update_nvim(appearance)
+	-- this isn't fully baked yet
+	-- update_nvim(appearance)
 	if appearance:find("Dark") then
 		return darkTheme
 	else
