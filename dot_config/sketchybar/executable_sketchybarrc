@@ -5,10 +5,11 @@ PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
 ## bar appearance {{{
 sketchybar --bar \
   height=32 \
-  blur_radius=10 \
   position=top \
   padding_left=0 \
-  padding_right=4
+  padding_right=0 \
+  hidden=on \
+  topmost=on
 
 # colors are managed seperately in the colordummy,
 # which listens to theme_changed events,
@@ -70,6 +71,7 @@ sketchybar \
     script="$PLUGIN_DIR/clock.sh" \
     update_freq=10 \
     lazy=true \
+    background.padding_right=4 \
 \
   --add alias "Mullvad VPN" right
 

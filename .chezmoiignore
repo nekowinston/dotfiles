@@ -19,6 +19,7 @@ README.md
 {{- end }}
 {{- if ne .chezmoi.os "darwin" }}
 # ignore macOS configuration
+.config/karabiner/
 .config/sketchybar/
 .config/skhd/
 .config/yabai/
