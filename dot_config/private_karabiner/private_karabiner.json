@@ -21,7 +21,10 @@
             "manipulators": [
               {
                 "from": {
-                  "key_code": "left_command"
+                  "key_code": "left_command",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
                 },
                 "to": [
                   {
