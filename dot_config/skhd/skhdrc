@@ -74,10 +74,4 @@ cmd + shift - 7 : yabai -m window --space 7; yabai -m space --focus 7
 cmd + shift - 8 : yabai -m window --space 8; yabai -m space --focus 8
 cmd + shift - 9 : yabai -m window --space 9; yabai -m space --focus 9
 cmd + shift - 0 : yabai -m window --space 10; yabai -m space --focus 10
-
-# move spaces between displays
-# 2B is '<'
-cmd + shift - 0x2B : yabai -m space --display prev
-# 2F is '>'
-cmd + shift - 0x2F : yabai -m space --display next
 # }}}
