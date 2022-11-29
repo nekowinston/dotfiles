@@ -56,8 +56,8 @@ return packer.startup({
       config = function()
         require("indent_blankline").setup({
           space_char_blankline = " ",
-          show_current_context = true,
-          show_current_context_start = true,
+          -- show_current_context = true,
+          -- show_current_context_start = true,
         })
         vim.g.indent_blankline_filetype_exclude = {
           "dashboard",
@@ -75,20 +75,6 @@ return packer.startup({
       "akinsho/bufferline.nvim",
       config = function()
         require("config/bufferline")
-      end,
-    })
-
-    use({
-      "nvim-lualine/lualine.nvim",
-      requires = { "kyazdani42/nvim-web-devicons", opt = true },
-      config = function()
-        require("lualine").setup({
-          options = {
-            theme = "catppuccin",
-            component_separators = { left = "", right = "" },
-            section_separators = { left = "", right = "" },
-          },
-        })
       end,
     })
 
@@ -121,7 +107,18 @@ return packer.startup({
     use({
       "folke/which-key.nvim",
       config = function()
-        require("which-key").setup({})
+        require("which-key").setup({
+          key_labels = {
+            ["<space>"] = "SPC",
+            ["<leader>"] = "SPC",
+            ["<cr>"] = " ",
+            ["<tab>"] = " ",
+          },
+          window = {
+            border = "double",
+            margin = { 0, 0, 0, 0 },
+          },
+        })
       end,
     })
 
@@ -214,14 +211,36 @@ return packer.startup({
         require("telescope").setup({
           defaults = {
             borderchars = {
-              "═",
-              "║",
-              "═",
-              "║",
-              "╔",
-              "╗",
-              "╝",
-              "╚",
+              results = {
+                "═",
+                "│",
+                " ",
+                "║",
+                "╔",
+                "╤",
+                "│",
+                "║",
+              },
+              prompt = {
+                "─",
+                "│",
+                "═",
+                "║",
+                "╟",
+                "┤",
+                "╧",
+                "╚",
+              },
+              preview = {
+                "═",
+                "║",
+                "═",
+                " ",
+                "═",
+                "╗",
+                "╝",
+                "═",
+              },
             },
           },
         })
@@ -278,12 +297,12 @@ return packer.startup({
       end,
     })
 
-    -- use({
-    --   "andweeb/presence.nvim",
-    --   config = function()
-    --     require("config/presence")
-    --   end,
-    -- })
+    use({
+      "andweeb/presence.nvim",
+      config = function()
+        require("config/presence")
+      end,
+    })
     use({ "iamcco/markdown-preview.nvim", run = "cd app && yarn install" })
 
     -- LSP
@@ -304,6 +323,7 @@ return packer.startup({
       "ray-x/go.nvim",
       requires = "ray-x/guihua.lua",
     })
+    use("HallerPatrick/py_lsp.nvim")
     use("simrat39/rust-tools.nvim")
     use("rafamadriz/friendly-snippets")
     use("jose-elias-alvarez/null-ls.nvim")
@@ -322,11 +342,9 @@ return packer.startup({
 
     use("b0o/schemastore.nvim")
     use({
-      "github/copilot.vim",
+      "zbirenbaum/copilot.lua",
       config = function()
-        local opt = { noremap = true, silent = true, expr = true }
-        Map("i", "<C-J>", 'copilot#Accept("\\<CR>")', opt)
-        vim.g.copilot_no_tab_map = true
+        require("config/copilot")
       end,
     })
 
@@ -365,14 +383,6 @@ return packer.startup({
       "GustavoKatel/telescope-asynctasks.nvim",
       config = function()
         require("telescope").load_extension("asynctasks")
-      end,
-    })
-
-    -- startup
-    use({
-      "glepnir/dashboard-nvim",
-      config = function()
-        require("config/dashboard")
       end,
     })
   end,

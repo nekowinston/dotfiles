@@ -10,7 +10,7 @@ require("colorizer").setup({
     css = false,
     css_fn = false,
     mode = "background",
-    tailwind = true,
+    tailwind = "both",
     sass = { enable = true },
     virtualtext = " ",
   },

@@ -46,7 +46,7 @@ require("catppuccin").setup({
     },
     barbar = false,
     bufferline = true,
-    dashboard = true,
+    dashboard = false,
     fern = false,
     gitgutter = false,
     gitsigns = true,
@@ -64,25 +64,44 @@ require("catppuccin").setup({
     vimwiki = true,
   },
   highlight_overrides = {
+    all = function(colors)
+      return {
+        DashboardCenter = { fg = colors.peach },
+        DashboardFooter = { fg = colors.maroon },
+        DashboardHeader = { fg = colors.pink },
+        DashboardShortCut = { fg = colors.yellow },
+        -- custom selection highlight
+        Selection = { bg = colors.surface1, fg = colors.text },
+        -- borders
+        FloatBorder = { fg = colors.overlay0 },
+        LspInfoBorder = { link = "FloatBorder" },
+        NvimTreeWinSeparator = { link = "FloatBorder" },
+        WhichKeyBorder = { link = "FloatBorder" },
+        -- telescope
+        TelescopeBorder = { link = "FloatBorder" },
+        TelescopeTitle = { fg = colors.text },
+        TelescopeSelection = { link = "Selection" },
+        TelescopeSelectionCaret = { link = "Selection" },
+        -- pmenu
+        PmenuSel = { link = "Selection" },
+      }
+    end,
     mocha = function(colors)
       return {
-        DashboardHeader = { fg = colors.pink },
-        DashboardCenter = { fg = colors.peach },
-        DashboardShortCut = { fg = colors.yellow },
-        DashboardFooter = { fg = colors.maroon },
-        ["InlayHint"] = { fg = colors.surface0, style = { "italic" } },
-        FloatBorder = { fg = colors.overlay0 },
-        TelescopeBorder = { link = "FloatBorder" },
+        Selection = { bg = "#121212", fg = colors.text },
+        Comment = { fg = colors.surface2, style = { "italic" } },
+        InlayHint = { fg = colors.surface0, style = { "italic" } },
       }
     end,
   },
   color_overrides = {
     mocha = {
       base = "#000000",
-      crust = "#000000",
-      mantle = "#000000",
+      crust = "#010101",
+      mantle = "#020202",
     },
   },
+  transparent_background = true,
 })
 
 vim.api.nvim_command("colorscheme catppuccin")

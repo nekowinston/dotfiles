@@ -1,7 +1,7 @@
 -- vim:fdm=marker
 require("mason").setup({
   ui = {
-    border = "none",
+    border = "double",
     icons = {
       package_installed = " ",
       package_pending = " ",
@@ -12,6 +12,8 @@ require("mason").setup({
 require("mason-lspconfig").setup({ automatic_installation = true })
 
 vim.opt.completeopt = "menu,menuone,noselect"
+vim.g.vsnip_snippet_dir = vim.fn.stdpath("config") .. "/snippets"
+vim.lsp.set_log_level("error")
 
 -- cmp {{{
 local present, cmp = pcall(require, "cmp")
@@ -23,10 +25,10 @@ local has_words_before = function()
   ---@diagnostic disable-next-line: deprecated
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0
-    and vim.api
-        .nvim_buf_get_lines(0, line - 1, line, true)[1]
-        :sub(col, col)
-        :match("%s")
+      and vim.api
+      .nvim_buf_get_lines(0, line - 1, line, true)[1]
+      :sub(col, col)
+      :match("%s")
       == nil
 end
 
@@ -157,6 +159,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, bufopts)
 end
 local lspconfig = require("lspconfig")
+require("lspconfig.ui.windows").default_options.border = "double"
 
 -- lua {{{
 lspconfig.sumneko_lua.setup({
@@ -200,6 +203,16 @@ lspconfig.emmet_ls.setup({
     "less",
     "sass",
     "scss",
+  },
+})
+lspconfig.tailwindcss.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+  filetypes = {
+    "javascriptreact",
+    "typescriptreact",
+    "html",
+    "css",
   },
 })
 -- attach tsserver only when there's a 'package.json' file in the CWD
@@ -315,7 +328,7 @@ require("rust-tools").setup({
   },
 })
 
-lspconfig.pyright.setup({
+require("py_lsp").setup({
   capabilities = capabilities,
   on_attach = on_attach,
 })
@@ -350,8 +363,34 @@ lspconfig.yamlls.setup({
   on_attach = on_attach,
   settings = {
     yaml = {
+      completion = true,
+      validate = true,
+      suggest = {
+        parentSkeletonSelectedFirst = true,
+      },
+      schemaStore = {
+        enable = true,
+        url = "https://www.schemastore.org/api/json/catalog.json",
+      },
       schemas = {
-        ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+        ["https://json.schemastore.org/github-action"] = ".github/action.{yaml,yml}",
+        ["https://json.schemastore.org/github-workflow"] = ".github/workflows/*",
+        ["https://json.schemastore.org/gitlab-ci"] = "*lab-ci.{yaml,yml}",
+        ["https://json.schemastore.org/helmfile"] = "helmfile.{yaml,yml}",
+        ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "docker-compose.yml.{yml,yaml}",
+        -- stylua: ignore
+        kubernetes = {
+          '*-deployment.yaml', '*-deployment.yml', '*-service.yaml', '*-service.yml', 'clusterrole-contour.yaml',
+          'clusterrole-contour.yml', 'clusterrole.yaml', 'clusterrole.yml', 'clusterrolebinding.yaml',
+          'clusterrolebinding.yml', 'configmap.yaml', 'configmap.yml', 'cronjob.yaml', 'cronjob.yml', 'daemonset.yaml',
+          'daemonset.yml', 'deployment-*.yaml', 'deployment-*.yml', 'deployment.yaml', 'deployment.yml', 'hpa.yaml',
+          'hpa.yml', 'ingress.yaml', 'ingress.yml', 'job.yaml', 'job.yml', 'kubectl-edit-*.yaml', 'namespace.yaml',
+          'namespace.yml', 'pvc.yaml', 'pvc.yml', 'rbac.yaml', 'rbac.yml', 'replicaset.yaml', 'replicaset.yml',
+          'role.yaml', 'role.yml', 'rolebinding.yaml', 'rolebinding.yml', 'sa.yaml', 'sa.yml', 'secret.yaml',
+          'secret.yml', 'service-*.yaml', 'service-*.yml', 'service-account.yaml', 'service-account.yml', 'service.yaml',
+          'service.yml', 'serviceaccount.yaml', 'serviceaccount.yml', 'serviceaccounts.yaml', 'serviceaccounts.yml',
+          'statefulset.yaml', 'statefulset.yml'
+        },
       },
     },
   },
@@ -377,7 +416,7 @@ local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 null.setup({
   sources = {
-    null.builtins.formatting.autopep8,
+    null.builtins.formatting.black,
     null.builtins.formatting.deno_fmt,
     null.builtins.formatting.gofmt,
     null.builtins.formatting.isort,
