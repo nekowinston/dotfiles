@@ -335,6 +335,14 @@ return {
 		{ key = "t", mods = "SUPER", action = act.SpawnTab("CurrentPaneDomain") },
 		{ key = "w", mods = "SHIFT|CTRL", action = act.CloseCurrentTab({ confirm = true }) },
 		{ key = "w", mods = "SUPER", action = act.CloseCurrentTab({ confirm = true }) },
+		{
+			key = "u",
+			mods = "SHIFT|CTRL",
+			action = act.CharSelect({
+				copy_on_select = true,
+				copy_to = "ClipboardAndPrimarySelection",
+			}),
+		},
 	},
 	-- }}}
 	-- font
@@ -345,6 +353,7 @@ return {
 	tab_max_width = 32,
 	-- window
 	window_decorations = "RESIZE",
+	window_background_opacity = 0.85,
 	window_padding = {
 		left = 0,
 		right = 0,
