@@ -46,25 +46,31 @@ function color() {
 
 sketchybar \
   --bar \
-    color=$(color crust) \
+    color="$(color crust)" \
 \
   --default \
-    icon.color=$(color pink) \
-    label.color=$(color pink) \
+    icon.color="$(color pink)" \
+    label.color="$(color pink)" \
 \
   --set /space/ \
-    icon.color=$(color mauve 128) \
-    icon.highlight_color=$(color pink) \
+    icon.color="$(color mauve 128)" \
+    icon.highlight_color="$(color pink)" \
 \
   --set clock \
-    icon.color=$(color pink) \
-    label.color=$(color pink) \
+    icon.color="$(color pink)" \
+    label.color="$(color pink)" \
 \
   --set "Mullvad VPN" \
-    alias.color=$(color pink)
+    alias.color="$(color pink)" \
+  --set "Little Snitch Agent" \
+    alias.color="$(color pink)" \
+  --set "iStat Menus Status" \
+    alias.color="$(color pink)" \
+  --set "Control Centre,Battery" \
+    alias.color="$(color pink)" \
 
 # set the yabai colours as well
 yabai \
-  -m config active_window_border_color $(color base) \
-  -m config normal_window_border_color $(color crust) \
-  -m config insert_feedback_color $(color pink)
+  -m config active_window_border_color "$(color pink)" \
+  -m config normal_window_border_color "$(color mauve)" \
+  -m config insert_feedback_color "$(color pink)"

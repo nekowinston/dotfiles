@@ -37,8 +37,7 @@ sketchybar --default \
 ## left side of the bar {{{
 # spaces for yabai wm
 SPACE_ICONS=(
-"Ⅰ"
-"Ⅱ"
+"Ⅰ" "Ⅱ"
 "Ⅲ"
 "Ⅳ"
 "Ⅴ"
@@ -73,6 +72,17 @@ sketchybar \
     lazy=true \
     background.padding_right=4 \
 \
-  --add alias "Mullvad VPN" right
+  --add alias "iStat Menus Status" right \
+    icon.padding_left=0 \
+    icon.padding_right=0 \
+  --add alias "Little Snitch Agent" right \
+    icon.padding_left=0 \
+    icon.padding_right=0 \
+  --add alias "Control Centre,Battery" right \
+    icon.padding_left=0 \
+    icon.padding_right=0 \
+  --add alias "Mullvad VPN" right \
+    icon.padding_left=0 \
+    icon.padding_right=0
 
 sketchybar --update
