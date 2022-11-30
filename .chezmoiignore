@@ -23,5 +23,5 @@ README.md
 .config/sketchybar/
 .config/skhd/
 .config/yabai/
-.qutebrowser/
+Library/Fonts/
 {{- end }}
