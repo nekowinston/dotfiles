@@ -77,6 +77,10 @@ else
   alias la='ls -lA'
 fi
 
+if [ -x "$(command -v bat)" ]; then
+  alias cat='bat'
+fi
+
 # use neovim as vim, if installed
 if [[ -x "$(command -v nvim)" ]]; then
   alias vim='nvim'
