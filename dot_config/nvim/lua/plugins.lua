@@ -13,6 +13,12 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   end,
 })
 
+local function check_git()
+  local is_repo = vim.fn.isdirectory(vim.fn.getcwd() .. "/.git") == 1
+  local git_exists = vim.fn.executable("git") == 1
+  return is_repo and git_exists
+end
+
 return packer.startup({
   function(use)
     -- Packer managing itself
@@ -32,14 +38,7 @@ return packer.startup({
     use({
       "Pocco81/true-zen.nvim",
       config = function()
-        local tz = require("true-zen")
-        tz.setup({
-          integrations = {
-            lualine = true,
-          },
-        })
-        Map("n", "<leader>zz", ":TZAtaraxis<CR>")
-        Map("n", "<leader>zf", ":TZFocus<CR>")
+        require("true-zen").setup()
       end,
     })
 
@@ -49,6 +48,7 @@ return packer.startup({
       config = function()
         require("config/gitsigns")
       end,
+      cond = check_git,
     })
     -- rainbow indents
     use({
@@ -75,6 +75,13 @@ return packer.startup({
       "akinsho/bufferline.nvim",
       config = function()
         require("config/bufferline")
+      end,
+    })
+
+    use({
+      "feline-nvim/feline.nvim",
+      config = function()
+        require("config/feline")
       end,
     })
 
@@ -107,18 +114,7 @@ return packer.startup({
     use({
       "folke/which-key.nvim",
       config = function()
-        require("which-key").setup({
-          key_labels = {
-            ["<space>"] = "SPC",
-            ["<leader>"] = "SPC",
-            ["<cr>"] = " ",
-            ["<tab>"] = " ",
-          },
-          window = {
-            border = "double",
-            margin = { 0, 0, 0, 0 },
-          },
-        })
+        require("config/which-key")
       end,
     })
 
@@ -167,11 +163,15 @@ return packer.startup({
     })
 
     -- git
-    use("tpope/vim-fugitive")
+    use({
+      "tpope/vim-fugitive",
+      cond = check_git,
+    })
     -- why not both?
     use({
       "TimUntersberger/neogit",
       requires = "nvim-lua/plenary.nvim",
+      cond = check_git,
       config = function()
         Map("n", "<leader>ng", "<Cmd>Neogit<CR>")
       end,
@@ -181,13 +181,6 @@ return packer.startup({
       "nvchad/nvim-colorizer.lua",
       config = function()
         require("config/colorizer")
-      end,
-    })
-    use({
-      "simrat39/symbols-outline.nvim",
-      config = function()
-        require("symbols-outline").setup()
-        Map("n", "<leader>so", ":SymbolsOutline<CR>")
       end,
     })
 
@@ -208,72 +201,13 @@ return packer.startup({
       "nvim-telescope/telescope.nvim",
       requires = "nvim-lua/plenary.nvim",
       config = function()
-        require("telescope").setup({
-          defaults = {
-            borderchars = {
-              results = {
-                "═",
-                "│",
-                " ",
-                "║",
-                "╔",
-                "╤",
-                "│",
-                "║",
-              },
-              prompt = {
-                "─",
-                "│",
-                "═",
-                "║",
-                "╟",
-                "┤",
-                "╧",
-                "╚",
-              },
-              preview = {
-                "═",
-                "║",
-                "═",
-                " ",
-                "═",
-                "╗",
-                "╝",
-                "═",
-              },
-            },
-          },
-        })
-        Map("n", "<leader>fr", "<cmd>Telescope asynctasks all<CR>")
-        Map("n", "<leader>fb", "<cmd>Telescope file_browser<CR>")
-        Map("n", "<leader>fd", "<cmd>Telescope find_files<CR>")
-        Map("n", "<leader>fg", "<cmd>Telescope live_grep<CR>")
-        Map("n", "<leader>fh", "<cmd>Telescope help_tags<CR>")
-        Map("n", "<leader>fp", "<cmd>Telescope project<CR>")
-        Map("n", "<leader>fs", function()
-          local confpath = vim.fn.resolve(vim.fn.stdpath("config"))
-          require("telescope.builtin").find_files({ cwd = confpath })
-        end)
+        require("config/telescope")
       end,
     })
     use({
       "nvim-telescope/telescope-fzf-native.nvim",
       run = "make",
       requires = "nvim-telescope/telescope.nvim",
-      config = function()
-        local telescope = require("telescope")
-        telescope.setup({
-          extensions = {
-            fzf = {
-              fuzzy = true,
-              override_generic_sorter = true,
-              override_file_sorter = true,
-              case_mode = "smart_case",
-            },
-          },
-        })
-        telescope.load_extension("fzf")
-      end,
     })
     use({
       "nvim-telescope/telescope-file-browser.nvim",
@@ -288,9 +222,13 @@ return packer.startup({
       end,
     })
 
-    use("nvim-tree/nvim-web-devicons")
+    use({
+      "nvim-tree/nvim-web-devicons",
+      after = "nvim-tree.lua",
+    })
     use({
       "nvim-tree/nvim-tree.lua",
+      keys = { "<C-n>" },
       config = function()
         Map("n", "<C-N>", ":NvimTreeToggle<CR>")
         require("nvim-tree").setup()
@@ -319,12 +257,6 @@ return packer.startup({
     use("hrsh7th/vim-vsnip")
     use("petertriho/cmp-git")
     use("onsails/lspkind.nvim")
-    use({
-      "ray-x/go.nvim",
-      requires = "ray-x/guihua.lua",
-    })
-    use("HallerPatrick/py_lsp.nvim")
-    use("simrat39/rust-tools.nvim")
     use("rafamadriz/friendly-snippets")
     use("jose-elias-alvarez/null-ls.nvim")
     use({
@@ -334,9 +266,28 @@ return packer.startup({
         require("config/lspsaga")
       end,
     })
+    use({
+      "ray-x/go.nvim",
+      requires = "ray-x/guihua.lua",
+      ft = "go",
+    })
+    use({
+      "HallerPatrick/py_lsp.nvim",
+      ft = "python",
+    })
+    use({
+      "simrat39/rust-tools.nvim",
+      ft = "rust",
+    })
 
-    use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
-    use("theHamsta/nvim-dap-virtual-text")
+    use({
+      "rcarriga/nvim-dap-ui",
+      ft = { "go", "python", "rust" },
+      requires = {
+        "mfussenegger/nvim-dap",
+        "theHamsta/nvim-dap-virtual-text",
+      },
+    })
 
     use({ "barreiroleo/ltex-extra.nvim" })
 

@@ -71,6 +71,41 @@ autocmd FileType python,rust setlocal ts=4 sw=4 sts=4 et
 autocmd FileType markdown let g:table_mode_corner='|'
 ]])
 
+local builtins = {
+  "2html_plugin",
+  "bugreport",
+  "compiler",
+  "ftplugin",
+  "fzf",
+  "getscript",
+  "getscriptPlugin",
+  "gzip",
+  "logipat",
+  "matchit",
+  "netrw",
+  "netrwFileHandlers",
+  "netrwPlugin",
+  "netrwSettings",
+  "optwin",
+  "rplugin",
+  "rrhelper",
+  "spellfile_plugin",
+  "synmenu",
+  "syntax",
+  "tar",
+  "tarPlugin",
+  "tutor",
+  "vimball",
+  "vimballPlugin",
+  "zip",
+  "zipPlugin",
+}
+
+-- disable builtin plugins
+for _, plugin in pairs(builtins) do
+  vim.g["loaded_" .. plugin] = 1
+end
+
 vim.api.nvim_create_autocmd("VimResized", {
   pattern = "*",
   command = "wincmd =",

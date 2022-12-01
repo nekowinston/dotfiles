@@ -1,47 +1,80 @@
+local wk = require("which-key")
+
 require("gitsigns").setup({
   on_attach = function(bufnr)
     local gs = package.loaded.gitsigns
 
-    -- Navigation
-    Map("n", "]c", function()
-      if vim.wo.diff then
-        return "]c"
-      end
-      vim.schedule(function()
-        gs.next_hunk()
-      end)
-      return "<Ignore>"
-    end, { expr = true })
+    -- Gitsigns
+    wk.register({
+      ["<leader>h"] = {
+        name = "+Gitsigns",
+        s = { "<cmd>Gitsigns stage_hunk<CR>", "Stage Hunk" },
+        r = { "<cmd>Gitsigns reset_hunk<CR>", "Reset Hunk" },
+      },
+    }, { mode = { "n", "v" } })
 
-    Map("n", "[c", function()
-      if vim.wo.diff then
-        return "[c"
-      end
-      vim.schedule(function()
-        gs.prev_hunk()
-      end)
-      return "<Ignore>"
-    end, { expr = true })
+    wk.register({
+      ["<leader>h"] = {
+        name = "+Gitsigns",
+        s = { gs.stage_buffer, "Stage Buffer" },
+        u = { gs.undo_stage_hunk, "Undo Stage Hunk" },
+        R = { gs.reset_buffer, "Reset Buffer" },
+        p = { gs.preview_hunk, "Preview Hunk" },
+        b = {
+          function()
+            gs.blame_line({ full = true })
+          end,
+          "Blame line",
+        },
+        d = { gs.diffthis, "Diff current buffer" },
+        D = {
+          function()
+            gs.diffthis("~")
+          end,
+          "Diff against last commit",
+        },
+      },
+    })
 
-    -- Actions
-    Map({ "n", "v" }, "<leader>hs", ":Gitsigns stage_hunk<CR>")
-    Map({ "n", "v" }, "<leader>hr", ":Gitsigns reset_hunk<CR>")
-    Map("n", "<leader>hS", gs.stage_buffer)
-    Map("n", "<leader>hu", gs.undo_stage_hunk)
-    Map("n", "<leader>hR", gs.reset_buffer)
-    Map("n", "<leader>hp", gs.preview_hunk)
-    Map("n", "<leader>hb", function()
-      gs.blame_line({ full = true })
-    end)
-    Map("n", "<leader>tb", gs.toggle_current_line_blame)
-    Map("n", "<leader>hd", gs.diffthis)
-    Map("n", "<leader>hD", function()
-      gs.diffthis("~")
-    end)
-    Map("n", "<leader>td", gs.toggle_deleted)
+    wk.register({
+      ["<leader>t"] = {
+        name = "+Toggle settings",
+        b = { gs.toggle_current_line_blame, "Toggle blame lines" },
+        d = { gs.toggle_deleted, "Toggle deleted lines" },
+      },
+    })
+
+    wk.register({
+      ["[c"] = {
+        function()
+          if vim.wo.diff then
+            return "]c"
+          end
+          vim.schedule(function()
+            gs.next_hunk()
+          end)
+          return "<Ignore>"
+        end,
+        "Go to Next Hunk",
+      },
+      ["]c"] = {
+        function()
+          if vim.wo.diff then
+            return "[c"
+          end
+          vim.schedule(function()
+            gs.prev_hunk()
+          end)
+          return "<Ignore>"
+        end,
+        "Go to Previous Hunk",
+      },
+    }, { expr = true })
 
     -- Text object
-    Map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
+    wk.register({
+      ["ih"] = { ":<C-U>Gitsigns select_hunk<CR>", "Select inside Hunk" },
+    }, { mode = { "o", "x" } })
   end,
   signs = {
     add = {
@@ -82,7 +115,7 @@ require("gitsigns").setup({
   watch_gitdir = { enable = false, interval = 1000, follow_files = true },
   attach_to_untracked = true,
   -- current line highlighting
-  current_line_blame = true,
+  current_line_blame = false,
   current_line_blame_opts = {
     delay = 1000,
     ignore_whitespace = true,
