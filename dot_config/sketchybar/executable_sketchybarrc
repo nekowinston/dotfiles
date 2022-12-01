@@ -1,88 +1,86 @@
 #!/usr/bin/env bash
 # vim:fileencoding=utf-8:foldmethod=marker
-PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
+PLUGIN_DIR="$HOME"/.config/sketchybar/plugins
 
 ## bar appearance {{{
 sketchybar --bar \
-  height=32 \
-  position=top \
-  padding_left=0 \
-  padding_right=0 \
-  hidden=on \
-  topmost=on
+	height=32 \
+	position=top \
+	padding_left=0 \
+	padding_right=0 \
+	hidden=on \
+	topmost=on
 
 # colors are managed seperately in the colordummy,
 # which listens to theme_changed events,
 # to swap between Catppuccin Mocha and Latte
 sketchybar -m --add event theme_changed AppleInterfaceThemeChangedNotification
 sketchybar \
-  --add item colordummy center \
-  --set colordummy \
-    drawing=off \
-    script="$PLUGIN_DIR/colordummy.sh" \
-  --subscribe colordummy theme_changed
+	--add item colordummy center \
+	--set colordummy \
+	drawing=off \
+	script="$PLUGIN_DIR/colordummy.sh" \
+	--subscribe colordummy theme_changed
 
 ##### Changing Defaults #####
 sketchybar --default \
-  updates=when_shown \
-  drawing=on \
-  icon.font="Symbols Nerd Font:2048-em:18.0" \
-  label.font="SF Pro:Regular:16.0" \
-  label.padding_left=2 \
-  label.padding_right=2 \
-  icon.padding_left=2 \
-  icon.padding_right=2
+	updates=when_shown \
+	drawing=on \
+	icon.font="Symbols Nerd Font:2048-em:18.0" \
+	label.font="SF Pro:Regular:16.0" \
+	label.padding_left=2 \
+	label.padding_right=2 \
+	icon.padding_left=2 \
+	icon.padding_right=2
 # }}}
 
 ## left side of the bar {{{
 # spaces for yabai wm
 SPACE_ICONS=(
-"Ⅰ" "Ⅱ"
-"Ⅲ"
-"Ⅳ"
-"Ⅴ"
-"Ⅵ"
-"Ⅶ"
-"Ⅷ"
-"Ⅸ"
-"Ⅹ"
+	"Ⅰ"
+	"Ⅱ"
+	"Ⅲ"
+	"Ⅳ"
+	"Ⅴ"
+	"Ⅵ"
+	"Ⅶ"
+	"Ⅷ"
+	"Ⅸ"
+	"Ⅹ"
 )
-for i in "${!SPACE_ICONS[@]}"
-do
-  sketchybar \
-    --add space "space.$i" left \
-    --set "space.$i" associated_space=$((i+1)) \
-      icon="${SPACE_ICONS[i]}" \
-      icon.padding_left=8 \
-      icon.padding_right=8 \
-      background.padding_left=1 \
-      background.padding_right=1 \
-      background.height=32 \
-      label.drawing=off \
-      script="$PLUGIN_DIR/space.sh" \
-      click_script="yabai -m space --focus $((i+1))"
+for i in "${!SPACE_ICONS[@]}"; do
+	sketchybar \
+		--add space "space.$i" left \
+		--set "space.$i" associated_space=$((i + 1)) \
+		icon="${SPACE_ICONS[i]}" \
+		icon.padding_left=8 \
+		icon.padding_right=8 \
+		background.padding_left=1 \
+		background.padding_right=1 \
+		background.height=32 \
+		label.drawing=off \
+		script="$PLUGIN_DIR/space.sh" \
+		click_script="yabai -m space --focus $((i + 1))"
 done
 
 sketchybar \
-\
-  --add item clock right \
-  --set clock \
-    script="$PLUGIN_DIR/clock.sh" \
-    update_freq=10 \
-    lazy=true \
-    background.padding_right=4 \
-\
-  --add alias "iStat Menus Status" right \
-    icon.padding_left=0 \
-    icon.padding_right=0 \
-  --add alias "Little Snitch Agent" right \
-    icon.padding_left=0 \
-    icon.padding_right=0 \
-  --add alias "Control Centre,Battery" right \
-    icon.padding_left=0 \
-    icon.padding_right=0 \
-  --add alias "Mullvad VPN" right \
-    icon.padding_left=0 \
-    icon.padding_right=0
+	--add item clock right \
+	--set clock \
+	script="$PLUGIN_DIR/clock.sh" \
+	update_freq=10 \
+	lazy=true \
+	background.padding_right=4 \
+	--add alias "iStat Menus Status" right \
+	icon.padding_left=0 \
+	icon.padding_right=0 \
+	--add alias "Little Snitch Agent" right \
+	icon.padding_left=0 \
+	icon.padding_right=0 \
+	--add alias "Control Centre,Battery" right \
+	icon.padding_left=0 \
+	icon.padding_right=0 \
+	--add alias "Mullvad VPN" right \
+	icon.padding_left=0 \
+	icon.padding_right=0
 
 sketchybar --update
