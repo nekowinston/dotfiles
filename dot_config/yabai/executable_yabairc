@@ -10,55 +10,57 @@ yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 spacestocreate=10
 spaces=$((spacestocreate - $(yabai -m query --spaces | jq length)))
 while [ "$spaces" -gt 0 ]; do
-  yabai -m space --create
-  spaces=$((spaces - 1))
+	yabai -m space --create
+	spaces=$((spaces - 1))
 done
 
 yabai -m config \
-  mouse_follows_focus          off \
-  focus_follows_mouse          off \
-  mouse_modifier               fn \
-  mouse_action1                move \
-  mouse_action2                resize \
-  mouse_drop_action            swap \
-  window_origin_display        default \
-  window_placement             second_child \
-  window_border                on \
-  window_border_width          2 \
-  window_border_blur           off \
-  window_opacity               off \
-  window_opacity_duration      0.1 \
-  normal_window_opacity        1.0 \
-  window_shadow                float \
-  auto_balance                 off \
-  split_ratio                  0.50 \
-  layout                       bsp \
-  top_padding                  0 \
-  bottom_padding               0 \
-  left_padding                 0 \
-  right_padding                0 \
-  window_gap                   0 \
-  window_animation_duration    0.1
+	mouse_follows_focus off \
+	focus_follows_mouse off \
+	mouse_modifier fn \
+	mouse_action1 move \
+	mouse_action2 resize \
+	mouse_drop_action swap \
+	window_origin_display default \
+	window_placement second_child \
+	window_border off \
+	window_border_width 2 \
+	window_border_blur off \
+	window_opacity off \
+	window_opacity_duration 0.1 \
+	normal_window_opacity 1.0 \
+	window_shadow float \
+	auto_balance off \
+	split_ratio 0.50 \
+	layout bsp \
+	top_padding 0 \
+	bottom_padding 0 \
+	left_padding 0 \
+	right_padding 0 \
+	window_gap 0 \
+	window_animation_duration 0.1
 
 APPS_ABOVE=(
-"JetBrains Toolbox"
-"Mullvad VPN"
-"Sip"
-"iStat Menus Status"
+	"JetBrains Toolbox"
+	"Mullvad VPN"
+	"Sip"
+	"iStat Menus Status"
 )
 for app in "${APPS_ABOVE[@]}"; do
-  yabai -m rule --add app="^$app\$" manage=off sticky=on layer=above border=off
+	yabai -m rule --add app="^$app\$" manage=off sticky=on layer=above border=off
 done
-
-yabai -m rule --add app="^CleanShot X\$" manage=off border=off
 
 APPS_UNMANAGED=(
-"GOG Galaxy"
-"Steam"
-"System Preferences"
+	"GOG Galaxy"
+	"Steam"
+	"System Preferences"
 )
 for app in "${APPS_UNMANAGED[@]}"; do
-  yabai -m rule --add app="^$app\$" manage=off
+	yabai -m rule --add app="^$app\$" manage=off
 done
+
+yabai \
+	-m rule --add app="^CleanShot X\$" manage=off border=off \
+	-m rule --add app="OBS Studio" manage=off sticky=on
 
 echo "$(date -Iseconds): [RELOAD] finished loading yabai conf"
