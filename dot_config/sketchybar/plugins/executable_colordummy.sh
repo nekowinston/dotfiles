@@ -124,43 +124,44 @@ DARK_THEME="mocha"
 
 # check wether or not macOS is in dark mode
 if [[ $(defaults read -g AppleInterfaceStyle) != 'Dark' ]]; then
-	theme=$LIGHT_THEME
+  theme=$LIGHT_THEME
 else
   theme=$DARK_THEME
 fi
 
 function color() {
-	alpha=${2:-255}
-	color="$1"
+  alpha=${2:-1}
+  color="$1"
 
-	printf -v alpha "%02x" "$alpha"
+  printf -v parsed "%.0f" "$(bc -l <<< "255*${alpha}")"
+  printf -v alpha "%02x" "$parsed"
   selected_color="${theme}_${color}"
-	echo "0x${alpha}${!selected_color}"
+  echo "0x${alpha}${!selected_color}"
 }
 
 sketchybar \
-	--bar \
-	color="$(color crust)" \
-	--default \
-	icon.color="$(color pink)" \
-	label.color="$(color pink)" \
-	--set /space/ \
-	icon.color="$(color mauve 128)" \
-	icon.highlight_color="$(color pink)" \
-	--set clock \
-	icon.color="$(color pink)" \
-	label.color="$(color pink)" \
-	--set "Mullvad VPN" \
-	alias.color="$(color pink)" \
-	--set "Little Snitch Agent" \
-	alias.color="$(color pink)" \
-	--set "iStat Menus Status" \
-	alias.color="$(color pink)" \
-	--set "Control Centre,Battery" \
-	alias.color="$(color pink)"
+  --bar \
+  color="$(color crust)" \
+  --default \
+  icon.color="$(color pink)" \
+  label.color="$(color pink)" \
+  --set /space/ \
+  icon.color="$(color mauve 0.5)" \
+  icon.highlight_color="$(color pink)" \
+  --set clock \
+  icon.color="$(color pink)" \
+  label.color="$(color pink)" \
+  --set "Mullvad VPN" \
+  alias.color="$(color pink)" \
+  --set "Little Snitch Agent" \
+  alias.color="$(color pink)" \
+  --set "iStat Menus Status" \
+  alias.color="$(color pink)" \
+  --set "Control Centre,Battery" \
+  alias.color="$(color pink)"
 
 # set the yabai colours as well
 yabai \
-	-m config active_window_border_color "$(color pink)" \
-	-m config normal_window_border_color "$(color mauve)" \
-	-m config insert_feedback_color "$(color pink)"
+  -m config active_window_border_color "$(color pink)" \
+  -m config normal_window_border_color "$(color mauve)" \
+  -m config insert_feedback_color "$(color pink)"
