@@ -353,7 +353,7 @@ return {
 	tab_max_width = 32,
 	-- window
 	window_decorations = "RESIZE",
-	window_background_opacity = 0.85,
+	window_background_opacity = 0.95,
 	window_padding = {
 		left = 0,
 		right = 0,
@@ -379,5 +379,5 @@ return {
 	max_fps = 240,
 	-- scrollbar, currently hidden by default, but better make sure
 	enable_scroll_bar = false,
-	hide_tab_bar_if_only_one_tab = true,
+	hide_tab_bar_if_only_one_tab = false,
 }
