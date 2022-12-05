@@ -222,10 +222,7 @@ return packer.startup({
       end,
     })
 
-    use({
-      "nvim-tree/nvim-web-devicons",
-      after = "nvim-tree.lua",
-    })
+    use("nvim-tree/nvim-web-devicons")
     use({
       "nvim-tree/nvim-tree.lua",
       keys = { "<C-n>" },
@@ -269,20 +266,16 @@ return packer.startup({
     use({
       "ray-x/go.nvim",
       requires = "ray-x/guihua.lua",
-      ft = "go",
     })
     use({
       "HallerPatrick/py_lsp.nvim",
-      ft = "python",
     })
     use({
       "simrat39/rust-tools.nvim",
-      ft = "rust",
     })
 
     use({
       "rcarriga/nvim-dap-ui",
-      ft = { "go", "python", "rust" },
       requires = {
         "mfussenegger/nvim-dap",
         "theHamsta/nvim-dap-virtual-text",
