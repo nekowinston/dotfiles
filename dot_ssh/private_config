@@ -1,0 +1,12 @@
+# vim:filetype=sshconfig
+
+Host *
+  ControlMaster auto
+  ControlPath /tmp/ssh_mux_%h_%p_%r
+  ForwardAgent yes
+  StreamLocalBindUnlink yes
+
+Include config.d/*
+
+Host *
+  Port 22
