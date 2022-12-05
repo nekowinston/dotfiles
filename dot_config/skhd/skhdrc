@@ -18,7 +18,7 @@ cmd + shift - j : yabai -m window --warp south
 cmd + shift - k : yabai -m window --warp north
 cmd + shift - l : yabai -m window --warp east
 
-cmd + shift - s: yabai -m window --toggle sticky; yabai -m window --toggle border
+cmd + shift - s: yabai -m window --toggle sticky
 cmd + shift - d: yabai -m window --toggle float
 
 cmd + shift - return : open -na "WezTerm"
