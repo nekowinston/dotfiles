@@ -47,37 +47,35 @@ export SAVEHIST=10000
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_DUPS
 
-# fuck if available
+# use fuck if available
 [[ -x "$(command -v thefuck)" ]] && eval $(thefuck --alias)
-
-# credit to locotay
-function bitch() {
-  [ "$1" = "you" ] && [ "$2" = "better" ] && sudo "${@:3}"
-}
 # }}}
 
 ### aliases & functions {{{
 ## basics {{{
-# use exa+lsd to list directories, if available, falling back to ls aliases
-if [ -x "$(command -v lsd)" ] && [ -x "$(command -v exa)" ]; then
+if [ -x "$(command -v vivid)" ]; then
+  export LS_COLORS="$(vivid generate catppuccin-mocha)"
+fi
+
+if [ -x "$(command -v lsd)" ]; then
   # add a bit more space between the file icon & name
-  export EXA_ICON_SPACING=1
-  # lsd is the better drop-in replacement
   alias ls='lsd'
-  # only exa can do this, atm
-  alias l='exa --icons --group-directories-first'
-  alias ll='exa --icons --group-directories-first --git -l'
-  alias la='exa --icons --group-directories-first --git -la'
-  # only lsd can do this, atm
-  alias lt='lsd -l --total-size'
-  alias lat='lsd -lA --total-size'
+  alias l='lsd'
+  alias ll='lsd -l'
+  alias la='lsd -la'
+  alias lt='lsd -l --total-size' alias lat='lsd -lA --total-size'
+  alias tree='lsd --tree'
 else
   alias l='ls'
   alias ll='ls -l'
   alias la='ls -lA'
 fi
 
-if [ -x "$(command -v bat)" ]; then
+# both names for bat
+export BAT_THEME="catppuccin-mocha"
+if [ -x "$(command -v batcat)" ]; then
+  alias cat='batcat'
+elif [ -x "$(command -v bat)" ]; then
   alias cat='bat'
 fi
 
@@ -86,10 +84,6 @@ if [[ -x "$(command -v nvim)" ]]; then
   alias vim='nvim'
   # open vimwiki
   alias wiki='nvim -c VimwikiIndex'
-fi
-
-if [[ -x "$(command -v newsboat)" ]]; then
-  alias nb='newsboat -C ~/.config/newsboat/config -u ~/.config/newsboat/urls'
 fi
 
 [[ -x "$(command -v taskwarrior-tui)" ]] && alias tt='taskwarrior-tui'
@@ -125,6 +119,7 @@ function twm() {
 }
 alias sbks='launchctl kickstart -k "gui/${UID}/homebrew.mxcl.sketchybar"'
 alias onefetch='onefetch --true-color=never'
+alias mbsync='mbsync --config ~/.config/mbsyncrc'
 function icat() {
   if [ "$TERM_PROGRAM" = "WezTerm" ]; then
     wezterm imgcat "$@"
@@ -161,6 +156,13 @@ alias cmrm='chezmoi remove'
 alias cmst='chezmoi status'
 alias cmup='chezmoi update'
 ## }}}
+
+function debugnvim() {
+  cd $(mktemp -d)
+  export XDG_DATA_HOME=$PWD XDG_CACHE_HOME=$PWD XDG_CONFIG_HOME=$PWD
+  mkdir nvim
+  nvim nvim/init.lua
+}
 ### }}}
 
 ### languages & frameworks {{{
