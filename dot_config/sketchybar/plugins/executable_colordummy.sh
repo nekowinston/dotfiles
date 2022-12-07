@@ -163,5 +163,5 @@ sketchybar \
 # set the yabai colours as well
 yabai \
   -m config active_window_border_color "$(color pink)" \
-  -m config normal_window_border_color "$(color mauve)" \
-  -m config insert_feedback_color "$(color pink)"
+  -m config normal_window_border_color "$(color surface0)" \
+  -m config insert_feedback_color "$(color red)"
