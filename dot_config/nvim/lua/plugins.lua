@@ -14,7 +14,7 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 })
 
 local function check_git()
-  local is_repo = vim.fn.isdirectory(vim.fn.getcwd() .. "/.git") == 1
+  local is_repo = vim.fn.filereadable(vim.fn.getcwd() .. "/.git") == 1
   local git_exists = vim.fn.executable("git") == 1
   return is_repo and git_exists
 end

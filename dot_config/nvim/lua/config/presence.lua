@@ -2,15 +2,32 @@ function string.starts(self, str)
   return self:find("^" .. str) ~= nil
 end
 
-local conceal = function()
-  local home = vim.fn.expand("$HOME") .. "/Code/"
-  local blacklist = {
-    [vim.fn.resolve(home .. "work")] = "Using nvim at work.",
-    [vim.fn.resolve(home .. "freelance")] = "Using nvim to freelance.",
-    [vim.fn.resolve(vim.fn.stdpath("config"))] = "Stuck in the hell of nvim config.",
-  }
+local home = vim.fn.expand("$HOME") .. "/Code/"
 
+local blacklist = {
+  [vim.fn.resolve(home .. "work")] = "Using nvim at work.",
+  [vim.fn.resolve(home .. "freelance")] = "Using nvim to freelance.",
+}
+
+local function get_chezmoi_output()
+  local sp = io.popen("chezmoi managed -i files")
+  if sp then
+    local files = {}
+    for line in sp:lines() do
+      table.insert(files, vim.fn.expand("$HOME") .. "/" .. line)
+    end
+    sp:close()
+    return files
+  end
+end
+
+local chezmoi_managed = get_chezmoi_output()
+
+local conceal = function()
   local cur_file = vim.fn.expand("%:p")
+  if vim.tbl_contains(chezmoi_managed, cur_file) then
+    return "Managing dotfiles"
+  end
   for k, v in pairs(blacklist) do
     if cur_file:starts(k) then
       return v
@@ -19,12 +36,17 @@ local conceal = function()
   return false
 end
 
+local v = vim.version()
+local vStr = string.format("v%d.%d.%d", v.major, v.minor, v.patch)
+
 require("presence"):setup({
   -- General options
   auto_update = true,
-  neovim_image_text = "The Soydev's Kryptonite",
+  debounce_timeout = 10,
+  neovim_image_text = "Masochism " .. vStr,
   -- Main image display (either "neovim" or "file")
   main_image = "file",
+  show_time = false,
   -- A list of strings or Lua patterns that disable Rich Presence if the current file name, path, or workspace matches
   ---@diagnostic disable-next-line: unused-local
   buttons = function(buffer, repo_url)
@@ -52,14 +74,18 @@ require("presence"):setup({
       end
     end
 
-    -- if not, return false
-    return false
+    -- if not, make funni
+    return {
+      {
+        label = "Steal the code",
+        url = "https://winston.sh/rrproductions/studio.git",
+      },
+    }
   end,
-  debounce_timeout = 10,
   file_assets = {
     ["k8s.yaml"] = {
       "Kubernetes",
-      "https://raw.githubusercontent.com/kubernetes/kubernetes/master/logo/logo.png",
+      "https://avatars.githubusercontent.com/u/13629408",
     },
     ["Chart.yaml"] = {
       "Helm Chart",
@@ -72,6 +98,14 @@ require("presence"):setup({
     ["prisma"] = {
       "Prisma",
       "https://avatars.githubusercontent.com/u/17219288",
+    },
+    ["bu"] = {
+      "Butane Config",
+      "https://avatars.githubusercontent.com/u/3730757",
+    },
+    ["ign"] = {
+      "CoreOS Ignition",
+      "https://avatars.githubusercontent.com/u/3730757",
     },
   },
   -- Rich Presence text options
@@ -94,17 +128,16 @@ require("presence"):setup({
     if concealed then
       return concealed
     end
-    return "Working in " .. s
+    return "Browsing " .. s
   end,
   workspace_text = function(s)
     local concealed = conceal()
     if s ~= nil and not concealed then
       return "Working on " .. s
     else
-      return nil
+      return "Masochism " .. vStr
     end
   end,
   git_commit_text = "Committing changes",
   plugin_manager_text = "Managing Plugins",
-  line_number_text = "L%s of %s",
 })
