@@ -1,10 +1,11 @@
 # vim:ft=zsh:fenc=utf-8:fdm=marker
 # load starship
-eval "$(starship init zsh)"
+[[ -x "$(command -v starship)" ]] && eval "$(starship init zsh)"
 
 ### plugins via antigen {{{
 # don't pollute $HOME with antigen
 ADOTDIR="$XDG_DATA_HOME/antigen"
+# bootstrap antigen
 if [[ ! -d "$ADOTDIR" ]]; then
   mkdir -p "$ADOTDIR"
   curl -L https://git.io/antigen > "$ADOTDIR/antigen.zsh"
@@ -78,6 +79,8 @@ if [ -x "$(command -v batcat)" ]; then
 elif [ -x "$(command -v bat)" ]; then
   alias cat='bat'
 fi
+
+[[ -x "$(command -v zoxide)" ]] && eval "$(zoxide init zsh)"
 
 # use neovim as vim, if installed
 if [[ -x "$(command -v nvim)" ]]; then
@@ -167,14 +170,10 @@ function debugnvim() {
 
 ### languages & frameworks {{{
 # python, my old friend
-if [ -x "$(command -v pyenv)" ]; then
-  eval "$(pyenv init -)"
-fi
+[[ -x "$(command -v pyenv)" ]] && eval "$(pyenv init -)"
 
 # ruby
-if [ -x "$(command -v rbenv)" ]; then
-  eval "$(rbenv init - zsh)"
-fi
+[[ -x "$(command -v rbenv)" ]] && eval "$(rbenv init - zsh)"
 
 # node
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"

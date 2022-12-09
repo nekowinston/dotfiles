@@ -5,6 +5,8 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 
 export EDITOR="nvim"
+export SUDO_EDITOR="nvim"
+export TERMINAL="wezterm-gui"
 export HISTFILE="$XDG_CONFIG_HOME/zsh/history"
 export LESSHISTFILE="-" # don't write a less history
 export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
