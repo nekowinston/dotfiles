@@ -15,7 +15,7 @@ set $terminal wezterm-gui start
 set $pwman    1password --quick-access
 
 # Set DPI value
-set_from_resource $dpi Xft.dpi 96
+set_from_resource $dpi Xft.dpi 140
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
 default_border pixel 2
@@ -49,6 +49,7 @@ bindsym $mod+t             exec --no-startup-id pkill picom
 bindsym $mod+Ctrl+t        exec --no-startup-id picom -b
 bindsym $mod+Ctrl+x        exec --no-startup-id xkill
 bindsym $hyper+p --release exec --no-startup-id flameshot gui
+bindsym $hyper+space       exec --no-startup-id gopass ls --flat | rofi -dmenu | xargs --no-run-if-empty gopass show -o | xdotool type --clearmodifiers --file -
 
 # change focus
 bindsym $modFocus+h     focus left
@@ -177,19 +178,21 @@ mode "resize" {
 
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id /usr/bin/gnome-keyring-daemon -c secrets
 exec --no-startup-id 1password --silent
 exec --no-startup-id blueman-applet
 exec --no-startup-id dunst
 exec --no-startup-id pcmanfm -d
+exec --no-startup-id setxkbmap -option caps:ctrl_modifier
 exec --no-startup-id sleep 1; picom -b
-exec --no-startup-id mpd_discord_richpresence --no-idle --fork
+exec --no-startup-id ~/.screenlayout/main.sh
 
 # Set inner/outer gaps
-gaps inner 0
-gaps outer 0
+gaps inner 1
+gaps outer 1
 
 # Smart gaps (gaps used if only more than one container on the workspace)
-smart_gaps off
+smart_gaps on
 
 # Smart borders (draw borders around container only if it is not the only container on this workspace)
 # on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
@@ -236,7 +239,7 @@ mode "$mode_gaps_outer" {
 
 
 # rofi instead of drun
-bindsym $mod+space exec --no-startup-id rofi -show run -dpi $dpi
+bindsym $mod+space exec --no-startup-id rofi -show drun -dpi $dpi
 
 # 1password
 bindsym $mod+Shift+space exec --no-startup-id $pwman
@@ -249,16 +252,16 @@ bindsym XF86AudioPrev  exec --no-startup-id playerctl previous
 bindsym XF86AudioPause exec --no-startup-id playerctl play-pause
 
 # Theme colors
-# class                  border  backgr. text    indic.  child_border
-client.focused           #313244 #000000 #CDD6F4 #000000 #313244
-client.focused_inactive  #000000 #000000 #9399B2 #000000 #313244
-client.unfocused         #000000 #000000 #9399B2 #000000 #000000
-client.urgent            #313244 #313244 #F38BA8 #000000 #F38BA8
-client.placeholder       #313244 #000000 #CDD6F4 #000000 #000000
+# class                  title   bg      text    indic.  border
+client.focused           #F5C2E7 #000000 #CDD6F4 #F5E0DC #F5C2E7
+client.focused_inactive  #CBA6F7 #000000 #9399B2 #F5E0DC #CBA6F7
+client.unfocused         #CBA6F7 #000000 #9399B2 #F5E0DC #CBA6F7
+client.urgent            #F38BA8 #000000 #F38BA8 #313244 #F38BA8
+client.placeholder       #313244 #000000 #CDD6F4 #313244 #313244
 client.background        #000000
 
 bar {
-  status_command I3RS_GITHUB_TOKEN=$(gopass git/winston) i3status-rs
+  status_command i3status-rs
 
   tray_output primary
   tray_padding 2

@@ -1,23 +1,21 @@
 @import "colors.rasi"
 
 * {
-  font: "Jetbrains Mono NerdFont 12";
+  font: "Berkeley Mono 12";
+  foreground: @text;
+  background: @base;
 
-  foreground: @drac-fgd;
-  background: @drac-bgd;
-  active-background: @drac-pnk;
-  urgent-background: @drac-red;
+  active-background: @pink;
+  urgent-background: @red;
 
-  selected-background: @active-background;
-  selected-urgent-background: @urgent-background;
-  selected-active-background: @active-background;
-  separatorcolor: @active-background;
-  bordercolor: @drac-cmt;
+  selected-background: @surface2;
+  selected-urgent-background: @surface2;
+  selected-active-background: @surface2;
 }
 
 #window {
   background-color: @background;
-  border-color:     @bordercolor;
+  border-color:     @pink;
   border:           2;
   padding:          0;
 }
@@ -28,9 +26,9 @@
 }
 
 #message {
-  border:       1px dash 0px 0px ;
-  border-color: @separatorcolor;
-  padding:      1px ;
+  border:       1px;
+  border-color: @crust;
+  padding:      1px;
 }
 
 #textbox {
@@ -39,11 +37,10 @@
 
 #listview {
   fixed-height: 0;
-  border:       2px 0px 0px;
-  border-color: @bordercolor;
-  spacing:      2px;
-  scrollbar:    false;
-  padding:      0px 0px 0px ;
+  border:       1 0 0;
+  border-color: @rosewater;
+  scrollbar:    true;
+  padding:      0;
 }
 
 #element {
@@ -52,78 +49,92 @@
 }
 
 #element.normal.normal {
-  background-color: @background;
-  text-color:       @foreground;
-}
-#element.normal.urgent {
-  background-color: @urgent-background;
-  text-color:       @urgent-foreground;
+  background-color: @base;
+  text-color:       @text;
 }
 #element.normal.active {
-  background-color: @active-background;
-  text-color:       @background;
+  background-color: @surface2;
+  text-color:       @text;
 }
 #element.selected.normal {
   background-color: @selected-background;
-  text-color:       @foreground;
-}
-#element.selected.urgent {
-  background-color: @selected-urgent-background;
-  text-color:       @foreground;
+  text-color:       @text;
 }
 #element.selected.active {
-  background-color: @selected-active-background;
-  text-color:       @background;
+  background-color: @surface2;
+  text-color:       @crust;
 }
 #element.alternate.normal {
-  background-color: @background;
-  text-color:       @foreground;
-}
-#element.alternate.urgent {
-  background-color: @urgent-background;
-  text-color:       @foreground;
+  background-color: @base;
+  text-color:       @text;
 }
 #element.alternate.active {
   background-color: @active-background;
   text-color:       @foreground;
 }
+
+#element.normal.urgent {
+  background-color: @crust;
+  text-color:       @red;
+}
+#element.selected.urgent {
+  background-color: @selected-urgent-background;
+  text-color:       @text;
+}
+#element.alternate.urgent {
+  background-color: @urgent-background;
+  text-color:       @text;
+}
+
 #scrollbar {
+  background-color: @crust;
   width:        2px ;
   border:       0;
   handle-width: 8px ;
   padding:      0;
 }
+
 #sidebar {
   border:       2px dash 0px 0px ;
-  border-color: @separatorcolor;
+  border-color: @crust;
 }
+
 #button.selected {
-  background-color: @selected-background;
-  text-color:       @foreground;
+  background-color: @base;
+  text-color:       @text;
 }
+
 #inputbar {
   spacing:    0;
-  text-color: @foreground;
+  text-color: @text;
   padding:    1px ;
 }
 #case-indicator {
   spacing:    0;
-  text-color: @foreground;
+  text-color: @text;
 }
 #entry {
   spacing:    0;
-  text-color: @drac-cya;
+  text-color: @text;
 }
 #prompt {
   spacing:    0;
-  text-color: @drac-grn;
+  text-color: @pink;
 }
 #inputbar {
-  children:   [ prompt,textbox-prompt-colon,entry,case-indicator ];
+  children: [
+    prompt,
+    textbox-prompt-colon,
+    entry,
+    case-indicator
+  ];
 }
+
 #textbox-prompt-colon {
   expand:     false;
   str:        ":";
-  margin:     0px 0.3em 0em 0em ;
-  text-color: @drac-grn;
+  margin:     0 0.5em 0 0;
+  text-color: @pink;
 }
+
+/* vim:ft=css */
