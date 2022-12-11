@@ -1,7 +1,7 @@
 configuration {
-  font:                "JetBrainsMono Nerd Font 10";
+  font:                "Berkeley Mono 10, Symbols Nerd Font Mono 10";
   show-icons:          true;
-  display-drun:        "";
+  display-drun:        "";
   drun-display-format: "{name}";
   disable-history:     false;
   fullscreen:          false;
@@ -12,10 +12,10 @@ configuration {
 @import "colors.rasi"
 
 window {
-  background-color:    @bg;
-  text-color:          @fg;
+  background-color:    @base;
+  text-color:          @text;
   border:              0px;
-  border-color:        @ac;
+  border-color:        @pink;
   border-radius:       0px;
   width:               300px;
   location:            center;
@@ -26,23 +26,22 @@ window {
 prompt {
   enabled:            true;
   padding:            0px 0px 0px 5px;
-  background-color:   @al;
-  text-color:         @fg;
+  background-color:   @base;
+  text-color:         @text;
 }
 
 textbox-prompt-colon {
   padding:            0px 0px 0px 2px;
-  background-color:   @al;
-  text-color:         @ac;
+  background-color:   @base;
+  text-color:         @pink;
   expand:             false;
-  str:                "";
-  font:               "JetBrainsMono Nerd Font 10";
+  str:                " ";
 }
 
 entry {
-  background-color:   @al;
-  text-color:         @fg;
-  placeholder-color:  @fg;
+  background-color:   @base;
+  text-color:         @text;
+  placeholder-color:  @text;
   expand:             true;
   horizontal-align:   0;
   placeholder:        "Search...";
@@ -52,18 +51,18 @@ entry {
 
 inputbar {
   children:           [ textbox-prompt-colon, prompt ];
-  background-color:   @bga;
-  text-color:         @fg;
+  background-color:   @base;
+  text-color:         @text;
   expand:             false;
   border:             0px 0px 0px 0px;
   border-radius:      0px;
-  border-color:       @ac;
+  border-color:       @pink;
   margin:             0px;
   padding:            12px;
 }
 
 listview {
-  background-color:   @al;
+  background-color:   @base;
   padding:            0px;
   columns:            1;
   lines:              5;
@@ -74,18 +73,18 @@ listview {
 }
 
 mainbox {
-  background-color:   @al;
+  background-color:   @base;
   border:             0px;
   border-radius:      0px;
-  border-color:       @ac;
+  border-color:       @crust;
   children:           [ inputbar, listview ];
   spacing:            0px;
   padding:            0px;
 }
 
 element {
-  background-color:   @al;
-  text-color:         @fg;
+  background-color:   @base;
+  text-color:         @text;
   orientation:        horizontal;
   border-radius:      0px;
   padding:            8px 8px 8px -15px;
@@ -104,10 +103,10 @@ element-text {
 }
 
 element selected {
-  background-color:   @se;
-  text-color:         @fg;
+  background-color:   @surface2;
+  text-color:         @text;
   border:             0px 0px 0px 2px;
   border-radius:      0px;
-  border-color:       @ac;
+  border-color:       @pink;
 }
 
