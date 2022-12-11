@@ -221,6 +221,10 @@ return packer.startup({
         require("telescope").load_extension("project")
       end,
     })
+    use({
+      'axkirillov/easypick.nvim',
+      requires = 'nvim-telescope/telescope.nvim'
+    })
 
     use("nvim-tree/nvim-web-devicons")
     use({
