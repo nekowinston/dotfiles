@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 # vim:fileencoding=utf-8:foldmethod=marker
 
-# Link to skhrc for <g-f>: ~/.config/skhd/skhdrc
-
 sudo yabai --load-sa
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 
@@ -15,21 +13,20 @@ while [ "$spaces" -gt 0 ]; do
 done
 
 yabai -m config \
-	mouse_follows_focus off \
+	auto_balance off \
 	focus_follows_mouse off \
-	mouse_modifier cmd \
-	mouse_action1 move \
-	mouse_action2 resize \
+	layout bsp \
 	mouse_drop_action swap \
+	mouse_follows_focus on \
+	mouse_modifier off \
+	window_animation_duration 0.1 \
+	window_border on \
+	window_border_blur off \
+	window_border_width 2 \
+	window_gap 4 \
 	window_origin_display default \
 	window_placement second_child \
-	window_border on \
-	window_border_width 2 \
-	window_shadow float \
-	auto_balance on \
-	layout bsp \
-	window_gap 0 \
-	window_animation_duration 0.1
+	window_shadow float
 
 APPS_ABOVE=(
 	"JetBrains Toolbox"
@@ -51,7 +48,7 @@ for app in "${APPS_UNMANAGED[@]}"; do
 done
 
 yabai \
-	-m rule --add app="^CleanShot X\$" manage=off border=off \
+	-m rule --add app="CleanShot" manage=off border=off \
 	-m rule --add app="OBS Studio" manage=off sticky=on
 
 echo "$(date -Iseconds): [RELOAD] finished loading yabai conf"

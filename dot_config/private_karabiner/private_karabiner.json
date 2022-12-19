@@ -43,6 +43,31 @@
                   }
                 ],
                 "type": "basic"
+              },
+              {
+                "from": {
+                  "key_code": "right_command",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "shell_command": "/opt/homebrew/bin/sketchybar --bar hidden=false"
+                  },
+                  {
+                    "key_code": "right_command"
+                  }
+                ],
+                "to_after_key_up": [
+                  {
+                    "key_code": "right_command"
+                  },
+                  {
+                    "shell_command": "/opt/homebrew/bin/sketchybar --bar hidden=true"
+                  }
+                ],
+                "type": "basic"
               }
             ]
           },

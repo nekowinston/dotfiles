@@ -155,8 +155,6 @@ sketchybar \
   alias.color="$(color pink)" \
   --set "Little Snitch Agent" \
   alias.color="$(color pink)" \
-  --set "iStat Menus Status" \
-  alias.color="$(color pink)" \
   --set "Control Centre,Battery" \
   alias.color="$(color pink)"
 
