@@ -13,12 +13,6 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   end,
 })
 
-local function check_git()
-  local is_repo = vim.fn.filereadable(vim.fn.getcwd() .. "/.git") == 1
-  local git_exists = vim.fn.executable("git") == 1
-  return is_repo and git_exists
-end
-
 return packer.startup({
   function(use)
     -- Packer managing itself
@@ -48,7 +42,6 @@ return packer.startup({
       config = function()
         require("config/gitsigns")
       end,
-      cond = check_git,
     })
     -- rainbow indents
     use({
@@ -165,13 +158,11 @@ return packer.startup({
     -- git
     use({
       "tpope/vim-fugitive",
-      cond = check_git,
     })
     -- why not both?
     use({
       "TimUntersberger/neogit",
       requires = "nvim-lua/plenary.nvim",
-      cond = check_git,
       config = function()
         Map("n", "<leader>ng", "<Cmd>Neogit<CR>")
       end,
@@ -222,8 +213,8 @@ return packer.startup({
       end,
     })
     use({
-      'axkirillov/easypick.nvim',
-      requires = 'nvim-telescope/telescope.nvim'
+      "axkirillov/easypick.nvim",
+      requires = "nvim-telescope/telescope.nvim",
     })
 
     use("nvim-tree/nvim-web-devicons")

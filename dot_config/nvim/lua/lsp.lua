@@ -25,10 +25,10 @@ local has_words_before = function()
   ---@diagnostic disable-next-line: deprecated
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0
-      and vim.api
-      .nvim_buf_get_lines(0, line - 1, line, true)[1]
-      :sub(col, col)
-      :match("%s")
+    and vim.api
+        .nvim_buf_get_lines(0, line - 1, line, true)[1]
+        :sub(col, col)
+        :match("%s")
       == nil
 end
 
@@ -240,7 +240,7 @@ lspconfig.bashls.setup({
   on_attach = on_attach,
 })
 
--- data
+-- data {{{
 lspconfig.jsonls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
@@ -272,7 +272,7 @@ lspconfig.yamlls.setup({
       schemas = {
         ["https://json.schemastore.org/github-action"] = ".github/action.{yaml,yml}",
         ["https://json.schemastore.org/github-workflow"] = ".github/workflows/*",
-        ["https://json.schemastore.org/gitlab-ci"] = "*lab-ci.{yaml,yml}",
+        ["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] = "*lab-ci.{yaml,yml}",
         ["https://json.schemastore.org/helmfile"] = "helmfile.{yaml,yml}",
         ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "docker-compose.yml.{yml,yaml}",
         -- stylua: ignore
@@ -292,7 +292,9 @@ lspconfig.yamlls.setup({
     },
   },
 })
+-- }}}
 
+-- Latex {{{
 lspconfig.ltex.setup({
   capabilities = capabilities,
   on_attach = function(client, bufnr)
@@ -307,7 +309,9 @@ lspconfig.ltex.setup({
     ltex = {},
   },
 })
+-- }}}
 
+-- Null LS {{{
 local null = require("null-ls")
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
@@ -342,6 +346,7 @@ local toggle_formatters = function()
 end
 
 vim.api.nvim_create_user_command("ToggleFormatters", toggle_formatters, {})
+-- }}}
 
 -- go (with nvim-go) {{{
 require("go").setup({

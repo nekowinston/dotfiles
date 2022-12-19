@@ -45,7 +45,6 @@ require("catppuccin").setup({
       colored_indent_levels = true,
     },
     barbar = false,
-    bufferline = true,
     dashboard = false,
     fern = false,
     gitgutter = false,
@@ -101,7 +100,7 @@ require("catppuccin").setup({
       mantle = "#020202",
     },
   },
-  transparent_background = true,
+  transparent_background = false,
 })
 
 vim.api.nvim_command("colorscheme catppuccin")
