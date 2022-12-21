@@ -1,335 +1,222 @@
-local packer = require("packer")
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git", "clone", "--filter=blob:none", "--single-branch",
+    "https://github.com/folke/lazy.nvim.git", lazypath
+  })
+end
+vim.opt.runtimepath:prepend(lazypath)
 
--- auto-compile when lua files in `~/.config/nvim/*` change
-vim.api.nvim_create_autocmd("BufWritePost", {
-  pattern = "*.lua",
-  callback = function()
-    local cfg_path = vim.fn.resolve(vim.fn.stdpath("config"))
-    vim.defer_fn(function()
-      if vim.fn.expand("%:p"):match(cfg_path) then
-        vim.cmd("silent! PackerCompile")
-      end
-    end, 0)
-  end,
-})
-
-return packer.startup({
-  function(use)
-    -- Packer managing itself
-    use("wbthomason/packer.nvim")
-    -- startup time or some shit
-    use("lewis6991/impatient.nvim")
-
-    -- colour scheme
-    use({
-      "https://git.winston.sh/catppuccin/nvim",
-      as = "catppuccin",
-      config = function()
-        require("config/catppuccin")
-      end,
-    })
-
-    use({
-      "Pocco81/true-zen.nvim",
-      config = function()
-        require("true-zen").setup()
-      end,
-    })
-
-    -- git gutter
-    use({
-      "lewis6991/gitsigns.nvim",
-      config = function()
-        require("config/gitsigns")
-      end,
-    })
-    -- rainbow indents
-    use({
-      "lukas-reineke/indent-blankline.nvim",
-      config = function()
-        require("indent_blankline").setup({
-          space_char_blankline = " ",
-          -- show_current_context = true,
-          -- show_current_context_start = true,
-        })
-        vim.g.indent_blankline_filetype_exclude = {
-          "dashboard",
-          "help",
-          "neogitstatus",
-          "fugitive",
-          "packer",
-          "NvimTree",
-          "Trouble",
-        }
-      end,
-    })
-
-    use({
-      "akinsho/bufferline.nvim",
-      config = function()
-        require("config/bufferline")
-      end,
-    })
-
-    use({
-      "feline-nvim/feline.nvim",
-      config = function()
-        require("config/feline")
-      end,
-    })
-
-    -- DJI Osmo
-    use({
-      "luukvbaal/stabilize.nvim",
-      config = function()
-        require("stabilize").setup()
-      end,
-    })
-
-    -- syntax
-    use({
-      "nvim-treesitter/nvim-treesitter",
-      run = function()
-        require("nvim-treesitter.install").update({ with_sync = true })
-      end,
-      config = function()
-        require("config/treesitter")
-      end,
-    })
-    use("nvim-treesitter/playground")
-
-    use({
-      "p00f/nvim-ts-rainbow",
-      requires = "nvim-treesitter/nvim-treesitter",
-    })
-
-    -- show possible key combos
-    use({
-      "folke/which-key.nvim",
-      config = function()
-        require("config/which-key")
-      end,
-    })
-
-    -- syntax
-    use("alker0/chezmoi.vim")
-    use({
-      "wuelnerdotexe/vim-astro",
-      config = function()
-        vim.g.astro_typescript = "enable"
-      end,
-    })
-    -- tooling
-    use("gpanders/editorconfig.nvim")
-    -- read and write encrypted pgp files
-    use("jamessan/vim-gnupg")
-
-    -- additional functionality
-    use({
-      "numToStr/Comment.nvim",
-      config = function()
-        require("Comment").setup()
-      end,
-    })
-    use({
-      "kylechui/nvim-surround",
-      config = function()
-        require("nvim-surround").setup({})
-      end,
-    })
-    use("ggandor/lightspeed.nvim")
-
-    use({
-      "windwp/nvim-autopairs",
-      config = function()
-        require("nvim-autopairs").setup({})
-        local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-        local cmp = require("cmp")
-        cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-      end,
-    })
-    use({
-      "windwp/nvim-ts-autotag",
-      config = function()
-        require("nvim-ts-autotag").setup()
-      end,
-    })
-
-    -- git
-    use({
-      "tpope/vim-fugitive",
-    })
-    -- why not both?
-    use({
-      "TimUntersberger/neogit",
-      requires = "nvim-lua/plenary.nvim",
-      config = function()
-        Map("n", "<leader>ng", "<Cmd>Neogit<CR>")
-      end,
-    })
-    use("dhruvasagar/vim-table-mode")
-    use({
-      "nvchad/nvim-colorizer.lua",
-      config = function()
-        require("config/colorizer")
-      end,
-    })
-
-    -- databases
-    use("tpope/vim-dadbod")
-    use("kristijanhusak/vim-dadbod-completion")
-    use({
-      "kristijanhusak/vim-dadbod-ui",
-      config = function()
-        Map("n", "<leader>db", ":DBUIToggle<CR>")
-        vim.g.db_ui_use_nerd_fonts = true
-        vim.g.db_ui_win_position = "right"
-      end,
-    })
-
-    -- telescope
-    use({
-      "nvim-telescope/telescope.nvim",
-      requires = "nvim-lua/plenary.nvim",
-      config = function()
-        require("config/telescope")
-      end,
-    })
-    use({
-      "nvim-telescope/telescope-fzf-native.nvim",
-      run = "make",
-      requires = "nvim-telescope/telescope.nvim",
-    })
-    use({
-      "nvim-telescope/telescope-file-browser.nvim",
-      config = function()
-        require("telescope").load_extension("file_browser")
-      end,
-    })
-    use({
-      "nvim-telescope/telescope-project.nvim",
-      config = function()
-        require("telescope").load_extension("project")
-      end,
-    })
-    use({
-      "axkirillov/easypick.nvim",
-      requires = "nvim-telescope/telescope.nvim",
-    })
-
-    use("nvim-tree/nvim-web-devicons")
-    use({
-      "nvim-tree/nvim-tree.lua",
-      keys = { "<C-n>" },
-      config = function()
-        Map("n", "<C-N>", ":NvimTreeToggle<CR>")
-        require("nvim-tree").setup()
-      end,
-    })
-
-    use({
-      "andweeb/presence.nvim",
-      config = function()
-        require("config/presence")
-      end,
-    })
-    use({ "iamcco/markdown-preview.nvim", run = "cd app && yarn install" })
-
-    -- LSP
-    use("williamboman/mason.nvim")
-    use("williamboman/mason-lspconfig.nvim")
-    use("neovim/nvim-lspconfig")
-    -- completion
-    use("hrsh7th/nvim-cmp")
-    use("hrsh7th/cmp-buffer")
-    use("hrsh7th/cmp-cmdline")
-    use("hrsh7th/cmp-nvim-lsp")
-    use("hrsh7th/cmp-path")
-    use("hrsh7th/cmp-vsnip")
-    use("hrsh7th/vim-vsnip")
-    use("petertriho/cmp-git")
-    use("onsails/lspkind.nvim")
-    use("rafamadriz/friendly-snippets")
-    use("jose-elias-alvarez/null-ls.nvim")
-    use({
-      "glepnir/lspsaga.nvim",
-      branch = "main",
-      config = function()
-        require("config/lspsaga")
-      end,
-    })
-    use({
-      "ray-x/go.nvim",
-      requires = "ray-x/guihua.lua",
-    })
-    use({
-      "HallerPatrick/py_lsp.nvim",
-    })
-    use({
-      "simrat39/rust-tools.nvim",
-    })
-
-    use({
-      "rcarriga/nvim-dap-ui",
-      requires = {
-        "mfussenegger/nvim-dap",
-        "theHamsta/nvim-dap-virtual-text",
-      },
-    })
-
-    use({ "barreiroleo/ltex-extra.nvim" })
-
-    use("b0o/schemastore.nvim")
-    use({
-      "zbirenbaum/copilot.lua",
-      config = function()
-        require("config/copilot")
-      end,
-    })
-
-    -- organization
-    use({
-      "vimwiki/vimwiki",
-      branch = "dev",
-      config = function()
-        vim.g.vimwiki_global_ext = 0
-        vim.g.vimwiki_list = {
-          {
-            auto_export = 1,
-            path = "~/.local/share/vimwiki/",
-            syntax = "markdown",
-            ext = ".md",
-            path_html = "~/vimwiki/",
-            template_path = "~/.config/vimwiki/templates/",
-            template_default = "default",
-            template_ext = ".tpl",
-            custom_wiki2html = "vimwiki_markdown",
-            html_filename_parameterization = 1,
-          },
-        }
-      end,
-    })
-    use("tools-life/taskwiki")
-
-    use({
-      "skywind3000/asyncrun.vim",
-      config = function()
-        vim.g.asyncrun_open = 6
-      end,
-    })
-    use({ "skywind3000/asynctasks.vim" })
-    use({
-      "GustavoKatel/telescope-asynctasks.nvim",
-      config = function()
-        require("telescope").load_extension("asynctasks")
-      end,
-    })
-  end,
-  config = {
-    display = {
-      open_fn = function()
-        return require("packer.util").float({ border = "double" })
-      end,
-    },
+local plugins = {
+  -- startup time or some shit
+  "lewis6991/impatient.nvim",
+  -- colour scheme
+  { "catppuccin/nvim", name = "catppuccin" },
+  "glepnir/dashboard-nvim",
+  "Pocco81/true-zen.nvim",
+  -- git gutter
+  "lewis6991/gitsigns.nvim",
+  -- rainbow indents
+  "lukas-reineke/indent-blankline.nvim",
+  "akinsho/bufferline.nvim",
+  -- "feline-nvim/feline.nvim",
+  -- DJI Osmo
+  "luukvbaal/stabilize.nvim",
+  -- syntax
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = function()
+      require("nvim-treesitter.install").update({ with_sync = true })
+    end,
   },
+  "nvim-treesitter/playground",
+  "p00f/nvim-ts-rainbow",
+  -- show possible key combos
+  "folke/which-key.nvim",
+  -- syntax
+  "alker0/chezmoi.vim",
+  {
+    "wuelnerdotexe/vim-astro",
+    config = function()
+      vim.g.astro_typescript = "enable"
+    end,
+  },
+  -- tooling
+  "gpanders/editorconfig.nvim",
+  -- read and write encrypted pgp files
+  "jamessan/vim-gnupg",
+  -- additional functionality
+  {
+    "numToStr/Comment.nvim",
+    config = function()
+      require("Comment").setup()
+    end
+  },
+  {
+    "kylechui/nvim-surround",
+    config = function()
+      require("nvim-surround").setup()
+    end,
+  },
+  "ggandor/lightspeed.nvim",
+  {
+    "windwp/nvim-autopairs",
+    config = function()
+      require("nvim-autopairs").setup()
+      local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+      local cmp = require("cmp")
+      cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+    end,
+  },
+  "windwp/nvim-ts-autotag",
+  -- git
+  "tpope/vim-fugitive",
+  -- why not both?
+  "TimUntersberger/neogit",
+  {
+    "dhruvasagar/vim-table-mode",
+    config = function()
+      vim.cmd([[autocmd FileType markdown let g:table_mode_corner='|']])
+    end
+  },
+  "nvchad/nvim-colorizer.lua",
+  -- databases
+  "tpope/vim-dadbod",
+  "kristijanhusak/vim-dadbod-completion",
+  {
+    "kristijanhusak/vim-dadbod-ui",
+    config = function()
+      vim.g.db_ui_use_nerd_fonts = true
+      vim.g.db_ui_win_position = "right"
+    end,
+  },
+
+  "skywind3000/asyncrun.vim",
+  "skywind3000/asynctasks.vim",
+
+  -- telescope
+  {
+    "nvim-telescope/telescope.nvim",
+    config = function()
+      local telescope = require("telescope")
+      telescope.load_extension("fzf")
+      telescope.load_extension("asynctasks")
+      telescope.load_extension("file_browser")
+      telescope.load_extension("project")
+    end,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make",
+      },
+      "GustavoKatel/telescope-asynctasks.nvim",
+      "nvim-telescope/telescope-file-browser.nvim",
+      "nvim-telescope/telescope-project.nvim",
+      "axkirillov/easypick.nvim",
+    }
+  },
+
+  -- nvimtree
+  "nvim-tree/nvim-web-devicons",
+  {
+    "nvim-tree/nvim-tree.lua",
+    config = function()
+      require("nvim-tree").setup()
+    end
+  },
+
+  -- discord
+  "andweeb/presence.nvim",
+  { "iamcco/markdown-preview.nvim", build = "cd app && yarn install" },
+
+  -- LSP
+  {
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+      -- completion
+      "hrsh7th/nvim-cmp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-cmdline",
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-vsnip",
+      "hrsh7th/vim-vsnip",
+      "petertriho/cmp-git",
+      "onsails/lspkind.nvim",
+      "rafamadriz/friendly-snippets",
+      "jose-elias-alvarez/null-ls.nvim",
+      "glepnir/lspsaga.nvim",
+      {
+        "j-hui/fidget.nvim",
+        config = function()
+          require("fidget").setup({})
+        end
+      },
+      "barreiroleo/ltex-extra.nvim",
+      "b0o/schemastore.nvim",
+      "HallerPatrick/py_lsp.nvim",
+      "simrat39/rust-tools.nvim",
+      { "ray-x/go.nvim", dependencies = { "ray-x/guihua.lua" } },
+      { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "theHamsta/nvim-dap-virtual-text" } },
+    }
+  },
+  -- lua github copilot
+  "zbirenbaum/copilot.lua",
+}
+
+require("lazy").setup(plugins, {
+  defaults = { lazy = false },
+  install = { colorscheme = { "catppuccin" } },
+  performance = {
+    rtp = {
+      disabled_plugins = {
+        "2html_plugin",
+        "bugreport",
+        "compiler",
+        "ftplugin",
+        "fzf",
+        "getscript",
+        "getscriptPlugin",
+        "gzip",
+        "logipat",
+        "matchit",
+        "netrw",
+        "netrwFileHandlers",
+        "netrwPlugin",
+        "netrwSettings",
+        "optwin",
+        "rplugin",
+        "rrhelper",
+        "spellfile_plugin",
+        "synmenu",
+        "syntax",
+        "tar",
+        "tarPlugin",
+        "tutor",
+        "vimball",
+        "vimballPlugin",
+        "zip",
+        "zipPlugin",
+      }
+    }
+  },
+  ui = {
+    icons = {
+      cmd = " ",
+      config = "",
+      event = " ",
+      ft = " ",
+      init = " ",
+      keys = " ",
+      plugin = " ",
+      runtime = " ",
+      source = " ",
+      start = " ",
+      task = " ",
+    },
+    border = "double"
+  }
 })

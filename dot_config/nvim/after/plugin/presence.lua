@@ -1,3 +1,9 @@
+local present, presence = pcall(require, "presence")
+
+if not present then
+  return
+end
+
 function string.starts(self, str)
   return self:find("^" .. str) ~= nil
 end
@@ -10,11 +16,14 @@ local blacklist = {
 }
 
 local function get_chezmoi_output()
-  local sp = io.popen("chezmoi managed -i files")
+  local sp, err = io.popen("chemoi managed -i files -pa")
+  if err then
+    return nil
+  end
   if sp then
     local files = {}
     for line in sp:lines() do
-      table.insert(files, vim.fn.expand("$HOME") .. "/" .. line)
+      table.insert(files, line)
     end
     sp:close()
     return files
@@ -23,7 +32,7 @@ end
 
 local chezmoi_managed = get_chezmoi_output()
 
-local conceal = function()
+local conceal = function(activity, info)
   local cur_file = vim.fn.expand("%:p")
   if vim.tbl_contains(chezmoi_managed, cur_file) then
     return "Managing dotfiles"
@@ -33,13 +42,15 @@ local conceal = function()
       return v
     end
   end
-  return false
+  if info ~= nil then
+    return activity .. " " .. info
+  end
 end
 
 local v = vim.version()
 local vStr = string.format("v%d.%d.%d", v.major, v.minor, v.patch)
 
-require("presence"):setup({
+presence:setup({
   -- General options
   auto_update = true,
   debounce_timeout = 10,
@@ -49,39 +60,12 @@ require("presence"):setup({
   show_time = false,
   -- A list of strings or Lua patterns that disable Rich Presence if the current file name, path, or workspace matches
   ---@diagnostic disable-next-line: unused-local
-  buttons = function(buffer, repo_url)
-    -- ignore where no repo_url is set
-    if repo_url == nil then
-      return false
-    end
-
-    -- only show certain org/user repos, don't leak clients or work
-    local visible_urls = {
-      "github.com/catppuccin",
-      "github.com/farbenfroh",
-      "github.com/nekowinston",
-    }
-
-    -- check if repo_url is in the list of visible urls
-    for _, visible_url in ipairs(visible_urls) do
-      if repo_url:find(visible_url) then
-        return {
-          {
-            label = "Steal the code",
-            url = repo_url,
-          },
-        }
-      end
-    end
-
-    -- if not, make funni
-    return {
-      {
-        label = "Steal the code",
-        url = "https://winston.sh/rrproductions/studio.git",
-      },
-    }
-  end,
+  buttons = {
+    {
+      label = "Steal the code",
+      url = "https://git.winston.sh/winston/holy-grail.git",
+    },
+  },
   file_assets = {
     ["k8s.yaml"] = {
       "Kubernetes",
@@ -110,25 +94,13 @@ require("presence"):setup({
   },
   -- Rich Presence text options
   editing_text = function(s)
-    local concealed = conceal()
-    if concealed then
-      return concealed
-    end
-    return "Editing " .. s
+    return conceal("Editing", s)
   end,
   reading_text = function(s)
-    local concealed = conceal()
-    if concealed then
-      return concealed
-    end
-    return "Reading " .. s
+    return conceal("Reading", s)
   end,
   file_explorer_text = function(s)
-    local concealed = conceal()
-    if concealed then
-      return concealed
-    end
-    return "Browsing " .. s
+    return conceal("Browsing", s)
   end,
   workspace_text = function(s)
     local concealed = conceal()

@@ -21,7 +21,7 @@ easypick.setup({
   pickers = {
     {
       name = "chezmoi",
-      command = [[chezmoi managed -x encrypted -i files | awk '{ printf("%s/%s\n", "~", $0) }']],
+      command = [[chezmoi managed -ifiles -pabsolute -xencrypted]],
       previewer = easypick.previewers.default()
     },
   }

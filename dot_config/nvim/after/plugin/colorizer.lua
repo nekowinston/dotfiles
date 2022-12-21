@@ -17,7 +17,6 @@ require("colorizer").setup({
   buftypes = {
     "*",
     "!dashboard",
-    "!packer",
     "!popup",
     "!prompt",
   },

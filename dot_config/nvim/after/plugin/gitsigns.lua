@@ -1,9 +1,12 @@
-local wk = require("which-key")
+local p1, wk = pcall(require, "which-key")
+local p2, gs = pcall(require, "gitsigns")
 
-require("gitsigns").setup({
+if not (p1 and p2) then
+  return
+end
+
+gs.setup({
   on_attach = function(bufnr)
-    local gs = package.loaded.gitsigns
-
     -- Gitsigns
     wk.register({
       ["<leader>h"] = {

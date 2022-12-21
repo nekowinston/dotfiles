@@ -1,7 +1,6 @@
 require("nvim-treesitter.configs").setup({
   auto_install = true,
   ignore_install = {
-    -- woulnd't install sometimes, not needed
     "phpdoc",
   },
   highlight = {

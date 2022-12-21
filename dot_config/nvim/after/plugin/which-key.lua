@@ -16,12 +16,13 @@ wk.setup({
 wk.register({
   ["<leader>f"] = {
     name = "+Telescope",
-    d = { "<cmd>Telescope find_files<cr>", "Find File" },
-    r = { "<cmd>Telescope asynctasks all<cr>", "Run Asynctasks" },
     b = { "<cmd>Telescope file_browser<cr>", "File Browser" },
+    c = { "<cmd>Easypick  chezmoi<cr>", "Chezmoi" },
+    d = { "<cmd>Telescope find_files<cr>", "Find File" },
     g = { "<cmd>Telescope live_grep<cr>", "Live Grep" },
     h = { "<cmd>Telescope help_tags<cr>", "Help Tags" },
     p = { "<cmd>Telescope project<cr>", "Project" },
+    r = { "<cmd>Telescope asynctasks all<cr>", "Run Asynctasks" },
     s = {
       function()
         local confpath = vim.fn.resolve(vim.fn.stdpath("config"))
@@ -37,6 +38,10 @@ wk.register({
   ["<leader>"] = {
     y = { '"+y', "Copy to clipboard" },
     p = { '"+p', "Paste from clipboard" },
+    db = { "<cmd>DBUIToggle<cr>", "Toggle DBUI" },
+    gd = { "<cmd>Gvdiff!<CR>", "Git Diff" },
+    ng = { "<cmd>Neogit<cr>", "Neogit" },
+    sl = { "<cmd>SessionLoad<cr>", "Load Session" },
   },
 }, { mode = { "n", "v" } })
 

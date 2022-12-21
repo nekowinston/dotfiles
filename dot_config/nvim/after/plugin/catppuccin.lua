@@ -32,12 +32,10 @@ require("catppuccin").setup({
     lsp_saga = true,
     lsp_trouble = true,
     nvimtree = {
-      enabled = false,
+      enabled = true,
     },
     neotree = {
-      enabled = true,
-      show_root = false,
-      transparent_panel = false,
+      enabled = false,
     },
     which_key = true,
     indent_blankline = {
@@ -100,7 +98,7 @@ require("catppuccin").setup({
       mantle = "#020202",
     },
   },
-  transparent_background = false,
+  transparent_background = true,
 })
 
 vim.api.nvim_command("colorscheme catppuccin")
