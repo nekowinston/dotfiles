@@ -1,23 +1,29 @@
-FROM archlinux:base-devel
+FROM fedora:latest
 
-RUN pacman -Sy \
-  base-devel \
-  chezmoi \
-  fd \
+RUN dnf install -y \
+  ccache \
+  fd-find \
+  gcc-c++ \
   git \
-  go \
+  golang \
+  libstdc++-static \
+  lsd \
   neovim \
   nodejs \
   npm \
   python \
+  ranger \
   ripgrep \
-  starship \
-  tree-sitter \
-  ttf-nerd-fonts-symbols-common \
+  tree-sitter-cli \
   unzip \
   zip \
+  zoxide \
   zsh \
-  --noconfirm
+  && dnf clean all
+
+# install starship
+RUN curl -sS https://starship.rs/install.sh | sh -s -- -y
+RUN npm install -g yarn
 
 # initialize the demo user
 RUN useradd -m demo && \
@@ -25,12 +31,8 @@ RUN useradd -m demo && \
 USER demo
 WORKDIR /home/demo
 
-# install yay, might be used at a later point
-# RUN git clone https://aur.archlinux.org/yay-bin.git && \
-#   cd yay-bin && \
-#   makepkg -si --noconfirm && \
-#   cd .. && \
-#   rm -rf yay-bin
+ENV PATH="/home/demo/.local/bin:${PATH}"
+RUN sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin
 
 # copy the dotfiles
 COPY --chown=demo:demo . /home/demo/.local/share/chezmoi
@@ -38,13 +40,15 @@ COPY --chown=demo:demo . /home/demo/.local/share/chezmoi
 RUN sudo chown -R demo:demo /home/demo/.local
 
 # install them
-RUN chezmoi init
-RUN chezmoi apply -x encrypted
+RUN chezmoi init && chezmoi apply -x encrypted
 
 # set up antigen
 RUN zsh -c "zsh ~/.config/zsh/.zshrc; exit 0"
-# set up neovim with PackerSync
-RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+
+# set up neovim, cloning lazy.nvim and installing plugins
+RUN git clone --filter=blob:none --single-branch \
+  https://github.com/folke/lazy.nvim.git ~/.local/share/nvim/lazy/lazy.nvim
+RUN nvim --headless "+Lazy! sync" +qa
 
 # use zsh as the default shell
 ENTRYPOINT ["/bin/zsh"]
