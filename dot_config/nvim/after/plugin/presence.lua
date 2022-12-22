@@ -16,7 +16,7 @@ local blacklist = {
 }
 
 local function get_chezmoi_output()
-  local sp, err = io.popen("chemoi managed -i files -pa")
+  local sp, err = io.popen("chezmoi managed -i files -pa")
   if err then
     return nil
   end
