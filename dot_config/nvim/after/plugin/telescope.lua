@@ -16,15 +16,15 @@ telescope.setup({
 })
 
 
-local easypick = require("easypick")
+local present, easypick = pcall(require, "easypick")
+if not present then return end
+
 easypick.setup({
-  pickers = {
-    {
-      name = "chezmoi",
-      command = [[chezmoi managed -ifiles -pabsolute -xencrypted]],
-      previewer = easypick.previewers.default()
-    },
-  }
+  pickers = { {
+    name = "chezmoi",
+    command = [[chezmoi managed -ifiles -pabsolute -xencrypted]],
+    previewer = easypick.previewers.default()
+  } }
 })
 
 

@@ -1,4 +1,4 @@
-# vim:filetype=sshconfig
+# vim:ft=sshconfig
 
 Host *
   ControlMaster auto

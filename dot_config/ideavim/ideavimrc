@@ -36,7 +36,6 @@ map Q gq
 set ideamarks
 set ideajoin
 set ideastatusicon=gray
-set clipboard+=unnamed
 
 """ Mappings -----------------------------------------------------------------
 " IDEA binds
@@ -64,6 +63,8 @@ sethandler <C-R> n:ide
 
 map <A-<> <Action>(PreviousTab)
 map <A->> <Action>(NextTab)
+map <A-c> <Action>(NewScratchFile)
+map <A-x> <Action>(CloseContent)
 
 " Zen mode
 map <leader>zz <Action>(ToggleZenMode)
@@ -72,7 +73,6 @@ map <leader>zz <Action>(ToggleZenMode)
 map <leader>ff <Action>(GotoFile)
 map <leader>fg <Action>(FindInPath)
 map <leader>fl <Action>(RecentLocations)
-map <leader>fs <Action>(NewScratchFile)
 
 map [d <Action>(GotoPreviousError)
 map ]d <Action>(GotoNextError)
