@@ -61,3 +61,7 @@ export PATH="$PATH:$GOPATH/bin"
 ### ruby {{{
 export RBENV_ROOT="$XDG_DATA_HOME/rbenv"
 #}}}
+### lua {{{
+export LUAROCKS_CONFIG="$XDG_CONFIG_HOME/luarocks/config.lua"
+export PATH="$PATH:$XDG_DATA_HOME/luarocks/bin"
+#}}}
