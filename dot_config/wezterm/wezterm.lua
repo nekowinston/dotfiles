@@ -44,7 +44,7 @@ return {
   use_fancy_tab_bar = false,
   -- etc.
   adjust_window_size_when_changing_font_size = false,
-  use_resize_increments = true,
+  use_resize_increments = false,
   audible_bell = "Disabled",
   clean_exit_codes = { 130 },
   default_cursor_style = "BlinkingBar",
