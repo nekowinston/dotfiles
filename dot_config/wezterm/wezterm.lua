@@ -5,6 +5,13 @@ require("bar")
 
 local font = fonts.get_font("berkeley")
 
+-- wezterm.GLOBAL.smart_padding = {
+--   left = 12,
+--   right = 12,
+--   top = 0,
+--   bottom = 0,
+-- }
+
 return {
   -- keys
   disable_default_key_bindings = true,
@@ -32,12 +39,12 @@ return {
     light = "Catppuccin Latte",
   }),
   -- tab bar
-  hide_tab_bar_if_only_one_tab = false,
   tab_bar_at_bottom = true,
   tab_max_width = 32,
   use_fancy_tab_bar = false,
   -- etc.
   adjust_window_size_when_changing_font_size = false,
+  use_resize_increments = true,
   audible_bell = "Disabled",
   clean_exit_codes = { 130 },
   default_cursor_style = "BlinkingBar",
