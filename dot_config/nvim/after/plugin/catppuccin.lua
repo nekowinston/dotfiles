@@ -1,6 +1,8 @@
 vim.g.catppuccin_flavour = "mocha"
 local present, catppuccin = pcall(require, "catppuccin")
-if not present then return end
+if not present then
+  return
+end
 
 catppuccin.setup({
   dim_inactive = {

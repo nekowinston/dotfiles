@@ -1,5 +1,4 @@
-local ctp_present, clrs = pcall(require, "catppuccin.palettes")
-local _, ctp_feline = pcall(require, "catppuccin.groups.integrations.feline")
+local ctp_present, ctp_feline = pcall(require, "catppuccin.groups.integrations.feline")
 local present, feline = pcall(require, "feline")
 
 if not present then
@@ -7,7 +6,7 @@ if not present then
 end
 
 if ctp_present then
-  clrs = clrs.get_palette("catppuccin")
+  local clrs = require("catppuccin.palettes").get_palette()
   ctp_feline.setup({
     assets = {
       left_separator = "",
@@ -18,6 +17,13 @@ if ctp_present then
       file = "   ",
       git = {
         branch = " ",
+      },
+      lsp = {
+        server = "  ",
+        error = "  ",
+        warning = "  ",
+        info = "  ",
+        hint = "  ",
       },
     },
     sett = {

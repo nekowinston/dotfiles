@@ -51,20 +51,20 @@ db.custom_center = {
   {
     icon = "  ",
     desc = pad("Restore last session"),
-    shortcut = "SPC s l",
+    shortcut = "␣ s l",
     action = "SessionLoad",
   },
   {
     icon = "  ",
     desc = pad("Open Projects"),
     action = "Telescope project",
-    shortcut = "SPC f p",
+    shortcut = "␣ f p",
   },
   {
     icon = "  ",
     desc = pad("File Browser"),
     action = "Telescope file_browser",
-    shortcut = "SPC f b",
+    shortcut = "␣ f b",
   },
   {
     icon = "  ",
@@ -73,7 +73,7 @@ db.custom_center = {
       local confpath = vim.fn.resolve(vim.fn.stdpath("config"))
       require("telescope.builtin").find_files({ cwd = confpath })
     end,
-    shortcut = "SPC f s",
+    shortcut = "␣ f s",
   },
 }
 

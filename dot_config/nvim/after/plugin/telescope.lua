@@ -1,4 +1,10 @@
-local telescope = require("telescope")
+local present, telescope = pcall(require, "telescope")
+if not present then return end
+
+pcall(telescope.load_extension, "fzf")
+pcall(telescope.load_extension, "asynctasks")
+pcall(telescope.load_extension, "file_browser")
+pcall(telescope.load_extension, "project")
 
 telescope.setup({
   defaults = {
@@ -15,9 +21,8 @@ telescope.setup({
   },
 })
 
-
-local present, easypick = pcall(require, "easypick")
-if not present then return end
+local ep_present, easypick = pcall(require, "easypick")
+if not ep_present then return end
 
 easypick.setup({
   pickers = { {
@@ -26,6 +31,3 @@ easypick.setup({
     previewer = easypick.previewers.default()
   } }
 })
-
-
-telescope.load_extension("fzf")

@@ -311,6 +311,11 @@ lspconfig.ltex.setup({
 })
 -- }}}
 
+lspconfig.teal_ls.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
+
 -- Null LS {{{
 local null = require("null-ls")
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})

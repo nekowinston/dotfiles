@@ -1,4 +1,7 @@
-require("nvim-treesitter.configs").setup({
+local present, treesitter = pcall(require, "nvim-treesitter.configs")
+if not present then return end
+
+treesitter.setup({
   auto_install = true,
   ignore_install = {
     "phpdoc",
@@ -16,34 +19,18 @@ require("nvim-treesitter.configs").setup({
     "css",
     "dockerfile",
     "go",
-    "gomod",
-    "graphql",
-    "help",
-    "hjson",
     "html",
-    "http",
     "javascript",
-    "jsdoc",
     "json",
-    "json5",
-    "jsonc",
-    "latex",
     "lua",
-    "make",
     "markdown",
-    "php",
-    "prisma",
     "python",
     "regex",
     "rust",
     "scss",
-    "sql",
-    "svelte",
-    "teal",
     "toml",
     "tsx",
     "typescript",
-    "vim",
     "yaml",
   },
 })

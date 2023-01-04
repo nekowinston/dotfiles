@@ -1,4 +1,7 @@
-require("colorizer").setup({
+local present, colorizer = pcall(require, "colorizer")
+if not present then return end
+
+colorizer.setup({
   user_default_options = {
     RGB = true,
     RRGGBB = true,
@@ -17,6 +20,7 @@ require("colorizer").setup({
   buftypes = {
     "*",
     "!dashboard",
+    "!lazy",
     "!popup",
     "!prompt",
   },

@@ -1,4 +1,7 @@
-require("bufferline").setup({
+local present, bufferline = pcall(require, "bufferline")
+if not present then return end
+
+bufferline.setup({
   highlights = require("catppuccin.groups.integrations.bufferline").get(),
   options = {
     show_close_icon = false,

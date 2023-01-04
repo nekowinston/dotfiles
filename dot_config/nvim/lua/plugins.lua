@@ -1,11 +1,20 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
-    "git", "clone", "--filter=blob:none", "--single-branch",
-    "https://github.com/folke/lazy.nvim.git", lazypath
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "--single-branch",
+    "https://github.com/folke/lazy.nvim.git",
+    lazypath,
   })
 end
 vim.opt.runtimepath:prepend(lazypath)
+
+vim.api.nvim_create_user_command("LazySyncOneshot", function()
+  require("lazy").sync({ wait = true })
+  vim.cmd("qa")
+end, {})
 
 local plugins = {
   -- startup time or some shit
@@ -19,7 +28,7 @@ local plugins = {
   -- rainbow indents
   "lukas-reineke/indent-blankline.nvim",
   "akinsho/bufferline.nvim",
-  -- "feline-nvim/feline.nvim",
+  "feline-nvim/feline.nvim",
   -- DJI Osmo
   "luukvbaal/stabilize.nvim",
   -- syntax
@@ -50,7 +59,7 @@ local plugins = {
     "numToStr/Comment.nvim",
     config = function()
       require("Comment").setup()
-    end
+    end,
   },
   {
     "kylechui/nvim-surround",
@@ -77,7 +86,7 @@ local plugins = {
     "dhruvasagar/vim-table-mode",
     config = function()
       vim.cmd([[autocmd FileType markdown let g:table_mode_corner='|']])
-    end
+    end,
   },
   "nvchad/nvim-colorizer.lua",
   -- databases
@@ -97,13 +106,6 @@ local plugins = {
   -- telescope
   {
     "nvim-telescope/telescope.nvim",
-    config = function()
-      local telescope = require("telescope")
-      telescope.load_extension("fzf")
-      telescope.load_extension("asynctasks")
-      telescope.load_extension("file_browser")
-      telescope.load_extension("project")
-    end,
     dependencies = {
       "nvim-lua/plenary.nvim",
       {
@@ -114,7 +116,7 @@ local plugins = {
       "nvim-telescope/telescope-file-browser.nvim",
       "nvim-telescope/telescope-project.nvim",
       "axkirillov/easypick.nvim",
-    }
+    },
   },
 
   -- nvimtree
@@ -123,7 +125,7 @@ local plugins = {
     "nvim-tree/nvim-tree.lua",
     config = function()
       require("nvim-tree").setup()
-    end
+    end,
   },
 
   -- discord
@@ -153,15 +155,21 @@ local plugins = {
         "j-hui/fidget.nvim",
         config = function()
           require("fidget").setup({})
-        end
+        end,
       },
       "barreiroleo/ltex-extra.nvim",
       "b0o/schemastore.nvim",
       "HallerPatrick/py_lsp.nvim",
       "simrat39/rust-tools.nvim",
       { "ray-x/go.nvim", dependencies = { "ray-x/guihua.lua" } },
-      { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "theHamsta/nvim-dap-virtual-text" } },
-    }
+      {
+        "rcarriga/nvim-dap-ui",
+        dependencies = {
+          "mfussenegger/nvim-dap",
+          "theHamsta/nvim-dap-virtual-text",
+        },
+      },
+    },
   },
   -- lua github copilot
   "zbirenbaum/copilot.lua",
@@ -200,8 +208,8 @@ require("lazy").setup(plugins, {
         "vimballPlugin",
         "zip",
         "zipPlugin",
-      }
-    }
+      },
+    },
   },
   ui = {
     icons = {
@@ -217,6 +225,6 @@ require("lazy").setup(plugins, {
       start = " ",
       task = " ",
     },
-    border = "double"
-  }
+    border = "double",
+  },
 })

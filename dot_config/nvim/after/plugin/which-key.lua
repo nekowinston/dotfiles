@@ -1,10 +1,11 @@
 local wk = require("which-key")
 wk.setup({
   key_labels = {
-    ["<space>"] = "SPC",
-    ["<leader>"] = "SPC",
+    ["<space>"] = "␣",
+    ["<leader>"] = "␣",
     ["<cr>"] = " ",
     ["<tab>"] = " ",
+    ["<esc>"] = "⎋ ",
   },
   window = {
     border = "double",
