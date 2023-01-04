@@ -32,6 +32,9 @@ export KUBECACHEDIR="$XDG_CACHE_HOME/kube"
 export KREW_ROOT="$XDG_DATA_HOME/krew"
 [ -d "$KREW_ROOT" ] && export PATH="$KREW_ROOT/bin:$PATH"
 export MINIKUBE_HOME="$XDG_DATA_HOME/minikube"
+export HOMEBREW_INSTALL_BADGE="☕️"
+export HOMEBREW_CLEANUP_MAX_AGE_DAYS=30
+export HOMEBREW_AUTOREMOVE=1
 #}}}
 ### python {{{
 export PYENV_ROOT="$XDG_DATA_HOME/pyenv"

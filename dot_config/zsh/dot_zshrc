@@ -2,42 +2,13 @@
 # load starship
 [[ -x "$(command -v starship)" ]] && eval "$(starship init zsh)"
 
-### plugins via antigen {{{
-# don't pollute $HOME with antigen
-ADOTDIR="$XDG_DATA_HOME/antigen"
-# bootstrap antigen
-if [[ ! -d "$ADOTDIR" ]]; then
-  mkdir -p "$ADOTDIR"
-  curl -L https://git.io/antigen > "$ADOTDIR/antigen.zsh"
-  chmod +x "$ADOTDIR/antigen.zsh"
-fi
-
-# load antigen
-source "$ADOTDIR/antigen.zsh"
-
-antigen use oh-my-zsh
-
-antigen bundle colored-man-pages
-antigen bundle colorize
-antigen bundle docker-compose
-antigen bundle git
-antigen bundle gpg-agent
-antigen bundle kubectl
-
-# omz's vi-mode doesn't vibe with starship
-antigen bundle jeffreytse/zsh-vi-mode
-
-antigen bundle greymd/docker-zsh-completion
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle zsh-users/zsh-completions
-antigen bundle zsh-users/zsh-syntax-highlighting
-
-antigen apply
-
-# https://github.com/ohmyzsh/ohmyzsh/issues/10728
-if [[ ! -d "$ZSH_CACHE_DIR/completions" ]]; then
-  mkdir -p "$ZSH_CACHE_DIR/completions"
-fi
+### plugins via antidote {{{
+autoload -Uz compinit && compinit
+zstyle ':antidote:bundle' use-friendly-names 'yes'
+antidote_dir="${ZDOTDIR:-$HOME}/antidote"
+[ ! -d "$antidote_dir" ] && git clone --depth=1 https://github.com/mattmc3/antidote.git "$antidote_dir"
+source "$antidote_dir/antidote.zsh"
+antidote load
 # }}}
 
 ### basics {{{
@@ -48,117 +19,35 @@ export SAVEHIST=10000
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_DUPS
 
-# use fuck if available
-[[ -x "$(command -v thefuck)" ]] && eval $(thefuck --alias)
+[ -x "$(command -v thefuck)" ] && eval "$(thefuck --alias)"
+[ -x "$(command -v zoxide)" ] && eval "$(zoxide init zsh)"
+bindkey -r "^R"
+[ -x "$(command -v mcfly)" ] && eval "$(mcfly init zsh)"
 # }}}
 
 ### aliases & functions {{{
 ## basics {{{
-if [ -x "$(command -v vivid)" ]; then
-  export LS_COLORS="$(vivid generate catppuccin-mocha)"
-fi
-
-if [ -x "$(command -v lsd)" ]; then
-  # add a bit more space between the file icon & name
-  alias ls='lsd'
-  alias l='lsd'
-  alias ll='lsd -l'
-  alias la='lsd -la'
-  alias lt='lsd -l --total-size' alias lat='lsd -lA --total-size'
-  alias tree='lsd --tree'
-else
-  alias l='ls'
-  alias ll='ls -l'
-  alias la='ls -lA'
-fi
+[ -f "$ZDOTDIR/lscolors" ] && export LS_COLORS="$(cat "$ZDOTDIR/lscolors")"
 
 # both names for bat
 export BAT_THEME="catppuccin-mocha"
-if [ -x "$(command -v batcat)" ]; then
-  alias cat='batcat'
-elif [ -x "$(command -v bat)" ]; then
-  alias cat='bat'
-fi
-
-[[ -x "$(command -v zoxide)" ]] && eval "$(zoxide init zsh)"
-
-# use neovim as vim, if installed
-if [[ -x "$(command -v nvim)" ]]; then
-  alias vim='nvim'
-  # open vimwiki
-  alias wiki='nvim -c VimwikiIndex'
-fi
-
-[[ -x "$(command -v taskwarrior-tui)" ]] && alias tt='taskwarrior-tui'
+[ -x "$(command -v batcat)" ] && alias cat='batcat'
+[ -x "$(command -v bat)" ] && alias cat='bat'
+[ -x "$(command -v nvim)" ] && alias vim='nvim' alias wiki='nvim -c VimwikiIndex'
+[ -x "$(command -v taskwarrior-tui)" ] && alias tt='taskwarrior-tui'
 
 # switch between yubikeys for the same GPG key
 alias switch_yubikeys='gpg-connect-agent "scd serialno" "learn --force" /bye'
-
 # list tty devices on macOS, useful for Arduino & other boards
 alias lstty='ls /dev | grep -E "^(tty\.|cu\.)" --color=never'
-## }}}
-
-## OS-dependent tweaks {{{
-# manage yabai & ecosystem easier
-function twm() {
-  case "$1" in
-    "start")
-      brew services start skhd
-      brew services start yabai
-      ;;
-    "stop")
-      brew services stop skhd
-      brew services stop yabai
-      ;;
-    "restart")
-      launchctl kickstart -k "gui/${UID}/homebrew.mxcl.skhd"
-      launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
-      ;;
-    *)
-      echo "Usage: twm <start|restart|stop>"
-      return 1
-      ;;
-  esac
-}
-alias sbks='launchctl kickstart -k "gui/${UID}/homebrew.mxcl.sketchybar"'
 alias onefetch='onefetch --true-color=never'
 alias mbsync='mbsync --config ~/.config/mbsyncrc'
-function icat() {
-  if [ "$TERM_PROGRAM" = "WezTerm" ]; then
-    wezterm imgcat "$@"
-  elif [ "$TERM" = "xterm-kitty" ]; then
-    kitty +kitten icat "$@"
-  else
-    echo 'No image viewer defined for this terminal'
-  fi
-}
 ## }}}
 
-## development {{{
-# use the combination of colordiff & diff-so-fancy
-if [ -x "$(command -v colordiff)" ] && [ -x "$(command -v diff-so-fancy)" ]; then
-  function diff() {
-    colordiff -N -u "$@" | diff-so-fancy
-  }
-
-  function kdiff() {
-    KUBECTL_EXTERNAL_DIFF="colordiff -N -u"
-    kubectl diff "$@" | diff-so-fancy
-  }
-fi
-
-## chezmoi
-alias cm='chezmoi'
-alias cma='chezmoi add'
-alias cmap='chezmoi apply'
-alias cmcd='cd $(chezmoi source-path)'
-alias cmd='chezmoi diff'
-alias cme='chezmoi edit'
-alias cmm='chezmoi merge'
-alias cmrm='chezmoi remove'
-alias cmst='chezmoi status'
-alias cmup='chezmoi update'
-## }}}
+for conf in "$ZDOTDIR"/config.d/**/*.zsh; do
+  source "${conf}"
+done
+unset conf
 
 function debugnvim() {
   cd $(mktemp -d)
@@ -171,10 +60,8 @@ function debugnvim() {
 ### languages & frameworks {{{
 # python, my old friend
 [[ -x "$(command -v pyenv)" ]] && eval "$(pyenv init -)"
-
 # ruby
 [[ -x "$(command -v rbenv)" ]] && eval "$(rbenv init - zsh)"
-
 # node
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 # }}}
