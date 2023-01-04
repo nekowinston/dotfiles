@@ -17,7 +17,7 @@ yabai -m config \
 	focus_follows_mouse off \
 	layout bsp \
 	mouse_drop_action swap \
-	mouse_follows_focus on \
+	mouse_follows_focus off \
 	mouse_modifier off \
 	window_animation_duration 0.1 \
 	window_border on \
