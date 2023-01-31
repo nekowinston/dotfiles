@@ -1,8 +1,0 @@
-idle_fg      = "#cdd6f4"
-info_fg      = "#89b4fa"
-good_fg      = "#a6e3a1"
-warning_fg   = "#fab387"
-critical_fg  = "#f38ba8"
-separator    = " "
-separator_bg = "auto"
-separator_fg = "auto"

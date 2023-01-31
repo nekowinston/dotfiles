@@ -1,0 +1,150 @@
+{
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.colorTheme": "Catppuccin Macchiato",
+  "window.titleBarStyle": "custom",
+  "telemetry.telemetryLevel": "off",
+  "update.mode": "none",
+  "extensions.autoUpdate": false,
+  "extensions.ignoreRecommendations": true,
+  "editor.fontFamily": "Symbols Nerd Font, Berkeley Mono, monospace",
+  "editor.fontSize": 16,
+  "terminal.integrated.fontSize": 18,
+  "editor.inlineSuggest.enabled": true,
+  "git.autofetch": true,
+  "editor.lineNumbers": "relative",
+  "vim.easymotion": true,
+  "vim.incsearch": true,
+  "vim.replaceWithRegister": true,
+  "vim.useSystemClipboard": false,
+  "vim.camelCaseMotion.enable": true,
+  "vim.useCtrlKeys": false,
+  "vim.hlsearch": true,
+  "vim.highlightedyank.enable": true,
+  "vim.highlightedyank.color": "rgba(128, 128, 128, 0.8)",
+  "vim.insertModeKeyBindings": [],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "K"
+      ],
+      "commands": [
+        "editor.action.showHover"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "f",
+        "d"
+      ],
+      "commands": [
+        "workbench.action.quickOpen"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "f",
+        "t"
+      ],
+      "commands": [
+        "workbench.action.selectTheme"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "n",
+        "f"
+      ],
+      "commands": [
+        "editor.action.formatDocument"
+      ]
+    },
+    {
+      "before": [
+        "<C-l>"
+      ],
+      "after": [
+        "<C-W>",
+        "l"
+      ]
+    },
+    {
+      "before": [
+        "<C-h>"
+      ],
+      "after": [
+        "<C-W>",
+        "h"
+      ]
+    },
+    {
+      "before": [
+        "K"
+      ],
+      "commands": [
+        "editor.action.showHover"
+      ]
+    },
+    {
+      "before": [
+        "<C-W>",
+        "\\"
+      ],
+      "after": [
+        "<C-W>",
+        "v"
+      ]
+    },
+    {
+      "before": [
+        "<C-W>",
+        "-"
+      ],
+      "after": [
+        "<C-W>",
+        "s"
+      ]
+    }
+  ],
+  "vim.leader": "<space>",
+  "vim.handleKeys": {
+    "<C-a>": true,
+    "<C-u>": true,
+    "<C-d>": true,
+    "<C-w>": true,
+    "<C-x>": true,
+    "<C-v>": true
+  },
+  "catppuccin.accentColor": "pink",
+  "catppuccin.colorOverrides": {
+    "mocha": {
+      "base": "#000000",
+      "mantle": "#010101",
+      "crust": "#020202"
+    }
+  },
+  "catppuccin.customUIColors": {
+    "all": {
+      "statusBar.foreground": "accent",
+      "statusBar.noFolderForeground": "accent",
+    }
+  },
+  "workbench.colorCustomizations": {
+    "[Catppuccin Mocha]": {
+      "editorInlayHint.foreground": "#74416b",
+      "editorInlayHint.background": "#41363f2f",
+      "editorInlayHint.typeForeground": "#74416b",
+      "editorInlayHint.typeBackground": "#41363f2f",
+      "editorInlayHint.parameterForeground": "#74416b",
+      "editorInlayHint.parameterBackground": "#41363f2f",
+    }
+  },
+  "redhat.telemetry.enabled": false,
+  "ltex.additionalRules.enablePickyRules": true,
+  "debug.onTaskErrors": "debugAnyway",
+  "editor.inlayHints.padding": true,
+  "editor.inlayHints.fontFamily": "Comic Code Ligatures",
+  "editor.inlayHints.fontSize": 12,
+}

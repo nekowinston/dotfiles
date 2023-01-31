@@ -1,0 +1,3 @@
+.gitsecret/keys/random_seed
+!*.secret
+modules/secrets.nix
