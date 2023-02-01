@@ -111,7 +111,6 @@ local plugins = {
       "onsails/lspkind.nvim",
       "rafamadriz/friendly-snippets",
       "jose-elias-alvarez/null-ls.nvim",
-      "glepnir/lspsaga.nvim",
       "https://github.com/folke/trouble.nvim",
       { "j-hui/fidget.nvim", opts = {} },
       "barreiroleo/ltex-extra.nvim",
