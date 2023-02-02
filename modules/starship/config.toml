@@ -218,7 +218,7 @@ style = 'bg:green fg:#000000'
 
 [nodejs]
 format = '[ $symbol($version) ]($style)'
-style = 'bg:yellow fg:green'
+style = 'bg:green fg:#000000'
 
 [ocaml]
 format = '[ $symbol($version)(\($switch_indicator$switch_name\)) ]($style)'
