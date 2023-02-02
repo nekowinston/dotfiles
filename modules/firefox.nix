@@ -15,6 +15,8 @@ in
 
   programs.firefox = {
     enable = true;
+    # since I'm using firefox from brew on darwin, I need to build a dummy package
+    # to still manage it via home-manager
     package = if isLinux then pkgs.firefox else (pkgs.writeScriptBin "__dummy-firefox" "");
     extensions = with pkgs.nur.repos.rycee.firefox-addons; [
       clearurls
@@ -43,6 +45,7 @@ in
         "browser.crashReports.unsubmittedCheck.autoSubmit2" = false;
         "browser.crashReports.unsubmittedCheck.enabled" = false;
         "browser.disableResetPrompt" = true;
+        "browser.formfill.enable" = false;
         "browser.newtab.preload" = false;
         "browser.newtabpage.activity-stream.section.highlights.includePocket" = false;
         "browser.newtabpage.enabled" = false;
