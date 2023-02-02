@@ -92,7 +92,7 @@ local plugins = {
   { "nvim-tree/nvim-tree.lua", opts = {} },
 
   -- discord
-  -- "andweeb/presence.nvim",
+  "andweeb/presence.nvim",
   { "iamcco/markdown-preview.nvim", build = "cd app && yarn install" },
 
   -- LSP
