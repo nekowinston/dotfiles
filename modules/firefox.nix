@@ -18,20 +18,20 @@ in
     # since I'm using firefox from brew on darwin, I need to build a dummy package
     # to still manage it via home-manager
     package = if isLinux then pkgs.firefox else (pkgs.writeScriptBin "__dummy-firefox" "");
-    extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-      clearurls
-      darkreader
-      decentraleyes
-      i-dont-care-about-cookies
-      multi-account-containers
-      onepassword-password-manager
-      temporary-containers
-      ublock-origin
-      vimium
-    ];
     profiles.default = {
       search.default = "DuckDuckGo";
       search.force = true;
+      extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+        clearurls
+        darkreader
+        decentraleyes
+        i-dont-care-about-cookies
+        multi-account-containers
+        onepassword-password-manager
+        temporary-containers
+        ublock-origin
+        vimium
+      ];
       settings = {
         "app.normandy.api_url" = "";
         "app.normandy.enabled" = false;
