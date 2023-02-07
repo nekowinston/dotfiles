@@ -27,7 +27,7 @@ in
     ./modules/music.nix
     ./modules/neovim.nix
     ./modules/newsboat.nix
-    ./modules/sketchybar.nix
+    # ./modules/sketchybar.nix
     ./modules/vscode.nix
     ./modules/wezterm.nix
     ./modules/zsh.nix
