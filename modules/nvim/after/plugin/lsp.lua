@@ -13,10 +13,10 @@ local has_words_before = function()
   ---@diagnostic disable-next-line: deprecated
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0
-    and vim.api
-        .nvim_buf_get_lines(0, line - 1, line, true)[1]
-        :sub(col, col)
-        :match("%s")
+      and vim.api
+      .nvim_buf_get_lines(0, line - 1, line, true)[1]
+      :sub(col, col)
+      :match("%s")
       == nil
 end
 
@@ -190,11 +190,12 @@ lspconfig.tailwindcss.setup({
   },
 })
 -- attach tsserver only when there's a 'package.json' file in the CWD
--- lspconfig.tsserver.setup({
---   capabilities = capabilities,
---   on_attach = on_attach,
---   root_dir = lspconfig.util.root_pattern("package.json"),
--- })
+lspconfig.tsserver.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+  root_dir = lspconfig.util.root_pattern("package.json"),
+  single_file_support = false,
+})
 -- attach deno only when there's a 'deps.ts' file in the CWD
 lspconfig.denols.setup({
   capabilities = capabilities,

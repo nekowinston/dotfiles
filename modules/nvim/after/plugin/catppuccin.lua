@@ -93,6 +93,7 @@ catppuccin.setup({
         Selection = { bg = "#121212", fg = colors.text },
         Comment = { fg = colors.surface2, style = { "italic" } },
         InlayHint = { fg = colors.surface0, style = { "italic" } },
+        WinSeparator = { fg = colors.surface2 },
       }
     end,
   },

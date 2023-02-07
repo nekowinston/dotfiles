@@ -91,6 +91,8 @@ local plugins = {
   "nvim-tree/nvim-web-devicons",
   { "nvim-tree/nvim-tree.lua", opts = {} },
 
+  "stevearc/dressing.nvim",
+
   -- discord
   "andweeb/presence.nvim",
   { "iamcco/markdown-preview.nvim", build = "cd app && yarn install" },
