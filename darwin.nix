@@ -6,7 +6,9 @@ let
 
   userName = builtins.getEnv "USER";
   homeDir = builtins.getEnv "HOME";
-  pkgsUnstable = import <nixpkgs-unstable> {};
+
+  unstable = fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
+  pkgsUnstable = import unstable { config.allowUnfree = true; };
 in
 
 {

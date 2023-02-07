@@ -1,8 +1,10 @@
 { config, pkgs, ... }:
 
 let
-  pkgsUnstable = import <nixpkgs-unstable> {};
+  unstable = fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
+  pkgsUnstable = import unstable { config.allowUnfree = true; };
 in
+
 {
   home.sessionVariables = {
     EDITOR = "nvim";
