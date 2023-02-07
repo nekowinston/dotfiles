@@ -1,20 +1,14 @@
 { config, pkgs, lib, ... }:
 
-let
-  # TODO: remove this once sketchybar is on unstable
-  pkgsUnstable = import <nixpkgs-unstable> {};
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
-in
-
 {
   home = lib.mkIf isDarwin {
-    packages = [ pkgsUnstable.sketchybar ];
+    packages = [ pkgs.unstable.sketchybar ];
   };
   launchd = lib.mkIf isDarwin {
     agents.sketchybar = {
       enable = true;
       config = {
-        ProgramArguments = [ "${lib.getExe pkgsUnstable.sketchybar}" ];
+        ProgramArguments = [ "${lib.getExe pkgs.unstable.sketchybar}" ];
         KeepAlive = true;
         RunAtLoad = true;
         ProcessType = "Interactive";

@@ -1,23 +1,12 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, machine, ... }:
 
 let
-  userName = builtins.getEnv "USER";
-  homeDir = builtins.getEnv "HOME";
-
   inherit (pkgs.stdenv.hostPlatform) isLinux;
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-
-  unstable = fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
-  pkgsUnstable = import unstable { config.allowUnfree = true; };
-
-  personalMachine = true;
 in
 
 {
-  nixpkgs.config.allowUnfree = true;
-
   imports = [
-    "${builtins.fetchTarball "https://github.com/Mic92/sops-nix/archive/feat/home-manager.tar.gz"}/modules/home-manager/sops.nix"
     ./catppuccin
     ./modules/firefox.nix
     ./modules/git.nix
@@ -37,6 +26,8 @@ in
     ./modules/secrets.nix
   ];
 
+  nixpkgs.config.allowUnfreePredicate = (pkg: true);
+
   catppuccin = {
     defaultTheme = "mocha";
     bat.enable = true;
@@ -48,8 +39,8 @@ in
   manual.manpages.enable = false;
 
   home = {
-    username = userName;
-    homeDirectory = homeDir;
+    homeDirectory = machine.homeDirectory;
+    username = machine.username;
 
     packages = with pkgs; ([
       zsh
@@ -64,21 +55,21 @@ in
       (callPackage ./packages/python3.catppuccin-catwalk {})
       (nerdfonts.override { fonts = ["NerdFontsSymbolsOnly"]; })
 
-      pkgsUnstable.jetbrains.clion
-      pkgsUnstable.jetbrains.goland
-      pkgsUnstable.jetbrains.phpstorm
-      pkgsUnstable.jetbrains.pycharm-professional
-      pkgsUnstable.jetbrains.webstorm
-      pkgsUnstable.wezterm
+      pkgs.unstable.jetbrains.clion
+      pkgs.unstable.jetbrains.goland
+      pkgs.unstable.jetbrains.phpstorm
+      pkgs.unstable.jetbrains.pycharm-professional
+      pkgs.unstable.jetbrains.webstorm
+      pkgs.unstable.wezterm
     ] ++ lib.optionals isDarwin [
       iina
     ] ++ lib.optionals isLinux [
       _1password-gui
       insomnia
       mattermost-desktop
-    ] ++ lib.optionals (isLinux && personalMachine) [
+    ] ++ lib.optionals (isLinux && machine.personal) [
       (callPackage ./packages/python3.discover-overlay {})
-      pkgsUnstable.discord
+      pkgs.unstable.discord
       lutris
     ]);
 
@@ -112,8 +103,8 @@ in
   xdg = {
     enable = true;
     userDirs.enable = isLinux;
-    cacheHome = "${homeDir}/.cache";
-    configHome = "${homeDir}/.config";
-    dataHome = "${homeDir}/.local/share";
+    cacheHome = "${machine.homeDirectory}/.cache";
+    configHome = "${machine.homeDirectory}/.config";
+    dataHome = "${machine.homeDirectory}/.local/share";
   };
 }

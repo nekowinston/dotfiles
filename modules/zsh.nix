@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, machine, ... }:
 
 {
   programs = {
@@ -33,7 +33,7 @@
       enableSyntaxHighlighting = true;
 
       initExtra = let
-        functionsDir = "${builtins.getEnv "HOME"}/${config.programs.zsh.dotDir}/functions";
+        functionsDir = "${machine.homeDirectory}/${config.programs.zsh.dotDir}/functions";
       in
       ''
         for conf in "${functionsDir}"/**/*.zsh; do

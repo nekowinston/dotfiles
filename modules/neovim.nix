@@ -1,10 +1,5 @@
 { config, pkgs, ... }:
 
-let
-  unstable = fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
-  pkgsUnstable = import unstable { config.allowUnfree = true; };
-in
-
 {
   home.sessionVariables = {
     EDITOR = "nvim";
@@ -62,7 +57,7 @@ in
       ltex-ls
       nodePackages.prettier
       rnix-lsp
-      pkgsUnstable.rust-analyzer
+      pkgs.unstable.rust-analyzer
       proselint
       rustc
       rustfmt

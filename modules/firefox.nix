@@ -6,13 +6,6 @@ let
 in
 
 {
-  # NUR for firefox addons
-  nixpkgs.config.packageOverrides = pkgs: {
-    nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-      inherit pkgs;
-    };
-  };
-
   programs.firefox = {
     enable = true;
     # since I'm using firefox from brew on darwin, I need to build a dummy package
@@ -21,7 +14,7 @@ in
     profiles.default = {
       search.default = "DuckDuckGo";
       search.force = true;
-      extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+      extensions = with config.nur.repos.rycee.firefox-addons; [
         clearurls
         darkreader
         decentraleyes

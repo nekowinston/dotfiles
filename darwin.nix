@@ -1,16 +1,5 @@
 { config, lib, pkgs, ... }:
 
-let
-  inherit (pkgs.stdenv.hostPlatform) isLinux;
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
-
-  userName = builtins.getEnv "USER";
-  homeDir = builtins.getEnv "HOME";
-
-  unstable = fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
-  pkgsUnstable = import unstable { config.allowUnfree = true; };
-in
-
 {
   nix.settings.experimental-features = [
     "flakes"
@@ -31,17 +20,10 @@ in
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
 
-  users.users.winston = {
-    name = userName;
-    home = homeDir;
-    shell = pkgs.zsh;
-  };
-
   homebrew = {
     enable = true;
     caskArgs.no_quarantine = true;
     onActivation = {
-      autoUpdate = true;
       cleanup = "zap";
     };
     casks = [
@@ -95,7 +77,7 @@ in
     };
     yabai = {
       enable = true;
-      package = pkgsUnstable.yabai;
+      package = pkgs.unstable.yabai;
       extraConfig = let
         rule = "yabai -m rule --add";
         ignored = app: builtins.concatStringsSep "\n" (map(e: "${rule} app=\"${e}\" manage=off sticky=off layer=above border=off") app);
