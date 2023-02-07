@@ -1,6 +1,6 @@
 {
   "workbench.iconTheme": "material-icon-theme",
-  "workbench.colorTheme": "Catppuccin Macchiato",
+  "workbench.colorTheme": "Catppuccin Mocha",
   "window.titleBarStyle": "custom",
   "telemetry.telemetryLevel": "off",
   "update.mode": "none",
@@ -147,4 +147,7 @@
   "editor.inlayHints.padding": true,
   "editor.inlayHints.fontFamily": "Comic Code Ligatures",
   "editor.inlayHints.fontSize": 12,
+  "vs-kubernetes": {
+    "vs-kubernetes.crd-code-completion": "enabled"
+  },
 }
