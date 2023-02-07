@@ -17,6 +17,7 @@ in
   nixpkgs.config.allowUnfree = true;
 
   imports = [
+    "${builtins.fetchTarball "https://github.com/Mic92/sops-nix/archive/feat/home-manager.tar.gz"}/modules/home-manager/sops.nix"
     ./catppuccin
     ./modules/firefox.nix
     ./modules/git.nix
@@ -27,13 +28,10 @@ in
     ./modules/music.nix
     ./modules/neovim.nix
     ./modules/newsboat.nix
-    # ./modules/sketchybar.nix
+    ./modules/sops.nix
     ./modules/vscode.nix
     ./modules/wezterm.nix
     ./modules/zsh.nix
-
-    # FIXME: change after https://github.com/Mic92/sops-nix/pull/261 is merged
-    # "${builtins.fetchTarball "https://github.com/Mic92/sops-nix/archive/feat/home-manager.tar.gz"}/modules/home-manager/sops.nix"
   ] ++ lib.optionals (builtins.pathExists ./modules/secrets.nix) [
     # hotfix: use fucking git-secret, this is atrocious beyond belief
     ./modules/secrets.nix
@@ -46,15 +44,6 @@ in
     dircolors.enable = true;
     k9s.enable = true;
   };
-
-  # TODO:: enable after sops supports nix-darwin
-  # sops = {
-  #   gnupg.home = "${config.xdg.configHome}/gnupg";
-  #   defaultSopsFile = ./secrets.yaml;
-  #   secrets."kubernetes-work-prod" = {
-  #     path = "${config.xdg.configHome}/kube/work-prod";
-  #   };
-  # };
 
   manual.manpages.enable = false;
 
