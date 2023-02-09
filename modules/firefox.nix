@@ -111,7 +111,9 @@ in
         "network.predictor.enable-prefetch" = false;
         "network.predictor.enabled" = false;
         "network.prefetch-next" = false;
-        "network.trr.mode" = 5;
+        "network.trr.bootstrapAddress" = "146.255.56.98";
+        "network.trr.custom_uri" = "https://doh.applied-privacy.net/query";
+        "network.trr.mode" = 2;
         "pdfjs.enableScripting" = false;
         "privacy.donottrackheader.enabled" = true;
         "privacy.donottrackheader.value" = 1;
