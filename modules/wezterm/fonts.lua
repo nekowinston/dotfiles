@@ -32,7 +32,10 @@ M.get_font = function(name)
   }
 
   return {
-    font = wezterm.font(fonts[name].font),
+    font = wezterm.font_with_fallback({
+      fonts[name].font,
+      "Symbols Nerd Font",
+    }),
     size = fonts[name].size,
   }
 end
