@@ -125,12 +125,6 @@ in
     };
   };
 
-  virtualisation.podman = {
-    enable = true;
-    dockerCompat = true;
-  };
-
-
   users.users."${mainUser}" = {
     extraGroups = [ "wheel" ];
     isNormalUser = true;

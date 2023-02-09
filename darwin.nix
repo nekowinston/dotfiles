@@ -1,20 +1,16 @@
 { config, lib, pkgs, ... }:
 
 {
-  nix.settings.experimental-features = [
-    "flakes"
-    "nix-command"
-  ];
-
-  environment.systemPackages = with pkgs; [];
-
-  # Use a custom configuration.nix location.
-  # $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin.nix
-  environment.darwinConfig = "$HOME/.config/nixpkgs/darwin.nix";
-
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
-  nix.package = pkgs.nix;
+  nix = {
+    package = pkgs.nix;
+    gc.automatic = true;
+    settings = {
+      auto-optimise-store = true;
+      experimental-features = [ "flakes" "nix-command" ];
+    };
+  };
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
@@ -24,6 +20,7 @@
     enable = true;
     caskArgs.no_quarantine = true;
     onActivation = {
+      autoUpdate = true;
       cleanup = "zap";
     };
     casks = [
@@ -34,9 +31,10 @@
       "alfred"
       "bitwarden"
       "blender"
-      "eloston-chromium"
       "discord"
+      "docker"
       "easy-move-plus-resize"
+      "eloston-chromium"
       "firefox"
       "imageoptim"
       "insomnia"
@@ -71,6 +69,11 @@
   system.defaults.alf.stealthenabled = 1;
 
   services = {
+    dnsmasq = {
+      enable = true;
+      addresses."test" = "127.0.0.1";
+      bind = "127.0.0.1";
+    };
     skhd = {
       enable = true;
       skhdConfig = builtins.readFile ./modules/skhd/skhdrc;
@@ -80,15 +83,15 @@
       package = pkgs.unstable.yabai;
       extraConfig = let
         rule = "yabai -m rule --add";
-        ignored = app: builtins.concatStringsSep "\n" (map(e: "${rule} app=\"${e}\" manage=off sticky=off layer=above border=off") app);
-        unmanaged = app: builtins.concatStringsSep "\n" (map(e: "${rule} app=\"${e}\" manage=off") app);
+        ignored = app: builtins.concatStringsSep "\n" (map(e: ''${rule} app="${e}" manage=off sticky=off layer=above border=off'') app);
+        unmanaged = app: builtins.concatStringsSep "\n" (map(e: ''${rule} app="${e}" manage=off'') app);
       in ''
         # auto-inject scripting additions
         yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
         sudo yabai --load-sa
 
         ${ignored ["JetBrains Toolbox" "Mullvad VPN" "Sip" "iStat Menus"]}
-        ${unmanaged ["GOG Galaxy" "Steam" "System Preferences"]}
+        ${unmanaged ["GOG Galaxy" "Steam" "System Settings"]}
 
         # etc.
         ${rule} manage=off border=off app="CleanShot"

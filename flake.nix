@@ -15,13 +15,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nur.url = "github:nix-community/NUR/master";
-
     sops.url = "github:Mic92/sops-nix/feat/home-manager";
   };
 
   outputs = {
     self,
     darwin,
+    flake-utils,
     home-manager,
     nixpkgs,
     nixpkgs-unstable,
@@ -30,16 +30,20 @@
     ...
   }:
   let
-    system = "aarch64-darwin";
-    overlay-unstable = final: prev: {
+    overlay-unstable-x86-64 = final: prev: {
       unstable = import nixpkgs-unstable {
-        inherit system;
+        system = "x86_64-linux";
         config.allowUnfree = true;
       };
     };
-    pkgs = nixpkgs.legacyPackages.${system};
+    overlay-unstable-aarch64 = final: prev: {
+      unstable = import nixpkgs-unstable {
+        system = "aarch64-darwin";
+        config.allowUnfree = true;
+      };
+    };
   in
-  {
+  rec {
     # TODO: enable for NixOS
     # nixosConfigurations = {
     #   "copium" = nixpkgs.lib.nixosSystem {
@@ -53,22 +57,26 @@
     # };
 
     darwinConfigurations = {
-      "sashimi-slicer" = darwin.lib.darwinSystem {
-        inherit system;
+      "sashimi-slicer" = darwin.lib.darwinSystem rec {
+        system = "aarch64-darwin";
+        # pkgs = import nixpkgs {
+        #   inherit system;
+        #   config.allowUnfree = true;
+        # };
 
         modules = [
           ./darwin.nix
           # make "pkgs.unstable" available
           ({ config, pkgs, ... }: {
-            nixpkgs.overlays = [ overlay-unstable ]; 
+            nixpkgs.overlays = [ overlay-unstable-aarch64 ]; 
           })
         ];
       };
     };
 
-    homeConfigurations.winston = home-manager.lib.homeManagerConfiguration {
+    homeConfigurations.winston = home-manager.lib.homeManagerConfiguration rec {
       pkgs = import nixpkgs {
-        inherit system;
+        system = "aarch64-darwin";
         config.allowUnfree = true;
       };
 
@@ -77,7 +85,7 @@
         sops.homeManagerModules.sops
         nur.nixosModules.nur
         ({ config, pkgs, ... }: {
-          nixpkgs.overlays = [ overlay-unstable ]; 
+          nixpkgs.overlays = [ overlay-unstable-aarch64 ]; 
         })
       ];
       extraSpecialArgs = {
@@ -85,6 +93,7 @@
           username = "winston";
           homeDirectory = "/Users/winston";
           personal = true;
+          flakePath = "/Users/winston/.config/nixpkgs";
         };
       };
     };

@@ -29,7 +29,7 @@ in
   nixpkgs.config.allowUnfreePredicate = (pkg: true);
 
   catppuccin = {
-    defaultTheme = "mocha";
+    defaultTheme = "frappe";
     bat.enable = true;
     btop.enable = true;
     dircolors.enable = true;
@@ -45,22 +45,21 @@ in
     packages = with pkgs; ([
       zsh
       fd ffmpeg file imagemagick mdcat ranger ripgrep
-
-      podman podman-compose qemu
       git-secret
-
-      cargo deno rustc
+      cargo unstable.deno rustc
 
       (callPackage ./packages/org-stats {})
       (callPackage ./packages/python3.catppuccin-catwalk {})
       (nerdfonts.override { fonts = ["NerdFontsSymbolsOnly"]; })
 
+      pkgs.unstable.jetbrains.idea-ultimate
       pkgs.unstable.jetbrains.clion
       pkgs.unstable.jetbrains.goland
       pkgs.unstable.jetbrains.phpstorm
       pkgs.unstable.jetbrains.pycharm-professional
       pkgs.unstable.jetbrains.webstorm
       pkgs.unstable.wezterm
+      (callPackage ./packages/helm-ls {})
     ] ++ lib.optionals isDarwin [
       iina
     ] ++ lib.optionals isLinux [
