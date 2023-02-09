@@ -1,13 +1,9 @@
 { config, pkgs, machine, ... }:
 
 {
-  home.sessionVariables = {
-    EDITOR = "nvim";
-    SUDO_EDITOR = "nvim";
-  };
-
   programs.neovim = {
     enable = true;
+    defaultEditor = true;
 
     viAlias = true;
     vimAlias = true;
