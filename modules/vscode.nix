@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, machine, pkgs, ... }:
 
 let
   inherit (pkgs.stdenv.hostPlatform) isLinux;
@@ -20,11 +20,11 @@ in
   home.file = {
     "${config.xdg.configHome}/Code/User/settings.json" = {
       enable = isLinux;
-      source = config.lib.file.mkOutOfStoreSymlink ./vscode/settings.json;
+      source = config.lib.file.mkOutOfStoreSymlink "${machine.flakePath}/modules/vscode/settings.json";
     };
     "Library/Application Support/Code/User/settings.json" = {
       enable = isDarwin;
-      source = config.lib.file.mkOutOfStoreSymlink ./vscode/settings.json;
+      source = config.lib.file.mkOutOfStoreSymlink "${machine.flakePath}/modules/vscode/settings.json";
     };
   };
 }

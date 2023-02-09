@@ -87,11 +87,11 @@
 
   xdg.configFile = {
     "lsd" = {
-      source = config.lib.file.mkOutOfStoreSymlink ./lsd/themes;
+      source = config.lib.file.mkOutOfStoreSymlink "${machine.flakePath}/modules/lsd/themes";
       recursive = true;
     };
     "zsh/functions" = {
-      source = config.lib.file.mkOutOfStoreSymlink ./zsh/functions;
+      source = config.lib.file.mkOutOfStoreSymlink "${machine.flakePath}/modules/zsh/functions";
       recursive = true;
     };
   };

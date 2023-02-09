@@ -24,88 +24,40 @@
   "vim.insertModeKeyBindings": [],
   "vim.normalModeKeyBindingsNonRecursive": [
     {
-      "before": [
-        "K"
-      ],
-      "commands": [
-        "editor.action.showHover"
-      ]
+      "before": ["K"],
+      "commands": ["editor.action.showHover"]
     },
     {
-      "before": [
-        "<leader>",
-        "f",
-        "d"
-      ],
-      "commands": [
-        "workbench.action.quickOpen"
-      ]
+      "before": ["<leader>", "f", "d"],
+      "commands": ["workbench.action.quickOpen"]
     },
     {
-      "before": [
-        "<leader>",
-        "f",
-        "t"
-      ],
-      "commands": [
-        "workbench.action.selectTheme"
-      ]
+      "before": ["<leader>", "f", "t"],
+      "commands": ["workbench.action.selectTheme"]
     },
     {
-      "before": [
-        "<leader>",
-        "n",
-        "f"
-      ],
-      "commands": [
-        "editor.action.formatDocument"
-      ]
+      "before": ["<leader>", "n", "f"],
+      "commands": ["editor.action.formatDocument"]
     },
     {
-      "before": [
-        "<C-l>"
-      ],
-      "after": [
-        "<C-W>",
-        "l"
-      ]
+      "before": ["<C-l>"],
+      "after": ["<C-W>", "l"]
     },
     {
-      "before": [
-        "<C-h>"
-      ],
-      "after": [
-        "<C-W>",
-        "h"
-      ]
+      "before": ["<C-h>"],
+      "after": ["<C-W>", "h"]
     },
     {
-      "before": [
-        "K"
-      ],
-      "commands": [
-        "editor.action.showHover"
-      ]
+      "before": ["K"],
+      "commands": ["editor.action.showHover"]
     },
     {
-      "before": [
-        "<C-W>",
-        "\\"
-      ],
-      "after": [
-        "<C-W>",
-        "v"
-      ]
+      "before": ["<C-W>", "\\"],
+      "after": ["<C-W>", "v"]
     },
     {
-      "before": [
-        "<C-W>",
-        "-"
-      ],
-      "after": [
-        "<C-W>",
-        "s"
-      ]
+      "before": ["<C-W>", "-"],
+      "after": ["<C-W>", "s"]
     }
   ],
   "vim.leader": "<space>",
@@ -128,17 +80,7 @@
   "catppuccin.customUIColors": {
     "all": {
       "statusBar.foreground": "accent",
-      "statusBar.noFolderForeground": "accent",
-    }
-  },
-  "workbench.colorCustomizations": {
-    "[Catppuccin Mocha]": {
-      "editorInlayHint.foreground": "#74416b",
-      "editorInlayHint.background": "#41363f2f",
-      "editorInlayHint.typeForeground": "#74416b",
-      "editorInlayHint.typeBackground": "#41363f2f",
-      "editorInlayHint.parameterForeground": "#74416b",
-      "editorInlayHint.parameterBackground": "#41363f2f",
+      "statusBar.noFolderForeground": "accent"
     }
   },
   "redhat.telemetry.enabled": false,
@@ -149,5 +91,5 @@
   "editor.inlayHints.fontSize": 12,
   "vs-kubernetes": {
     "vs-kubernetes.crd-code-completion": "enabled"
-  },
+  }
 }
