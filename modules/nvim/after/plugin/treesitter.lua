@@ -1,5 +1,20 @@
 local present, treesitter = pcall(require, "nvim-treesitter.configs")
-if not present then return end
+if not present then
+  return
+end
+
+local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+parser_config.gotmpl = {
+  install_info = {
+    url = "https://github.com/ngalaiko/tree-sitter-go-template",
+    files = { "src/parser.c" },
+  },
+  filetype = "gotmpl",
+  used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl", "yaml", "helm" },
+}
+
+local ft_to_parser = require("nvim-treesitter.parsers").filetype_to_parsername
+ft_to_parser.helm = "gotmpl"
 
 treesitter.setup({
   auto_install = true,

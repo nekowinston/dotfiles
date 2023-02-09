@@ -32,6 +32,16 @@ vim.o.shiftwidth = 2
 vim.o.tabstop = 2
 vim.o.softtabstop = 0
 vim.o.expandtab = true
+-- double box drawing characters for splits
+vim.opt.fillchars:append({
+  horiz = "═",
+  horizup = "╩",
+  horizdown = "╦",
+  vert = "║",
+  vertright = "╠",
+  vertleft = "╣",
+  verthoriz = "╬",
+})
 
 pcall(require, "plugins")
 pcall(require, "binds")

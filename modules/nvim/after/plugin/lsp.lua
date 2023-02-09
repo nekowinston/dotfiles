@@ -13,10 +13,10 @@ local has_words_before = function()
   ---@diagnostic disable-next-line: deprecated
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0
-      and vim.api
-      .nvim_buf_get_lines(0, line - 1, line, true)[1]
-      :sub(col, col)
-      :match("%s")
+    and vim.api
+        .nvim_buf_get_lines(0, line - 1, line, true)[1]
+        :sub(col, col)
+        :match("%s")
       == nil
 end
 
@@ -432,6 +432,26 @@ require("rust-tools").setup({
 })
 
 require("py_lsp").setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+
+local configs = require("lspconfig.configs")
+local util = require("lspconfig.util")
+
+if not configs.helm_ls then
+  configs.helm_ls = {
+    default_config = {
+      cmd = { "helm-ls", "serve" },
+      filetypes = { "helm" },
+      root_dir = function(fname)
+        return util.root_pattern("Chart.yaml")(fname)
+      end,
+    },
+  }
+end
+
+lspconfig.helm_ls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
 })

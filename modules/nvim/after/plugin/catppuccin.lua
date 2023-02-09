@@ -86,6 +86,10 @@ catppuccin.setup({
         TelescopeSelectionCaret = { link = "Selection" },
         -- pmenu
         PmenuSel = { link = "Selection" },
+        -- bufferline
+        BufferLineTabSeparator = { link = "FloatBorder" },
+        BufferLineSeparator = { link = "FloatBorder" },
+        BufferLineOffsetSeparator = { link = "FloatBorder" },
       }
     end,
     mocha = function(colors)

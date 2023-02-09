@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, machine, ... }:
 
 {
   home.sessionVariables = {
@@ -53,7 +53,7 @@
       nodePackages.yaml-language-server
 
       # etc
-      deno
+      unstable.deno
       ltex-ls
       nodePackages.prettier
       rnix-lsp
@@ -64,6 +64,7 @@
       shfmt
       tree-sitter
       (callPackage ../packages/jq-lsp {})
+      (callPackage ../packages/helm-ls {})
 
       # needed for some plugin build steps
       cargo
@@ -75,7 +76,7 @@
   };
 
   xdg.configFile."nvim" = {
-    source = config.lib.file.mkOutOfStoreSymlink ./nvim;
+    source = config.lib.file.mkOutOfStoreSymlink "${machine.flakePath}/modules/nvim";
     recursive = true;
   };
 }

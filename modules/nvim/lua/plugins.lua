@@ -89,7 +89,7 @@ local plugins = {
 
   -- nvimtree
   "nvim-tree/nvim-web-devicons",
-  { "nvim-tree/nvim-tree.lua", opts = {} },
+  "nvim-tree/nvim-tree.lua",
 
   "stevearc/dressing.nvim",
 
@@ -97,6 +97,7 @@ local plugins = {
   "andweeb/presence.nvim",
   { "iamcco/markdown-preview.nvim", build = "cd app && yarn install" },
 
+  "towolf/vim-helm",
   -- LSP
   {
     "neovim/nvim-lspconfig",

@@ -3,16 +3,61 @@ if not present then
   return
 end
 
+local ctp_present, ctp =
+  pcall(require, "catppuccin.groups.integrations.bufferline")
+local ctp_bufferline
+if not ctp_present then
+  ctp_bufferline = {}
+else
+  ctp_bufferline = ctp.get()
+end
+
+local v = vim.version()
+local vStr = string.format("v%d.%d.%d", v.major, v.minor, v.patch)
+
 bufferline.setup({
-  highlights = require("catppuccin.groups.integrations.bufferline").get(),
+  highlights = ctp_bufferline,
   options = {
     show_close_icon = false,
-    separator_style = "thin",
     show_buffer_close_icons = false,
-    offsets = { { filetype = "NvimTree" } },
+    offsets = {
+      {
+        filetype = "NvimTree",
+        text = "   neovim " .. vStr,
+        text_align = "left",
+        separator = "║",
+      },
+    },
     left_mouse_command = "buffer %d",
     middle_mouse_command = "bdelete! %d",
     right_mouse_command = nil,
+    indicator = { icon = "‣" },
+    numbers = function(tab)
+      local roman = {
+        "Ⅰ",
+        "Ⅱ",
+        "Ⅲ",
+        "Ⅳ",
+        "Ⅴ",
+        "Ⅵ",
+        "Ⅶ",
+        "Ⅷ",
+        "Ⅸ",
+        "Ⅹ",
+        "Ⅺ",
+        "Ⅻ",
+        "XⅢ",
+        "XⅣ",
+        "ⅩⅤ",
+        "ⅩⅥ",
+        "ⅩⅦ",
+        "ⅩⅧ",
+        "ⅩⅨ",
+        "ⅩⅩ",
+      }
+
+      return string.format("%s ", roman[tab.ordinal])
+    end,
   },
 })
 
