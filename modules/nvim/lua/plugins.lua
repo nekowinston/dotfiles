@@ -35,6 +35,7 @@ local plugins = {
       vim.g.astro_typescript = "enable"
     end,
   },
+  "NoahTheDuke/vim-just",
 
   { "numToStr/Comment.nvim", opts = {} },
   "gpanders/editorconfig.nvim",

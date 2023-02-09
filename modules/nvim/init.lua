@@ -1,4 +1,3 @@
--- vim:fdm=marker
 pcall(require, "impatient")
 
 vim.g.mapleader = " "

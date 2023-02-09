@@ -3,7 +3,9 @@ if not present then
   return
 end
 
-local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+local parsers = require("nvim-treesitter.parsers")
+
+local parser_config = parsers.get_parser_configs()
 parser_config.gotmpl = {
   install_info = {
     url = "https://github.com/ngalaiko/tree-sitter-go-template",
@@ -13,7 +15,7 @@ parser_config.gotmpl = {
   used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl", "yaml", "helm" },
 }
 
-local ft_to_parser = require("nvim-treesitter.parsers").filetype_to_parsername
+local ft_to_parser = parsers.filetype_to_parsername
 ft_to_parser.helm = "gotmpl"
 
 treesitter.setup({
@@ -49,3 +51,7 @@ treesitter.setup({
     "yaml",
   },
 })
+
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+vim.o.foldenable = false
