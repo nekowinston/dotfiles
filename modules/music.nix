@@ -1,8 +1,9 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   inherit (pkgs.stdenv.hostPlatform) isLinux;
+  darp = pkgs.callPackage ../packages/discord-applemusic-rich-presence {};
 in
 
 {
@@ -42,14 +43,14 @@ in
     };
   };
 
-  home.packages = with pkgs; lib.optionals isDarwin [
-    (callPackage ../packages/discord-applemusic-rich-presence {})
+  home.packages = lib.mkIf isDarwin [
+    darp
   ];
 
   launchd.agents.discord-applemusic-rich-presence = {
     enable = true;
     config = {
-      ProgramArguments = [ "${config.home.homeDirectory}/.nix-profile/bin/discord-applemusic-rich-presence" ];
+      ProgramArguments = [ "${lib.getExe darp}" ];
       KeepAlive = true;
       RunAtLoad = true;
       StandardErrorPath = "${config.home.homeDirectory}/.cache/discord-applemusic-rich-presence.log";
