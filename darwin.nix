@@ -38,6 +38,7 @@
       "firefox"
       "imageoptim"
       "insomnia"
+      "jetbrains-toolbox"
       "karabiner-elements"
       "keepassxc"
       "keka"
@@ -50,6 +51,7 @@
       "rustdesk"
       "sizzy"
       "uninstallpkg"
+      "utm"
       "yubico-yubikey-manager"
 
       # drivers

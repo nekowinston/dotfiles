@@ -51,13 +51,6 @@ in
       (callPackage ./packages/org-stats {})
       (callPackage ./packages/python3.catppuccin-catwalk {})
       (nerdfonts.override { fonts = ["NerdFontsSymbolsOnly"]; })
-
-      pkgs.unstable.jetbrains.idea-ultimate
-      pkgs.unstable.jetbrains.clion
-      pkgs.unstable.jetbrains.goland
-      pkgs.unstable.jetbrains.phpstorm
-      pkgs.unstable.jetbrains.pycharm-professional
-      pkgs.unstable.jetbrains.webstorm
       pkgs.unstable.wezterm
       (callPackage ./packages/helm-ls {})
     ] ++ lib.optionals isDarwin [
