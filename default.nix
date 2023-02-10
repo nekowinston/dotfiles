@@ -7,6 +7,7 @@ in {
     src = ./.;
     hooks = {
       alejandra.enable = true;
+      editorconfig-checker.enable = true;
       shellcheck.enable = true;
       stylua.enable = true;
     };

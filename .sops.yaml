@@ -1,6 +1,6 @@
 keys:
- - &winston a476c39610e53a689a57bd0d0b89bc45007ee9cc
+  - &winston a476c39610e53a689a57bd0d0b89bc45007ee9cc
 creation_rules:
   - key_groups:
-    - pgp:
-      - *winston
+      - pgp:
+          - *winston
