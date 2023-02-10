@@ -53,7 +53,7 @@
       ltex-ls
       nodePackages.prettier
       rnix-lsp
-      pkgs.unstable.rust-analyzer
+      unstable.rust-analyzer
       proselint
       rustc
       rustfmt

@@ -5,18 +5,6 @@ let
 in
 
 {
-  nixpkgs.overlays = [(self: super: {
-    meli = super.meli.overrideAttrs (old: {
-      buildInputs = old.buildInputs ++ lib.optionals isDarwin [
-        pkgs.darwin.apple_sdk.frameworks.CoreServices 
-      ];
-      meta = old.meta // {
-        platforms = lib.platforms.linux ++ lib.platforms.darwin;
-        broken = false;
-      };
-    });
-  })];
-
   accounts.email.maildirBasePath = "${config.xdg.dataHome}/mail";
 
   accounts.email.accounts = {

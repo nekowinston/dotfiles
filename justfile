@@ -1,12 +1,13 @@
 [macos]
-switch:
+switch: secret-stage && secret-unstage
   darwin-rebuild switch --flake .
 
 [linux]
-switch:
+switch: secret-stage && secret-unstage
   nixos-rebuild switch --flake .
 
-home:
+secret-stage:
   git add -f modules/secrets.nix
-  home-manager switch --flake .
+
+secret-unstage:
   git restore --staged modules/secrets.nix

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, nur, pkgs, ... }:
 
 let
   inherit (pkgs.stdenv.hostPlatform) isLinux;

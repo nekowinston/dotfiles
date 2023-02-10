@@ -1,4 +1,4 @@
-{ config, lib, pkgs, machine, ... }:
+{ config, lib, nur, pkgs, sops, machine, ... }:
 
 let
   inherit (pkgs.stdenv.hostPlatform) isLinux;
@@ -7,6 +7,8 @@ in
 
 {
   imports = [
+    nur
+    sops
     ./catppuccin
     ./modules/firefox.nix
     ./modules/git.nix
@@ -26,8 +28,6 @@ in
     ./modules/secrets.nix
   ];
 
-  nixpkgs.config.allowUnfreePredicate = (pkg: true);
-
   catppuccin = {
     defaultTheme = "frappe";
     bat.enable = true;
@@ -39,9 +39,6 @@ in
   manual.manpages.enable = false;
 
   home = {
-    homeDirectory = machine.homeDirectory;
-    username = machine.username;
-
     packages = with pkgs; ([
       zsh
       fd ffmpeg file imagemagick mdcat ranger ripgrep
@@ -51,7 +48,7 @@ in
       (callPackage ./packages/org-stats {})
       (callPackage ./packages/python3.catppuccin-catwalk {})
       (nerdfonts.override { fonts = ["NerdFontsSymbolsOnly"]; })
-      pkgs.unstable.wezterm
+      unstable.wezterm
       (callPackage ./packages/helm-ls {})
     ] ++ lib.optionals isDarwin [
       iina
@@ -61,7 +58,7 @@ in
       mattermost-desktop
     ] ++ lib.optionals (isLinux && machine.personal) [
       (callPackage ./packages/python3.discover-overlay {})
-      pkgs.unstable.discord
+      unstable.discord
       lutris
     ]);
 

@@ -15,13 +15,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nur.url = "github:nix-community/NUR/master";
-    sops.url = "github:Mic92/sops-nix/feat/home-manager";
+    sops.url = "github:Mic92/sops-nix/master";
   };
 
   outputs = {
     self,
     darwin,
-    flake-utils,
     home-manager,
     nixpkgs,
     nixpkgs-unstable,
@@ -30,71 +29,43 @@
     ...
   }:
   let
-    overlay-unstable-x86-64 = final: prev: {
+    overlay-unstable = final: prev: {
       unstable = import nixpkgs-unstable {
-        system = "x86_64-linux";
+        system = prev.system;
         config.allowUnfree = true;
       };
     };
-    overlay-unstable-aarch64 = final: prev: {
-      unstable = import nixpkgs-unstable {
-        system = "aarch64-darwin";
-        config.allowUnfree = true;
-      };
-    };
-  in
-  rec {
-    # TODO: enable for NixOS
-    # nixosConfigurations = {
-    #   "copium" = nixpkgs.lib.nixosSystem {
-    #     system = "x86_64-linux";
-    #     modules = [
-    #       # make "pkgs.unstable" available
-    #       ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
-    #       ./configuration.nix
-    #     ];
-    #   };
-    # };
-
+  in {
     darwinConfigurations = {
       "sashimi-slicer" = darwin.lib.darwinSystem rec {
         system = "aarch64-darwin";
-        # pkgs = import nixpkgs {
-        #   inherit system;
-        #   config.allowUnfree = true;
-        # };
 
         modules = [
+          home-manager.darwinModules.home-manager
+
           ./darwin.nix
-          # make "pkgs.unstable" available
-          ({ config, pkgs, ... }: {
-            nixpkgs.overlays = [ overlay-unstable-aarch64 ]; 
+
+          ({ config, ... }: {
+            config = {
+              nixpkgs.overlays = [ overlay-unstable ];
+              nixpkgs.config.allowUnfree = true;
+              home-manager = {
+                useGlobalPkgs = true;
+                users.winston.imports = [ ./home.nix ];
+                extraSpecialArgs = {
+                  nur = nur.nixosModules.nur;
+                  sops = sops.homeManagerModules.sops;
+                  machine = {
+                    username = "winston";
+                    homeDirectory = "/Users/winston";
+                    personal = true;
+                    flakePath = "/Users/winston/.config/nixpkgs";
+                  };
+                };
+              };
+            };
           })
         ];
-      };
-    };
-
-    homeConfigurations.winston = home-manager.lib.homeManagerConfiguration rec {
-      pkgs = import nixpkgs {
-        system = "aarch64-darwin";
-        config.allowUnfree = true;
-      };
-
-      modules = [
-        ./home.nix
-        sops.homeManagerModules.sops
-        nur.nixosModules.nur
-        ({ config, pkgs, ... }: {
-          nixpkgs.overlays = [ overlay-unstable-aarch64 ]; 
-        })
-      ];
-      extraSpecialArgs = {
-        machine = {
-          username = "winston";
-          homeDirectory = "/Users/winston";
-          personal = true;
-          flakePath = "/Users/winston/.config/nixpkgs";
-        };
       };
     };
   };
