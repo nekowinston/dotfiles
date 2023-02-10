@@ -1,8 +1,6 @@
 {
   appimageTools,
   fetchurl,
-  lib,
-  pkgs,
 }:
 appimageTools.wrapType1 rec {
   name = "cura";

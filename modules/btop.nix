@@ -1,7 +1,4 @@
-{pkgs, ...}:
-with lib; let
-  cfg = config.catppuccin;
-in {
+{pkgs, ...}: {
   programs.btop = {
     enable = true;
     settings = {

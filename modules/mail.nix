@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
+  inherit (pkgs.stdenv.hostPlatform) isLinux;
 in {
   accounts.email.maildirBasePath = "${config.xdg.dataHome}/mail";
 

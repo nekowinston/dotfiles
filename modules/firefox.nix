@@ -1,12 +1,10 @@
 {
   config,
-  lib,
   nur,
   pkgs,
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isLinux;
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
 in {
   programs.firefox = {
     enable = true;
