@@ -122,7 +122,7 @@ latte_base="eff2f5"
 LIGHT_THEME="latte"
 DARK_THEME="mocha"
 
-# check wether or not macOS is in dark mode
+# check whether or not macOS is in dark mode
 if [[ $(defaults read -g AppleInterfaceStyle) != 'Dark' ]]; then
   theme=$LIGHT_THEME
 else

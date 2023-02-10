@@ -4,7 +4,7 @@ local M = {}
 
 M.get_font = function(name)
   -- fonts I like, with the settings I prefer
-  -- kept seperately from the rest of the config so that I can easily change them
+  -- kept separately from the rest of the config so that I can easily change them
   local fonts = {
     berkeley = {
       font = {

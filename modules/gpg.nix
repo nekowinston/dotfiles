@@ -48,7 +48,7 @@ in {
       no-emit-version = true;
       # Disable banner
       no-greeting = true;
-      # Long hexidecimal key format
+      # Long hexadecimal key format
       keyid-format = "0xlong";
       # Display UID validity
       list-options = "show-uid-validity";

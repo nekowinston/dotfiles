@@ -11,7 +11,7 @@ sketchybar --bar \
   hidden=off \
   topmost=on
 
-# colors are managed seperately in the colordummy,
+# colors are managed separately in the colordummy,
 # which listens to theme_changed events,
 # to swap between Catppuccin Mocha and Latte
 sketchybar -m --add event theme_changed AppleInterfaceThemeChangedNotification
