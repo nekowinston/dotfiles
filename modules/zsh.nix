@@ -1,4 +1,4 @@
-{ config, lib, pkgs, machine, ... }:
+{ config, flakePath, lib, pkgs, ... }:
 
 {
   programs = {
@@ -33,7 +33,7 @@
       enableSyntaxHighlighting = true;
 
       initExtra = let
-        functionsDir = "${machine.homeDirectory}/${config.programs.zsh.dotDir}/functions";
+        functionsDir = "${config.home.homeDirectory}/${config.programs.zsh.dotDir}/functions";
       in
       ''
         for conf in "${functionsDir}"/**/*.zsh; do
@@ -87,11 +87,11 @@
 
   xdg.configFile = {
     "lsd" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${machine.flakePath}/modules/lsd/themes";
+      source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/modules/lsd/themes";
       recursive = true;
     };
     "zsh/functions" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${machine.flakePath}/modules/zsh/functions";
+      source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/modules/zsh/functions";
       recursive = true;
     };
   };

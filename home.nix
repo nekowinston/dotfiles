@@ -92,8 +92,8 @@ in
   xdg = {
     enable = true;
     userDirs.enable = isLinux;
-    cacheHome = "${machine.homeDirectory}/.cache";
-    configHome = "${machine.homeDirectory}/.config";
-    dataHome = "${machine.homeDirectory}/.local/share";
+    cacheHome = "${config.home.homeDirectory}/.cache";
+    configHome = "${config.home.homeDirectory}/.config";
+    dataHome = "${config.home.homeDirectory}/.local/share";
   };
 }

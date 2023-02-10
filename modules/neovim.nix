@@ -1,4 +1,4 @@
-{ config, pkgs, machine, ... }:
+{ config, pkgs, flakePath, ... }:
 
 {
   programs.neovim = {
@@ -72,7 +72,7 @@
   };
 
   xdg.configFile."nvim" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${machine.flakePath}/modules/nvim";
+    source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/modules/nvim";
     recursive = true;
   };
 }

@@ -1,9 +1,9 @@
-{ config, machine, ... }:
+{ config, flakePath, ... }:
 
 {
   xdg.configFile = {
     "wezterm" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${machine.flakePath}/modules/wezterm";
+      source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/modules/wezterm";
       recursive = true;
     };
   };

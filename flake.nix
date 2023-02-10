@@ -55,12 +55,8 @@
                 extraSpecialArgs = {
                   nur = nur.nixosModules.nur;
                   sops = sops.homeManagerModules.sops;
-                  machine = {
-                    username = "winston";
-                    homeDirectory = "/Users/winston";
-                    personal = true;
-                    flakePath = "/Users/winston/.config/nixpkgs";
-                  };
+                  flakePath = "/Users/winston/.config/nixpkgs";
+                  machine.personal = true;
                 };
               };
             };

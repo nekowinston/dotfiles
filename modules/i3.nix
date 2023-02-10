@@ -1,4 +1,4 @@
-{ config, lib, machine, pkgs, ... }:
+{ config, lib, flakePath, pkgs, ... }:
 
 let
   inherit (pkgs.stdenv.hostPlatform) isLinux;
@@ -168,7 +168,7 @@ in
   xdg = lib.mkIf isLinux {
     configFile = {
       "i3" = {
-        source = config.lib.file.mkOutOfStoreSymlink "${machine.flakePath}/modules/i3";
+        source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/modules/i3";
         recursive = true;
       };
     };
