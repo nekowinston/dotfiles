@@ -16,12 +16,18 @@
     };
     nur.url = "github:nix-community/NUR/master";
     sops.url = "github:Mic92/sops-nix/master";
+
+    # dev
+    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs = {
     self,
     darwin,
     home-manager,
+    flake-utils,
+    pre-commit-hooks,
     nixpkgs,
     nixpkgs-unstable,
     nur,
@@ -34,34 +40,56 @@
         config.allowUnfree = true;
       };
     };
-  in {
-    darwinConfigurations = {
-      "sashimi-slicer" = darwin.lib.darwinSystem rec {
-        system = "aarch64-darwin";
+  in
+    {
+      darwinConfigurations = {
+        "sashimi-slicer" = darwin.lib.darwinSystem rec {
+          system = "aarch64-darwin";
 
-        modules = [
-          home-manager.darwinModules.home-manager
+          modules = [
+            home-manager.darwinModules.home-manager
 
-          ./darwin.nix
+            ./darwin.nix
 
-          ({config, ...}: {
-            config = {
-              nixpkgs.overlays = [overlay-unstable];
-              nixpkgs.config.allowUnfree = true;
-              home-manager = {
-                useGlobalPkgs = true;
-                users.winston.imports = [./home.nix];
-                extraSpecialArgs = {
-                  nur = nur.nixosModules.nur;
-                  sops = sops.homeManagerModules.sops;
-                  flakePath = "/Users/winston/.config/nixpkgs";
-                  machine.personal = true;
+            ({config, ...}: {
+              config = {
+                nixpkgs.overlays = [overlay-unstable];
+                nixpkgs.config.allowUnfree = true;
+                home-manager = {
+                  useGlobalPkgs = true;
+                  users.winston.imports = [./home.nix];
+                  extraSpecialArgs = {
+                    nur = nur.nixosModules.nur;
+                    sops = sops.homeManagerModules.sops;
+                    flakePath = "/Users/winston/.config/nixpkgs";
+                    machine.personal = true;
+                  };
                 };
               };
-            };
-          })
-        ];
+            })
+          ];
+        };
       };
-    };
-  };
+    }
+    // flake-utils.lib.eachDefaultSystem (system: {
+      checks = {
+        pre-commit-check = pre-commit-hooks.lib.${system}.run {
+          src = ./.;
+          hooks = {
+            alejandra.enable = true;
+            editorconfig-checker.enable = true;
+            deadnix.enable = true;
+            shellcheck.enable = true;
+            stylua.enable = true;
+          };
+          settings.deadnix = {
+            noLambdaPatternNames = true;
+            noLambdaArg = true;
+          };
+        };
+      };
+      devShell = nixpkgs.legacyPackages.${system}.mkShell {
+        inherit (self.checks.${system}.pre-commit-check) shellHook;
+      };
+    });
 }
