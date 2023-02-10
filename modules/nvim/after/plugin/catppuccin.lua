@@ -102,22 +102,6 @@ catppuccin.setup({
     end,
   },
   color_overrides = {
-    latte = {
-      red = "#FC3636",
-      maroon = "#FC3636",
-      peach = "#F56C1A",
-      yellow = "#CA8F1C",
-      green = "#4EB01D",
-      teal = "#1FB07B",
-      sky = "#20A9B8",
-      blue = "#3E7FFA",
-      sapphire = "#6A6DFF",
-      mauve = "#A651FF",
-      pink = "#FC3280",
-
-      text = "#5E6282",
-      base = "#E0EAF3",
-    },
     mocha = {
       base = "#000000",
       crust = "#010101",
