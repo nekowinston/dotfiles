@@ -15,20 +15,6 @@ in {
     ];
   };
 
-  nixpkgs.overlays = [
-    (self: super: {
-      picom = super.picom.overrideAttrs (old: {
-        src = pkgs.fetchFromGitHub {
-          owner = "FT-Labs";
-          repo = "picom";
-          sha256 = "sha256-MRCffxU0X5a368zJGwzcv25P2ZYyAI31EOBhgiyR71A=";
-          rev = "c9aee893d2ab0acc4e997dc4186e7b1ef344ac0f";
-        };
-        nativeBuildInputs = old.nativeBuildInputs ++ [pkgs.pcre2];
-      });
-    })
-  ];
-
   gtk = lib.mkIf isLinux {
     enable = true;
 
@@ -37,7 +23,7 @@ in {
       package = pkgs.catppuccin-cursors.mochaPink;
     };
     iconTheme = {
-      package = pkgs.callPackage ../packages/papirus-folders-catppuccin {
+      package = pkgs.papirus-folders-catppuccin.override {
         flavour = "mocha";
         accent = "pink";
       };
@@ -45,7 +31,7 @@ in {
     };
     theme = {
       name = "Catppuccin-Mocha-Standard-Pink-Dark";
-      package = pkgs.callPackage ../packages/catppuccin-gtk {};
+      package = pkgs.unstable.catppuccin-gtk;
     };
 
     gtk2.extraConfig = ''

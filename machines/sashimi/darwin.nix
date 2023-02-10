@@ -82,7 +82,7 @@
     };
     skhd = {
       enable = true;
-      skhdConfig = builtins.readFile ./modules/skhd/skhdrc;
+      skhdConfig = builtins.readFile ../../modules/skhd/skhdrc;
     };
     yabai = {
       enable = true;

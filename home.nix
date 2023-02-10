@@ -60,11 +60,10 @@ in {
         rustc
         gh
 
-        (callPackage ./packages/org-stats {})
-        (callPackage ./packages/python3.catppuccin-catwalk {})
+        org-stats
+        catppuccin-catwalk
         (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
         unstable.wezterm
-        (callPackage ./packages/helm-ls {})
       ]
       ++ lib.optionals isDarwin [
         iina
@@ -75,7 +74,7 @@ in {
         mattermost-desktop
       ]
       ++ lib.optionals (isLinux && machine.personal) [
-        (callPackage ./packages/python3.discover-overlay {})
+        discover-overlay
         unstable.discord
         lutris
       ]);

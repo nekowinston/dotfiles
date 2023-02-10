@@ -49,11 +49,14 @@
           modules = [
             home-manager.darwinModules.home-manager
 
-            ./darwin.nix
+            ./machines/sashimi/darwin.nix
 
             ({config, ...}: {
               config = {
-                nixpkgs.overlays = [overlay-unstable];
+                nixpkgs.overlays = [
+                  overlay-unstable
+                  (import ./packages/default.nix)
+                ];
                 nixpkgs.config.allowUnfree = true;
                 home-manager = {
                   useGlobalPkgs = true;
@@ -90,6 +93,9 @@
       };
       devShell = nixpkgs.legacyPackages.${system}.mkShell {
         inherit (self.checks.${system}.pre-commit-check) shellHook;
+        packages = with nixpkgs.legacyPackages.${system}; [
+          just
+        ];
       };
     });
 }

@@ -45,7 +45,6 @@
       nodePackages.bash-language-server
       nodePackages.dockerfile-language-server-nodejs
       nodePackages.alex
-      # (callPackage ../packages/emmet-ls {})
       nodePackages.typescript
       nodePackages.typescript-language-server
       nodePackages.vscode-langservers-extracted
@@ -63,9 +62,8 @@
       shfmt
       tree-sitter
       deadnix
-      statix
-      (callPackage ../packages/jq-lsp {})
-      (callPackage ../packages/helm-ls {})
+      jq-lsp
+      helm-ls
 
       # needed for some plugin build steps
       cargo

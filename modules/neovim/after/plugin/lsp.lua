@@ -317,7 +317,7 @@ null.setup({
     null.builtins.formatting.shfmt,
     null.builtins.formatting.stylua,
     null.builtins.diagnostics.proselint,
-    null.builtins.diagnostics.statix,
+    null.builtins.diagnostics.deadnix,
   },
   on_attach = function(client, bufnr)
     if client.supports_method("textDocument/formatting") then
