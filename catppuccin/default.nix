@@ -1,7 +1,5 @@
 {lib, ...}:
-with lib; let
-  cfg = config.catppuccin;
-in {
+with lib; {
   imports = [
     ./bat
     ./btop

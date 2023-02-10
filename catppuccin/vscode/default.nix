@@ -7,7 +7,6 @@
   ...
 }:
 with lib; let
-  global = config.catppuccin;
   cfg = config.catppuccin.vscode;
 in {
   options.catppuccin = {

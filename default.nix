@@ -8,8 +8,13 @@ in {
     hooks = {
       alejandra.enable = true;
       editorconfig-checker.enable = true;
+      deadnix.enable = true;
       shellcheck.enable = true;
       stylua.enable = true;
+    };
+    settings.deadnix = {
+      noLambdaPatternNames = true;
+      noLambdaArg = true;
     };
   };
 }
