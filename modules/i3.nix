@@ -1,10 +1,12 @@
-{ config, lib, flakePath, pkgs, ... }:
-
-let
-  inherit (pkgs.stdenv.hostPlatform) isLinux;
-in
-
 {
+  config,
+  lib,
+  flakePath,
+  pkgs,
+  ...
+}: let
+  inherit (pkgs.stdenv.hostPlatform) isLinux;
+in {
   home = lib.mkIf isLinux {
     packages = with pkgs; [
       blueberry
@@ -13,17 +15,19 @@ in
     ];
   };
 
-  nixpkgs.overlays = [(self: super: {
-    picom = super.picom.overrideAttrs (old: {
-      src = pkgs.fetchFromGitHub {
-        owner = "FT-Labs";
-        repo = "picom";
-        sha256 = "sha256-MRCffxU0X5a368zJGwzcv25P2ZYyAI31EOBhgiyR71A=";
-        rev = "c9aee893d2ab0acc4e997dc4186e7b1ef344ac0f";
-      };
-      nativeBuildInputs = old.nativeBuildInputs ++ [pkgs.pcre2];
-    });
-  })];
+  nixpkgs.overlays = [
+    (self: super: {
+      picom = super.picom.overrideAttrs (old: {
+        src = pkgs.fetchFromGitHub {
+          owner = "FT-Labs";
+          repo = "picom";
+          sha256 = "sha256-MRCffxU0X5a368zJGwzcv25P2ZYyAI31EOBhgiyR71A=";
+          rev = "c9aee893d2ab0acc4e997dc4186e7b1ef344ac0f";
+        };
+        nativeBuildInputs = old.nativeBuildInputs ++ [pkgs.pcre2];
+      });
+    })
+  ];
 
   gtk = lib.mkIf isLinux {
     enable = true;
@@ -92,12 +96,12 @@ in
             pomodoro_break = " ";
           };
           theme.overrides = {
-            idle_fg      = "#cdd6f4";
-            info_fg      = "#89b4fa";
-            good_fg      = "#a6e3a1";
-            warning_fg   = "#fab387";
-            critical_fg  = "#f38ba8";
-            separator    = " ";
+            idle_fg = "#cdd6f4";
+            info_fg = "#89b4fa";
+            good_fg = "#a6e3a1";
+            warning_fg = "#fab387";
+            critical_fg = "#f38ba8";
+            separator = " ";
             separator_bg = "auto";
             separator_fg = "auto";
           };
@@ -114,7 +118,6 @@ in
     };
   };
 
-
   services = lib.mkIf isLinux {
     dunst.enable = true;
     flameshot = {
@@ -123,7 +126,7 @@ in
     };
     gnome-keyring = {
       enable = true;
-      components = [ "secrets" ];
+      components = ["secrets"];
     };
     picom = let
       riced = true;
@@ -141,7 +144,7 @@ in
     };
     redshift = {
       enable = true;
-      latitude = 48.2; 
+      latitude = 48.2;
       longitude = 16.366667;
     };
     screen-locker = {
@@ -156,12 +159,12 @@ in
   systemd = lib.mkIf isLinux {
     user.targets.tray.Unit = {
       Description = "Home Manager System Tray";
-      Requires = [ "graphical-session-pre.target" ];
+      Requires = ["graphical-session-pre.target"];
     };
     user.services.autotiling = {
       Unit.Description = "Autotiling for i3";
       Service.ExecStart = "${lib.getExe pkgs.autotiling}";
-      Install.WantedBy = [ "default.target" ];
+      Install.WantedBy = ["default.target"];
     };
   };
 

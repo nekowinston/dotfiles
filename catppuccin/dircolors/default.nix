@@ -1,15 +1,25 @@
-{ config, lib, options, pkgs, ... }:
-
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  ...
+}:
 with lib; let
   global = config.catppuccin;
   cfg = config.catppuccin.dircolors;
   # generated via vivid@HEAD - ./generate.sh
-  theme = flavour: trueColor: builtins.fromJSON (
-    builtins.readFile ./catppuccin-${flavour + (if trueColor then "" else "-8bit")}.json
-  );
-in
-
-{
+  theme = flavour: trueColor:
+    builtins.fromJSON (
+      builtins.readFile
+      ./catppuccin-${flavour
+        + (
+          if trueColor
+          then ""
+          else "-8bit"
+        )}.json
+    );
+in {
   options.catppuccin = {
     dircolors = {
       enable = mkEnableOption {
@@ -18,7 +28,7 @@ in
         description = "Enable catppuccin for dircolors / lscolors";
       };
       theme = mkOption {
-        type = types.enum [ "mocha" "macchiato" "frappe" "latte" ];
+        type = types.enum ["mocha" "macchiato" "frappe" "latte"];
         default = global.defaultTheme;
         description = "Choose a flavour for dircolors";
       };

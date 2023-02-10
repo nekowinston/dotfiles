@@ -1,5 +1,10 @@
-{ buildGoModule, fetchFromGitHub, lib, pkgs, ... }:
-
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  pkgs,
+  ...
+}:
 buildGoModule rec {
   pname = "jq-lsp";
   version = "20221220";
@@ -17,6 +22,6 @@ buildGoModule rec {
     description = "jq language server";
     homepage = "https://github.com/wader/jq-lsp";
     license = licenses.mit;
-    maintainers = [ maintainers.nekowinston ];
+    maintainers = [maintainers.nekowinston];
   };
 }

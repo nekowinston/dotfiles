@@ -1,11 +1,13 @@
-{ config, flakePath, lib, pkgs, ... }:
-
-let
+{
+  config,
+  flakePath,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (pkgs.stdenv.hostPlatform) isLinux;
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-in
-
-{
+in {
   programs.vscode = {
     enable = true;
     extensions = with pkgs.vscode-extensions; [

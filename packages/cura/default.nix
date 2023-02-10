@@ -1,5 +1,9 @@
-{ appimageTools, fetchurl, lib, pkgs }:
-
+{
+  appimageTools,
+  fetchurl,
+  lib,
+  pkgs,
+}:
 appimageTools.wrapType1 rec {
   name = "cura";
   version = "5.2.1";

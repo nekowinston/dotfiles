@@ -8,7 +8,7 @@
     darwin = {
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
-    }; 
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -27,8 +27,7 @@
     nur,
     sops,
     ...
-  }:
-  let
+  }: let
     overlay-unstable = final: prev: {
       unstable = import nixpkgs-unstable {
         system = prev.system;
@@ -45,13 +44,13 @@
 
           ./darwin.nix
 
-          ({ config, ... }: {
+          ({config, ...}: {
             config = {
-              nixpkgs.overlays = [ overlay-unstable ];
+              nixpkgs.overlays = [overlay-unstable];
               nixpkgs.config.allowUnfree = true;
               home-manager = {
                 useGlobalPkgs = true;
-                users.winston.imports = [ ./home.nix ];
+                users.winston.imports = [./home.nix];
                 extraSpecialArgs = {
                   nur = nur.nixosModules.nur;
                   sops = sops.homeManagerModules.sops;

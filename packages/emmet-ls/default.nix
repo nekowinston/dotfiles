@@ -1,5 +1,9 @@
-{ buildNpmPackage, lib, pkgs, ... }:
-
+{
+  buildNpmPackage,
+  lib,
+  pkgs,
+  ...
+}:
 buildNpmPackage {
   pname = "nodePackages.emmet-ls";
   version = "0.3.1";
@@ -15,6 +19,6 @@ buildNpmPackage {
     description = "Emmet language server";
     homepage = "https://github.com/aca/emmet-ls";
     license = licenses.mit;
-    maintainers = [ maintainers.nekowinston ];
+    maintainers = [maintainers.nekowinston];
   };
 }

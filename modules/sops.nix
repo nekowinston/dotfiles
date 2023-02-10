@@ -1,6 +1,8 @@
-{ config, lib, ... }:
-
 {
+  config,
+  lib,
+  ...
+}: {
   # TODO: enable after sops supports nix-darwin
   sops = {
     gnupg.home = "${config.xdg.configHome}/gnupg";

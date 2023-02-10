@@ -1,9 +1,11 @@
-{ config, pkgs, ... }:
-
-let
+{
+  config,
+  pkgs,
+  ...
+}: let
   mainUser = "winston";
 
-  plymouthPkg = (pkgs.stdenv.mkDerivation {
+  plymouthPkg = pkgs.stdenv.mkDerivation {
     name = "plymouth-theme-catppuccin";
 
     src = pkgs.fetchFromGitHub {
@@ -21,15 +23,13 @@ let
         cat "themes/catppuccin-''${dir}/catppuccin-''${dir}.plymouth" | sed "s@\/usr\/@''${out}\/@" > "''${out}/share/plymouth/themes/catppuccin-''${dir}/catppuccin-''${dir}.plymouth"
       done
     '';
-  });
-in
-
-{
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  };
+in {
+  nix.settings.experimental-features = ["nix-command" "flakes"];
   nixpkgs.config.allowUnfree = true;
   programs.nix-ld.enable = true;
 
-  imports = [ ./hardware-configuration.nix ];
+  imports = [./hardware-configuration.nix];
   environment.systemPackages = [];
 
   boot = {
@@ -44,9 +44,9 @@ in
     plymouth = {
       enable = true;
       theme = "catppuccin-mocha";
-      themePackages = [ plymouthPkg ];
+      themePackages = [plymouthPkg];
     };
-    kernelParams = [ "quiet" "splash" "vt.global_cursor_default=0" ];
+    kernelParams = ["quiet" "splash" "vt.global_cursor_default=0"];
     initrd.systemd.enable = true;
   };
 
@@ -73,9 +73,9 @@ in
     user.services.polkit-gnome-authentication-agent-1 = {
       unitConfig = {
         Description = "polkit-gnome-authentication-agent-1";
-        Wants = [ "graphical-session.target" ];
-        WantedBy = [ "graphical-session.target" ];
-        After = [ "graphical-session.target" ];
+        Wants = ["graphical-session.target"];
+        WantedBy = ["graphical-session.target"];
+        After = ["graphical-session.target"];
       };
       serviceConfig = {
         Type = "simple";
@@ -87,7 +87,7 @@ in
     };
   };
 
-  services= {
+  services = {
     # mounting
     gvfs.enable = true;
     udisks2.enable = true;
@@ -126,10 +126,10 @@ in
   };
 
   users.users."${mainUser}" = {
-    extraGroups = [ "wheel" ];
+    extraGroups = ["wheel"];
     isNormalUser = true;
-    openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILm0O46zW/XfVOSwz0okRWYeOAg+wCVkCtCAoVTpZsOh" ];
-    packages = [ pkgs.zsh ];
+    openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILm0O46zW/XfVOSwz0okRWYeOAg+wCVkCtCAoVTpZsOh"];
+    packages = [pkgs.zsh];
     shell = pkgs.zsh;
   };
 

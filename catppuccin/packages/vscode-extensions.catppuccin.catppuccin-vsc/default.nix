@@ -1,5 +1,8 @@
-{ lib, vscode-utils, ... }:
-
+{
+  lib,
+  vscode-utils,
+  ...
+}:
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "catppuccin-vsc";
@@ -11,6 +14,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     description = "Soothing pastel theme for VSCode";
     license = licenses.mit;
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=Catppuccin.catppuccin-vsc";
-    maintainers = with maintainers; [ nekowinston ];
+    maintainers = with maintainers; [nekowinston];
   };
 }

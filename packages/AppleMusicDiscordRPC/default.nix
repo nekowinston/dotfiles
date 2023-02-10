@@ -1,5 +1,8 @@
-{ fetchzip, lib, stdenv }:
-
+{
+  fetchzip,
+  lib,
+  stdenv,
+}:
 stdenv.mkDerivation rec {
   pname = "AppleMusicDiscordRPC";
   version = "1.3.0";
@@ -19,7 +22,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "The Firefox web browser";
     homepage = "https://www.mozilla.org/en-GB/firefox";
-    maintainers = [ maintainers.nekowinston ];
+    maintainers = [maintainers.nekowinston];
     platforms = platforms.darwin;
   };
 }

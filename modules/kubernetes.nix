@@ -1,6 +1,8 @@
-{ config, pkgs, ...}:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   home.packages = with pkgs; [
     dyff
     gojq
@@ -12,9 +14,9 @@
     popeye
   ];
   home.sessionVariables = {
-    KREW_ROOT="${config.xdg.dataHome}/krew";
-    KUBECACHEDIR="${config.xdg.cacheHome}/kube";
-    KUBECONFIG="${config.xdg.configHome}/kube/config";
-    MINIKUBE_HOME="${config.xdg.dataHome}/minikube";
+    KREW_ROOT = "${config.xdg.dataHome}/krew";
+    KUBECACHEDIR = "${config.xdg.cacheHome}/kube";
+    KUBECONFIG = "${config.xdg.configHome}/kube/config";
+    MINIKUBE_HOME = "${config.xdg.dataHome}/minikube";
   };
 }

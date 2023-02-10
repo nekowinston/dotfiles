@@ -1,5 +1,9 @@
-{ lib, python3Packages, mopidy, mopidy-podcast }:
-
+{
+  lib,
+  python3Packages,
+  mopidy,
+  mopidy-podcast,
+}:
 python3Packages.buildPythonApplication rec {
   pname = "mopidy-podcast-itunes";
   version = "3.0.1";
@@ -26,6 +30,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/tkem/mopidy-podcast-itunes";
     description = "Mopidy extension for searching and browsing podcasts on the Apple iTunes Store.";
     license = licenses.asl20;
-    maintainers = [ maintainers.nekowinston ];
+    maintainers = [maintainers.nekowinston];
   };
 }

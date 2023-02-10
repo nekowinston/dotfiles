@@ -1,29 +1,72 @@
-{ config, lib, pkgs, ... }:
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   inherit (pkgs.stdenv.hostPlatform) isLinux;
   darp = pkgs.callPackage ../packages/discord-applemusic-rich-presence {};
-in
-
-{
+in {
   programs.ncmpcpp = {
     enable = isLinux;
     bindings = [
-      { key = "j"; command = "scroll_down"; }
-      { key = "k"; command = "scroll_up"; }
-      { key = "J"; command = [ "select_item" "scroll_down" ]; }
-      { key = "K"; command = [ "select_item" "scroll_up" ]; }
-      { key = "h"; command = "previous_column"; }
-      { key = "l"; command = "next_column"; }
-      { key = "ctrl-b"; command = "page_up"; }
-      { key = "ctrl-u"; command = "page_up"; }
-      { key = "ctrl-f"; command = "page_down"; }
-      { key = "ctrl-d"; command = "page_down"; }
-      { key = "g"; command = "move_home"; }
-      { key = "G"; command = "move_end"; }
-      { key = "n"; command = "next_found_item"; }
-      { key = "N"; command = "previous_found_item"; }
+      {
+        key = "j";
+        command = "scroll_down";
+      }
+      {
+        key = "k";
+        command = "scroll_up";
+      }
+      {
+        key = "J";
+        command = ["select_item" "scroll_down"];
+      }
+      {
+        key = "K";
+        command = ["select_item" "scroll_up"];
+      }
+      {
+        key = "h";
+        command = "previous_column";
+      }
+      {
+        key = "l";
+        command = "next_column";
+      }
+      {
+        key = "ctrl-b";
+        command = "page_up";
+      }
+      {
+        key = "ctrl-u";
+        command = "page_up";
+      }
+      {
+        key = "ctrl-f";
+        command = "page_down";
+      }
+      {
+        key = "ctrl-d";
+        command = "page_down";
+      }
+      {
+        key = "g";
+        command = "move_home";
+      }
+      {
+        key = "G";
+        command = "move_end";
+      }
+      {
+        key = "n";
+        command = "next_found_item";
+      }
+      {
+        key = "N";
+        command = "previous_found_item";
+      }
     ];
   };
 
@@ -50,7 +93,7 @@ in
   launchd.agents.discord-applemusic-rich-presence = {
     enable = true;
     config = {
-      ProgramArguments = [ "${lib.getExe darp}" ];
+      ProgramArguments = ["${lib.getExe darp}"];
       KeepAlive = true;
       RunAtLoad = true;
       StandardErrorPath = "${config.home.homeDirectory}/.cache/discord-applemusic-rich-presence.log";

@@ -1,5 +1,10 @@
-{ buildGoModule, fetchFromGitHub, lib, pkgs, ... }:
-
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  pkgs,
+  ...
+}:
 buildGoModule rec {
   pname = "discord-applemusic-rich-presence";
   version = "1.11.2";
@@ -17,6 +22,6 @@ buildGoModule rec {
     description = "Get the contributor stats summary from all repos of any given organization";
     homepage = "https://github.com/caarlos0/org-stats";
     license = licenses.mit;
-    maintainers = [ maintainers.nekowinston ];
+    maintainers = [maintainers.nekowinston];
   };
 }

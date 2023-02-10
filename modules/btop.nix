@@ -1,9 +1,7 @@
-{ pkgs, ... }:
-
+{pkgs, ...}:
 with lib; let
   cfg = config.catppuccin;
-in
-{
+in {
   programs.btop = {
     enable = true;
     settings = {

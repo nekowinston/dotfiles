@@ -1,14 +1,16 @@
-{ config, lib, ... }:
-
 {
+  config,
+  lib,
+  ...
+}: {
   home = lib.mkIf isDarwin {
-    packages = [ pkgs.unstable.sketchybar ];
+    packages = [pkgs.unstable.sketchybar];
   };
   launchd = lib.mkIf isDarwin {
     agents.sketchybar = {
       enable = true;
       config = {
-        ProgramArguments = [ "${lib.getExe pkgs.unstable.sketchybar}" ];
+        ProgramArguments = ["${lib.getExe pkgs.unstable.sketchybar}"];
         KeepAlive = true;
         RunAtLoad = true;
         ProcessType = "Interactive";

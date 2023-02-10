@@ -1,5 +1,10 @@
-{ buildGoModule, fetchFromGitHub, lib, pkgs, ... }:
-
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  pkgs,
+  ...
+}:
 buildGoModule rec {
   pname = "helm-ls";
   version = "20220912";
@@ -17,6 +22,6 @@ buildGoModule rec {
     description = "helm language server";
     homepage = "https://github.com/mrjosh/helm-ls";
     license = licenses.mit;
-    maintainers = [ maintainers.nekowinston ];
+    maintainers = [maintainers.nekowinston];
   };
 }

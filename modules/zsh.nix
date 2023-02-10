@@ -1,6 +1,10 @@
-{ config, flakePath, lib, pkgs, ... }:
-
 {
+  config,
+  flakePath,
+  lib,
+  pkgs,
+  ...
+}: {
   programs = {
     direnv.enable = true;
     direnv.nix-direnv.enable = true;
@@ -34,8 +38,7 @@
 
       initExtra = let
         functionsDir = "${config.home.homeDirectory}/${config.programs.zsh.dotDir}/functions";
-      in
-      ''
+      in ''
         for conf in "${functionsDir}"/**/*.zsh; do
           source "$conf"
         done
@@ -77,7 +80,7 @@
       shellAliases = {
         # switch between yubikeys for the same GPG key
         cat = "bat --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo default || echo GitHub)";
-        switch_yubikeys="gpg-connect-agent \"scd serialno\" \"learn --force\" /bye";
+        switch_yubikeys = "gpg-connect-agent \"scd serialno\" \"learn --force\" /bye";
       };
       history = {
         path = "${config.xdg.configHome}/zsh/history";

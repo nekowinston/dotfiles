@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   programs.git = {
     enable = true;
     userName = "winston";
@@ -29,7 +27,7 @@
     ];
 
     # disable the macOS keychain, only use gopass
-    package = pkgs.git.override { osxkeychainSupport = false; };
+    package = pkgs.git.override {osxkeychainSupport = false;};
 
     extraConfig = {
       credential.helper = "gopass";

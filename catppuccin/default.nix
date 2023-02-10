@@ -1,10 +1,7 @@
-{ lib, ... }:
-
+{lib, ...}:
 with lib; let
   cfg = config.catppuccin;
-in
-
-{
+in {
   imports = [
     ./bat
     ./btop
@@ -17,7 +14,7 @@ in
 
   options.catppuccin = {
     defaultTheme = mkOption {
-      type = types.enum [ "mocha" "macchiato" "frappe" "latte" ];
+      type = types.enum ["mocha" "macchiato" "frappe" "latte"];
       default = "mocha";
       description = "Choose a catppuccin bat theme";
     };

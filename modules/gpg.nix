@@ -1,11 +1,11 @@
-{ config, pkgs, ... }:
-
-let
+{
+  config,
+  pkgs,
+  ...
+}: let
   inherit (pkgs.stdenv.hostPlatform) isLinux;
   key = "0x0B89BC45007EE9CC";
-in
-
-{
+in {
   home.packages = with pkgs; [
     git-credential-gopass
     gnupg-pkcs11-scd

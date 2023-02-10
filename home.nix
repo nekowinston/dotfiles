@@ -1,32 +1,38 @@
-{ config, lib, nur, pkgs, sops, machine, ... }:
-
-let
+{
+  config,
+  lib,
+  nur,
+  pkgs,
+  sops,
+  machine,
+  ...
+}: let
   inherit (pkgs.stdenv.hostPlatform) isLinux;
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-in
-
-{
-  imports = [
-    nur
-    sops
-    ./catppuccin
-    ./modules/firefox.nix
-    ./modules/git.nix
-    ./modules/gpg.nix
-    ./modules/i3.nix
-    ./modules/kubernetes.nix
-    ./modules/mail.nix
-    ./modules/music.nix
-    ./modules/neovim.nix
-    ./modules/newsboat.nix
-    ./modules/sops.nix
-    ./modules/vscode.nix
-    ./modules/wezterm.nix
-    ./modules/zsh.nix
-  ] ++ lib.optionals (builtins.pathExists ./modules/secrets.nix) [
-    # hotfix: use fucking git-secret, this is atrocious beyond belief
-    ./modules/secrets.nix
-  ];
+in {
+  imports =
+    [
+      nur
+      sops
+      ./catppuccin
+      ./modules/firefox.nix
+      ./modules/git.nix
+      ./modules/gpg.nix
+      ./modules/i3.nix
+      ./modules/kubernetes.nix
+      ./modules/mail.nix
+      ./modules/music.nix
+      ./modules/neovim.nix
+      ./modules/newsboat.nix
+      ./modules/sops.nix
+      ./modules/vscode.nix
+      ./modules/wezterm.nix
+      ./modules/zsh.nix
+    ]
+    ++ lib.optionals (builtins.pathExists ./modules/secrets.nix) [
+      # hotfix: use fucking git-secret, this is atrocious beyond belief
+      ./modules/secrets.nix
+    ];
 
   catppuccin = {
     defaultTheme = "frappe";
@@ -40,41 +46,58 @@ in
 
   home = {
     packages = with pkgs; ([
-      zsh
-      fd ffmpeg file imagemagick mdcat ranger ripgrep
-      git-secret
-      cargo unstable.deno rustc
+        zsh
+        fd
+        ffmpeg
+        file
+        imagemagick
+        mdcat
+        ranger
+        ripgrep
+        git-secret
+        cargo
+        unstable.deno
+        rustc
 
-      (callPackage ./packages/org-stats {})
-      (callPackage ./packages/python3.catppuccin-catwalk {})
-      (nerdfonts.override { fonts = ["NerdFontsSymbolsOnly"]; })
-      unstable.wezterm
-      (callPackage ./packages/helm-ls {})
-    ] ++ lib.optionals isDarwin [
-      iina
-    ] ++ lib.optionals isLinux [
-      _1password-gui
-      insomnia
-      mattermost-desktop
-    ] ++ lib.optionals (isLinux && machine.personal) [
-      (callPackage ./packages/python3.discover-overlay {})
-      unstable.discord
-      lutris
-    ]);
+        (callPackage ./packages/org-stats {})
+        (callPackage ./packages/python3.catppuccin-catwalk {})
+        (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
+        unstable.wezterm
+        (callPackage ./packages/helm-ls {})
+      ]
+      ++ lib.optionals isDarwin [
+        iina
+      ]
+      ++ lib.optionals isLinux [
+        _1password-gui
+        insomnia
+        mattermost-desktop
+      ]
+      ++ lib.optionals (isLinux && machine.personal) [
+        (callPackage ./packages/python3.discover-overlay {})
+        unstable.discord
+        lutris
+      ]);
 
-    sessionVariables = {
-      TERMINAL = "wezterm";
-      LESSHISTFILE = "-";
+    sessionVariables =
+      {
+        TERMINAL = "wezterm";
+        LESSHISTFILE = "-";
 
-      CARGO_HOME="${config.xdg.dataHome}/cargo";
-      NPM_CONFIG_USERCONFIG="${config.xdg.configHome}/npm/npmrc";
-      RUSTUP_HOME="${config.xdg.dataHome}/rustup";
-      PATH="$PATH:${config.xdg.dataHome}/krew/bin:$GOPATH/bin";
-    } // (if isDarwin then {
-      # https://github.com/NixOS/nix/issues/2033
-      NIX_PATH = "$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels\${NIX_PATH:+:$NIX_PATH}";
-      SSH_AUTH_SOCK = "${config.xdg.configHome}/gnupg/S.gpg-agent.ssh";
-    } else {});
+        CARGO_HOME = "${config.xdg.dataHome}/cargo";
+        NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
+        RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
+        PATH = "$PATH:${config.xdg.dataHome}/krew/bin:$GOPATH/bin";
+      }
+      // (
+        if isDarwin
+        then {
+          # https://github.com/NixOS/nix/issues/2033
+          NIX_PATH = "$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels\${NIX_PATH:+:$NIX_PATH}";
+          SSH_AUTH_SOCK = "${config.xdg.configHome}/gnupg/S.gpg-agent.ssh";
+        }
+        else {}
+      );
 
     stateVersion = "22.11";
   };

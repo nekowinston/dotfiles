@@ -1,11 +1,15 @@
-{ config, lib, options, pkgs, vscode-utils, ... }:
-
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  vscode-utils,
+  ...
+}:
 with lib; let
   global = config.catppuccin;
   cfg = config.catppuccin.vscode;
-in
-
-{
+in {
   options.catppuccin = {
     vscode = {
       enable = mkEnableOption {
@@ -19,7 +23,7 @@ in
   config = mkIf cfg.enable {
     programs.vscode = {
       enable = true;
-      extensions = [ (pkgs.callPackage ../packages/vscode-extensions.catppuccin.catppuccin-vsc {}) ];
+      extensions = [(pkgs.callPackage ../packages/vscode-extensions.catppuccin.catppuccin-vsc {})];
     };
   };
 }

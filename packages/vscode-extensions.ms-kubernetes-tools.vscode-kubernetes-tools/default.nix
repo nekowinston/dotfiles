@@ -1,5 +1,8 @@
-{ lib, vscode-utils, ... }:
-
+{
+  lib,
+  vscode-utils,
+  ...
+}:
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "vscode-kubernetes-tools";
@@ -11,6 +14,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     description = "Develop, deploy and debug Kubernetes applications";
     license = licenses.asl20;
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools";
-    maintainers = with maintainers; [ nekowinston ];
+    maintainers = with maintainers; [nekowinston];
   };
 }

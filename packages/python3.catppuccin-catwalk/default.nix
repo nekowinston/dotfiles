@@ -1,5 +1,7 @@
-{ lib, python3Packages }:
-
+{
+  lib,
+  python3Packages,
+}:
 python3Packages.buildPythonApplication rec {
   pname = "catppuccin_catwalk";
   version = "0.4.0";
@@ -19,6 +21,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/catppuccin/toolbox";
     description = "Part of catppuccin/toolbox, to generate preview a single composite screenshot for the four flavours";
     license = licenses.mit;
-    maintainers = [ maintainers.nekowinston ];
+    maintainers = [maintainers.nekowinston];
   };
 }

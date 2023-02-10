@@ -1,6 +1,9 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
   nix = {
@@ -8,7 +11,7 @@
     gc.automatic = true;
     settings = {
       auto-optimise-store = true;
-      experimental-features = [ "flakes" "nix-command" ];
+      experimental-features = ["flakes" "nix-command"];
     };
   };
 
@@ -87,8 +90,8 @@
       package = pkgs.unstable.yabai;
       extraConfig = let
         rule = "yabai -m rule --add";
-        ignored = app: builtins.concatStringsSep "\n" (map(e: ''${rule} app="${e}" manage=off sticky=off layer=above border=off'') app);
-        unmanaged = app: builtins.concatStringsSep "\n" (map(e: ''${rule} app="${e}" manage=off'') app);
+        ignored = app: builtins.concatStringsSep "\n" (map (e: ''${rule} app="${e}" manage=off sticky=off layer=above border=off'') app);
+        unmanaged = app: builtins.concatStringsSep "\n" (map (e: ''${rule} app="${e}" manage=off'') app);
       in ''
         # auto-inject scripting additions
         yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
