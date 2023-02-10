@@ -28,6 +28,10 @@ local feedkey = function(key, mode)
   )
 end
 
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = "double",
+})
+
 cmp.setup({
   snippet = {
     expand = function(args)

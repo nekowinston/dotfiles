@@ -7,4 +7,7 @@ in
       git-secret
       just
     ];
+    shellHook = ''
+      ${(import ./default.nix).pre-commit-check.shellHook}
+    '';
   }
