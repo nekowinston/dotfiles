@@ -303,6 +303,7 @@ local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 null.setup({
   sources = {
+    null.builtins.formatting.alejandra,
     null.builtins.formatting.black,
     null.builtins.formatting.deno_fmt,
     null.builtins.formatting.gofumpt,
@@ -312,6 +313,7 @@ null.setup({
     null.builtins.formatting.shfmt,
     null.builtins.formatting.stylua,
     null.builtins.diagnostics.proselint,
+    null.builtins.diagnostics.deadnix,
   },
   on_attach = function(client, bufnr)
     if client.supports_method("textDocument/formatting") then

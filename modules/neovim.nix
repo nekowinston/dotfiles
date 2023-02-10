@@ -59,6 +59,8 @@
       rustfmt
       shfmt
       tree-sitter
+      alejandra
+      deadnix
       (callPackage ../packages/jq-lsp {})
       (callPackage ../packages/helm-ls {})
 
