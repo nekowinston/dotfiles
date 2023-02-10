@@ -84,8 +84,17 @@ local plugins = {
       "GustavoKatel/telescope-asynctasks.nvim",
       "nvim-telescope/telescope-file-browser.nvim",
       "nvim-telescope/telescope-project.nvim",
-      "axkirillov/easypick.nvim",
     },
+  },
+
+  {
+    "pwntester/octo.nvim",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+      "kyazdani42/nvim-web-devicons",
+    },
+    opts = {},
   },
 
   -- nvimtree

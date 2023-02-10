@@ -58,6 +58,7 @@ in {
         cargo
         unstable.deno
         rustc
+        gh
 
         (callPackage ./packages/org-stats {})
         (callPackage ./packages/python3.catppuccin-catwalk {})

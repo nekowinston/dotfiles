@@ -1,5 +1,7 @@
 local present, telescope = pcall(require, "telescope")
-if not present then return end
+if not present then
+  return
+end
 
 pcall(telescope.load_extension, "fzf")
 pcall(telescope.load_extension, "asynctasks")
@@ -9,7 +11,7 @@ pcall(telescope.load_extension, "project")
 telescope.setup({
   defaults = {
     selection_caret = "▶ ",
-    borderchars = { '═', '║', '═', '║', '╔', '╗', '╝', '╚' },
+    borderchars = { "═", "║", "═", "║", "╔", "╗", "╝", "╚" },
   },
   extensions = {
     fzf = {
@@ -19,15 +21,4 @@ telescope.setup({
       case_mode = "smart_case",
     },
   },
-})
-
-local ep_present, easypick = pcall(require, "easypick")
-if not ep_present then return end
-
-easypick.setup({
-  pickers = { {
-    name = "chezmoi",
-    command = [[chezmoi managed -ifiles -pabsolute -xencrypted]],
-    previewer = easypick.previewers.default()
-  } }
 })
