@@ -13,11 +13,12 @@ vim.opt.runtimepath:prepend(lazypath)
 
 local plugins = {
   { "catppuccin/nvim", name = "catppuccin" },
-  "Pocco81/true-zen.nvim",
+  "pocco81/true-zen.nvim",
   "lewis6991/gitsigns.nvim",
   "lukas-reineke/indent-blankline.nvim",
   "akinsho/bufferline.nvim",
   "feline-nvim/feline.nvim",
+  { "smiteshp/nvim-navic", opts = { highlight = true } },
   "luukvbaal/stabilize.nvim",
   {
     "nvim-treesitter/nvim-treesitter",
@@ -35,9 +36,9 @@ local plugins = {
       vim.g.astro_typescript = "enable"
     end,
   },
-  "NoahTheDuke/vim-just",
+  "noahtheduke/vim-just",
 
-  { "numToStr/Comment.nvim", opts = {} },
+  { "numtostr/comment.nvim", opts = {} },
   "gpanders/editorconfig.nvim",
   "ggandor/lightspeed.nvim",
   "windwp/nvim-autopairs",
@@ -128,7 +129,7 @@ local plugins = {
       { "j-hui/fidget.nvim", opts = {} },
       "barreiroleo/ltex-extra.nvim",
       "b0o/schemastore.nvim",
-      "HallerPatrick/py_lsp.nvim",
+      "hallerpatrick/py_lsp.nvim",
       "simrat39/rust-tools.nvim",
       { "ray-x/go.nvim", dependencies = { "ray-x/guihua.lua" } },
       {
@@ -139,6 +140,9 @@ local plugins = {
         },
       },
     },
+    config = function()
+      require("lsp")
+    end,
   },
 
   -- lua github copilot

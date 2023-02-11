@@ -44,6 +44,7 @@ vim.opt.fillchars:append({
 
 pcall(require, "plugins")
 pcall(require, "binds")
+vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
 
 vim.api.nvim_create_autocmd("VimResized", {
   pattern = "*",

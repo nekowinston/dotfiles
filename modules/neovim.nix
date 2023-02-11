@@ -61,6 +61,7 @@
       rustfmt
       shfmt
       tree-sitter
+      alejandra
       deadnix
       jq-lsp
       helm-ls

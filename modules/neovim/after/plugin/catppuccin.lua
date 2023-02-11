@@ -47,6 +47,10 @@ catppuccin.setup({
       enabled = true,
       colored_indent_levels = true,
     },
+    navic = {
+      enabled = false,
+      custom_bg = "NONE",
+    },
     barbar = false,
     dashboard = false,
     fern = false,
