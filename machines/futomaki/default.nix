@@ -29,8 +29,8 @@ in {
   nixpkgs.config.allowUnfree = true;
   programs.nix-ld.enable = true;
 
-  imports = [./hardware-configuration.nix];
-  environment.systemPackages = [];
+  imports = [./hardware.nix];
+  environment.systemPackages = with pkgs; [xarchiver];
 
   boot = {
     kernelPackages = pkgs.linuxPackages_6_1;
@@ -56,7 +56,7 @@ in {
   };
 
   networking = {
-    hostName = "copium";
+    hostName = "futomaki";
     networkmanager.enable = true;
     firewall.enable = true;
   };
@@ -66,6 +66,13 @@ in {
 
   programs.dconf.enable = true;
   programs.steam.enable = true;
+  programs.thunar = {
+    enable = true;
+    plugins = with pkgs.xfce; [
+      thunar-archive-plugin
+      thunar-volman
+    ];
+  };
 
   security.polkit.enable = true;
   systemd = {
@@ -112,11 +119,10 @@ in {
       libinput.enable = true;
       windowManager.i3 = {
         enable = true;
-        package = pkgs.i3-gaps;
+        package = pkgs.unstable.i3;
         extraPackages = with pkgs; [
           dmenu
           pavucontrol
-          pcmanfm
           xclip
           xdotool
         ];
@@ -125,16 +131,14 @@ in {
     };
   };
 
+  virtualisation.docker.enable = true;
+
   users.users."${mainUser}" = {
     extraGroups = ["wheel"];
     isNormalUser = true;
     openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILm0O46zW/XfVOSwz0okRWYeOAg+wCVkCtCAoVTpZsOh"];
-    packages = [pkgs.zsh];
     shell = pkgs.zsh;
   };
 
-  system = {
-    copySystemConfiguration = true;
-    stateVersion = "22.11";
-  };
+  system.stateVersion = "22.11";
 }

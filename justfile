@@ -4,7 +4,7 @@ switch: secret-stage && secret-unstage
 
 [linux]
 switch: secret-stage && secret-unstage
-  nixos-rebuild switch --flake .
+  sudo nixos-rebuild switch --flake .
 
 secret-stage:
   git add -f modules/secrets.nix

@@ -11,6 +11,7 @@ in {
     packages = with pkgs; [
       blueberry
       libnotify
+      noisetorch
       pavucontrol
     ];
   };
@@ -121,11 +122,32 @@ in {
       fade = true;
       backend = "glx";
       vSync = true;
+      shadow = riced;
       settings = {
         animations = true;
+        animation-exclude = [
+          "window_type = 'dock'"
+          "window_type = 'desktop'"
+        ];
+
+        animation-for-open-window = "zoom";
+        animation-for-unmap-window = "zoom";
+
+        animation-for-prev-tag = "zoom";
+        animation-for-next-tag = "zoom";
+
+        enable-fading-prev-tag = true;
+        enable-fading-next-tag = true;
+
         blur = lib.mkIf riced {
           method = "dual_kawase";
         };
+        blur-background-exclude = [
+          "window_type = 'dock'"
+          "window_type = 'desktop'"
+          "_NET_WM_NAME@:s *?= 'Discover Voice'"
+          "_NET_WM_NAME@:s *?= 'Discover Text'"
+        ];
       };
     };
     redshift = {

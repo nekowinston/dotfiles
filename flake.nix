@@ -42,6 +42,35 @@
     };
   in
     {
+      nixosConfigurations = {
+        "futomaki" = nixpkgs.lib.nixosSystem rec {
+          system = "x86_64-linux";
+          modules = [
+            home-manager.nixosModules.home-manager
+            ./machines/futomaki
+
+            ({config, ...}: {
+              config = {
+                nixpkgs.overlays = [
+                  overlay-unstable
+                  (import ./packages/default.nix)
+                ];
+                nixpkgs.config.allowUnfree = true;
+                home-manager = {
+                  useGlobalPkgs = true;
+                  users.winston.imports = [./home.nix];
+                  extraSpecialArgs = {
+                    nur = nur.nixosModules.nur;
+                    sops = sops.homeManagerModules.sops;
+                    flakePath = "/home/winston/.config/nixpkgs";
+                    machine.personal = true;
+                  };
+                };
+              };
+            })
+          ];
+        };
+      };
       darwinConfigurations = {
         "sashimi-slicer" = darwin.lib.darwinSystem rec {
           system = "aarch64-darwin";
