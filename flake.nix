@@ -6,16 +6,16 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     darwin = {
-      url = "github:lnl7/nix-darwin/master";
+      url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager/master";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nur.url = "github:nix-community/NUR/master";
-    sops.url = "github:Mic92/sops-nix/master";
+    nur.url = "github:nix-community/NUR";
+    sops.url = "github:Mic92/sops-nix";
 
     # dev
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
@@ -91,11 +91,15 @@
           };
         };
       };
-      devShell = nixpkgs.legacyPackages.${system}.mkShell {
-        inherit (self.checks.${system}.pre-commit-check) shellHook;
-        packages = with nixpkgs.legacyPackages.${system}; [
-          just
-        ];
-      };
+      devShell = let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in
+        pkgs.mkShell {
+          inherit (self.checks.${system}.pre-commit-check) shellHook;
+          packages = [
+            pkgs.just
+            pkgs.sops
+          ];
+        };
     });
 }
