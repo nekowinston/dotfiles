@@ -33,49 +33,28 @@ catppuccin.setup({
       },
     },
     cmp = true,
-    coc_nvim = false,
-    lsp_saga = true,
     lsp_trouble = true,
-    nvimtree = {
-      enabled = true,
-    },
-    neotree = {
-      enabled = false,
-    },
+    nvimtree = true,
     which_key = true,
     indent_blankline = {
       enabled = true,
       colored_indent_levels = true,
     },
     navic = {
-      enabled = false,
+      enabled = true,
       custom_bg = "NONE",
     },
-    barbar = false,
-    dashboard = false,
-    fern = false,
-    gitgutter = false,
     gitsigns = true,
-    hop = false,
-    leap = false,
     lightspeed = true,
     markdown = true,
     neogit = true,
-    notify = false,
     symbols_outline = true,
-    telekasten = false,
-    telescope = true,
     ts_rainbow = true,
-    vim_sneak = false,
     vimwiki = true,
   },
   highlight_overrides = {
     all = function(colors)
       return {
-        DashboardCenter = { fg = colors.peach },
-        DashboardFooter = { fg = colors.maroon },
-        DashboardHeader = { fg = colors.pink },
-        DashboardShortCut = { fg = colors.yellow },
         -- custom selection highlight
         Selection = { bg = colors.surface1, fg = colors.text },
         -- borders

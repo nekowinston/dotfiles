@@ -31,6 +31,7 @@ vim.o.shiftwidth = 2
 vim.o.tabstop = 2
 vim.o.softtabstop = 0
 vim.o.expandtab = true
+vim.o.signcolumn = "yes:1"
 -- double box drawing characters for splits
 vim.opt.fillchars:append({
   horiz = "═",
@@ -44,7 +45,6 @@ vim.opt.fillchars:append({
 
 pcall(require, "plugins")
 pcall(require, "binds")
-vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
 
 vim.api.nvim_create_autocmd("VimResized", {
   pattern = "*",

@@ -18,7 +18,15 @@ local plugins = {
   "lukas-reineke/indent-blankline.nvim",
   "akinsho/bufferline.nvim",
   "feline-nvim/feline.nvim",
-  { "smiteshp/nvim-navic", opts = { highlight = true } },
+  {
+    "utilyre/barbecue.nvim",
+    name = "barbecue",
+    dependencies = {
+      { "SmiteshP/nvim-navic", opts = { highlight = true } },
+      "nvim-tree/nvim-web-devicons",
+    },
+    opts = {},
+  },
   "luukvbaal/stabilize.nvim",
   {
     "nvim-treesitter/nvim-treesitter",
