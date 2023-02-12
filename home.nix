@@ -20,7 +20,6 @@ in {
       ./modules/firefox.nix
       ./modules/git.nix
       ./modules/gpg.nix
-      ./modules/hyprland.nix
       ./modules/i3.nix
       ./modules/kubernetes.nix
       ./modules/mail.nix
@@ -30,6 +29,7 @@ in {
       ./modules/rice.nix
       ./modules/sops.nix
       ./modules/vscode.nix
+      ./modules/wayland.nix
       ./modules/wezterm.nix
       ./modules/zsh.nix
     ]
