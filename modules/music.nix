@@ -85,12 +85,12 @@ in {
     };
   };
 
-  home.packages = lib.mkIf isDarwin [pkgs.discord-applemusic-rich-presence];
+  home.packages = lib.mkIf isDarwin [pkgs.nur.repos.nekowinston.discord-applemusic-rich-presence];
 
   launchd.agents.discord-applemusic-rich-presence = {
     enable = true;
     config = {
-      ProgramArguments = ["${lib.getExe pkgs.discord-applemusic-rich-presence}"];
+      ProgramArguments = ["${lib.getExe pkgs.nur.repos.nekowinston.discord-applemusic-rich-presence}"];
       KeepAlive = true;
       RunAtLoad = true;
       StandardErrorPath = "${config.home.homeDirectory}/.cache/discord-applemusic-rich-presence.log";

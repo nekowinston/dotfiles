@@ -63,8 +63,8 @@
       tree-sitter
       alejandra
       deadnix
-      jq-lsp
-      helm-ls
+      nur.repos.nekowinston.jq-lsp
+      nur.repos.nekowinston.helm-ls
 
       # needed for some plugin build steps
       cargo

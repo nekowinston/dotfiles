@@ -382,11 +382,4 @@ in {
       '';
     };
   };
-
-  # xdg = lib.mkIf isLinux {
-  #   configFile."i3" = {
-  #     source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/modules/i3";
-  #     recursive = true;
-  #   };
-  # };
 }

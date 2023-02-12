@@ -17,7 +17,7 @@ in {
     profiles.default = {
       search.default = "DuckDuckGo";
       search.force = true;
-      extensions = with config.nur.repos.rycee.firefox-addons; [
+      extensions = with pkgs.nur.repos.rycee.firefox-addons; [
         clearurls
         darkreader
         decentraleyes
@@ -76,7 +76,6 @@ in {
         "device.sensors.orientation.enabled" = false;
         "device.sensors.proximity.enabled" = false;
         "dom.battery.enabled" = false;
-        "dom.event.clipboardevents.enabled" = false;
         "dom.security.https_only_mode" = true;
         "dom.security.https_only_mode_ever_enabled" = true;
         "dom.webaudio.enabled" = false;

@@ -10,10 +10,10 @@ in {
 
     cursorTheme = {
       name = "Catppuccin-Mocha-Cursors";
-      package = pkgs.catppuccin-cursors.mochaPink;
+      package = pkgs.unstable.catppuccin-cursors.mochaPink;
     };
     iconTheme = {
-      package = pkgs.papirus-folders-catppuccin.override {
+      package = pkgs.nur.repos.nekowinston.papirus-folders-catppuccin.override {
         flavour = "mocha";
         accent = "pink";
       };
@@ -21,7 +21,10 @@ in {
     };
     theme = {
       name = "Catppuccin-Mocha-Standard-Pink-Dark";
-      package = pkgs.unstable.catppuccin-gtk;
+      package = pkgs.unstable.catppuccin-gtk.override {
+        accents = ["pink"];
+        variant = "mocha";
+      };
     };
 
     gtk2.extraConfig = ''

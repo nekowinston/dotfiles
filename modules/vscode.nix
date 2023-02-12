@@ -11,7 +11,7 @@ in {
   programs.vscode = {
     enable = true;
     extensions = with pkgs.vscode-extensions; [
-      (pkgs.callPackage ../packages/vscode-extensions.ms-kubernetes-tools.vscode-kubernetes-tools {})
+      pkgs.nur.repos.nekowinston.vscode-extensions.ms-kubernetes-tools.vscode-kubernetes-tools
       pkief.material-icon-theme
       redhat.vscode-yaml
       valentjn.vscode-ltex

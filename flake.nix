@@ -15,6 +15,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nur.url = "github:nix-community/NUR";
+    nekowinston-nur.url = "github:nekowinston/nur";
+    catppuccin-toolbox.url = "github:catppuccin/toolbox";
     sops.url = "github:Mic92/sops-nix";
 
     # dev
@@ -26,10 +28,12 @@
 
   outputs = {
     self,
+    catppuccin-toolbox,
     darwin,
     flake-utils,
     home-manager,
     hyprland,
+    nekowinston-nur,
     nixpkgs,
     nixpkgs-unstable,
     nur,
@@ -41,6 +45,11 @@
       unstable = import nixpkgs-unstable {
         system = prev.system;
         config.allowUnfree = true;
+      };
+      nur = import nur {
+        nurpkgs = prev;
+        pkgs = prev;
+        repoOverrides = {nekowinston = import nekowinston-nur {pkgs = prev;};};
       };
     };
   in
@@ -56,14 +65,19 @@
               config = {
                 nixpkgs.overlays = [
                   overlay-unstable
-                  (import ./packages/default.nix)
                 ];
                 nixpkgs.config.allowUnfree = true;
                 home-manager = {
                   useGlobalPkgs = true;
-                  users.winston.imports = [./home.nix];
+                  users.winston.imports = [
+                    ./home.nix
+                    {
+                      home.packages = [
+                        catppuccin-toolbox.packages.${system}.catwalk
+                      ];
+                    }
+                  ];
                   extraSpecialArgs = {
-                    nur = nur.nixosModules.nur;
                     sops = sops.homeManagerModules.sops;
                     hyprland = hyprland.homeManagerModules.default;
                     flakePath = "/home/winston/.config/nixpkgs";
@@ -88,14 +102,12 @@
               config = {
                 nixpkgs.overlays = [
                   overlay-unstable
-                  (import ./packages/default.nix)
                 ];
                 nixpkgs.config.allowUnfree = true;
                 home-manager = {
                   useGlobalPkgs = true;
                   users.winston.imports = [./home.nix];
                   extraSpecialArgs = {
-                    nur = nur.nixosModules.nur;
                     sops = sops.homeManagerModules.sops;
                     flakePath = "/Users/winston/.config/nixpkgs";
                     machine.personal = true;

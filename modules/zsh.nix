@@ -4,7 +4,11 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
+in {
+  home.sessionVariables = {LESSHISTFILE = "-";};
+
   programs = {
     direnv.enable = true;
     direnv.nix-direnv.enable = true;
@@ -79,7 +83,10 @@
       ];
       shellAliases = {
         # switch between yubikeys for the same GPG key
-        cat = "bat --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo default || echo GitHub)";
+        cat =
+          if isDarwin
+          then "bat --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo default || echo GitHub)"
+          else "bat";
         switch_yubikeys = "gpg-connect-agent \"scd serialno\" \"learn --force\" /bye";
       };
       history = {
