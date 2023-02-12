@@ -11,14 +11,32 @@
 in {
   home.shellAliases = lib.mkIf isLinux {
     "Hyprland" = "${nvidiaPrefix} ${waylandPrefix} Hyprland";
+    "sway" = "${nvidiaPrefix} ${waylandPrefix} sway";
   };
   wayland = lib.mkIf isLinux {
-    windowManager.hyprland = {
-      enable = true;
-      nvidiaPatches = true;
-      xwayland = {
+    windowManager = {
+      sway = {
         enable = true;
-        hidpi = true;
+        extraOptions = ["--unsupported-gpu"];
+        config = {
+          modifier = "Mod4";
+          keybindings = let
+            modifier = config.wayland.windowManager.sway.config.modifier;
+          in
+            lib.mkOptionDefault {
+              "${modifier}+Shift+Return" = "exec ${lib.getExe pkgs.wezterm}-gui";
+              "${modifier}+Shift+q" = "kill";
+              "${modifier}+space" = "exec ${lib.getExe pkgs.rofi-wayland} -show drun";
+            };
+        };
+      };
+      hyprland = {
+        enable = true;
+        nvidiaPatches = true;
+        xwayland = {
+          enable = true;
+          hidpi = true;
+        };
       };
     };
   };

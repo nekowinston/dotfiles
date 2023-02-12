@@ -27,7 +27,6 @@
 in {
   nix.settings.experimental-features = ["nix-command" "flakes"];
   nixpkgs.config.allowUnfree = true;
-  programs.nix-ld.enable = true;
 
   imports = [./hardware.nix];
   environment.systemPackages = with pkgs; [xarchiver];
@@ -66,6 +65,8 @@ in {
 
   programs = {
     dconf.enable = true;
+    nix-ld.enable = true;
+    noisetorch.enable = true;
     steam.enable = true;
     thunar = {
       enable = true;
@@ -116,19 +117,12 @@ in {
       desktopManager.xterm.enable = false;
       displayManager = {
         defaultSession = "none+i3";
-        gdm.enable = true;
+        lightdm.enable = true;
+        lightdm.background = "#000000";
       };
       libinput.enable = true;
-      windowManager.i3 = {
-        enable = true;
-        package = pkgs.unstable.i3;
-        extraPackages = with pkgs; [
-          dmenu
-          pavucontrol
-          xclip
-          xdotool
-        ];
-      };
+      windowManager.i3.enable = true;
+      windowManager.i3.package = pkgs.unstable.i3;
       xkbOptions = "caps:ctrl_modifier";
     };
   };
