@@ -20,17 +20,20 @@
     # dev
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     flake-utils.url = "github:numtide/flake-utils";
+
+    hyprland.url = "github:hyprwm/Hyprland";
   };
 
   outputs = {
     self,
     darwin,
-    home-manager,
     flake-utils,
-    pre-commit-hooks,
+    home-manager,
+    hyprland,
     nixpkgs,
     nixpkgs-unstable,
     nur,
+    pre-commit-hooks,
     sops,
     ...
   }: let
@@ -62,6 +65,7 @@
                   extraSpecialArgs = {
                     nur = nur.nixosModules.nur;
                     sops = sops.homeManagerModules.sops;
+                    hyprland = hyprland.homeManagerModules.default;
                     flakePath = "/home/winston/.config/nixpkgs";
                     machine.personal = true;
                   };

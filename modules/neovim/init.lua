@@ -32,6 +32,7 @@ vim.o.tabstop = 2
 vim.o.softtabstop = 0
 vim.o.expandtab = true
 vim.o.signcolumn = "yes:1"
+vim.opt.shortmess:append("sI")
 -- double box drawing characters for splits
 vim.opt.fillchars:append({
   horiz = "═",

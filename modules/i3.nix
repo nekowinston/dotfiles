@@ -9,6 +9,7 @@
 in {
   home = lib.mkIf isLinux {
     packages = with pkgs; [
+      arandr
       blueberry
       libnotify
       noisetorch
@@ -16,42 +17,7 @@ in {
     ];
   };
 
-  gtk = lib.mkIf isLinux {
-    enable = true;
-
-    cursorTheme = {
-      name = "Catppuccin-Mocha-Cursors";
-      package = pkgs.catppuccin-cursors.mochaPink;
-    };
-    iconTheme = {
-      package = pkgs.papirus-folders-catppuccin.override {
-        flavour = "mocha";
-        accent = "pink";
-      };
-      name = "Papirus-Dark";
-    };
-    theme = {
-      name = "Catppuccin-Mocha-Standard-Pink-Dark";
-      package = pkgs.unstable.catppuccin-gtk;
-    };
-
-    gtk2.extraConfig = ''
-      gtk-xft-antialias=1
-      gtk-xft-hinting=1
-      gtk-xft-hintstyle="hintslight"
-      gtk-xft-rgba="rgb"
-    '';
-    gtk3.extraConfig = {
-      gtk-xft-antialias = 1;
-      gtk-xft-hinting = 1;
-      gtk-xft-hintstyle = "hintslight";
-      gtk-xft-rgba = "rgb";
-    };
-  };
-
   programs = lib.mkIf isLinux {
-    autorandr.enable = true;
-
     i3status-rust = {
       enable = true;
       bars.default = {
@@ -94,14 +60,6 @@ in {
           };
         };
       };
-    };
-
-    rofi = {
-      enable = true;
-      font = "Berkeley Mono 14";
-      extraConfig.icon-theme = "Papirus-Dark";
-      terminal = "${lib.getExe pkgs.wezterm}";
-      theme = ./rofi/theme.rasi;
     };
   };
 
@@ -177,11 +135,9 @@ in {
   };
 
   xdg = lib.mkIf isLinux {
-    configFile = {
-      "i3" = {
-        source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/modules/i3";
-        recursive = true;
-      };
+    configFile."i3" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/modules/i3";
+      recursive = true;
     };
   };
 }

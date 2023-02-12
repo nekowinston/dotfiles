@@ -5,6 +5,7 @@
   pkgs,
   sops,
   machine,
+  hyprland,
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isLinux;
@@ -12,30 +13,30 @@
 in {
   imports =
     [
+      hyprland
       nur
       sops
       ./catppuccin
       ./modules/firefox.nix
       ./modules/git.nix
       ./modules/gpg.nix
+      ./modules/hyprland.nix
       ./modules/i3.nix
       ./modules/kubernetes.nix
       ./modules/mail.nix
       ./modules/music.nix
       ./modules/neovim.nix
       ./modules/newsboat.nix
+      ./modules/rice.nix
       ./modules/sops.nix
       ./modules/vscode.nix
       ./modules/wezterm.nix
       ./modules/zsh.nix
     ]
-    ++ lib.optionals (builtins.pathExists ./modules/secrets.nix) [
-      # hotfix: use fucking git-secret, this is atrocious beyond belief
-      ./modules/secrets.nix
-    ];
+    ++ lib.optionals (builtins.pathExists ./modules/secrets.nix) [./modules/secrets.nix];
 
   catppuccin = {
-    defaultTheme = "frappe";
+    defaultTheme = "mocha";
     bat.enable = true;
     btop.enable = true;
     dircolors.enable = true;
@@ -75,7 +76,7 @@ in {
       ]
       ++ lib.optionals (isLinux && machine.personal) [
         discover-overlay
-        unstable.discord
+        (unstable.discord.override {withOpenASAR = true;})
         lutris
       ]);
 

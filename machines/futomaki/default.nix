@@ -64,14 +64,16 @@ in {
   time.timeZone = "Europe/Vienna";
   i18n.defaultLocale = "en_US.UTF-8";
 
-  programs.dconf.enable = true;
-  programs.steam.enable = true;
-  programs.thunar = {
-    enable = true;
-    plugins = with pkgs.xfce; [
-      thunar-archive-plugin
-      thunar-volman
-    ];
+  programs = {
+    dconf.enable = true;
+    steam.enable = true;
+    thunar = {
+      enable = true;
+      plugins = with pkgs.xfce; [
+        thunar-archive-plugin
+        thunar-volman
+      ];
+    };
   };
 
   security.polkit.enable = true;
