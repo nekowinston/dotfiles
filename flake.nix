@@ -95,7 +95,6 @@
 
           modules = [
             home-manager.darwinModules.home-manager
-
             ./machines/sashimi/darwin.nix
 
             ({config, ...}: {
@@ -106,11 +105,21 @@
                 nixpkgs.config.allowUnfree = true;
                 home-manager = {
                   useGlobalPkgs = true;
-                  users.winston.imports = [./home.nix];
+                  users.winston.imports = [
+                    ./home.nix
+                    {
+                      home.packages = [
+                        catppuccin-toolbox.packages.${system}.catwalk
+                      ];
+                    }
+                  ];
                   extraSpecialArgs = {
                     sops = sops.homeManagerModules.sops;
                     flakePath = "/Users/winston/.config/nixpkgs";
                     machine.personal = true;
+
+                    # TODO: remove hyprland from darwin, I just need this to work right now
+                    hyprland = hyprland.homeManagerModules.default;
                   };
                 };
               };

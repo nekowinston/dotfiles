@@ -4,7 +4,7 @@
   "auto-dark-mode.nvim": { "branch": "master", "commit": "9a7515c180c73ccbab9fce7124e49914f88cd763" },
   "barbecue": { "branch": "main", "commit": "814140c81247dbc701e20950d76f3dbd5fc31612" },
   "bufferline.nvim": { "branch": "main", "commit": "84b0822b2af478d0b4f7b0f9249ca218855331db" },
-  "catppuccin": { "branch": "blend", "commit": "b8233f6321943db2d7082ad9a31ee444d0490aab" },
+  "catppuccin": { "branch": "main", "commit": "b8233f6321943db2d7082ad9a31ee444d0490aab" },
   "cmp-buffer": { "branch": "main", "commit": "3022dbc9166796b644a841a02de8dd1cc1d311fa" },
   "cmp-cmdline": { "branch": "main", "commit": "23c51b2a3c00f6abc4e922dbd7c3b9aca6992063" },
   "cmp-git": { "branch": "main", "commit": "414e6aefbc0f416ad1c83e5417455a861159e3b8" },
