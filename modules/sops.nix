@@ -1,5 +1,4 @@
 {config, ...}: {
-  # TODO: enable after sops supports nix-darwin
   sops = {
     gnupg.home = "${config.xdg.configHome}/gnupg";
     defaultSopsFile = ../secrets.yaml;
