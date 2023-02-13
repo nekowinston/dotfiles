@@ -6,15 +6,23 @@
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isLinux;
+  fonts = {
+    names = ["Inter" "Symbols Nerd Font"];
+    size = 16.0;
+  };
 in {
+  fonts.fontconfig.enable = true;
+
   home = lib.mkIf isLinux {
     packages = with pkgs; [
       arandr
       blueberry
-      libnotify
       pavucontrol
       xclip
-      xdotool
+
+      # fonts
+      (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
+      inter
     ];
   };
 
@@ -78,7 +86,8 @@ in {
       riced = true;
     in {
       enable = true;
-      fade = true;
+      package = pkgs.nur.repos.nekowinston.picom-ft-labs;
+      fade = false;
       backend = "glx";
       vSync = true;
       shadow = riced;
@@ -123,12 +132,12 @@ in {
   };
 
   # https://github.com/nix-community/home-manager/issues/2064
-  # systemd = lib.mkIf isLinux {
-  #   user.targets.tray.Unit = {
-  #     Description = "Home Manager System Tray";
-  #     Requires = ["graphical-session-pre.target"];
-  #   };
-  # };
+  systemd = lib.mkIf isLinux {
+    user.targets.tray.Unit = {
+      Description = "Home Manager System Tray";
+      Requires = ["graphical-session-pre.target"];
+    };
+  };
 
   xsession = lib.mkIf isLinux {
     enable = true;
@@ -139,8 +148,9 @@ in {
         focus.wrapping = "no";
         startup = [
           {
-            command = "${lib.getExe pkgs.autotiling}";
+            command = "${lib.getExe pkgs.autotiling} -l2";
             notification = false;
+            always = true;
           }
           {
             command = "${lib.getExe pkgs._1password-gui} --silent";
@@ -155,6 +165,13 @@ in {
           modMove = "${mod}+Shift";
           modFocus = "${mod}+Ctrl";
           hyper = "Mod4+Mod1+Shift+Ctrl";
+
+          gopass = lib.getExe pkgs.gopass;
+          rofi = lib.getExe pkgs.rofi-wayland;
+          thunar = lib.getExe pkgs.xfce.thunar;
+          xargs = "${lib.getExe pkgs.findutils}/bin/xargs";
+          xdotool = lib.getExe pkgs.xdotool;
+          flameshot = lib.getExe pkgs.flameshot;
         in {
           "${mod}+Shift+b" = "border none";
           "${mod}+b" = "border pixel 2";
@@ -167,11 +184,10 @@ in {
           "${mod}+Shift+q" = "kill";
           # Start Applications
           "${mod}+Shift+Return" = "exec ${config.xsession.windowManager.i3.config.terminal}";
-          "${mod}+e" = "exec --no-startup-id $fileman";
+          "${mod}+e" = "exec --no-startup-id ${thunar}";
           "${mod}+Ctrl+x" = "exec --no-startup-id ${lib.getExe pkgs.xorg.xkill}";
           "${hyper}+p" = "--release exec --no-startup-id ${lib.getExe pkgs.flameshot} gui";
-          # TODO: yeah no
-          # "${hyper}+space" = "exec --no-startup-id gopass ls --flat | rofi -dmenu -dpi $dpi | xargs --no-run-if-empty gopass show -o | xdotool type --clearmodifiers --file -";
+          "${hyper}+space" = "exec --no-startup-id ${gopass} ls --flat | ${rofi} -dmenu -dpi $dpi | ${xargs} --no-run-if-empty ${gopass} show -o | ${xdotool} type --clearmodifiers --file -";
 
           # change focus
           "${modFocus}+h" = "focus left";
@@ -284,18 +300,32 @@ in {
             R = "resize set 50 ppt 50 ppt";
           };
         };
-        fonts = {
-          names = ["Berkeley Mono"];
-          size = 16.0;
-        };
+        inherit fonts;
         bars = [
           {
             mode = "hide";
             hiddenState = "hide";
             statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ${config.xdg.configHome}/i3status-rust/config-default.toml";
             position = "top";
+            workspaceNumbers = false;
+            inherit fonts;
             colors = {
               background = "#000000";
+              focusedWorkspace = {
+                background = "#F5C2E7";
+                text = "#000000";
+                border = "#F5C2E7";
+              };
+              activeWorkspace = {
+                background = "#CBA6F7";
+                text = "#000000";
+                border = "#CBA6F7";
+              };
+              inactiveWorkspace = {
+                background = "#000000";
+                text = "#CDD6F4";
+                border = "#000000";
+              };
             };
           }
         ];
