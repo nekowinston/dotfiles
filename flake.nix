@@ -59,6 +59,7 @@
           system = "x86_64-linux";
           modules = [
             home-manager.nixosModules.home-manager
+            ./machines/common.nix
             ./machines/futomaki
 
             ({config, ...}: {
@@ -95,6 +96,7 @@
 
           modules = [
             home-manager.darwinModules.home-manager
+            ./machines/common.nix
             ./machines/sashimi/darwin.nix
 
             ({config, ...}: {
