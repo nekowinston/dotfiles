@@ -65,6 +65,7 @@
       deadnix
       nur.repos.nekowinston.jq-lsp
       nur.repos.nekowinston.helm-ls
+      nur.repos.bandithedoge.nodePackages.emmet-ls
 
       # needed for some plugin build steps
       cargo
