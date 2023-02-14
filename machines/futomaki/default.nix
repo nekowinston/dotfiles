@@ -4,35 +4,14 @@
   ...
 }: let
   mainUser = "winston";
-
-  plymouthPkg = pkgs.stdenv.mkDerivation {
-    name = "plymouth-theme-catppuccin";
-
-    src = pkgs.fetchFromGitHub {
-      owner = "catppuccin";
-      repo = "plymouth";
-      rev = "d4105cf336599653783c34c4a2d6ca8c93f9281c";
-      sha256 = "sha256-quBSH8hx3gD7y1JNWAKQdTk3CmO4t1kVo4cOGbeWlNE=";
-    };
-
-    installPhase = ''
-      mkdir -p "$out/share/plymouth/themes/"
-      cp -r "themes/"* "$out/share/plymouth/themes/"
-      themes=("mocha" "macchiato" "frappe" "latte")
-      for dir in "''${themes[@]}"; do
-        cat "themes/catppuccin-''${dir}/catppuccin-''${dir}.plymouth" | sed "s@\/usr\/@''${out}\/@" > "''${out}/share/plymouth/themes/catppuccin-''${dir}/catppuccin-''${dir}.plymouth"
-      done
-    '';
-  };
 in {
   nix.settings.experimental-features = ["nix-command" "flakes"];
   nixpkgs.config.allowUnfree = true;
 
   imports = [./hardware.nix];
-  environment.systemPackages = with pkgs; [xarchiver];
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_6_1;
+    kernelPackages = pkgs.linuxPackages_latest;
     loader.efi.canTouchEfiVariables = true;
     loader.systemd-boot.enable = true;
 
@@ -43,7 +22,7 @@ in {
     plymouth = {
       enable = true;
       theme = "catppuccin-mocha";
-      themePackages = [plymouthPkg];
+      themePackages = [pkgs.nur.repos.nekowinston.plymouth-theme-catppuccin];
     };
     kernelParams = ["quiet" "splash" "vt.global_cursor_default=0"];
     initrd.systemd.enable = true;
@@ -130,7 +109,7 @@ in {
   virtualisation.docker.enable = true;
 
   users.users."${mainUser}" = {
-    extraGroups = ["wheel"];
+    extraGroups = ["wheel" "docker"];
     isNormalUser = true;
     openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILm0O46zW/XfVOSwz0okRWYeOAg+wCVkCtCAoVTpZsOh"];
     shell = pkgs.zsh;
