@@ -24,6 +24,7 @@ in {
         i-dont-care-about-cookies
         multi-account-containers
         onepassword-password-manager
+        refined-github
         temporary-containers
         ublock-origin
         vimium
