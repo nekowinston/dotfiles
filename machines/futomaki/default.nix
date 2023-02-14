@@ -30,7 +30,6 @@ in {
 
   hardware = {
     bluetooth.enable = true;
-    pulseaudio.enable = true;
   };
 
   networking = {
@@ -56,7 +55,10 @@ in {
     };
   };
 
-  security.polkit.enable = true;
+  security = {
+    polkit.enable = true;
+    rtkit.enable = true;
+  };
   systemd = {
     packages = [pkgs.polkit_gnome];
     user.services.polkit-gnome-authentication-agent-1 = {
@@ -86,7 +88,10 @@ in {
     blueman.enable = true;
     gnome.gnome-keyring.enable = true;
     mullvad-vpn.enable = true;
-    pipewire.enable = true;
+    pipewire = {
+      enable = true;
+      pulse.enable = true;
+    };
 
     openssh.enable = true;
     pcscd.enable = true;

@@ -85,7 +85,14 @@ in {
     };
   };
 
-  home.packages = lib.mkIf isDarwin [pkgs.nur.repos.nekowinston.discord-applemusic-rich-presence];
+  home.packages =
+    []
+    ++ lib.optionals isLinux [
+      pkgs.unstable.cider
+    ]
+    ++ lib.optionals isDarwin [
+      pkgs.nur.repos.nekowinston.discord-applemusic-rich-presence
+    ];
 
   launchd.agents.discord-applemusic-rich-presence = {
     enable = true;
