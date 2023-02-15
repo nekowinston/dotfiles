@@ -6,6 +6,10 @@ switch: secret-stage && secret-unstage
 switch: secret-stage && secret-unstage
   sudo nixos-rebuild switch --flake .
 
+[linux]
+boot: secret-stage && secret-unstage
+  sudo nixos-rebuild boot --flake .
+
 secret-stage:
   git add -f modules/secrets.nix
 
