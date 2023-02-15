@@ -172,6 +172,8 @@ in {
           xargs = "${lib.getExe pkgs.findutils}/bin/xargs";
           xdotool = lib.getExe pkgs.xdotool;
           flameshot = lib.getExe pkgs.flameshot;
+          playerctl = lib.getExe pkgs.playerctl;
+          pactl = "${pkgs.pulseaudio}/bin/pactl";
         in {
           "${mod}+Shift+b" = "border none";
           "${mod}+b" = "border pixel 2";
@@ -267,12 +269,12 @@ in {
           "${mod}+Shift+space" = "exec ${lib.getExe pkgs._1password-gui} --quick-access";
 
           # audio
-          "XF86AudioRaiseVolume" = "--no-startup-id pactl set-sink-volume 0 +5%";
-          "XF86AudioLowerVolume" = "--no-startup-id pactl set-sink-volume 0 -5%";
-          "XF86AudioMute" = "exec --no-startup-id pactl set-sink-mute 0 toggle";
-          "XF86AudioNext" = "exec --no-startup-id playerctl next";
-          "XF86AudioPrev" = "exec --no-startup-id playerctl previous";
-          "XF86AudioPause" = "exec --no-startup-id playerctl play-pause";
+          "XF86AudioRaiseVolume" = "exec --no-startup-id ${pactl} set-sink-volume 0 +5%";
+          "XF86AudioLowerVolume" = "exec --no-startup-id ${pactl} set-sink-volume 0 -5%";
+          "XF86AudioMute" = "exec --no-startup-id ${pactl} set-sink-mute 0 toggle";
+          "XF86AudioNext" = "exec --no-startup-id ${playerctl} next";
+          "XF86AudioPrev" = "exec --no-startup-id ${playerctl} previous";
+          "XF86AudioPause" = "exec --no-startup-id ${playerctl} play-pause";
 
           # modes
           "${mod}+r" = "mode \"resize\"";
