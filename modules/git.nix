@@ -1,4 +1,6 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
+in {
   programs.git = {
     enable = true;
     userName = "winston";
@@ -27,7 +29,10 @@
     ];
 
     # disable the macOS keychain, only use gopass
-    package = pkgs.git.override {osxkeychainSupport = false;};
+    package =
+      if isDarwin
+      then (pkgs.git.override {osxkeychainSupport = false;})
+      else pkgs.git;
 
     extraConfig = {
       credential.helper = "gopass";
