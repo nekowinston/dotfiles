@@ -86,11 +86,11 @@ in {
         }
       ];
       shellAliases = {
-        # switch between yubikeys for the same GPG key
         cat =
           if isDarwin
-          then "bat --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo default || echo GitHub)"
+          then "bat --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo Catppuccin-mocha || echo Catppuccin-latte)"
           else "bat";
+        # switch between yubikeys for the same GPG key
         switch_yubikeys = "gpg-connect-agent \"scd serialno\" \"learn --force\" /bye";
       };
       history = {
