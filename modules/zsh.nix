@@ -6,6 +6,10 @@
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
+  symlink = fileName: {recursive ? false}: {
+    source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/${fileName}";
+    recursive = recursive;
+  };
 in {
   home.sessionVariables = {LESSHISTFILE = "-";};
 
@@ -24,7 +28,7 @@ in {
 
     starship = {
       enable = true;
-      settings = builtins.fromTOML (builtins.readFile ./starship/config.toml);
+      package = pkgs.unstable.starship;
     };
 
     tealdeer = {
@@ -96,13 +100,8 @@ in {
   };
 
   xdg.configFile = {
-    "lsd" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/modules/lsd/themes";
-      recursive = true;
-    };
-    "zsh/functions" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/modules/zsh/functions";
-      recursive = true;
-    };
+    "lsd" = symlink "modules/lsd" {recursive = true;};
+    "starship.toml" = symlink "modules/starship/config.toml" {};
+    "zsh/functions" = symlink "modules/zsh/functions" {recursive = true;};
   };
 }

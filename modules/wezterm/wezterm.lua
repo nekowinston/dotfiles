@@ -32,7 +32,7 @@ return {
   -- theme
   color_schemes = theme.get_custom_colorschemes(),
   color_scheme = theme.scheme_for_appearance(wezterm.gui.get_appearance(), {
-    dark = "OLEDppuccin",
+    dark = "Catppuccin Americano",
     light = "Catppuccin Latte",
   }),
   -- tab bar
