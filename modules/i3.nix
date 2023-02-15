@@ -378,39 +378,31 @@ in {
         set $ws9  9:Ⅸ
         set $ws10 10:Ⅹ
 
-        # manage window rules
-        for_window [urgent=latest] focus
-
         # floating sticky
-        for_window [class="Lxappearance"]                floating enable sticky enable border normal
-        for_window [class="Qtconfig-qt4"]                floating enable sticky enable border normal
-        for_window [class="qt5ct"]                       floating enable sticky enable border normal
+        for_window [class="1Password"] floating enable sticky enable border pixel 1
+        for_window [window_role="PictureInPicture"] floating enable sticky enable border pixel 1
 
-        for_window [class="1Password"]                   floating enable sticky enable border pixel 1
-        for_window [title="Blender Render"]              floating enable border pixel 1
-        for_window [title="(?i)SteamTinkerLaunch"]       floating enable border pixel 1
-
-        # floating with normal border (titled)
-        for_window [class="(?i)virtualbox"]              floating enable border normal
-        for_window [class="GParted"]                     floating enable border normal
-
-        # floating without special settings
+        # floating
+        for_window [class="GParted"] floating enable
+        for_window [title="(?i)SteamTinkerLaunch"] floating enable
+        for_window [title="Blender Render"] floating enable
 
         # general WM role settings
-        for_window [window_role="pop-up"]                floating enable
-        for_window [window_role="task_dialog"]           floating enable
-        for_window [title="splash"]                      floating enable
+        for_window [title="splash"] floating enable
+        for_window [urgent=latest] focus
+        for_window [window_role="pop-up"] floating enable
+        for_window [window_role="task_dialog"] floating enable
 
         # apps
-        for_window [class="Lightdm-settings"]            floating enable
-        for_window [class="Pavucontrol"]                 floating enable
-        for_window [title="File Transfer*"]              floating enable
-        for_window [title="Steam Guard*"]                floating enable
-        for_window [class="Yad" title="Authentication"]  floating enable
+        for_window [class="Lightdm-settings"] floating enable
+        for_window [class="Pavucontrol"] floating enable
+        for_window [class="Yad" title="Authentication"] floating enable
         for_window [class="jetbrains*" title="Welcome*"] floating enable
+        for_window [title="File Transfer*"] floating enable
+        for_window [title="Steam Guard*"] floating enable
 
         # keep apps in scratchpad
-        for_window [class="discord"]                     move scratchpad
+        for_window [class="discord"] move scratchpad sticky
       '';
     };
   };
