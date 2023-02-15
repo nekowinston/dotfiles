@@ -7,8 +7,7 @@
   hyprland,
   ...
 }: let
-  inherit (pkgs.stdenv.hostPlatform) isLinux;
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
 in {
   imports =
     [
