@@ -101,8 +101,7 @@ in {
       desktopManager.xterm.enable = false;
       displayManager = {
         defaultSession = "none+i3";
-        lightdm.enable = true;
-        lightdm.background = "#000000";
+        gdm.enable = true;
       };
       libinput.enable = true;
       windowManager.i3.enable = true;
