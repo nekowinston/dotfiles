@@ -13,7 +13,6 @@ in {
     [
       hyprland
       sops
-      ./catppuccin
       ./modules/firefox.nix
       ./modules/git.nix
       ./modules/gpg.nix
@@ -31,14 +30,6 @@ in {
       ./modules/zsh.nix
     ]
     ++ lib.optionals (builtins.pathExists ./modules/secrets.nix) [./modules/secrets.nix];
-
-  catppuccin = {
-    defaultTheme = "mocha";
-    bat.enable = true;
-    btop.enable = true;
-    dircolors.enable = true;
-    k9s.enable = true;
-  };
 
   manual.manpages.enable = false;
 
