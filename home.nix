@@ -96,7 +96,7 @@ in {
     home-manager.enable = true;
     go = {
       enable = true;
-      goPath = ".local/share/go";
+      goPath = "${config.xdg.dataHome}/go";
     };
     man.enable = true;
     taskwarrior.enable = true;

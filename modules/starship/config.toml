@@ -1,9 +1,5 @@
-# Get editor completions based on the config schema
 "$schema" = "https://starship.rs/config-schema.json"
 
-### MAIN SHELL
-# directory | username@hostname | cmd duration | sudo | VCS | language versions | kubernetes
-# > input after line break
 format = """
 [ ](bg:red)\
 $directory\
@@ -17,8 +13,8 @@ $vcsh\
 $git_branch\
 $git_commit\
 $git_state\
-$git_metrics\
 $git_status\
+$git_metrics\
 [](fg:peach bg:yellow)\
 $cmd_duration\
 $status\
@@ -31,33 +27,20 @@ $nodejs\
 $php\
 $python\
 $rust\
-$vagrant\
 [](fg:green bg:blue)\
 $package\
+$nix_shell\
 [](fg:blue bg:purple)\
-$aws\
 $azure\
-$gcloud\
-$openstack\
 $docker_context\
 $kubernetes\
-$terraform\
 [](fg:purple)\
 $line_break\
 $shell\
 $character"""
+
 add_newline = true
 palette = "catppuccin_mocha"
-
-[custom.left]
-symbol = ""
-style = "fg:bright-purple"
-when = true
-
-[custom.right]
-symbol = ""
-style = "fg:bright-purple"
-when = true
 
 [directory]
 format = "[$path]($style)[$read_only]($read_only_style)"
@@ -107,6 +90,12 @@ style = 'bg:peach fg:#000000'
 [git_state]
 format = '[\($state( $progress_current/$progress_total)\)]($style)'
 style = 'bg:peach fg:#000000'
+
+[git_metrics]
+format = '([ +$added]($added_style)[/](bg:peach fg:#000000)[-$deleted]($deleted_style))'
+added_style = 'bg:peach fg:#000000'
+deleted_style = 'bg:peach fg:#000000'
+disabled = false
 
 [git_status]
 format = '([ $all_status$ahead_behind]($style))'
@@ -215,7 +204,8 @@ style = 'bg:green fg:#000000'
 
 [nix_shell]
 format = '[ $symbol$state( \($name\)) ]($style)'
-style = 'bg:green fg:#000000'
+symbol = ' '
+style = 'bg:blue fg:#000000'
 
 [nodejs]
 format = '[ $symbol($version) ]($style)'
