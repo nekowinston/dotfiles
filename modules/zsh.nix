@@ -14,6 +14,7 @@ in {
   home.sessionVariables = {LESSHISTFILE = "-";};
 
   programs = {
+    bat.enable = true;
     btop = {
       enable = true;
       settings = {
