@@ -60,7 +60,7 @@ in {
 
         nur.repos.nekowinston.org-stats
         (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
-        unstable.wezterm
+        wezterm
       ]
       ++ lib.optionals isDarwin [
         iina
