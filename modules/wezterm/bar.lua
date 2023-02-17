@@ -49,7 +49,6 @@ local function numberStyle(number, script)
 end
 
 -- custom tab bar
----@diagnostic disable-next-line: unused-local
 wezterm.on(
   "format-tab-title",
   function(tab, tabs, panes, config, hover, max_width)
@@ -112,18 +111,32 @@ wezterm.on(
 
     local tabi = wezterm.mux.get_tab(tab.tab_id)
     local muxpanes = tabi:panes()
-    local count = #muxpanes == 1 and "" or #muxpanes
+    local count = #muxpanes == 1 and "" or tostring(#muxpanes)
     local index = tab.tab_index + 1 .. ": "
+
+    -- start and end hardcoded numbers are the Powerline + " " padding
+    local fillerwidth = 2 + string.len(index) + string.len(count) + 2
+
+    local tabtitle = tab.active_pane.title
+    if (#tabtitle + fillerwidth) > config.tab_max_width then
+      tabtitle = string.sub(
+        tab.active_pane.title,
+        1,
+        (config.tab_max_width - fillerwidth - 1)
+      ) .. "…"
+    end
+
+    local title = string.format(
+      " %s%s%s ",
+      index,
+      tabtitle,
+      numberStyle(count, "superscript")
+    )
 
     return {
       { Background = { Color = s_bg } },
       { Foreground = { Color = s_fg } },
-      {
-        Text = " " .. index .. tab.active_pane.title .. numberStyle(
-          count,
-          "superscript"
-        ) .. " ",
-      },
+      { Text = title },
       { Background = { Color = e_bg } },
       { Foreground = { Color = e_fg } },
       { Text = DIVIDERS.RIGHT },
@@ -184,9 +197,15 @@ wezterm.on("update-status", function(window, pane)
     { Foreground = { Color = palette.ansi[5] } },
     { Text = DIVIDERS.RIGHT },
   }))
+
+  local time = wezterm.time.now():format("%H:%M")
+  local sun_is_up = wezterm.time.now():sun_times(48.2, 16.366667).up
+  local icon = sun_is_up and " " or ""
+  local text = string.format(" %s %s", icon, time)
+
   window:set_right_status(wezterm.format({
     { Background = { Color = palette.tab_bar.background } },
     { Foreground = { Color = palette.ansi[6] } },
-    { Text = os.date(" %H:%M ") },
+    { Text = text },
   }))
 end)
