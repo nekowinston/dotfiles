@@ -107,6 +107,7 @@
                 nixpkgs.config.allowUnfree = true;
                 home-manager = {
                   useGlobalPkgs = true;
+                  backupFileExtension = "backup";
                   users.winston.imports = [
                     ./home.nix
                     {
