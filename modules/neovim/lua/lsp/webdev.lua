@@ -3,6 +3,10 @@ local lspconfig = require("lspconfig")
 local M = {}
 
 M.setup = function(opts)
+  lspconfig.cssls.setup({
+    capabilities = opts.capabilities,
+    on_attach = opts.on_attach,
+  })
   lspconfig.emmet_ls.setup({
     capabilities = opts.capabilities,
     on_attach = opts.on_attach,
