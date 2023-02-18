@@ -9,23 +9,23 @@
 in {
   imports =
     [
-      ./modules/firefox.nix
-      ./modules/git.nix
-      ./modules/gpg.nix
-      ./modules/i3.nix
-      ./modules/kubernetes.nix
-      ./modules/mail.nix
-      ./modules/music.nix
-      ./modules/neovim.nix
-      ./modules/newsboat.nix
-      ./modules/rice.nix
-      ./modules/sops.nix
-      ./modules/vscode.nix
-      ./modules/wayland.nix
-      ./modules/wezterm.nix
-      ./modules/zsh.nix
+      ./apps/firefox.nix
+      ./apps/git.nix
+      ./apps/gpg.nix
+      ./apps/i3.nix
+      ./apps/kubernetes.nix
+      ./apps/mail.nix
+      ./apps/music.nix
+      ./apps/neovim.nix
+      ./apps/newsboat.nix
+      ./apps/rice.nix
+      ./apps/vscode.nix
+      ./apps/wayland.nix
+      ./apps/wezterm.nix
+      ./apps/zsh.nix
+      ./secrets/sops.nix
     ]
-    ++ lib.optionals (builtins.pathExists ./modules/secrets.nix) [./modules/secrets.nix];
+    ++ lib.optionals (builtins.pathExists ./secrets/default.nix) [./secrets];
 
   home = {
     packages = with pkgs; ([

@@ -104,8 +104,8 @@ in {
   };
 
   xdg.configFile = {
-    "lsd" = symlink "modules/lsd" {recursive = true;};
-    "starship.toml" = symlink "modules/starship/config.toml" {};
-    "zsh/functions" = symlink "modules/zsh/functions" {recursive = true;};
+    "lsd" = symlink "home/apps/lsd" {recursive = true;};
+    "starship.toml" = symlink "home/apps/starship/config.toml" {};
+    "zsh/functions" = symlink "home/apps/zsh/functions" {recursive = true;};
   };
 }

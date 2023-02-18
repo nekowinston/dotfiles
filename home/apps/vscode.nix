@@ -21,11 +21,11 @@ in {
   home.file = {
     "${config.xdg.configHome}/Code/User/settings.json" = {
       enable = isLinux;
-      source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/modules/vscode/settings.json";
+      source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/home/apps/vscode/settings.json";
     };
     "Library/Application Support/Code/User/settings.json" = {
       enable = isDarwin;
-      source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/modules/vscode/settings.json";
+      source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/home/apps/vscode/settings.json";
     };
   };
 }

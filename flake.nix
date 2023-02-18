@@ -70,7 +70,7 @@
                     sops.homeManagerModules.sops
                     hyprland.homeManagerModules.default
                   ];
-                  users.winston.imports = [./home.nix];
+                  users.winston.imports = [./home];
                   extraSpecialArgs = {
                     flakePath = "/home/winston/.config/nixpkgs";
                     machine.personal = true;
@@ -102,7 +102,7 @@
                     # TODO: remove hyprland from darwin, I just need this to work right now
                     hyprland.homeManagerModules.default
                   ];
-                  users.winston.imports = [./home.nix];
+                  users.winston.imports = [./home];
                   extraSpecialArgs = {
                     flakePath = "/Users/winston/.config/nixpkgs";
                     machine.personal = true;

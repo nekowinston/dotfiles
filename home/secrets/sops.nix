@@ -14,12 +14,12 @@
       then "${config.home.homeDirectory}/Library/Fonts/${fontname}.otf"
       else throw "Unsupported platform";
     format = "binary";
-    sopsFile = ../home/fonts/${fontname}.json;
+    sopsFile = ./fonts/${fontname}.json;
   };
 in {
   sops = {
     gnupg.home = "${config.xdg.configHome}/gnupg";
-    defaultSopsFile = ../secrets.yaml;
+    defaultSopsFile = ./main.yaml;
     secrets = {
       "kubernetes-work-prod".path = "${config.xdg.configHome}/kube/work-prod";
       "berkeley_regular" = fontMapping "berkeley_regular";

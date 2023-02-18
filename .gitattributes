@@ -1,1 +1,2 @@
 flake.lock -diff
+home/secrets/* -diff

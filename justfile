@@ -11,7 +11,7 @@ boot: secret-stage && secret-unstage
   sudo nixos-rebuild boot --flake .
 
 secret-stage:
-  git add -f modules/secrets.nix
+  git add -f home/secrets/default.nix
 
 secret-unstage:
-  git restore --staged modules/secrets.nix
+  git restore --staged home/secrets/default.nix
