@@ -16,7 +16,6 @@
     };
     nur.url = "github:nix-community/NUR";
     nekowinston-nur.url = "github:nekowinston/nur";
-    catppuccin-toolbox.url = "github:catppuccin/toolbox";
     sops.url = "github:Mic92/sops-nix";
 
     # dev
@@ -28,7 +27,6 @@
 
   outputs = {
     self,
-    catppuccin-toolbox,
     darwin,
     flake-utils,
     home-manager,
@@ -41,7 +39,7 @@
     sops,
     ...
   }: let
-    overlay-unstable = final: prev: {
+    overlays = final: prev: {
       unstable = import nixpkgs-unstable {
         system = prev.system;
         config.allowUnfree = true;
@@ -64,23 +62,16 @@
 
             ({config, ...}: {
               config = {
-                nixpkgs.overlays = [
-                  overlay-unstable
-                ];
+                nixpkgs.overlays = [overlays];
                 nixpkgs.config.allowUnfree = true;
                 home-manager = {
                   useGlobalPkgs = true;
-                  users.winston.imports = [
-                    ./home.nix
-                    {
-                      home.packages = [
-                        catppuccin-toolbox.packages.${system}.catwalk
-                      ];
-                    }
+                  sharedModules = [
+                    sops.homeManagerModules.sops
+                    hyprland.homeManagerModules.default
                   ];
+                  users.winston.imports = [./home.nix];
                   extraSpecialArgs = {
-                    sops = sops.homeManagerModules.sops;
-                    hyprland = hyprland.homeManagerModules.default;
                     flakePath = "/home/winston/.config/nixpkgs";
                     machine.personal = true;
                   };
@@ -101,28 +92,20 @@
 
             ({config, ...}: {
               config = {
-                nixpkgs.overlays = [
-                  overlay-unstable
-                ];
+                nixpkgs.overlays = [overlays];
                 nixpkgs.config.allowUnfree = true;
                 home-manager = {
                   useGlobalPkgs = true;
                   backupFileExtension = "backup";
-                  users.winston.imports = [
-                    ./home.nix
-                    {
-                      home.packages = [
-                        catppuccin-toolbox.packages.${system}.catwalk
-                      ];
-                    }
+                  sharedModules = [
+                    sops.homeManagerModules.sops
+                    # TODO: remove hyprland from darwin, I just need this to work right now
+                    hyprland.homeManagerModules.default
                   ];
+                  users.winston.imports = [./home.nix];
                   extraSpecialArgs = {
-                    sops = sops.homeManagerModules.sops;
                     flakePath = "/Users/winston/.config/nixpkgs";
                     machine.personal = true;
-
-                    # TODO: remove hyprland from darwin, I just need this to work right now
-                    hyprland = hyprland.homeManagerModules.default;
                   };
                 };
               };

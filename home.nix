@@ -2,17 +2,13 @@
   config,
   lib,
   pkgs,
-  sops,
   machine,
-  hyprland,
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
 in {
   imports =
     [
-      hyprland
-      sops
       ./modules/firefox.nix
       ./modules/git.nix
       ./modules/gpg.nix
@@ -30,8 +26,6 @@ in {
       ./modules/zsh.nix
     ]
     ++ lib.optionals (builtins.pathExists ./modules/secrets.nix) [./modules/secrets.nix];
-
-  manual.manpages.enable = false;
 
   home = {
     packages = with pkgs; ([
@@ -70,15 +64,21 @@ in {
     sessionVariables =
       {
         CARGO_HOME = "${config.xdg.dataHome}/cargo";
+        CUDA_CACHE_PATH = "${config.xdg.dataHome}/nv";
+        DOCKER_CONFIG = "${config.xdg.configHome}/docker";
         NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
-        RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
         PATH = "$PATH:${config.xdg.dataHome}/krew/bin:$GOPATH/bin";
+        RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
+        # XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
+        XCOMPOSECACHE = "${config.xdg.cacheHome}/X11/xcompose";
       }
-      // lib.mkIf isDarwin {
-        # https://github.com/NixOS/nix/issues/2033
-        NIX_PATH = "$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels\${NIX_PATH:+:$NIX_PATH}";
-        SSH_AUTH_SOCK = "${config.xdg.configHome}/gnupg/S.gpg-agent.ssh";
-      };
+      // (
+        if isDarwin
+        then {
+          SSH_AUTH_SOCK = "${config.xdg.configHome}/gnupg/S.gpg-agent.ssh";
+        }
+        else {}
+      );
 
     stateVersion = "22.11";
   };

@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   ...
@@ -27,6 +28,7 @@ in {
       };
     };
 
+    gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
     gtk2.extraConfig = ''
       gtk-xft-antialias=1
       gtk-xft-hinting=1
