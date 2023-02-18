@@ -120,6 +120,7 @@
           src = ./.;
           hooks = {
             alejandra.enable = true;
+            commitizen.enable = true;
             editorconfig-checker.enable = true;
             deadnix.enable = true;
             shellcheck.enable = true;
