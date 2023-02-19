@@ -23,23 +23,23 @@
 
   homebrew = {
     enable = true;
-    caskArgs.no_quarantine = true;
-    onActivation = {
-      autoUpdate = true;
-      cleanup = "zap";
+    caskArgs = {
+      require_sha = true;
     };
-    casks = [
+    onActivation.autoUpdate = true;
+    casks = let
+      skipSha = name: {
+        inherit name;
+        args = {require_sha = false;};
+      };
+    in [
       "1password"
-      "affinity-designer"
-      "affinity-photo"
-      "affinity-publisher"
       "alfred"
       "bitwarden"
       "blender"
       "discord"
       "docker"
       "easy-move-plus-resize"
-      "eloston-chromium"
       "firefox"
       "imageoptim"
       "insomnia"
@@ -54,10 +54,21 @@
       "postman"
       "qt-creator"
       "rustdesk"
-      "sizzy"
       "uninstallpkg"
       "utm"
       "yubico-yubikey-manager"
+
+      # casks without shasums
+      (skipSha "affinity-designer")
+      (skipSha "affinity-photo")
+      (skipSha "affinity-publisher")
+      (skipSha "sizzy")
+
+      # community builds needing to skip quarantine
+      {
+        name = "eloston-chromium";
+        args = {no_quarantine = true;};
+      }
 
       # drivers
       "elgato-wave-link"

@@ -82,7 +82,7 @@
         };
       };
       darwinConfigurations = {
-        "sashimi-slicer" = darwin.lib.darwinSystem rec {
+        "sashimi" = darwin.lib.darwinSystem rec {
           system = "aarch64-darwin";
 
           modules = [
