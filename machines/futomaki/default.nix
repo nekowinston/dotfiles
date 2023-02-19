@@ -56,7 +56,6 @@ in {
     dconf.enable = true;
     nix-ld.enable = true;
     noisetorch.enable = true;
-    steam.enable = true;
     thunar = {
       enable = true;
       plugins = with pkgs.xfce; [
