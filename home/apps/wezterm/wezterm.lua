@@ -13,6 +13,7 @@ return {
   -- keys
   disable_default_key_bindings = true,
   leader = { key = "s", mods = "CTRL", timeout_milliseconds = 5000 },
+  term = "wezterm",
   keys = shortcuts,
   -- font
   font = font.font,
