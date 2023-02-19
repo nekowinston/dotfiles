@@ -41,6 +41,17 @@ in {
   time.timeZone = "Europe/Vienna";
   i18n.defaultLocale = "en_US.UTF-8";
 
+  environment.systemPackages = with pkgs; [
+    # file management
+    p7zip
+    unzip
+    zip
+    gnome.file-roller
+
+    # thumbnails
+    webp-pixbuf-loader
+    ffmpegthumbnailer
+  ];
   programs = {
     dconf.enable = true;
     nix-ld.enable = true;
@@ -84,6 +95,9 @@ in {
     udisks2.enable = true;
     devmon.enable = true;
 
+    # thunbnails
+    tumbler.enable = true;
+
     # desktop
     blueman.enable = true;
     gnome.gnome-keyring.enable = true;
@@ -99,13 +113,9 @@ in {
     xserver = {
       enable = true;
       desktopManager.xterm.enable = false;
-      displayManager = {
-        defaultSession = "none+i3";
-        gdm.enable = true;
-      };
+      displayManager.gdm.enable = true;
       libinput.enable = true;
       windowManager.i3.enable = true;
-      windowManager.i3.package = pkgs.unstable.i3;
       xkbOptions = "caps:ctrl_modifier";
     };
   };
