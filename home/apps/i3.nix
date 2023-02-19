@@ -141,9 +141,8 @@ in {
 
   xsession = lib.mkIf isLinux {
     enable = true;
-    initExtra = ''
-      export USERXSESSION="$XDG_CACHE_HOME/X11/xsession"
-    '';
+    profilePath = "${config.xdg.configHome}/profile";
+    scriptPath = "${config.xdg.cacheHome}/X11/xsession";
     windowManager.i3 = {
       enable = true;
       config = {

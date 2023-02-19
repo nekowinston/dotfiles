@@ -74,7 +74,6 @@ in {
         NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
         PATH = "$PATH:${config.xdg.dataHome}/krew/bin:$GOPATH/bin";
         RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
-        # XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
         XCOMPOSECACHE = "${config.xdg.cacheHome}/X11/xcompose";
       }
       // (
