@@ -6,6 +6,7 @@
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
+  secretsAvailable = builtins.pathExists ./secrets/default.nix;
 in {
   imports =
     [
@@ -25,7 +26,11 @@ in {
       ./apps/zsh.nix
       ./secrets/sops.nix
     ]
-    ++ lib.optionals (builtins.pathExists ./secrets/default.nix) [./secrets];
+    ++ (
+      if secretsAvailable
+      then [./secrets]
+      else [./secrets/fallback.nix]
+    );
 
   home = {
     packages = with pkgs; ([

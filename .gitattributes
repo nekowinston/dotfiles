@@ -1,2 +1,2 @@
 flake.lock -diff
-home/secrets/* -diff
+home/secrets/**/*.json -diff
