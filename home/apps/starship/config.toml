@@ -30,11 +30,11 @@ $rust\
 [](fg:green bg:blue)\
 $package\
 $nix_shell\
-[](fg:blue bg:purple)\
+[](fg:blue bg:mauve)\
 $azure\
 $docker_context\
 $kubernetes\
-[](fg:purple)\
+[](fg:mauve)\
 $line_break\
 $shell\
 $character"""
@@ -287,32 +287,32 @@ style = 'bg:blue fg:#000000'
 [aws]
 symbol = ' '
 format = '[ $symbol($profile)(\($region\))(\[$duration\]) ]($style)'
-style = 'bg:purple fg:#000000'
+style = 'bg:mauve fg:#000000'
 
 [docker_context]
 symbol = ' '
 format = '[ $symbol$context ]($style)'
-style = 'bg:purple fg:#000000'
+style = 'bg:mauve fg:#000000'
 
 [gcloud]
 symbol = ' '
 format = '[ $symbol$account(@$domain)(\($region\)) ]($style)'
-style = 'bg:purple fg:#000000'
+style = 'bg:mauve fg:#000000'
 
 [kubernetes]
 symbol = ' '
 format = '[ $symbol($cluster/$namespace) ]($style)'
 disabled = false
-style = 'bg:purple fg:#000000'
+style = 'bg:mauve fg:#000000'
 
 [openstack]
 symbol = ' '
 format = '[ $symbol$cloud(\($project\)) ]($style)'
-style = 'bg:purple fg:#000000'
+style = 'bg:mauve fg:#000000'
 
 [terraform]
 format = '[ $symbol$workspace ]($style)'
-style = 'bg:purple fg:#000000'
+style = 'bg:mauve fg:#000000'
 
 ### STATUS INDICATORS
 
