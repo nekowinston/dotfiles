@@ -52,13 +52,11 @@ in {
         (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
         wezterm
       ]
-      ++ lib.optionals isDarwin [
-        iina
-      ]
       ++ lib.optionals isLinux [
         _1password-gui
         insomnia
         mattermost-desktop
+        neovide
       ]
       ++ lib.optionals (isLinux && machine.personal) [
         nur.repos.nekowinston.discover-overlay

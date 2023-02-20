@@ -22,6 +22,7 @@
       "discord"
       "docker"
       "firefox"
+      "iina"
       "imageoptim"
       "insomnia"
       "jetbrains-toolbox"
@@ -40,6 +41,7 @@
       "yubico-yubikey-manager"
       (noQuarantine "easy-move-plus-resize")
       (noQuarantine "eloston-chromium")
+      (noQuarantine "neovide")
       (skipSha "affinity-designer")
       (skipSha "affinity-photo")
       (skipSha "affinity-publisher")

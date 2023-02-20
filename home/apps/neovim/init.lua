@@ -74,3 +74,16 @@ vim.api.nvim_create_autocmd("InsertLeave,BufEnter,WinEnter,FocusGained", {
   end,
   group = trnuGroup,
 })
+
+if vim.g.neovide then
+  vim.g.neovide_refresh_rate = 60
+  vim.g.neovide_refresh_rate_idle = 5
+  vim.g.neovide_cursor_vfx_mode = "ripple"
+  vim.g.neovide_scroll_animation_length = 0.3
+  vim.opt.guifont = {
+    "Berkeley Mono",
+    "Symbols Nerd Font Mono",
+    "h14",
+    "#e-subpixelantialias",
+  }
+end
