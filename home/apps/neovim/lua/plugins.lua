@@ -22,10 +22,12 @@ local plugins = {
     "utilyre/barbecue.nvim",
     name = "barbecue",
     dependencies = {
-      { "SmiteshP/nvim-navic", opts = { highlight = true } },
+      "SmiteshP/nvim-navic",
       "nvim-tree/nvim-web-devicons",
     },
-    opts = {},
+    opts = {
+      theme = "catppuccin",
+    },
   },
   "luukvbaal/stabilize.nvim",
   {
