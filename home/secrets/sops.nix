@@ -21,7 +21,7 @@ in {
     gnupg.home = "${config.xdg.configHome}/gnupg";
     defaultSopsFile = ./main.yaml;
     secrets = {
-      "kubernetes-work-prod".path = "${config.xdg.configHome}/kube/work-prod";
+      "kubeconfig".path = "${config.xdg.configHome}/kube/kubeconfig";
       "berkeley_regular" = fontMapping "berkeley_regular";
       "berkeley_italic" = fontMapping "berkeley_italic";
       "berkeley_bold" = fontMapping "berkeley_bold";
