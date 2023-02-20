@@ -12,6 +12,16 @@ in {
     };
 
     diff-so-fancy.enable = true;
+    aliases = {
+      # get plain text diffs for patches
+      patch = "!git --no-pager diff --no-color";
+      # zip the current repo
+      gzip = "!git archive --format=tar.gz --output=$(basename $(git rev-parse --show-toplevel)).tar.gz $(git rev-parse --short HEAD)";
+      zip = "!git archive --format=zip --output=$(basename $(git rev-parse --show-toplevel)).zip $(git rev-parse --short HEAD)";
+      # for those 3am commits
+      yolo = "!git commit -m \"chore: $(curl -s whatthecommit.com/index.txt)\"";
+    };
+
     lfs.enable = true;
 
     ignores = [
