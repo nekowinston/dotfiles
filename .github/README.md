@@ -1,6 +1,10 @@
 # winston's dotfiles
 
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/nekowinston/dotfiles/check.yml?label=flake%20check&logo=nixos&logoColor=%23fff&style=flat-square)
+![flake check status](https://img.shields.io/github/actions/workflow/status/nekowinston/dotfiles/check.yml?label=flake%20check&logo=nixos&logoColor=%23fff&style=flat-square&color=f5c2e7)
+![GitHub stars](https://img.shields.io/github/stars/nekowinston/dotfiles?style=flat-square&color=f5c2e7)
+![commit activity](https://img.shields.io/github/commit-activity/w/nekowinston/dotfiles?style=flat-square&label=commits&color=f5c2e7)
+![SLOC](https://img.shields.io/tokei/lines/github/nekowinston/dotfiles?style=flat-square&color=f5c2e7)
+![MIT license](https://img.shields.io/github/license/nekowinston/dotfiles?style=flat-square&color=f5c2e7)
 
 Welcome to my cross-platform dots. Focused on improving productivity, and reducing the pain of switching between operating systems. Minimal rice, with a focus on getting the annoying stuff out of the way.
 
