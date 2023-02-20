@@ -88,7 +88,7 @@
           modules = [
             home-manager.darwinModules.home-manager
             ./machines/common.nix
-            ./machines/sashimi/darwin.nix
+            ./machines/sashimi
 
             ({config, ...}: {
               config = {
