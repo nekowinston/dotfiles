@@ -32,6 +32,10 @@
         inherit name;
         args = {require_sha = false;};
       };
+      noQuarantine = name: {
+        inherit name;
+        args = {no_quarantine = true;};
+      };
     in [
       "1password"
       "alfred"
@@ -39,7 +43,6 @@
       "blender"
       "discord"
       "docker"
-      "easy-move-plus-resize"
       "firefox"
       "imageoptim"
       "insomnia"
@@ -57,23 +60,17 @@
       "uninstallpkg"
       "utm"
       "yubico-yubikey-manager"
-
-      # casks without shasums
+      (noQuarantine "easy-move-plus-resize")
+      (noQuarantine "eloston-chromium")
       (skipSha "affinity-designer")
       (skipSha "affinity-photo")
       (skipSha "affinity-publisher")
       (skipSha "sizzy")
 
-      # community builds needing to skip quarantine
-      {
-        name = "eloston-chromium";
-        args = {no_quarantine = true;};
-      }
-
       # drivers
       "elgato-wave-link"
       "uhk-agent"
-      "vial"
+      (noQuarantine "vial")
     ];
     taps = [
       "homebrew/cask"
