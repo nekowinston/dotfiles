@@ -5,7 +5,6 @@
 }: let
   mainUser = "winston";
 in {
-  nix.settings.experimental-features = ["nix-command" "flakes"];
   nixpkgs.config.allowUnfree = true;
 
   imports = [./hardware.nix];
