@@ -10,6 +10,9 @@ wezterm.GLOBAL = {
 }
 
 return {
+  set_environment_variables = {
+    TERMINFO_DIRS = wezterm.home_dir .. "/.nix-profile/share/terminfo",
+  },
   -- keys
   disable_default_key_bindings = true,
   leader = { key = "s", mods = "CTRL", timeout_milliseconds = 5000 },
