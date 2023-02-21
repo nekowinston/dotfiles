@@ -175,7 +175,7 @@ in {
           xdotool = lib.getExe pkgs.xdotool;
           flameshot = lib.getExe pkgs.flameshot;
           playerctl = lib.getExe pkgs.playerctl;
-          pactl = "${pkgs.pulseaudio}/bin/pactl";
+          wpctl = pkgs.wireplumber + "/bin/wpctl";
         in {
           "${mod}+Shift+b" = "border none";
           "${mod}+b" = "border pixel 2";
@@ -271,9 +271,9 @@ in {
           "${mod}+Shift+space" = "exec ${lib.getExe pkgs._1password-gui} --quick-access";
 
           # audio
-          "XF86AudioRaiseVolume" = "exec --no-startup-id ${pactl} set-sink-volume 0 +5%";
-          "XF86AudioLowerVolume" = "exec --no-startup-id ${pactl} set-sink-volume 0 -5%";
-          "XF86AudioMute" = "exec --no-startup-id ${pactl} set-sink-mute 0 toggle";
+          "XF86AudioRaiseVolume" = "exec --no-startup-id ${wpctl} set-sink-volume @DEFAULT_AUDIO_SINK@ +5% -l 1.0";
+          "XF86AudioLowerVolume" = "exec --no-startup-id ${wpctl} set-sink-volume @DEFAULT_AUDIO_SINK@ -5% -l 1.0";
+          "XF86AudioMute" = "exec --no-startup-id ${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle";
           "XF86AudioNext" = "exec --no-startup-id ${playerctl} next";
           "XF86AudioPrev" = "exec --no-startup-id ${playerctl} previous";
           "XF86AudioPause" = "exec --no-startup-id ${playerctl} play-pause";

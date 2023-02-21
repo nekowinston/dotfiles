@@ -113,8 +113,8 @@ in {
       bindm = SUPER,mouse:272,movewindow
       bindm = SUPER,mouse:273,resizewindow
 
-      binde = ,XF86AudioRaiseVolume,exec,${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%+
-      binde = ,XF86AudioLowerVolume,exec,${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%-
+      binde = ,XF86AudioRaiseVolume,exec,${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.0
+      binde = ,XF86AudioLowerVolume,exec,${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1.0
       bind = ,XF86AudioMute,exec,${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle
       bind = ,XF86AudioNext,exec,${playerctl} next
       bind = ,XF86AudioPrev,exec,${playerctl} previous
