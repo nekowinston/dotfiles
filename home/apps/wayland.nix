@@ -41,7 +41,10 @@ in {
     };
   };
   xdg = lib.mkIf isLinux {
-    configFile."hypr/hyprland.conf".text = ''
+    configFile."hypr/hyprland.conf".text = let
+      playerctl = lib.getExe pkgs.playerctl;
+      wpctl = pkgs.wireplumber + "/bin/wpctl";
+    in ''
       monitor = ,5120x2160@72,0x0,1.5
 
       input:follow_mouse = 1
@@ -109,6 +112,13 @@ in {
 
       bindm = SUPER,mouse:272,movewindow
       bindm = SUPER,mouse:273,resizewindow
+
+      binde = ,XF86AudioRaiseVolume,exec,${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%+
+      binde = ,XF86AudioLowerVolume,exec,${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%-
+      bind = ,XF86AudioMute,exec,${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle
+      bind = ,XF86AudioNext,exec,${playerctl} next
+      bind = ,XF86AudioPrev,exec,${playerctl} previous
+      bind = ,XF86AudioPause,exec,${playerctl} play-pause
     '';
   };
 }
