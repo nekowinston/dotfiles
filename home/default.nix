@@ -21,7 +21,6 @@ in {
       ./apps/newsboat.nix
       ./apps/rice.nix
       ./apps/vscode.nix
-      ./apps/wayland.nix
       ./apps/wezterm.nix
       ./apps/zsh.nix
       ./secrets/sops.nix

@@ -21,8 +21,6 @@
     # dev
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     flake-utils.url = "github:numtide/flake-utils";
-
-    hyprland.url = "github:hyprwm/Hyprland";
   };
 
   outputs = {
@@ -30,7 +28,6 @@
     darwin,
     flake-utils,
     home-manager,
-    hyprland,
     nekowinston-nur,
     nixpkgs,
     nixpkgs-unstable,
@@ -64,14 +61,12 @@
               config = {
                 nixpkgs.overlays = [
                   overlays
-                  hyprland.outputs.overlays.default
                 ];
                 nixpkgs.config.allowUnfree = true;
                 home-manager = {
                   useGlobalPkgs = true;
                   sharedModules = [
                     sops.homeManagerModules.sops
-                    hyprland.homeManagerModules.default
                   ];
                   users.winston.imports = [./home];
                   extraSpecialArgs = {
@@ -102,8 +97,6 @@
                   backupFileExtension = "backup";
                   sharedModules = [
                     sops.homeManagerModules.sops
-                    # TODO: remove hyprland from darwin, I just need this to work right now
-                    hyprland.homeManagerModules.default
                   ];
                   users.winston.imports = [./home];
                   extraSpecialArgs = {

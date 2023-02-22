@@ -169,7 +169,7 @@ in {
           hyper = "Mod4+Mod1+Shift+Ctrl";
 
           gopass = lib.getExe pkgs.gopass;
-          rofi = lib.getExe pkgs.rofi-wayland;
+          rofi = lib.getExe config.programs.rofi.package;
           thunar = lib.getExe pkgs.xfce.thunar;
           xargs = "${lib.getExe pkgs.findutils}/bin/xargs";
           xdotool = lib.getExe pkgs.xdotool;
@@ -266,7 +266,7 @@ in {
           "${modMove}+9" = "move container to workspace $ws9;  workspace $ws9";
           "${modMove}+0" = "move container to workspace $ws10; workspace $ws10";
           # rofi instead of drun
-          "${mod}+space" = "exec --no-startup-id ${lib.getExe pkgs.rofi-wayland} -show drun -dpi $dpi";
+          "${mod}+space" = "exec --no-startup-id ${lib.getExe config.programs.rofi.package} -show drun -dpi $dpi";
           # 1password
           "${mod}+Shift+space" = "exec ${lib.getExe pkgs._1password-gui} --quick-access";
 
