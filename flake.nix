@@ -62,7 +62,10 @@
 
             ({config, ...}: {
               config = {
-                nixpkgs.overlays = [overlays];
+                nixpkgs.overlays = [
+                  overlays
+                  hyprland.outputs.overlays.default
+                ];
                 nixpkgs.config.allowUnfree = true;
                 home-manager = {
                   useGlobalPkgs = true;

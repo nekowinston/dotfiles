@@ -1,6 +1,7 @@
 {
   config,
   flakePath,
+  inputs,
   lib,
   pkgs,
   ...
@@ -8,11 +9,29 @@
   inherit (pkgs.stdenv.hostPlatform) isLinux;
   nvidiaPrefix = "GDM_BACKEND=nvidia-drm LIBVA_DRIVER_NAME=nvidia __GLX_VENDOR_LIBRARY_NAME=nvidia WLR_NO_HARDWARE_CURSORS=1";
   waylandPrefix = "XDG_SESSION_TYPE=wayland NIXOS_OZONE_WL=1";
+  waybarLauncher = pkgs.writeShellScriptBin "waybar-launcher" (let
+    killall = lib.getExe pkgs.killall;
+    inotifywait = pkgs.inotify-tools + "/bin/inotifywait";
+  in ''
+    #!/bin/sh
+    trap "${killall} .waybar-wrapped" EXIT
+    while true; do
+    	waybar &
+    	${inotifywait} -e create,modify "$HOME/.config/waybar/config" "$HOME/.config/waybar/style.css"
+    	${killall} .waybar-wrapped
+    done
+  '');
 in {
   home.shellAliases = lib.mkIf isLinux {
     "Hyprland" = "${nvidiaPrefix} ${waylandPrefix} Hyprland";
     "sway" = "${nvidiaPrefix} ${waylandPrefix} sway";
   };
+
+  programs.waybar = lib.mkIf isLinux {
+    enable = true;
+    package = pkgs.waybar-hyprland;
+  };
+
   wayland = lib.mkIf isLinux {
     windowManager = {
       sway = {
@@ -41,6 +60,11 @@ in {
     };
   };
   xdg = lib.mkIf isLinux {
+    configFile."waybar" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/home/apps/waybar";
+      recursive = true;
+    };
+
     configFile."hypr/hyprland.conf".text = let
       playerctl = lib.getExe pkgs.playerctl;
       wpctl = pkgs.wireplumber + "/bin/wpctl";
@@ -119,6 +143,7 @@ in {
       bind = ,XF86AudioNext,exec,${playerctl} next
       bind = ,XF86AudioPrev,exec,${playerctl} previous
       bind = ,XF86AudioPause,exec,${playerctl} play-pause
+      exec-once = ${waybarLauncher}/bin/waybar-launcher
     '';
   };
 }

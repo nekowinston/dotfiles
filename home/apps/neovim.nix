@@ -59,6 +59,7 @@
       proselint
       rustc
       rustfmt
+      shellcheck
       shfmt
       tree-sitter
       alejandra

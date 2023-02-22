@@ -50,7 +50,7 @@ in {
 
         nur.repos.nekowinston.org-stats
         (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
-        wezterm
+        unstable.wezterm
       ]
       ++ lib.optionals isLinux [
         _1password-gui
