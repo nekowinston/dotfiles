@@ -7,12 +7,12 @@
   key = "0x0B89BC45007EE9CC";
 in {
   home.packages = with pkgs; [
-    git-credential-gopass
     gnupg-pkcs11-scd
-    gopass
-    gopass-jsonapi
     pcsclite
     pinentry
+    unstable.git-credential-gopass
+    unstable.gopass
+    unstable.gopass-jsonapi
     yubikey-personalization
   ];
 
