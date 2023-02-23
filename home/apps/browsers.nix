@@ -6,6 +6,12 @@
 }: let
   inherit (pkgs.stdenv.hostPlatform) isLinux;
 in {
+  programs.chromium = {
+    enable = isLinux;
+    extensions = [
+      {id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";}
+    ];
+  };
   programs.firefox = {
     enable = true;
     # since I'm using firefox from brew on darwin, I need to build a dummy package

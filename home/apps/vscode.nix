@@ -11,6 +11,7 @@ in {
     enable = true;
     extensions = with pkgs.vscode-extensions; [
       pkgs.nur.repos.nekowinston.vscode-extensions.ms-kubernetes-tools.vscode-kubernetes-tools
+      arrterian.nix-env-selector
       pkief.material-icon-theme
       redhat.vscode-yaml
       valentjn.vscode-ltex

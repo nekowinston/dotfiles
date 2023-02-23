@@ -10,7 +10,7 @@
 in {
   imports =
     [
-      ./apps/firefox.nix
+      ./apps/browsers.nix
       ./apps/git.nix
       ./apps/gpg.nix
       ./apps/i3.nix
