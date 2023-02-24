@@ -6,15 +6,20 @@ PLUGIN_DIR="$HOME"/.config/sketchybar/plugins
 sketchybar --bar \
   height=32 \
   position=top \
-  padding_left=0 \
-  padding_right=0 \
+  padding_left=5 \
+  padding_right=5 \
+  margin=5 \
+  corner_radius=10 \
+  border_width=2 \
   hidden=off \
-  topmost=on
+  topmost=off \
+  y_offset=2
 
 # colors are managed separately in the colordummy,
 # which listens to theme_changed events,
 # to swap between Catppuccin Mocha and Latte
 sketchybar -m --add event theme_changed AppleInterfaceThemeChangedNotification
+sketchybar -m --add event music_changed com.apple.Music.playerInfo
 sketchybar \
   --add item colordummy center \
   --set colordummy \
@@ -64,9 +69,11 @@ for i in "${!SPACE_ICONS[@]}"; do
 done
 
 sketchybar \
-  --add item music center \
+  --add item music left \
   --set music \
   script="$PLUGIN_DIR/music.sh" \
+  label.y_offset=-1 \
+  --subscribe music music_changed \
   --add item clock right \
   --set clock \
   script="$PLUGIN_DIR/clock.sh" \

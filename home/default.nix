@@ -20,6 +20,7 @@ in {
       ./apps/neovim.nix
       ./apps/newsboat.nix
       ./apps/rice.nix
+      ./apps/sketchybar.nix
       ./apps/vscode.nix
       ./apps/wezterm.nix
       ./apps/zsh.nix
@@ -49,6 +50,7 @@ in {
 
         nur.repos.nekowinston.org-stats
         (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
+        victor-mono
         unstable.wezterm
       ]
       ++ lib.optionals isLinux [

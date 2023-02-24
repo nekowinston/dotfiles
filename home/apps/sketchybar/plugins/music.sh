@@ -1,27 +1,23 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 if pgrep -xq Music; then
-  STATE=$(osascript -e 'tell application "Music" to player state as string' 2>/dev/null || echo "")
-  TRACK=$(osascript -e 'tell application "Music" to name of current track as string' 2>/dev/null || echo "")
-  ARTIST=$(osascript -e 'tell application "Music" to album artist of current track as string' 2>/dev/null || echo "")
+  STATE=$(osascript -e 'tell application "Music" to player state as string' 2>/dev/null)
+  TRACK=$(osascript -e 'tell application "Music" to name of current track as string' 2>/dev/null)
+  ARTIST=$(osascript -e 'tell application "Music" to album artist of current track as string' 2>/dev/null)
 
   # fall back to artist, if album artist is unavailable, or generic
-  if [ "$ARTIST" = "" ] || [ "$ARTIST" = "Various Artists" ]; then
-    ARTIST=$(osascript -e 'tell application "Music" to artist of current track as string' 2>/dev/null || echo "")
+  if [[ -z "$ARTIST" ]] || [[ "$ARTIST" = "Various Artists" ]]; then
+    ARTIST=$(osascript -e 'tell application "Music" to artist of current track as string' 2>/dev/null)
   fi
 
-  if [ "$STATE" = "playing" ]; then
-    ICON=""
+  if [[ "$STATE" = "playing" ]]; then
     LABEL="$ARTIST - $TRACK"
   else
-    ICON=""
-    if [ "$TRACK" = "" ] || [ "$ARTIST" = "" ]; then
-      LABEL="paused"
-    else
-      LABEL="$ARTIST - $TRACK"
-    fi
+    LABEL=""
   fi
-  sketchybar --set "$NAME" icon="$ICON" label="$LABEL" --add event "${NAME}-changed"
+  sketchybar --set "$NAME" label="$LABEL" \
+    icon.font="Symbols Nerd Font:2048-em:18.0" \
+    label.font="Victor Mono:Italic:16.0" y_offset="3"
 else
-  sketchybar --set "$NAME" icon="" label="" --add event "${NAME}-changed"
+  sketchybar --set "$NAME" label=""
 fi

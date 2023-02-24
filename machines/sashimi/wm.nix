@@ -6,7 +6,31 @@
 }: {
   services.yabai = {
     enable = true;
+    enableScriptingAddition = true;
     package = pkgs.unstable.yabai;
+    config = {
+      auto_balance = "off";
+      focus_follows_mouse = "off";
+      layout = "bsp";
+      mouse_drop_action = "swap";
+      mouse_follows_focus = "off";
+      mouse_modifier = "off";
+      window_animation_duration = "0.1";
+      window_border = "on";
+      window_border_blur = "on";
+      window_border_width = "2";
+      window_gap = "5";
+      left_padding = "5";
+      right_padding = "5";
+      top_padding = "5";
+      bottom_padding = "5";
+      window_origin_display = "default";
+      window_placement = "second_child";
+      window_shadow = "float";
+      active_window_border_color = "0xfff5c2e7";
+      normal_window_border_color = "0xffcba6f7";
+      external_bar = "all:32:0";
+    };
     extraConfig = let
       rule = "yabai -m rule --add";
       ignored = app: builtins.concatStringsSep "\n" (map (e: ''${rule} app="${e}" manage=off sticky=off layer=above border=off'') app);
@@ -23,26 +47,6 @@
       ${rule} manage=off border=off app="CleanShot"
       ${rule} manage=off sticky=on  app="OBS Studio"
     '';
-    config = {
-      auto_balance = "off";
-      focus_follows_mouse = "off";
-      layout = "bsp";
-      mouse_drop_action = "swap";
-      mouse_follows_focus = "off";
-      mouse_modifier = "off";
-      window_animation_duration = "0.1";
-      window_border = "on";
-      window_border_blur = "on";
-      window_border_width = "2";
-      # this actually looks like hot trash
-      # window_border_radius = "0";
-      window_gap = "0";
-      window_origin_display = "default";
-      window_placement = "second_child";
-      window_shadow = "float";
-      active_window_border_color = "0xfff5c2e7";
-      normal_window_border_color = "0xffcba6f7";
-    };
   };
 
   services.skhd = {
@@ -56,19 +60,11 @@
       cmd + ctrl - j : ${yabai} -m window --focus south
       cmd + ctrl - k : ${yabai} -m window --focus north
       cmd + ctrl - l : ${yabai} -m window --focus east
-      cmd + ctrl - left  : ${yabai} -m window --focus west
-      cmd + ctrl - down  : ${yabai} -m window --focus south
-      cmd + ctrl - up    : ${yabai} -m window --focus north
-      cmd + ctrl - right : ${yabai} -m window --focus east
       # move window
       cmd + shift - h : ${yabai} -m window --warp west
       cmd + shift - j : ${yabai} -m window --warp south
       cmd + shift - k : ${yabai} -m window --warp north
       cmd + shift - l : ${yabai} -m window --warp east
-      cmd + shift - left  : ${yabai} -m window --warp west
-      cmd + shift - down  : ${yabai} -m window --warp south
-      cmd + shift - up    : ${yabai} -m window --warp north
-      cmd + shift - right : ${yabai} -m window --warp east
       # toggle sticky/floating
       cmd + shift - s: ${yabai} -m window --toggle sticky --toggle float --toggle topmost
       cmd + shift - d: ${yabai} -m window --toggle float

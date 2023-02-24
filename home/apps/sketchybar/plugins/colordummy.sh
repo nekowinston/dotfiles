@@ -1,5 +1,7 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 # vim:fdm=marker
+# dont' warn about unused variables:
+# shellcheck disable=SC2034
 
 # color definitions {{{
 # mocha {{{
@@ -123,7 +125,7 @@ LIGHT_THEME="latte"
 DARK_THEME="mocha"
 
 # check whether or not macOS is in dark mode
-if [[ $(defaults read -g AppleInterfaceStyle) != 'Dark' ]]; then
+if [[ $(defaults read -g AppleInterfaceStyle 2>/dev/null) != 'Dark' ]]; then
   theme=$LIGHT_THEME
 else
   theme=$DARK_THEME
@@ -133,7 +135,7 @@ function color() {
   alpha=${2:-1}
   color="$1"
 
-  printf -v parsed "%.0f" "$(bc -l <<< "255*${alpha}")"
+  printf -v parsed "%.0f" "$(bc -l <<<"255*${alpha}")"
   printf -v alpha "%02x" "$parsed"
   selected_color="${theme}_${color}"
   echo "0x${alpha}${!selected_color}"
@@ -141,22 +143,28 @@ function color() {
 
 sketchybar \
   --bar \
-  color="$(color crust)" \
+  color="$(color base)" \
+  border_color="$(color crust)" \
   --default \
   icon.color="$(color pink)" \
   label.color="$(color pink)" \
   --set /space/ \
   icon.color="$(color mauve 0.5)" \
   icon.highlight_color="$(color pink)" \
-  --set clock \
+  --set music \
   icon.color="$(color pink)" \
   label.color="$(color pink)" \
   --set "Mullvad VPN" \
-  alias.color="$(color pink)" \
-  --set "Little Snitch Agent" \
-  alias.color="$(color pink)" \
+  alias.color="$(color peach)" \
   --set "Control Centre,Battery" \
-  alias.color="$(color pink)"
+  alias.color="$(color yellow)" \
+  --set "Little Snitch Agent" \
+  alias.color="$(color green)" \
+  --set "iStat Menus Status" \
+  alias.color="$(color blue)" \
+  --set clock \
+  icon.color="$(color mauve)" \
+  label.color="$(color mauve)"
 
 # set the yabai colours as well
 yabai -m config active_window_border_color "$(color pink)"
