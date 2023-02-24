@@ -168,7 +168,7 @@ in {
           modFocus = "${mod}+Ctrl";
           hyper = "Mod4+Mod1+Shift+Ctrl";
 
-          gopass = lib.getExe pkgs.gopass;
+          gopass = lib.getExe pkgs.unstable.gopass;
           rofi = lib.getExe config.programs.rofi.package;
           thunar = lib.getExe pkgs.xfce.thunar;
           xargs = "${lib.getExe pkgs.findutils}/bin/xargs";

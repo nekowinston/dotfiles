@@ -99,8 +99,8 @@ in {
       ProgramArguments = ["${lib.getExe pkgs.nur.repos.nekowinston.discord-applemusic-rich-presence}"];
       KeepAlive = true;
       RunAtLoad = true;
-      StandardErrorPath = "${config.home.homeDirectory}/.cache/discord-applemusic-rich-presence.log";
-      StandardOutPath = "${config.home.homeDirectory}/.cache/discord-applemusic-rich-presence.log";
+      StandardErrorPath = "${config.xdg.cacheHome}/discord-applemusic-rich-presence.log";
+      StandardOutPath = "${config.xdg.cacheHome}/discord-applemusic-rich-presence.log";
     };
   };
 }
