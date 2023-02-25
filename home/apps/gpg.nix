@@ -1,10 +1,18 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }: let
-  inherit (pkgs.stdenv.hostPlatform) isLinux;
+  inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
   key = "0x0B89BC45007EE9CC";
+  mailvelopeConfig = builtins.toJSON {
+    name = "gpgmejson";
+    description = "JavaScript binding for GnuPG";
+    path = pkgs.unstable.gpgme.dev + /bin/gpgme-json;
+    type = "stdio";
+    allowed_extensions = ["jid1-AQqSMBYb0a8ADg@jetpack"];
+  };
 in {
   home.packages = with pkgs; [
     gnupg-pkcs11-scd
@@ -15,6 +23,26 @@ in {
     unstable.gopass-jsonapi
     yubikey-personalization
   ];
+
+  # two amazing examples of glorious XDG compliance
+  home.file = {
+    "Library/Application Support/Mozilla/NativeMessagingHosts/gpgmejson.json" = {
+      enable = isDarwin;
+      text = mailvelopeConfig;
+    };
+    ".mozilla/native-messaging-hosts/gpgmejson.json" = {
+      enable = isLinux;
+      text = mailvelopeConfig;
+    };
+  };
+
+  #NOTE: yet another workaround for gpgme on Darwin, since Firefox isn't aware of $GNUPGHOME
+  home.activation = lib.mkIf isDarwin {
+    linkGnupgHome = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      $DRY_RUN_CMD ln -s $VERBOSE_ARG \
+        ${config.programs.gpg.homedir} ${config.home.homeDirectory}/.gnupg
+    '';
+  };
 
   programs.gpg = {
     enable = true;
@@ -63,8 +91,11 @@ in {
       no-symkey-cache = true;
       # Enable smartcard
       use-agent = true;
+
+      #NOTE:Mailvelope does not support this
       # Disable recipient key ID in messages
-      throw-keyids = true;
+      # throw-keyids = true;
+
       # Default/trusted key ID to use (helpful with throw-keyids)
       default-key = key;
       trusted-key = key;
