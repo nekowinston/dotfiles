@@ -38,7 +38,7 @@ in {
 
   programs.gpg = {
     enable = true;
-    #NOTE: yet another workaround for gpgme on Darwin, since Firefox isn't aware of $GNUPGHOME
+    # NOTE: yet another workaround for gpgme on Darwin, since Firefox isn't aware of $GNUPGHOME
     homedir =
       if isDarwin
       then "${config.home.homeDirectory}/.gnupg"
@@ -88,7 +88,7 @@ in {
       # Enable smartcard
       use-agent = true;
 
-      #NOTE:Mailvelope does not support this
+      # NOTE:Mailvelope does not support this
       # Disable recipient key ID in messages
       # throw-keyids = true;
 
