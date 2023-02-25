@@ -80,9 +80,10 @@ if vim.g.neovide then
   vim.g.neovide_refresh_rate_idle = 5
   vim.g.neovide_cursor_vfx_mode = "ripple"
   vim.g.neovide_scroll_animation_length = 0.3
+  vim.g.neovide_input_macos_alt_is_meta = true
+  vim.g.neovide_hide_mouse_when_typing = true
   vim.opt.guifont = {
-    "Berkeley Mono",
-    "Symbols Nerd Font Mono",
+    "BerkeleyMono Nerd Font",
     "h14",
     "#e-subpixelantialias",
   }

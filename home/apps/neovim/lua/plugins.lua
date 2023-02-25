@@ -38,7 +38,7 @@ local plugins = {
   },
   "nvim-treesitter/playground",
   "windwp/nvim-ts-autotag",
-  "p00f/nvim-ts-rainbow",
+  "HiPhish/nvim-ts-rainbow2",
   -- syntax
   {
     "wuelnerdotexe/vim-astro",
