@@ -62,7 +62,8 @@ in {
       ++ lib.optionals (isLinux && machine.personal) [
         nur.repos.nekowinston.discover-overlay
         (unstable.discord.override {withOpenASAR = true;})
-        lutris
+        unstable.lutris
+        unstable.heroic
       ]);
 
     sessionVariables =
