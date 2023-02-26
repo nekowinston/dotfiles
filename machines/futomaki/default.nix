@@ -99,7 +99,6 @@ in {
     # desktop
     blueman.enable = true;
     gnome.gnome-keyring.enable = true;
-    mullvad-vpn.enable = true;
     pipewire = {
       enable = true;
       pulse.enable = true;

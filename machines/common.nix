@@ -1,4 +1,12 @@
 {
+  lib,
+  pkgs,
+  ...
+}: {
+  imports = [
+    ./network.nix
+  ];
+
   nix = {
     gc.automatic = true;
     settings = {
