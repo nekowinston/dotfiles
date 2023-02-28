@@ -50,15 +50,17 @@
       unstable.nodePackages.vscode-langservers-extracted
       nodePackages.yaml-language-server
 
+      # rust
+      unstable.rust-analyzer
+      unstable.rustc
+      unstable.rustfmt
+
       # etc
       unstable.deno
       ltex-ls
       nodePackages.prettier
       rnix-lsp
-      unstable.rust-analyzer
       proselint
-      rustc
-      rustfmt
       shellcheck
       shfmt
       tree-sitter
