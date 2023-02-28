@@ -79,7 +79,7 @@ in {
       // (
         if isDarwin
         then {
-          SSH_AUTH_SOCK = "${config.xdg.configHome}/gnupg/S.gpg-agent.ssh";
+          SSH_AUTH_SOCK = "${config.programs.gpg.homedir}/S.gpg-agent.ssh";
         }
         else {}
       );
