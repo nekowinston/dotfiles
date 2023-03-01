@@ -59,19 +59,39 @@
 
             ({config, ...}: {
               config = {
-                nixpkgs.overlays = [
-                  overlays
-                ];
+                nixpkgs.overlays = [overlays];
                 nixpkgs.config.allowUnfree = true;
                 home-manager = {
                   useGlobalPkgs = true;
-                  sharedModules = [
-                    sops.homeManagerModules.sops
-                  ];
+                  sharedModules = [sops.homeManagerModules.sops];
                   users.winston.imports = [./home];
                   extraSpecialArgs = {
                     flakePath = "/home/winston/.config/nixpkgs";
                     machine.personal = true;
+                  };
+                };
+              };
+            })
+          ];
+        };
+        "bento" = nixpkgs.lib.nixosSystem rec {
+          system = "x86_64-linux";
+          modules = [
+            home-manager.nixosModules.home-manager
+            ./machines/common.nix
+            ./machines/bento
+
+            ({config, ...}: {
+              config = {
+                nixpkgs.overlays = [overlays];
+                nixpkgs.config.allowUnfree = true;
+                home-manager = {
+                  useGlobalPkgs = true;
+                  sharedModules = [sops.homeManagerModules.sops];
+                  users.w.imports = [./home];
+                  extraSpecialArgs = {
+                    flakePath = "/home/w/.config/nixpkgs";
+                    machine.personal = false;
                   };
                 };
               };

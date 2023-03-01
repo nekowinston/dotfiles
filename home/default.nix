@@ -58,6 +58,7 @@ in {
         insomnia
         mattermost-desktop
         neovide
+        unstable.jetbrains.webstorm
       ]
       ++ lib.optionals (isLinux && machine.personal) [
         nur.repos.nekowinston.discover-overlay
