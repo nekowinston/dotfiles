@@ -24,10 +24,12 @@ in {
       search.default = "DuckDuckGo";
       search.force = true;
       extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+        bitwarden
         clearurls
         darkreader
         decentraleyes
         i-dont-care-about-cookies
+        languagetool
         mailvelope
         multi-account-containers
         onepassword-password-manager
