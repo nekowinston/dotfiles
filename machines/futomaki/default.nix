@@ -5,9 +5,7 @@
 }: let
   mainUser = "winston";
 in {
-  nixpkgs.config.allowUnfree = true;
-
-  imports = [./hardware.nix];
+  imports = [./hardware.nix ../traefik.nix ../network.nix];
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;

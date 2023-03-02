@@ -3,10 +3,7 @@
   pkgs,
   ...
 }: {
-  imports = [
-    ./network.nix
-  ];
-
+  nixpkgs.config.allowUnfree = true;
   nix = {
     gc.automatic = true;
     settings = {

@@ -60,7 +60,6 @@
             ({config, ...}: {
               config = {
                 nixpkgs.overlays = [overlays];
-                nixpkgs.config.allowUnfree = true;
                 home-manager = {
                   useGlobalPkgs = true;
                   sharedModules = [sops.homeManagerModules.sops];
@@ -84,7 +83,6 @@
             ({config, ...}: {
               config = {
                 nixpkgs.overlays = [overlays];
-                nixpkgs.config.allowUnfree = true;
                 home-manager = {
                   useGlobalPkgs = true;
                   sharedModules = [sops.homeManagerModules.sops];
@@ -111,7 +109,6 @@
             ({config, ...}: {
               config = {
                 nixpkgs.overlays = [overlays];
-                nixpkgs.config.allowUnfree = true;
                 home-manager = {
                   useGlobalPkgs = true;
                   backupFileExtension = "backup";
