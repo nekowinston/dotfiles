@@ -4,68 +4,31 @@
   pkgs,
   ...
 }: let
-  inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
+  inherit (pkgs.stdenv.hostPlatform) isLinux;
 in {
   programs.ncmpcpp = {
-    enable = isLinux;
-    bindings = [
+    enable = true;
+    bindings =
+      lib.mapAttrsToList (key: command: {
+        key = key;
+        command = command;
+      })
       {
-        key = "j";
-        command = "scroll_down";
-      }
-      {
-        key = "k";
-        command = "scroll_up";
-      }
-      {
-        key = "J";
-        command = ["select_item" "scroll_down"];
-      }
-      {
-        key = "K";
-        command = ["select_item" "scroll_up"];
-      }
-      {
-        key = "h";
-        command = "previous_column";
-      }
-      {
-        key = "l";
-        command = "next_column";
-      }
-      {
-        key = "ctrl-b";
-        command = "page_up";
-      }
-      {
-        key = "ctrl-u";
-        command = "page_up";
-      }
-      {
-        key = "ctrl-f";
-        command = "page_down";
-      }
-      {
-        key = "ctrl-d";
-        command = "page_down";
-      }
-      {
-        key = "g";
-        command = "move_home";
-      }
-      {
-        key = "G";
-        command = "move_end";
-      }
-      {
-        key = "n";
-        command = "next_found_item";
-      }
-      {
-        key = "N";
-        command = "previous_found_item";
-      }
-    ];
+        "j" = "scroll_down";
+        "k" = "scroll_up";
+        "J" = ["select_item" "scroll_down"];
+        "K" = ["select_item" "scroll_up"];
+        "h" = "previous_column";
+        "l" = "next_column";
+        "ctrl-b" = "page_up";
+        "ctrl-u" = "page_up";
+        "ctrl-f" = "page_down";
+        "ctrl-d" = "page_down";
+        "g" = "move_home";
+        "G" = "move_end";
+        "n" = "next_found_item";
+        "N" = "previous_found_item";
+      };
   };
 
   services = {
@@ -84,14 +47,7 @@ in {
     };
   };
 
-  home.packages =
-    []
-    ++ lib.optionals isLinux [
-      pkgs.unstable.cider
-    ]
-    ++ lib.optionals isDarwin [
-      pkgs.nur.repos.nekowinston.discord-applemusic-rich-presence
-    ];
+  home.packages = lib.mkIf isLinux [pkgs.unstable.cider];
 
   launchd.agents.discord-applemusic-rich-presence = {
     enable = true;
