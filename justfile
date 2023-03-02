@@ -1,3 +1,22 @@
+secret-stage:
+  git add -f home/secrets/default.nix
+
+secret-unstage:
+  git restore --staged home/secrets/default.nix
+
+
+[linux]
+boot: secret-stage && secret-unstage
+  sudo nixos-rebuild boot --flake .
+
+[macos]
+check:
+  darwin-rebuild check --flake .
+
+[linux]
+check:
+  sudo nixos-rebuild check --flake .
+
 [macos]
 switch: secret-stage && secret-unstage
   darwin-rebuild switch --flake .
@@ -5,13 +24,3 @@ switch: secret-stage && secret-unstage
 [linux]
 switch: secret-stage && secret-unstage
   sudo nixos-rebuild switch --flake .
-
-[linux]
-boot: secret-stage && secret-unstage
-  sudo nixos-rebuild boot --flake .
-
-secret-stage:
-  git add -f home/secrets/default.nix
-
-secret-unstage:
-  git restore --staged home/secrets/default.nix
