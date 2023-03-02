@@ -14,5 +14,5 @@ jobs:
       - uses: cachix/install-nix-action@v19
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
-      - run: nix flake check
+      - run: nix flake check --show-trace
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
