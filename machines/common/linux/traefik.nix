@@ -1,17 +1,10 @@
-# this is half baked, so it's not enabled yet
 {
-  lib,
-  pkgs,
-  ...
-}: let
-  inherit (pkgs.stdenv.hostPlatform) isLinux;
-in {
   # add the traefik user to the docker group for socket access
-  users = lib.mkIf isLinux {
+  users = {
     users.traefik.extraGroups = ["docker"];
   };
 
-  services = lib.mkIf isLinux {
+  services = {
     traefik = {
       enable = true;
 

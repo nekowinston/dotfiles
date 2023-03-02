@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     # file management
     p7zip
