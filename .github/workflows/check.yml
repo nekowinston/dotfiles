@@ -2,6 +2,8 @@ on:
   push:
     paths:
       - "**.nix"
+      - "**.lock"
+      - ".github/workflows/check.yml"
 
 jobs:
   check:
