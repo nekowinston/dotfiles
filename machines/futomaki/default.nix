@@ -5,7 +5,10 @@
 }: let
   mainUser = "winston";
 in {
-  imports = [./hardware.nix ../traefik.nix ../network.nix];
+  imports = [
+    ./hardware.nix
+    ../common/linux
+  ];
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;

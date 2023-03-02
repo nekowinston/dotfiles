@@ -54,7 +54,7 @@
           system = "x86_64-linux";
           modules = [
             home-manager.nixosModules.home-manager
-            ./machines/common.nix
+            ./machines/common
             ./machines/futomaki
 
             ({config, ...}: {
@@ -77,7 +77,7 @@
           system = "x86_64-linux";
           modules = [
             home-manager.nixosModules.home-manager
-            ./machines/common.nix
+            ./machines/common
             ./machines/bento
 
             ({config, ...}: {
@@ -103,7 +103,7 @@
 
           modules = [
             home-manager.darwinModules.home-manager
-            ./machines/common.nix
+            ./machines/common
             ./machines/sashimi
 
             ({config, ...}: {
