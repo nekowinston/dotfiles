@@ -9,10 +9,7 @@ in {
   programs.ncmpcpp = {
     enable = true;
     bindings =
-      lib.mapAttrsToList (key: command: {
-        key = key;
-        command = command;
-      })
+      lib.mapAttrsToList (key: command: {inherit key command;})
       {
         "j" = "scroll_down";
         "k" = "scroll_up";
