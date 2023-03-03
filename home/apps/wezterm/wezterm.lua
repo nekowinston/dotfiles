@@ -48,7 +48,7 @@ local options = {
   enable_scroll_bar = false,
 }
 
-for k, v in pairs(require("shortcuts")) do
+for k, v in pairs(require("keys")) do
   options[k] = v
 end
 
