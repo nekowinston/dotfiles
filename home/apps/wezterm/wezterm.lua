@@ -1,23 +1,16 @@
 local wezterm = require("wezterm")
-local fonts = require("fonts")
 local theme = require("theme")
-local shortcuts = require("shortcuts")
 require("bar")
 
-local font = fonts.get_font("berkeley")
+local font = require("fonts").get_font("berkeley")
 wezterm.GLOBAL = {
   enable_tab_bar = true,
 }
 
-return {
+local options = {
   set_environment_variables = {
     TERMINFO_DIRS = wezterm.home_dir .. "/.nix-profile/share/terminfo",
   },
-  -- keys
-  disable_default_key_bindings = true,
-  leader = { key = "s", mods = "CTRL", timeout_milliseconds = 5000 },
-  term = "wezterm",
-  keys = shortcuts,
   -- font
   font = font.font,
   font_size = font.size,
@@ -54,3 +47,9 @@ return {
   default_cursor_style = "BlinkingBar",
   enable_scroll_bar = false,
 }
+
+for k, v in pairs(require("shortcuts")) do
+  options[k] = v
+end
+
+return options
