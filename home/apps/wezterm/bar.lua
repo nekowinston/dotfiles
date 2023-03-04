@@ -172,7 +172,6 @@ wezterm.on("smartpadding", function(window, pane)
 end)
 
 -- custom status
----@diagnostic disable-next-line: unused-local
 wezterm.on("update-status", function(window, pane)
   if wezterm.GLOBAL.smart_padding ~= nil then
     wezterm.emit("smartpadding", window, pane)
@@ -186,6 +185,15 @@ wezterm.on("update-status", function(window, pane)
     leader_text = "   "
   end
 
+  local mode_text = ""
+  local mode = window:active_key_table()
+  local modes = {
+    resize_mode = "RESIZE",
+  }
+  if modes[mode] ~= nil then
+    mode_text = modes[mode]
+  end
+
   local divider_bg = first_tab_active and palette.ansi[2]
     or palette.tab_bar.inactive_tab.bg_color
 
@@ -193,6 +201,9 @@ wezterm.on("update-status", function(window, pane)
     { Foreground = { Color = palette.background } },
     { Background = { Color = palette.ansi[5] } },
     { Text = leader_text },
+    { Attribute = { Intensity = "Bold" } },
+    { Text = mode_text },
+    "ResetAttributes",
     { Background = { Color = divider_bg } },
     { Foreground = { Color = palette.ansi[5] } },
     { Text = DIVIDERS.RIGHT },
@@ -200,8 +211,8 @@ wezterm.on("update-status", function(window, pane)
 
   local time = wezterm.time.now():format("%H:%M")
   local sun_is_up = wezterm.time.now():sun_times(48.2, 16.366667).up
-  local icon = sun_is_up and " " or ""
-  local text = string.format(" %s %s", icon, time)
+  local icon = sun_is_up and " " or " "
+  local text = string.format("%s %s", icon, time)
 
   window:set_right_status(wezterm.format({
     { Background = { Color = palette.tab_bar.background } },

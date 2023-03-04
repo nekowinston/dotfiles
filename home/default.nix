@@ -51,7 +51,7 @@ in {
         nur.repos.nekowinston.org-stats
         (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
         victor-mono
-        unstable.wezterm
+        nur.repos.nekowinston.wezterm-nightly
       ]
       ++ lib.optionals isLinux [
         _1password-gui

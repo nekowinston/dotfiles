@@ -47,7 +47,7 @@ in {
     enable = true;
     font = "Berkeley Mono 14";
     extraConfig.icon-theme = "Papirus-Dark";
-    terminal = "${lib.getExe pkgs.wezterm}";
+    terminal = "wezterm";
     theme = ./rofi/theme.rasi;
   };
 }

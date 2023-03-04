@@ -16,6 +16,7 @@
     };
     nur.url = "github:nix-community/NUR";
     nekowinston-nur.url = "github:nekowinston/nur";
+    nekowinston-nur.inputs.nixpkgs.follows = "nixpkgs-unstable";
     sops.url = "github:Mic92/sops-nix";
 
     # dev
@@ -44,7 +45,11 @@
       nur = import nur {
         nurpkgs = prev;
         pkgs = prev;
-        repoOverrides = {nekowinston = import nekowinston-nur {pkgs = prev;};};
+        repoOverrides = {
+          nekowinston = import nekowinston-nur {
+            pkgs = import nixpkgs-unstable {system = prev.system;};
+          };
+        };
       };
     };
   in

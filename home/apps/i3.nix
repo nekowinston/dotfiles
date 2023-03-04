@@ -160,7 +160,7 @@ in {
           }
         ];
         workspaceAutoBackAndForth = true;
-        terminal = "${lib.getExe pkgs.wezterm} start --always-new-process";
+        terminal = "wezterm start --always-new-process";
         menu = "";
         keybindings = let
           mod = config.xsession.windowManager.i3.config.modifier;

@@ -2,10 +2,11 @@ local wezterm = require("wezterm")
 local theme = require("theme")
 require("bar")
 
-local font = require("fonts").get_font("berkeley")
 wezterm.GLOBAL = {
+  font = "berkeley",
   enable_tab_bar = true,
 }
+local font = require("fonts").get_font(wezterm.GLOBAL.font)
 
 local options = {
   set_environment_variables = {

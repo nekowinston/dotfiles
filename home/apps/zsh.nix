@@ -59,6 +59,7 @@ in {
         for conf in "${functionsDir}"/**/*.zsh; do
           source "$conf"
         done
+        [[ "$TERM_PROGRAM" == "WezTerm" ]] && TERM=wezterm
       '';
 
       envExtra = ''
