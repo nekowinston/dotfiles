@@ -5,8 +5,8 @@ require("bar").setup({
   indicator = {
     leader = {
       enabled = true,
-      icon_off = " ",
-      icon_on = " ",
+      off = " ",
+      on = " ",
     },
     mode = {
       enabled = true,
