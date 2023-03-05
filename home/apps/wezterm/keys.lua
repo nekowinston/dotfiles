@@ -13,6 +13,7 @@ local map = function(key, mods, action)
   end
 end
 
+wezterm.GLOBAL.enable_tab_bar = true
 local toggleTabBar = wezterm.action_callback(function(window)
   wezterm.GLOBAL.enable_tab_bar = not wezterm.GLOBAL.enable_tab_bar
   window:set_config_overrides({
@@ -113,9 +114,11 @@ for k, _ in pairs(key_tables) do
   )
 end
 
-return {
-  leader = { key = "s", mods = "CTRL", timeout_milliseconds = 5000 },
-  keys = shortcuts,
-  disable_default_key_bindings = true,
-  key_tables = key_tables,
-}
+local M = {}
+M.apply = function(c)
+  c.leader = { key = "s", mods = "CTRL", timeout_milliseconds = 5000 }
+  c.keys = shortcuts
+  c.disable_default_key_bindings = true
+  c.key_tables = key_tables
+end
+return M

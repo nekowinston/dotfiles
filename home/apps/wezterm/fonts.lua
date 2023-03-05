@@ -46,4 +46,10 @@ wezterm.on("switch-font", function(window, _)
   })
 end)
 
+wezterm.GLOBAL = { font = "berkeley" }
+M.apply = function(c)
+  c.font = M.get_font(wezterm.GLOBAL.font).font
+  c.font_size = M.get_font(wezterm.GLOBAL.font).size
+end
+
 return M

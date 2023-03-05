@@ -25,4 +25,12 @@ M.get_custom_colorschemes = function()
   }
 end
 
+M.apply = function(c)
+  c.color_schemes = M.get_custom_colorschemes()
+  c.color_scheme = M.scheme_for_appearance(wezterm.gui.get_appearance(), {
+    dark = "Catppuccin Americano",
+    light = "Catppuccin Latte",
+  })
+end
+
 return M
