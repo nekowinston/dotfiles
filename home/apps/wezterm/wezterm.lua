@@ -1,7 +1,10 @@
 local wezterm = require("wezterm")
 
-local c = wezterm.config_builder()
-c:set_strict_mode(true)
+local c = {}
+if wezterm.config_builder then
+  c = wezterm.config_builder()
+  c:set_strict_mode(true)
+end
 
 require("fonts").apply(c)
 require("keys").apply(c)
@@ -29,6 +32,14 @@ c.adjust_window_size_when_changing_font_size = false
 c.audible_bell = "Disabled"
 c.clean_exit_codes = { 130 }
 c.default_cursor_style = "BlinkingBar"
+c.launch_menu = {
+  { label = "Music player", args = { "ncmpcpp" } },
+}
+c.command_palette_font_size = 16.0
+c.window_frame = {
+  font = wezterm.font({ family = "IBM Plex Sans" }),
+  font_size = 18.0,
+}
 
 require("bar").apply_to_config(c)
 
