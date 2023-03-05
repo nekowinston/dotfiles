@@ -34,6 +34,7 @@ in {
     };
 
     mcfly.enable = true;
+    nix-index.enable = true;
 
     starship = {
       enable = true;
