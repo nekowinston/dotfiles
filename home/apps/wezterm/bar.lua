@@ -189,7 +189,7 @@ local roman_numerals = {
 wezterm.on(
   "format-tab-title",
   function(tab, tabs, _panes, conf, _hover, _max_width)
-    local colours = conf.resolved_palette.tab_bar
+    local colors = conf.resolved_palette.tab_bar
 
     local active_tab_index = 0
     for _, t in ipairs(tabs) do
@@ -210,10 +210,10 @@ wezterm.on(
 
     local i = tab.tab_index % 6
     local active_bg = rainbow[i + 1]
-    local active_fg = colours.background
-    local inactive_bg = colours.inactive_tab.bg_color
-    local inactive_fg = colours.inactive_tab.fg_color
-    local new_tab_bg = colours.new_tab.bg_color
+    local active_fg = colors.background
+    local inactive_bg = colors.inactive_tab.bg_color
+    local inactive_fg = colors.inactive_tab.fg_color
+    local new_tab_bg = colors.new_tab.bg_color
 
     local s_bg, s_fg, e_bg, e_fg
 

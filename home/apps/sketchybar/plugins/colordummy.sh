@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # vim:fdm=marker
-# dont' warn about unused variables:
+# don't warn about unused variables:
 # shellcheck disable=SC2034
 
 # color definitions {{{
@@ -166,7 +166,7 @@ sketchybar \
   icon.color="$(color mauve)" \
   label.color="$(color mauve)"
 
-# set the yabai colours as well
+# set the yabai colors as well
 yabai -m config active_window_border_color "$(color pink)"
 yabai -m config normal_window_border_color "$(color surface0)"
 yabai -m config insert_feedback_color "$(color red)"

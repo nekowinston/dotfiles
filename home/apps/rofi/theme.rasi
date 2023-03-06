@@ -6,7 +6,7 @@
   blue: #89b4fa;
   fg-col: #cdd6f4;
   fg-col2: #f5c2e7;
-  grey: #6c7086;
+  gray: #6c7086;
 }
 
 element-text, element-icon , mode-switcher {
@@ -83,7 +83,7 @@ mode-switcher {
 button {
   padding: 10px;
   background-color: @bg-col-light;
-  text-color: @grey;
+  text-color: @gray;
   vertical-align: 0.5;
   horizontal-align: 0.5;
 }
