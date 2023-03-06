@@ -52,6 +52,7 @@ in {
         (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
         victor-mono
         ibm-plex
+        xkcd-font
         nur.repos.nekowinston.wezterm-nightly
       ]
       ++ lib.optionals isLinux [

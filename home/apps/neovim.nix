@@ -14,7 +14,7 @@
 
     withNodeJs = true;
 
-    extraPackages = with pkgs; [
+    extraPackages = with pkgs.unstable; [
       # external deps
       fd
       ripgrep
@@ -26,7 +26,7 @@
 
       # lua
       stylua
-      sumneko-lua-language-server
+      lua-language-server
 
       # data
       taplo
@@ -47,16 +47,17 @@
       nodePackages.alex
       nodePackages.typescript
       nodePackages.typescript-language-server
-      unstable.nodePackages.vscode-langservers-extracted
+      nodePackages.vscode-langservers-extracted
       nodePackages.yaml-language-server
+      nodePackages.intelephense
 
       # rust
-      unstable.rust-analyzer
-      unstable.rustc
-      unstable.rustfmt
+      rust-analyzer
+      rustc
+      rustfmt
 
       # etc
-      unstable.deno
+      deno
       ltex-ls
       nodePackages.prettier
       rnix-lsp
@@ -66,9 +67,9 @@
       tree-sitter
       alejandra
       deadnix
-      nur.repos.nekowinston.jq-lsp
-      nur.repos.nekowinston.helm-ls
-      nur.repos.bandithedoge.nodePackages.emmet-ls
+      pkgs.nur.repos.nekowinston.jq-lsp
+      pkgs.nur.repos.nekowinston.helm-ls
+      pkgs.nur.repos.bandithedoge.nodePackages.emmet-ls
 
       # needed for some plugin build steps
       cargo

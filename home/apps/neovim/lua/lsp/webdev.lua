@@ -11,6 +11,10 @@ M.setup = function(opts)
     capabilities = opts.capabilities,
     on_attach = opts.on_attach,
   })
+  lspconfig.intelephense.setup({
+    capabilities = opts.capabilities,
+    on_attach = opts.on_attach,
+  })
   lspconfig.tailwindcss.setup({
     capabilities = opts.capabilities,
     on_attach = opts.on_attach,

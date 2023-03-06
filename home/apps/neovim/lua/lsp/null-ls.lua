@@ -28,6 +28,7 @@ null.setup({
       extra_args = { "-l", "-L" },
     }),
     null.builtins.hover.dictionary,
+    null.builtins.hover.printenv,
   },
   on_attach = function(client, bufnr)
     if client.supports_method("textDocument/formatting") then
