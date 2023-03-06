@@ -1,17 +1,20 @@
 local wezterm = require("wezterm")
+local utils = require("utils")
 
 local M = {}
+
+local defaults = {
+  size = 16,
+  ui_font = "IBM Plex Sans",
+}
 
 -- fonts I like, with the settings I prefer
 -- kept separately from the rest of the config so that I can easily change them
 local fonts = {
-  berkeley = {
-    font = "Berkeley Mono",
-    size = 16,
-  },
+  berkeley = { font = "Berkeley Mono" },
   comic = {
     font = "Comic Code Ligatures",
-    size = 16,
+    ui_font = "xkcd Script",
   },
   victor = {
     font = {
@@ -19,9 +22,13 @@ local fonts = {
       weight = "DemiBold",
       harfbuzz_features = { "ss02=1" },
     },
-    size = 15,
+    size = defaults.size - 1,
   },
 }
+
+for k, v in pairs(fonts) do
+  fonts[k] = utils.tableMerge(v, defaults)
+end
 
 M.get_font = function(name)
   return {
@@ -30,6 +37,7 @@ M.get_font = function(name)
       "Symbols Nerd Font",
     }),
     size = fonts[name].size,
+    ui_font = wezterm.font(fonts[name].ui_font),
   }
 end
 
@@ -40,16 +48,25 @@ wezterm.on("switch-font", function(window, _)
   end
   wezterm.GLOBAL.font = next_font
 
+  local f = M.get_font(next_font)
+  local window_frame = window:effective_config().window_frame
+  window_frame = utils.tableMerge({ font = f.ui_font }, window_frame)
   window:set_config_overrides({
-    font = M.get_font(next_font).font,
-    font_size = M.get_font(next_font).size,
+    font = f.font,
+    font_size = f.size,
+    window_frame = window_frame,
   })
 end)
 
 wezterm.GLOBAL = { font = "berkeley" }
 M.apply = function(c)
-  c.font = M.get_font(wezterm.GLOBAL.font).font
-  c.font_size = M.get_font(wezterm.GLOBAL.font).size
+  local f = M.get_font(wezterm.GLOBAL.font)
+  c.font = f.font
+  c.font_size = f.size
+  if c.window_frame == nil then
+    c.window_frame = {}
+  end
+  c.window_frame.font = f.ui_font
 end
 
 return M

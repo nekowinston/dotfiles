@@ -1,4 +1,5 @@
 local wezterm = require("wezterm")
+local utils = require("utils")
 
 local M = {}
 
@@ -39,21 +40,6 @@ local config = {
 -- parsed config
 local C = {}
 
-local function tableMerge(t1, t2)
-  for k, v in pairs(t2) do
-    if type(v) == "table" then
-      if type(t1[k] or false) == "table" then
-        tableMerge(t1[k] or {}, t2[k] or {})
-      else
-        t1[k] = v
-      end
-    else
-      t1[k] = v
-    end
-  end
-  return t1
-end
-
 local dividers = {
   slant_right = {
     left = utf8.char(0xe0be),
@@ -82,7 +68,7 @@ M.apply_to_config = function(c, opts)
   end
 
   -- combine user config with defaults
-  config = tableMerge(config, opts)
+  config = utils.tableMerge(config, opts)
   C.div = {
     l = "",
     r = "",

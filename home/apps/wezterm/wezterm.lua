@@ -37,7 +37,6 @@ c.launch_menu = {
 }
 c.command_palette_font_size = 16.0
 c.window_frame = {
-  font = wezterm.font({ family = "IBM Plex Sans" }),
   font_size = 18.0,
 }
 
