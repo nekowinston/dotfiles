@@ -116,9 +116,25 @@ end
 
 local M = {}
 M.apply = function(c)
-  c.leader = { key = "s", mods = "CTRL", timeout_milliseconds = 5000 }
+  c.leader = {
+    key = "s",
+    mods = "CTRL",
+    timeout_milliseconds = math.maxinteger,
+  }
   c.keys = shortcuts
   c.disable_default_key_bindings = true
   c.key_tables = key_tables
+  c.mouse_bindings = {
+    {
+      event = { Down = { streak = 1, button = { WheelUp = 1 } } },
+      mods = "NONE",
+      action = wezterm.action.ScrollByLine(5),
+    },
+    {
+      event = { Down = { streak = 1, button = { WheelDown = 1 } } },
+      mods = "NONE",
+      action = wezterm.action.ScrollByLine(-5),
+    },
+  }
 end
 return M
