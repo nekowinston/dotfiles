@@ -25,6 +25,7 @@ in {
       ./apps/wezterm.nix
       ./apps/zsh.nix
       ./secrets/sops.nix
+      ./xdg.nix
     ]
     ++ (
       if secretsAvailable
@@ -69,42 +70,17 @@ in {
         unstable.heroic
       ]);
 
-    sessionVariables =
-      {
-        CARGO_HOME = "${config.xdg.dataHome}/cargo";
-        CUDA_CACHE_PATH = "${config.xdg.dataHome}/nv";
-        DOCKER_CONFIG = "${config.xdg.configHome}/docker";
-        NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
-        PATH = "$PATH:${config.xdg.dataHome}/krew/bin:$GOPATH/bin";
-        RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
-        XCOMPOSECACHE = "${config.xdg.cacheHome}/X11/xcompose";
-      }
-      // (
-        if isDarwin
-        then {
-          SSH_AUTH_SOCK = "${config.programs.gpg.homedir}/S.gpg-agent.ssh";
-        }
-        else {}
-      );
+    sessionVariables = lib.mkIf isDarwin {
+      SSH_AUTH_SOCK = "${config.programs.gpg.homedir}/S.gpg-agent.ssh";
+    };
 
     stateVersion = "22.11";
   };
 
   programs = {
     home-manager.enable = true;
-    go = {
-      enable = true;
-      goPath = "${config.xdg.dataHome}/go";
-    };
+    go.enable = true;
     man.enable = true;
     taskwarrior.enable = true;
-  };
-
-  xdg = {
-    enable = true;
-    userDirs.enable = isLinux;
-    cacheHome = "${config.home.homeDirectory}/.cache";
-    configHome = "${config.home.homeDirectory}/.config";
-    dataHome = "${config.home.homeDirectory}/.local/share";
   };
 }

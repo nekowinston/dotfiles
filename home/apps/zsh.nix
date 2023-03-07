@@ -64,7 +64,7 @@ in {
       '';
 
       envExtra = ''
-        export PATH="$PATH:${config.xdg.dataHome}/krew/bin"
+        export PATH="$PATH:${config.xdg.dataHome}/krew/bin:$GOPATH/bin";
         export ZVM_INIT_MODE=sourcing
       '';
 

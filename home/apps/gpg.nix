@@ -38,11 +38,6 @@ in {
 
   programs.gpg = {
     enable = true;
-    # NOTE: yet another workaround for gpgme on Darwin, since Firefox isn't aware of $GNUPGHOME
-    homedir =
-      if isDarwin
-      then "${config.home.homeDirectory}/.gnupg"
-      else "${config.xdg.configHome}/gnupg";
     scdaemonSettings."disable-ccid" = true;
     settings = {
       # https://github.com/drduh/config/blob/master/gpg.conf
