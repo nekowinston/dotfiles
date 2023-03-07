@@ -7,7 +7,7 @@
 }: let
   inherit (pkgs.stdenv.hostPlatform) isLinux;
   fonts = {
-    names = ["Inter" "Symbols Nerd Font"];
+    names = ["IBM Plex Sans" "Symbols Nerd Font"];
     size = 16.0;
   };
 in {
@@ -19,10 +19,6 @@ in {
       blueberry
       pavucontrol
       xclip
-
-      # fonts
-      (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
-      inter
     ];
   };
 
