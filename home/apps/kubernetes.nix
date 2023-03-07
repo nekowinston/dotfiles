@@ -3,16 +3,21 @@
   pkgs,
   ...
 }: {
-  home.packages = with pkgs; [
+  home.packages = with pkgs.unstable; [
+    cmctl
     dyff
     gojq
     jqp
-    krew
     kubectl
     kubectx
     kubernetes-helm
     popeye
+    pv-migrate
+    velero
   ];
+
+  home.shellAliases.jq = "gojq";
+
   home.sessionVariables = {
     KREW_ROOT = "${config.xdg.dataHome}/krew";
     KUBECACHEDIR = "${config.xdg.cacheHome}/kube";

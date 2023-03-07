@@ -49,7 +49,7 @@ in {
         gh
 
         nur.repos.nekowinston.org-stats
-        (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
+        (unstable.nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
         victor-mono
         ibm-plex
         xkcd-font
