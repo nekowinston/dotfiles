@@ -90,7 +90,7 @@
 
             ({config, ...}: {
               config = {
-                nixpkgs.overlays = [overlays];
+                nixpkgs.overlays = [overlays hyprland.outputs.overlays.default];
                 home-manager = {
                   useGlobalPkgs = true;
                   sharedModules = [sops.homeManagerModules.sops];
