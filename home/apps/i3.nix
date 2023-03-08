@@ -66,6 +66,7 @@ in {
         };
       };
     };
+    zathura.enable = true;
   };
 
   services = lib.mkIf isLinux {
@@ -262,7 +263,7 @@ in {
           "${modMove}+9" = "move container to workspace $ws9;  workspace $ws9";
           "${modMove}+0" = "move container to workspace $ws10; workspace $ws10";
           # rofi instead of drun
-          "${mod}+space" = "exec --no-startup-id ${lib.getExe config.programs.rofi.package} -show drun -dpi $dpi";
+          "${mod}+space" = "exec --no-startup-id ${rofi} -show drun -dpi $dpi";
           # 1password
           "${mod}+Shift+space" = "exec ${lib.getExe pkgs._1password-gui} --quick-access";
 

@@ -45,6 +45,7 @@ in {
 
   programs.rofi = lib.mkIf isLinux {
     enable = true;
+    package = pkgs.rofi-wayland;
     font = "Berkeley Mono 14";
     extraConfig.icon-theme = "Papirus-Dark";
     terminal = "wezterm";

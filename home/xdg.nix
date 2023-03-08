@@ -39,5 +39,12 @@ in {
     cacheHome = "${config.home.homeDirectory}/.cache";
     configHome = "${config.home.homeDirectory}/.config";
     dataHome = "${config.home.homeDirectory}/.local/share";
+    mimeApps = {
+      enable = isLinux;
+      defaultApplications = {
+        "inode/directory" = "thunar.desktop";
+        "application/pdf" = "zathura.desktop";
+      };
+    };
   };
 }

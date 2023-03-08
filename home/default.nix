@@ -23,6 +23,7 @@ in {
       ./apps/sketchybar.nix
       ./apps/vscode.nix
       ./apps/wezterm.nix
+      ./apps/wayland.nix
       ./apps/zsh.nix
       ./secrets/sops.nix
       ./xdg.nix
