@@ -44,6 +44,36 @@ in {
     };
   };
 
+  launchd.agents.mpd = {
+    enable = true;
+    config = let
+      mpdConf = pkgs.writeText "mpd.conf" (let
+        baseDir = config.xdg.dataHome + "/mpd";
+      in ''
+        music_directory     "${config.xdg.userDirs.music}"
+        playlist_directory  "${baseDir}/playlists"
+        db_file             "${baseDir}/database"
+        pid_file            "${baseDir}/mpd.pid"
+        state_file          "${baseDir}/state"
+        log_file            "${baseDir}/log"
+        auto_update "yes"
+        port                "6600"
+        bind_to_address     "127.0.0.1"
+        audio_output {
+         type "osx"
+         name "CoreAudio"
+         mixer_type "software"
+        }
+      '');
+    in {
+      ProgramArguments = ["${pkgs.unstable.mpd}/bin/mpd" "--no-daemon" "${mpdConf}"];
+      KeepAlive = true;
+      RunAtLoad = true;
+      StandardErrorPath = "${config.xdg.cacheHome}/mpd.log";
+      StandardOutPath = "${config.xdg.cacheHome}/mpd.log";
+    };
+  };
+
   home.packages = lib.mkIf isLinux [pkgs.unstable.cider];
 
   launchd.agents.discord-applemusic-rich-presence = {
