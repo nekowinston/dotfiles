@@ -1,5 +1,3 @@
-pcall(require, "impatient")
-
 vim.g.mapleader = " "
 -- netrw is handled by nvim-tree
 vim.g.loaded_netrw = 1

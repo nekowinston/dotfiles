@@ -157,6 +157,8 @@ local plugins = {
 
   -- lua github copilot
   "zbirenbaum/copilot.lua",
+
+  { "nvim-neorg/neorg", build = ":Neorg sync-parsers" },
 }
 
 require("lazy").setup(plugins, {
