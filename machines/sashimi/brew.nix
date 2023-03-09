@@ -1,10 +1,9 @@
 {
   homebrew = {
     enable = true;
-    caskArgs = {
-      require_sha = true;
-    };
+    caskArgs.require_sha = true;
     onActivation.autoUpdate = true;
+    onActivation.upgrade = true;
     casks = let
       skipSha = name: {
         inherit name;
