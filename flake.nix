@@ -146,6 +146,13 @@
             deadnix.enable = true;
             shellcheck.enable = true;
             stylua.enable = true;
+            flake-check = {
+              enable = true;
+              types = ["nix"];
+              language = "system";
+              entry = "just check";
+              pass_filenames = false;
+            };
           };
           settings.deadnix = {
             noLambdaPatternNames = true;
