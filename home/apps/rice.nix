@@ -51,4 +51,6 @@ in {
     terminal = "wezterm";
     theme = ./rofi/theme.rasi;
   };
+
+  xdg.dataFile."icons/default".source = "${pkgs.catppuccin-cursors.mochaPink}/share/icons/Catppuccin-Mocha-Pink-Cursors";
 }
