@@ -9,6 +9,7 @@
 in {
   home.sessionVariables = {
     CARGO_HOME = "${config.xdg.dataHome}/cargo";
+    CARGO_REGISTRIES_CRATES_IO_PROTOCOL = "sparse";
     CUDA_CACHE_PATH = "${config.xdg.dataHome}/nv";
     DOCKER_CONFIG = "${config.xdg.configHome}/docker";
     GEM_HOME = "${config.xdg.dataHome}/gem";
