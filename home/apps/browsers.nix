@@ -18,7 +18,7 @@ in {
     # to still manage it via home-manager
     package =
       if isLinux
-      then pkgs.firefox
+      then pkgs.firefox-wayland
       else (pkgs.writeScriptBin "__dummy-firefox" "");
     profiles.default = {
       search.default = "DuckDuckGo";
