@@ -4,6 +4,7 @@
   "position": "top",
   "height": 32,
   "spacing": 4,
+  "margin": 5,
   "modules-left": ["wlr/workspaces"],
   "modules-center": [
     "hyprland/window"
