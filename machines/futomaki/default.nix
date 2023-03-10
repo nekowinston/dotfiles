@@ -12,10 +12,8 @@ in {
   ];
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_6_1;
-    # for nvidia
-    loader.systemd-boot.consoleMode = "0";
-    kernelParams = ["quiet" "splash" "vt.global_cursor_default=0"];
+    kernelPackages = pkgs.linuxPackages_6_2;
+    kernelParams = ["quiet" "splash"];
   };
 
   hardware = {
