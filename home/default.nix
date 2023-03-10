@@ -1,5 +1,6 @@
 {
   config,
+  flakePath,
   lib,
   pkgs,
   machine,
@@ -84,4 +85,6 @@ in {
     man.enable = true;
     taskwarrior.enable = true;
   };
+
+  xdg.configFile."ideavim/ideavimrc".source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/home/apps/ideavim/ideavimrc";
 }
