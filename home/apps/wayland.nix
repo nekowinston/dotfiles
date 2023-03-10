@@ -35,7 +35,7 @@ in {
       playerctl = lib.getExe pkgs.playerctl;
       wpctl = pkgs.wireplumber + "/bin/wpctl";
     in ''
-      monitor = ,5120x2160@72,0x0,1.5
+      monitor = ,5120x2160@72,0x0,2.0
 
       input:follow_mouse = 1
 
@@ -110,6 +110,13 @@ in {
       bind = ,XF86AudioPrev,exec,${playerctl} previous
       bind = ,XF86AudioPause,exec,${playerctl} play-pause
       exec-once = ${waybarLauncher}/bin/waybar-launcher
+
+      # sets xwayland scale
+      exec-once=xprop -root -f _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 2
+
+      # toolkit-specific scale
+      env = GDK_SCALE,2
+      env = XCURSOR_SIZE,32
     '';
   };
 }
