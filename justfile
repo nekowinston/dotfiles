@@ -15,7 +15,7 @@ check:
 
 [linux]
 check:
-  sudo nixos-rebuild check --flake .
+  nix flake check .
 
 [macos]
 switch: secret-stage && secret-unstage
