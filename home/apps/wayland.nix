@@ -25,6 +25,14 @@ in {
     package = pkgs.waybar-hyprland;
   };
 
+  home.packages = with pkgs; [
+    cliphist
+    grim
+    slurp
+    wl-clipboard
+    nur.repos.nekowinston.swww
+  ];
+
   xdg = lib.mkIf isLinux {
     configFile."waybar" = {
       source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/home/apps/waybar";
@@ -40,21 +48,20 @@ in {
       input:follow_mouse = 1
 
       general {
-        gaps_in = 5
+        gaps_in = 2
         gaps_out = 5
         border_size = 2
-        no_cursor_warps = true
         col.active_border = 0xfff5c2e7
         col.inactive_border = 0x80cba6f7
       }
 
       decoration {
         rounding = 5
-        blur = 0
+        blur = true
       }
 
       animations {
-        enabled = 1
+        enabled = true
         animation = workspaces,1,1,default,slide
       }
 
@@ -69,14 +76,14 @@ in {
       bind = SUPER_SHIFT,d,togglefloating,
       bind = SUPER,space,exec,rofi -show drun
 
-      bind = SUPER_CTRL,l,movefocus,l
-      bind = SUPER_CTRL,h,movefocus,r
-      bind = SUPER_CTRL,k,movefocus,u
+      bind = SUPER_CTRL,h,movefocus,l
       bind = SUPER_CTRL,j,movefocus,d
+      bind = SUPER_CTRL,k,movefocus,u
+      bind = SUPER_CTRL,l,movefocus,r
       bind = SUPER_SHIFT,h,movewindow,l
-      bind = SUPER_SHIFT,l,movewindow,r
       bind = SUPER_SHIFT,j,movewindow,u
       bind = SUPER_SHIFT,k,movewindow,d
+      bind = SUPER_SHIFT,l,movewindow,r
 
       bind = SUPER_CTRL,1,workspace,1
       bind = SUPER_CTRL,2,workspace,2
@@ -117,6 +124,12 @@ in {
       # toolkit-specific scale
       env = GDK_SCALE,2
       env = XCURSOR_SIZE,32
+
+      # cliphist
+      exec-once = wl-paste --type text --watch cliphist store
+      exec-once = wl-paste --type image --watch cliphist store
+      exec-once = swww-daemon
+      bind = SUPER, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy
     '';
   };
 }

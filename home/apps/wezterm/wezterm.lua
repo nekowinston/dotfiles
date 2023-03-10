@@ -36,6 +36,7 @@ c.launch_menu = {
   { label = "Music player", args = { "ncmpcpp" } },
 }
 c.command_palette_font_size = 16.0
+c.window_background_opacity = 0.9
 c.window_frame = {
   font_size = 18.0,
 }
