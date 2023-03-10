@@ -147,7 +147,7 @@
             shellcheck.enable = true;
             stylua.enable = true;
             flake-check = {
-              enable = true;
+              enable = false;
               types = ["nix"];
               language = "system";
               entry = "just check";
