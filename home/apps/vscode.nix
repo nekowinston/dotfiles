@@ -9,11 +9,14 @@
 in {
   programs.vscode = {
     enable = true;
-    extensions = with pkgs.vscode-extensions; [
-      pkgs.nur.repos.nekowinston.vscode-extensions.ms-kubernetes-tools.vscode-kubernetes-tools
-      arrterian.nix-env-selector
+    extensions = with pkgs.unstable.vscode-extensions; [
+      jnoortheen.nix-ide
+      matklad.rust-analyzer
+      mkhl.direnv
+      ms-kubernetes-tools.vscode-kubernetes-tools
       pkief.material-icon-theme
       redhat.vscode-yaml
+      tamasfe.even-better-toml
       valentjn.vscode-ltex
       vscodevim.vim
     ];
