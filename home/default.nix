@@ -46,9 +46,6 @@ in {
         ranger
         ripgrep
         git-secret
-        cargo
-        unstable.deno
-        rustc
         gh
 
         nur.repos.nekowinston.org-stats
@@ -81,7 +78,6 @@ in {
 
   programs = {
     home-manager.enable = true;
-    go.enable = true;
     man.enable = true;
     taskwarrior.enable = true;
   };

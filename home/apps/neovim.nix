@@ -34,6 +34,7 @@
       taplo
 
       # go
+      go
       delve
       ginkgo
       gofumpt
@@ -52,8 +53,10 @@
       nodePackages.vscode-langservers-extracted
       nodePackages.yaml-language-server
       nodePackages.intelephense
+      yarn
 
       # rust
+      cargo
       rust-analyzer
       rustc
       rustfmt
@@ -74,11 +77,9 @@
       pkgs.nur.repos.bandithedoge.nodePackages.emmet-ls
 
       # needed for some plugin build steps
-      cargo
-      yarn
-      unzip
       gcc
       gnumake
+      unzip
     ];
   };
 

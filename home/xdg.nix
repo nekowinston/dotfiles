@@ -14,6 +14,7 @@ in {
     DOCKER_CONFIG = "${config.xdg.configHome}/docker";
     GEM_HOME = "${config.xdg.dataHome}/gem";
     GEM_SPEC_CACHE = "${config.xdg.cacheHome}/gem";
+    GOPATH = "${config.xdg.dataHome}/go";
     NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
     RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
     XCOMPOSECACHE = "${config.xdg.cacheHome}/X11/xcompose";
@@ -27,7 +28,6 @@ in {
       init-module="${config.xdg.configHome}/npm/config/npm-init.js"
   '';
 
-  programs.go.goPath = ".local/share/go";
   # NOTE: workaround for gpgme on Darwin, since GUI apps aren't aware of $GNUPGHOME
   programs.gpg.homedir =
     if isDarwin
