@@ -9,10 +9,6 @@ in {
   gtk = lib.mkIf isLinux {
     enable = true;
 
-    cursorTheme = {
-      name = "Catppuccin-Mocha-Cursors";
-      package = pkgs.unstable.catppuccin-cursors.mochaPink;
-    };
     iconTheme = {
       package = pkgs.nur.repos.nekowinston.papirus-folders-catppuccin.override {
         flavour = "mocha";
@@ -51,6 +47,4 @@ in {
     terminal = "wezterm";
     theme = ./rofi/theme.rasi;
   };
-
-  xdg.dataFile."icons/default".source = "${pkgs.catppuccin-cursors.mochaPink}/share/icons/Catppuccin-Mocha-Pink-Cursors";
 }

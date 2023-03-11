@@ -25,13 +25,13 @@ in {
     package = pkgs.waybar-hyprland;
   };
 
-  home.packages = with pkgs; [
+  home.packages = lib.mkIf isLinux (with pkgs; [
     cliphist
     grim
     slurp
     wl-clipboard
     nur.repos.nekowinston.swww
-  ];
+  ]);
 
   xdg = lib.mkIf isLinux {
     configFile."waybar" = {
