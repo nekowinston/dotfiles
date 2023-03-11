@@ -6,9 +6,9 @@
   "update.mode": "none",
   "extensions.autoUpdate": false,
   "extensions.ignoreRecommendations": true,
-  "editor.fontFamily": "Symbols Nerd Font, Berkeley Mono, monospace",
-  "editor.fontSize": 16,
-  "terminal.integrated.fontSize": 18,
+  "editor.fontFamily": "Berkeley Mono, Symbols Nerd Font, monospace",
+  "editor.fontSize": 14,
+  "terminal.integrated.fontSize": 14,
   "editor.inlineSuggest.enabled": true,
   "git.autofetch": true,
   "editor.lineNumbers": "relative",
@@ -87,9 +87,10 @@
   "ltex.additionalRules.enablePickyRules": true,
   "debug.onTaskErrors": "debugAnyway",
   "editor.inlayHints.padding": true,
-  "editor.inlayHints.fontFamily": "Comic Code Ligatures",
+  "editor.inlayHints.fontFamily": "Victor Mono",
   "editor.inlayHints.fontSize": 12,
   "vs-kubernetes": {
     "vs-kubernetes.crd-code-completion": "enabled"
-  }
+  },
+  "markdown.preview.fontFamily": "IBM Plex Sans, sans-serif"
 }
