@@ -13,6 +13,9 @@ local home = vim.fn.expand("$HOME") .. "/Code/"
 local blacklist = {
   [vim.fn.resolve(home .. "work")] = "Using nvim at work.",
   [vim.fn.resolve(home .. "freelance")] = "Using nvim to freelance.",
+  [vim.fn.resolve(vim.fn.stdpath("config"))] = "Configuring nvim. ("
+    .. require("lazy").stats().count
+    .. " plugins)",
 }
 
 local conceal = function(activity, info)
@@ -38,14 +41,24 @@ presence:setup({
   -- Main image display (either "neovim" or "file")
   main_image = "file",
   show_time = false,
-  -- A list of strings or Lua patterns that disable Rich Presence if the current file name, path, or workspace matches
-  ---@diagnostic disable-next-line: unused-local
-  buttons = {
-    {
-      label = "Steal the code",
-      url = "https://git.winston.sh/winston/holy-grail.git",
-    },
-  },
+  buttons = function(buffer, repo_url)
+    local concealed = conceal()
+    if concealed then
+      return {
+        {
+          label = "View my config",
+          url = "https://github.com/nekowinston/dotfiles",
+        },
+      }
+    else
+      return {
+        {
+          label = "View the repository",
+          url = repo_url,
+        },
+      }
+    end
+  end,
   file_assets = {
     ["k8s.yaml"] = {
       "Kubernetes",
@@ -87,7 +100,7 @@ presence:setup({
     if s ~= nil and not concealed then
       return "Working on " .. s
     else
-      return "Masochism " .. vStr
+      return nil
     end
   end,
   git_commit_text = "Committing changes",

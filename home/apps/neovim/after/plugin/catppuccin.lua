@@ -73,6 +73,9 @@ catppuccin.setup({
         BufferLineTabSeparator = { link = "FloatBorder" },
         BufferLineSeparator = { link = "FloatBorder" },
         BufferLineOffsetSeparator = { link = "FloatBorder" },
+        --
+        FidgetTitle = { fg = colors.subtext1 },
+        FidgetTask = { fg = colors.subtext0 },
       }
     end,
     mocha = function(colors)

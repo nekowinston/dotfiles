@@ -1,4 +1,10 @@
-require("copilot").setup({
+local present, copilot = pcall(require, "copilot")
+
+if not present then
+  return
+end
+
+copilot.setup({
   panel = {
     enabled = false,
   },
@@ -11,7 +17,7 @@ require("copilot").setup({
     },
   },
   filetypes = {
-    yaml = false,
+    yaml = true,
     markdown = false,
     help = false,
     gitcommit = false,

@@ -1,4 +1,9 @@
-local wk = require("which-key")
+local present, wk = pcall(require, "which-key")
+
+if not present then
+  return
+end
+
 wk.setup({
   key_labels = {
     ["<space>"] = "␣",
@@ -17,8 +22,7 @@ wk.setup({
 wk.register({
   ["<leader>f"] = {
     name = "+Telescope",
-    b = { "<cmd>Telescope file_browser<cr>", "File Browser" },
-    c = { "<cmd>Easypick  chezmoi<cr>", "Chezmoi" },
+    b = { "<cmd>Telescope buffers<cr>", "File Browser" },
     d = { "<cmd>Telescope find_files<cr>", "Find File" },
     g = { "<cmd>Telescope live_grep<cr>", "Live Grep" },
     h = { "<cmd>Telescope help_tags<cr>", "Help Tags" },
@@ -45,19 +49,3 @@ wk.register({
     sl = { "<cmd>SessionLoad<cr>", "Load Session" },
   },
 }, { mode = { "n", "v" } })
-
-wk.register({
-  -- easier split navigation
-  ["<C-J>"] = { "<C-W>j" },
-  ["<C-K>"] = { "<C-W>k" },
-  ["<C-L>"] = { "<C-W>l" },
-  ["<C-H>"] = { "<C-W>h" },
-  ["<C-W>\\"] = { "<cmd>vsplit<cr>" },
-  ["<C-W>-"] = { "<cmd>split<cr>" },
-  ["<C-W>x"] = { "<cmd>q<cr>" },
-  -- diffs
-  ["<leader>gd"] = { "<cmd>Gvdiff!<cr>", "Diff vsplit" },
-  ["gd"] = { "<cmd>diffget<cr>", "Get from diff" },
-  ["gdh"] = { "<cmd>diffget //2<cr>", "Get diff from the left" },
-  ["gdl"] = { "<cmd>diffget //3<cr>", "Get diff from the right" },
-})

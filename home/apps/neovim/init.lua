@@ -12,9 +12,10 @@ vim.o.relativenumber = true
 -- scroll offsets
 vim.o.scrolloff = 5
 vim.o.sidescrolloff = 15
--- always show status & tab line
+-- always show status
 vim.o.laststatus = 3
-vim.o.showtabline = 2
+-- hide tab line
+vim.o.showtabline = 0
 vim.g.termguicolors = false
 -- completion height
 vim.o.pumheight = 15
