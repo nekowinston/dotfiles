@@ -8,7 +8,6 @@ in {
   imports = [
     ./hardware.nix
     ../common/linux
-    ../common/hyprland.nix
   ];
 
   boot = {

@@ -18,7 +18,6 @@
     nekowinston-nur.url = "github:nekowinston/nur";
     nekowinston-nur.inputs.nixpkgs.follows = "nixpkgs-unstable";
     sops.url = "github:Mic92/sops-nix";
-    hyprland.url = "github:hyprwm/Hyprland";
 
     # dev
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
@@ -30,7 +29,6 @@
     darwin,
     flake-utils,
     home-manager,
-    hyprland,
     nekowinston-nur,
     nixpkgs,
     nixpkgs-unstable,
@@ -61,13 +59,12 @@
           system = "x86_64-linux";
           modules = [
             home-manager.nixosModules.home-manager
-            hyprland.nixosModules.default
             ./machines/common
             ./machines/futomaki
 
             ({config, ...}: {
               config = {
-                nixpkgs.overlays = [overlays hyprland.outputs.overlays.default];
+                nixpkgs.overlays = [overlays];
                 home-manager = {
                   useGlobalPkgs = true;
                   sharedModules = [sops.homeManagerModules.sops];
@@ -90,7 +87,7 @@
 
             ({config, ...}: {
               config = {
-                nixpkgs.overlays = [overlays hyprland.outputs.overlays.default];
+                nixpkgs.overlays = [overlays];
                 home-manager = {
                   useGlobalPkgs = true;
                   sharedModules = [sops.homeManagerModules.sops];
