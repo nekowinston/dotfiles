@@ -14,6 +14,10 @@
   commonConfig = {wayland ? false}: rec {
     modifier = "Mod4";
     focus.wrapping = "no";
+    focus.mouseWarping =
+      if wayland
+      then "container"
+      else true;
     startup = [
       {
         command = "${lib.getExe pkgs.autotiling} -l2";
