@@ -1,15 +1,6 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "--single-branch",
-    "https://github.com/folke/lazy.nvim.git",
-    lazypath,
-  })
-end
-vim.opt.runtimepath:prepend(lazypath)
+require("config.autocmds")
+require("config.mappings")
+require("config.options")
 
 local plugins = {
   { "catppuccin/nvim", name = "catppuccin" },
@@ -157,55 +148,4 @@ local plugins = {
   { "nvim-neorg/neorg", build = ":Neorg sync-parsers" },
 }
 
-require("lazy").setup(plugins, {
-  install = { colorscheme = { "catppuccin" } },
-  performance = {
-    rtp = {
-      disabled_plugins = {
-        "2html_plugin",
-        "bugreport",
-        "compiler",
-        "ftplugin",
-        "fzf",
-        "getscript",
-        "getscriptPlugin",
-        "gzip",
-        "logipat",
-        "matchit",
-        "netrw",
-        "netrwFileHandlers",
-        "netrwPlugin",
-        "netrwSettings",
-        "optwin",
-        "rplugin",
-        "rrhelper",
-        "spellfile_plugin",
-        "synmenu",
-        "syntax",
-        "tar",
-        "tarPlugin",
-        "tutor",
-        "vimball",
-        "vimballPlugin",
-        "zip",
-        "zipPlugin",
-      },
-    },
-  },
-  ui = {
-    icons = {
-      cmd = " ",
-      config = "",
-      event = " ",
-      ft = " ",
-      init = " ",
-      keys = " ",
-      plugin = " ",
-      runtime = " ",
-      source = " ",
-      start = " ",
-      task = " ",
-    },
-    border = "double",
-  },
-})
+require("config.plugins").setup(plugins)
