@@ -104,5 +104,6 @@ in {
     enable = isLinux;
     enableExtraSocket = true;
     enableSshSupport = true;
+    pinentryFlavor = "gnome3";
   };
 }
