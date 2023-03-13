@@ -425,7 +425,7 @@ in {
     };
   };
 
-  wayland.windowManager.sway = {
+  wayland.windowManager.sway = lib.mkIf isLinux {
     enable = true;
     config =
       commonConfig {wayland = true;}
