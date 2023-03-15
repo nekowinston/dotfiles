@@ -8,6 +8,7 @@
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
 in {
   home.sessionVariables = {
+    AZURE_CONFIG_DIR = "${config.xdg.configHome}/azure";
     CARGO_HOME = "${config.xdg.dataHome}/cargo";
     CARGO_REGISTRIES_CRATES_IO_PROTOCOL = "sparse";
     CUDA_CACHE_PATH = "${config.xdg.dataHome}/nv";
