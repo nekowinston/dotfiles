@@ -92,5 +92,8 @@
   "vs-kubernetes": {
     "vs-kubernetes.crd-code-completion": "enabled"
   },
-  "markdown.preview.fontFamily": "IBM Plex Sans, sans-serif"
+  "markdown.preview.fontFamily": "IBM Plex Sans, sans-serif",
+  "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
+  "workbench.preferredHighContrastColorTheme": "Catppuccin Latte",
+  "window.autoDetectColorScheme": true
 }
