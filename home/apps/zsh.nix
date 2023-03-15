@@ -74,6 +74,7 @@ in {
         plugins = [
           "colored-man-pages"
           "colorize"
+          "docker"
           "docker-compose"
           "git"
           "kubectl"
