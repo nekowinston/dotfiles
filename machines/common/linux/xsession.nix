@@ -35,9 +35,16 @@
     xserver = {
       enable = true;
       desktopManager.xterm.enable = false;
-      displayManager.gdm.enable = true;
+      displayManager = {
+        gdm.enable = true;
+        # one of these days, it'll be sway :COPIUM:
+        defaultSession = "none+i3";
+      };
       libinput.enable = true;
-      windowManager.i3.enable = true;
+      windowManager.i3 = {
+        enable = true;
+        package = pkgs.unstable.i3;
+      };
       xkbOptions = "caps:ctrl_modifier";
     };
   };

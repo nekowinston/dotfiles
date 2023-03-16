@@ -3,6 +3,7 @@
   lib,
   flakePath,
   pkgs,
+  swayfx,
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isLinux;
@@ -30,6 +31,7 @@
     workspaceAutoBackAndForth = true;
     terminal = "wezterm start --always-new-process";
     menu = "";
+    defaultWorkspace = "$ws1";
     keybindings = let
       mod = modifier;
       modMove = "${mod}+Shift";
@@ -152,17 +154,25 @@
 
       # modes
       "${mod}+r" = "mode \"resize\"";
-      "${mod}+p" = "mode \"system\"";
+      "${mod}+p" = "mode \"power: (l)ock, (e)xit, (r)eboot, (s)uspend, (h)ibernate, (S)hut off\"";
     };
     modes = {
-      system = {
-        "l" = "exec --no-startup-id i3exit lock, mode \"default\"";
-        "s" = "exec --no-startup-id i3exit suspend, mode \"default\"";
-        "u" = "exec --no-startup-id i3exit switch_user, mode \"default\"";
-        "e" = "exec --no-startup-id i3exit logout, mode \"default\"";
-        "h" = "exec --no-startup-id i3exit hibernate, mode \"default\"";
-        "r" = "exec --no-startup-id i3exit reboot, mode \"default\"";
-        "Shift+s" = "exec --no-startup-id i3exit shutdown, mode \"default\"";
+      "power: (l)ock, (e)xit, (r)eboot, (s)uspend, (h)ibernate, (S)hut off" = let
+        lock =
+          if wayland
+          then "swaylock"
+          else "i3lock";
+        msg =
+          if wayland
+          then "swaymsg"
+          else "i3-msg";
+      in {
+        l = "exec --no-startup-id ${lock} --color 000000, mode \"default\"";
+        e = "exec --no-startup-id ${msg} exit, mode \"default\"";
+        r = "exec --no-startup-id systemctl reboot, mode \"default\"";
+        s = "exec --no-startup-id systemctl suspend, mode \"default\"";
+        h = "exec --no-startup-id systemctl hibernate, mode \"default\"";
+        "Shift+s" = "exec --no-startup-id systemctl poweroff, mode \"default\"";
         Escape = "mode default";
         Return = "mode default";
       };
@@ -180,11 +190,10 @@
     bars = [
       {
         mode = "hide";
-        hiddenState = "hide";
         # use waybar if wayland
         command = lib.mkIf wayland "${lib.getExe config.programs.waybar.package}";
         # otherwise use i3status-rust
-        statusCommand = lib.mkIf (!wayland) "${lib.getExe config.programs.i3status-rust.package} ${config.xdg.configHome}/i3status-rust/config-default.toml";
+        statusCommand = lib.mkIf (!wayland) "${config.programs.i3status-rust.package}/bin/i3status-rs ${config.xdg.configHome}/i3status-rust/config-default.toml";
         position = "top";
         workspaceNumbers = false;
         inherit fonts;
@@ -208,15 +217,7 @@
         };
       }
     ];
-    colors = let
-      unfocused = {
-        background = "#000000";
-        border = "#CBA6F7";
-        childBorder = "#CBA6F7";
-        text = "#CDD6F4";
-        indicator = "#CBA6F7";
-      };
-    in {
+    colors = rec {
       focused = {
         background = "#000000";
         border = "#F5C2E7";
@@ -231,8 +232,14 @@
         text = "#CDD6F4";
         indicator = "#F38BA8";
       };
+      unfocused = {
+        background = "#000000";
+        border = "#CBA6F7";
+        childBorder = "#CBA6F7";
+        text = "#CDD6F4";
+        indicator = "#CBA6F7";
+      };
       focusedInactive = unfocused;
-      unfocused = unfocused;
       placeholder = unfocused;
     };
     window = {
@@ -242,7 +249,7 @@
     };
     gaps = {
       inner = 5;
-      outer = 5;
+      outer = 2;
     };
   };
   commonExtraConfig = ''
@@ -283,6 +290,42 @@
 
     # keep apps in scratchpad
     for_window [class="discord"] move scratchpad sticky
+
+    set $mode_gaps Gaps: (o)uter, (i)nner
+    set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+    set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+    bindsym ${(commonConfig {}).modifier}+Shift+g mode "$mode_gaps"
+
+    mode "$mode_gaps" {
+      bindsym o      mode "$mode_gaps_outer"
+      bindsym i      mode "$mode_gaps_inner"
+      bindsym Return mode "$mode_gaps"
+      bindsym Escape mode "default"
+    }
+    mode "$mode_gaps_outer" {
+      bindsym plus  gaps outer current plus 5
+      bindsym minus gaps outer current minus 5
+      bindsym 0     gaps outer current set 0
+
+      bindsym Shift+plus  gaps outer all plus 5
+      bindsym Shift+minus gaps outer all minus 5
+      bindsym Shift+0     gaps outer all set 0
+
+      bindsym Return mode "$mode_gaps"
+      bindsym Escape mode "default"
+    }
+    mode "$mode_gaps_inner" {
+      bindsym plus  gaps inner current plus 5
+      bindsym minus gaps inner current minus 5
+      bindsym 0     gaps inner current set 0
+
+      bindsym Shift+plus  gaps inner all plus 5
+      bindsym Shift+minus gaps inner all minus 5
+      bindsym Shift+0     gaps inner all set 0
+
+      bindsym Return mode "$mode_gaps"
+      bindsym Escape mode "default"
+    }
   '';
 in {
   fonts.fontconfig.enable = true;
@@ -353,15 +396,13 @@ in {
       enable = true;
       components = ["secrets"];
     };
-    picom = let
-      riced = true;
-    in {
+    picom = {
       enable = true;
       package = pkgs.nur.repos.nekowinston.picom-ft-labs;
       fade = false;
       backend = "glx";
       vSync = true;
-      shadow = riced;
+      shadow = true;
       settings = {
         animations = true;
         animation-exclude = [
@@ -378,9 +419,7 @@ in {
         enable-fading-prev-tag = true;
         enable-fading-next-tag = true;
 
-        blur = lib.mkIf riced {
-          method = "dual_kawase";
-        };
+        blur.method = "dual_kawase";
         blur-background-exclude = [
           "window_type = 'dock'"
           "window_type = 'desktop'"
@@ -427,6 +466,7 @@ in {
 
   wayland.windowManager.sway = lib.mkIf isLinux {
     enable = true;
+    package = swayfx;
     config =
       commonConfig {wayland = true;}
       // {
@@ -437,7 +477,14 @@ in {
           }
         ];
       };
-    extraConfig = commonExtraConfig;
+    extraConfig = ''
+      ${commonExtraConfig}
+      shadows on
+      shadow_color #0000007F
+      shadow_blur_radius 5
+      corner_radius 5
+      smart_corner_radius on
+    '';
     systemdIntegration = true;
     wrapperFeatures = {
       base = true;

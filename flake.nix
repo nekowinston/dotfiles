@@ -20,6 +20,7 @@
     sops.url = "github:Mic92/sops-nix";
 
     # dev
+    swayfx.url = "github:willpower3309/swayfx";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     flake-utils.url = "github:numtide/flake-utils";
   };
@@ -35,6 +36,7 @@
     nur,
     pre-commit-hooks,
     sops,
+    swayfx,
     ...
   }: let
     overlays = final: prev: {
@@ -72,6 +74,7 @@
                   extraSpecialArgs = {
                     flakePath = "/home/winston/.config/nixpkgs";
                     machine.personal = true;
+                    swayfx = swayfx.packages.${system}.swayfx-unwrapped;
                   };
                 };
               };
@@ -87,7 +90,7 @@
 
             ({config, ...}: {
               config = {
-                nixpkgs.overlays = [overlays];
+                nixpkgs.overlays = [overlays swayfx.overlays.default];
                 home-manager = {
                   useGlobalPkgs = true;
                   sharedModules = [sops.homeManagerModules.sops];
@@ -95,6 +98,7 @@
                   extraSpecialArgs = {
                     flakePath = "/home/w/.config/nixpkgs";
                     machine.personal = false;
+                    swayfx = swayfx.packages.${system}.swayfx-unwrapped;
                   };
                 };
               };
