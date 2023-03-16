@@ -44,4 +44,27 @@ in {
   };
 
   system.stateVersion = "22.11";
+
+  programs = {
+    steam = {
+      enable = true;
+      package = pkgs.unstable.steam.override {
+        extraPkgs = pkgs: with pkgs; [gamemode mangohud];
+        extraLibraries = pkgs:
+          with config.hardware.opengl;
+            if pkgs.hostPlatform.is64bit
+            then [package] ++ extraPackages
+            else [package32] ++ extraPackages32;
+      };
+    };
+    gamemode = {
+      enable = true;
+      settings = {
+        custom = {
+          start = "${pkgs.libnotify}/bin/notify-send 'GameMode started'";
+          end = "${pkgs.libnotify}/bin/notify-send 'GameMode ended'";
+        };
+      };
+    };
+  };
 }

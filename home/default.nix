@@ -80,6 +80,10 @@ in {
     home-manager.enable = true;
     man.enable = true;
     taskwarrior.enable = true;
+    mangohud = {
+      enable = machine.personal;
+      package = pkgs.unstable.mangohud;
+    };
   };
 
   xdg.configFile."ideavim/ideavimrc".source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/home/apps/ideavim/ideavimrc";
