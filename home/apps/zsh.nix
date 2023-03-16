@@ -43,7 +43,16 @@ in {
 
     tealdeer = {
       enable = true;
-      settings.updates.auto_update = true;
+      settings = {
+        style = {
+          description.foreground = "white";
+          command_name.foreground = "green";
+          example_text.foreground = "blue";
+          example_code.foreground = "white";
+          example_variable.foreground = "yellow";
+        };
+        updates.auto_update = true;
+      };
     };
 
     zoxide.enable = true;
