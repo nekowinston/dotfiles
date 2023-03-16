@@ -20,9 +20,10 @@ in {
       {
         layer = "top";
         position = "top";
-        margin-left = 5;
-        margin-right = 5;
-        margin-top = 5;
+        margin-left = 7;
+        margin-right = 7;
+        margin-top = 7;
+        height = 32;
         modules-left = ["sway/workspaces" "mpd"];
         modules-center = [];
         modules-right = ["tray" "cpu" "memory" "clock"];
