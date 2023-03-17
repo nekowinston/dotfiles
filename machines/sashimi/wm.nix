@@ -72,7 +72,7 @@
       cmd + ctrl - e : ${yabai} -m space --balance
       cmd + ctrl - r : ${yabai} -m space --rotate 270
       # open terminal
-      cmd + shift - return : open -na "WezTerm"
+      cmd + shift - return : ''${HOME}/.nix-profile/bin/wezterm-gui
       # restart yabai
       cmd + alt - r : launchctl kickstart -k "gui/''${UID}/org.nixos.yabai"
 
