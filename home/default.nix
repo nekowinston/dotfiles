@@ -82,7 +82,7 @@ in {
     man.enable = true;
     taskwarrior.enable = true;
     mangohud = {
-      enable = machine.personal;
+      enable = isLinux && machine.personal;
       package = pkgs.unstable.mangohud;
     };
   };
