@@ -45,14 +45,16 @@
       # webdev
       nodePackages."@astrojs/language-server"
       nodePackages."@tailwindcss/language-server"
+      nodePackages.alex
       nodePackages.bash-language-server
       nodePackages.dockerfile-language-server-nodejs
-      nodePackages.alex
+      nodePackages.graphql
+      nodePackages.graphql-language-service-cli
+      nodePackages.intelephense
       nodePackages.typescript
       nodePackages.typescript-language-server
       nodePackages.vscode-langservers-extracted
       nodePackages.yaml-language-server
-      nodePackages.intelephense
       yarn
 
       # rust

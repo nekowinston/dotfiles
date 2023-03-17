@@ -3,18 +3,23 @@ local lspconfig = require("lspconfig")
 local M = {}
 
 M.setup = function(opts)
-  lspconfig.cssls.setup({
+  local common = {
     capabilities = opts.capabilities,
     on_attach = opts.on_attach,
-  })
-  lspconfig.emmet_ls.setup({
+  }
+  lspconfig.cssls.setup(common)
+  lspconfig.emmet_ls.setup(common)
+  lspconfig.graphql.setup({
     capabilities = opts.capabilities,
     on_attach = opts.on_attach,
+    filetypes = {
+      "graphql",
+      "typescriptreact",
+      "javascriptreact",
+      "typescript",
+    },
   })
-  lspconfig.intelephense.setup({
-    capabilities = opts.capabilities,
-    on_attach = opts.on_attach,
-  })
+  lspconfig.intelephense.setup(common)
   lspconfig.tailwindcss.setup({
     capabilities = opts.capabilities,
     on_attach = opts.on_attach,
