@@ -116,7 +116,7 @@ style = 'bg:peach fg:#000000'
 format = '[ﮫ $duration]($style)'
 style = 'bg:yellow fg:#000000'
 show_milliseconds = true
-min_time = 0
+min_time = 2000
 
 [status]
 style = 'bg:yellow fg:#000000'
