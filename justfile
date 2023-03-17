@@ -1,13 +1,9 @@
-secret-stage:
-  git add -f home/secrets/default.nix
+# vim:ft=just:fdm=marker
 
-secret-unstage:
-  git restore --staged home/secrets/default.nix
+default:
+  @just --choose
 
-[linux]
-boot: secret-stage && secret-unstage
-  sudo nixos-rebuild boot --flake .
-
+# check flake syntax {{{
 [macos]
 check:
   darwin-rebuild check --flake .
@@ -15,7 +11,9 @@ check:
 [linux]
 check:
   nix flake check .
+# }}}
 
+# build {{{
 [macos]
 switch: secret-stage && secret-unstage
   darwin-rebuild switch --flake .
@@ -23,17 +21,22 @@ switch: secret-stage && secret-unstage
 [linux]
 switch: secret-stage && secret-unstage
   sudo nixos-rebuild switch --flake .
-
 [linux]
-install-fonts:
-  #!/usr/bin/env bash
-  set -euo pipefail
-  mkdir -p $XDG_DATA_HOME/fonts
-  gpg --decrypt home/secrets/fonts.tgz.gpg | tar -xz -C $XDG_DATA_HOME/fonts --strip-components=1
+boot: secret-stage && secret-unstage
+  sudo nixos-rebuild boot --flake .
+# }}}
 
-[macos]
+# secrets {{{
+secret-stage:
+  git add -f home/secrets/default.nix
+secret-unstage:
+  git restore --staged home/secrets/default.nix
+
+fontdir := if os() == "macos" {"$HOME/Library/Fonts"} else {"${XDG_DATA_HOME:-$HOME/.local/share}/fonts"}
+
 install-fonts:
   #!/usr/bin/env bash
   set -euo pipefail
-  mkdir -p ~/Library/Fonts
-  gpg --decrypt home/secrets/fonts.tgz.gpg | tar -xz -C ~/Library/Fonts --strip-components=1
+  mkdir -p "{{fontdir}}"
+  gpg --decrypt home/secrets/fonts.tgz.gpg | tar -xz -C "{{fontdir}}" --strip-components=1
+# }}}
