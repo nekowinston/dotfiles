@@ -54,9 +54,7 @@
       "${mod}+b" = "border pixel 2";
       "${mod}+n" = "border normal";
       # reload the configuration file
-      "${mod}+Shift+c" = "reload";
-      # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-      "${mod}+Shift+r" = "restart";
+      "${mod}+Shift+r" = "reload";
       # kill focused window
       "${mod}+Shift+q" = "kill";
       # Start Applications
@@ -479,10 +477,10 @@ in {
       };
     extraConfig = ''
       ${commonExtraConfig}
-      shadows on
-      shadow_color #0000007F
-      shadow_blur_radius 5
-      corner_radius 5
+      shadows             on
+      shadow_color        #00000099
+      shadow_blur_radius  10
+      corner_radius       5
       smart_corner_radius on
     '';
     systemdIntegration = true;
