@@ -61,6 +61,7 @@ in {
         mattermost-desktop
         neovide
         unstable.jetbrains.webstorm
+        gnome.gnome-boxes
       ]
       ++ lib.optionals (isLinux && machine.personal) [
         nur.repos.nekowinston.discover-overlay
