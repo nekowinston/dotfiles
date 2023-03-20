@@ -47,6 +47,7 @@ in {
         ripgrep
         git-secret
         gh
+        mosh
 
         nur.repos.nekowinston.org-stats
         (unstable.nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
