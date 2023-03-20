@@ -41,6 +41,22 @@ c.window_frame = {
   font_size = 18.0,
 }
 
-require("bar").apply_to_config(c)
+wezterm.plugin
+  .require("https://github.com/nekowinston/wezterm-bar")
+  .apply_to_config(c, {
+    indicator = {
+      leader = {
+        off = "ﱤ",
+        on = "ﱣ",
+      },
+      mode = {
+        names = {
+          copy_mode = "V",
+          resize_mode = "R",
+          search_mode = "S",
+        },
+      },
+    },
+  })
 
 return c
