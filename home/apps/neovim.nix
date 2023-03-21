@@ -78,6 +78,10 @@
       pkgs.nur.repos.nekowinston.helm-ls
       pkgs.nur.repos.bandithedoge.nodePackages.emmet-ls
 
+      # nvim-spectre
+      gnused
+      (writeShellScriptBin "gsed" "exec ${gnused}/bin/sed")
+
       # needed for some plugin build steps
       gcc
       gnumake
