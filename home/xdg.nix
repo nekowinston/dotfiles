@@ -11,6 +11,7 @@ in {
     AZURE_CONFIG_DIR = "${config.xdg.configHome}/azure";
     CARGO_HOME = "${config.xdg.dataHome}/cargo";
     CARGO_REGISTRIES_CRATES_IO_PROTOCOL = "sparse";
+    CARGO_UNSTABLE_SPARSE_REGISTRY = "true";
     CUDA_CACHE_PATH = "${config.xdg.dataHome}/nv";
     DOCKER_CONFIG = "${config.xdg.configHome}/docker";
     GEM_HOME = "${config.xdg.dataHome}/gem";
