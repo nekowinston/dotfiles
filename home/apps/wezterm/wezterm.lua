@@ -8,7 +8,6 @@ end
 
 require("fonts").apply(c)
 require("keys").apply(c)
-require("theme").apply(c)
 
 -- set up terminfo on nix
 c.set_environment_variables = {
@@ -42,20 +41,24 @@ c.window_frame = {
 }
 
 wezterm.plugin
+  .require("https://github.com/catppuccin/wezterm")
+  .apply_to_config(c, {
+    flavor = "mocha",
+    sync = true,
+    sync_flavors = { light = "latte", dark = "mocha" },
+    overrides = {
+      mocha = {
+        base = "#000000",
+        mantle = "#010101",
+        crust = "#020202",
+      },
+    },
+  })
+wezterm.plugin
   .require("https://github.com/nekowinston/wezterm-bar")
   .apply_to_config(c, {
     indicator = {
-      leader = {
-        off = "ﱤ",
-        on = "ﱣ",
-      },
-      mode = {
-        names = {
-          copy_mode = "V",
-          resize_mode = "R",
-          search_mode = "S",
-        },
-      },
+      leader = { off = "ﱤ", on = "ﱣ" },
     },
   })
 
