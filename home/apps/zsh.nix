@@ -69,7 +69,14 @@ in {
         for conf in "${functionsDir}"/**/*.zsh; do
           source "$conf"
         done
+
+        # WezTerm
         [[ "$TERM_PROGRAM" == "WezTerm" ]] && TERM=wezterm
+
+        source <(konf-go shellwrapper zsh)
+        source <(konf-go completion zsh)
+        # open last konf on new shell session
+        export KUBECONFIG=$(konf-go --silent set -)
       '';
 
       envExtra = ''

@@ -8,6 +8,8 @@
     dyff
     gojq
     jqp
+    konf
+    kubeconform
     kubectl
     kubectx
     kubernetes-helm
@@ -16,12 +18,15 @@
     velero
   ];
 
-  home.shellAliases.jq = "gojq";
+  home.shellAliases = {
+    jq = "gojq";
+    kcuc = "konf set";
+    kcn = "konf ns";
+  };
 
   home.sessionVariables = {
     KREW_ROOT = "${config.xdg.dataHome}/krew";
     KUBECACHEDIR = "${config.xdg.cacheHome}/kube";
-    KUBECONFIG = "${config.xdg.configHome}/kube/config";
     MINIKUBE_HOME = "${config.xdg.dataHome}/minikube";
   };
 }
