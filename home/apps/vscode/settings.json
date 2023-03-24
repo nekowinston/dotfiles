@@ -48,11 +48,11 @@
     },
     {
       "before": ["[", "c"],
-      "commands": ["workbench.action.editor.previousChange"],
+      "commands": ["workbench.action.editor.previousChange"]
     },
     {
       "before": ["]", "c"],
-      "commands": ["workbench.action.editor.nextChange"],
+      "commands": ["workbench.action.editor.nextChange"]
     },
     {
       "before": ["<C-l>"],
@@ -112,4 +112,5 @@
   "workbench.preferredHighContrastColorTheme": "Catppuccin Latte",
   "window.autoDetectColorScheme": true,
   "vim.smartRelativeLine": true,
+  "ltex.additionalRules.motherTongue": "de-AT"
 }
