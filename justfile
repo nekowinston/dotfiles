@@ -40,3 +40,7 @@ install-fonts:
   mkdir -p "{{fontdir}}"
   gpg --decrypt home/secrets/fonts.tgz.gpg | tar -xz -C "{{fontdir}}" --strip-components=1
 # }}}
+
+fetch:
+  @nix run nixpkgs\#onefetch -- --true-color never --no-bots -d lines-of-code
+  @nix run nixpkgs\#scc -- . --no-cocomo

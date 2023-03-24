@@ -12,7 +12,6 @@
   "editor.inlineSuggest.enabled": true,
   "git.autofetch": true,
   "editor.lineNumbers": "relative",
-  "vim.easymotion": true,
   "vim.incsearch": true,
   "vim.replaceWithRegister": true,
   "vim.useSystemClipboard": false,
@@ -38,6 +37,22 @@
     {
       "before": ["<leader>", "n", "f"],
       "commands": ["editor.action.formatDocument"]
+    },
+    {
+      "before": ["[", "d"],
+      "commands": ["editor.action.marker.prevInFiles"]
+    },
+    {
+      "before": ["]", "d"],
+      "commands": ["editor.action.marker.nextInFiles"]
+    },
+    {
+      "before": ["[", "c"],
+      "commands": ["workbench.action.editor.previousChange"],
+    },
+    {
+      "before": ["]", "c"],
+      "commands": ["workbench.action.editor.nextChange"],
     },
     {
       "before": ["<C-l>"],
@@ -95,5 +110,6 @@
   "markdown.preview.fontFamily": "IBM Plex Sans, sans-serif",
   "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
   "workbench.preferredHighContrastColorTheme": "Catppuccin Latte",
-  "window.autoDetectColorScheme": true
+  "window.autoDetectColorScheme": true,
+  "vim.smartRelativeLine": true,
 }
