@@ -46,13 +46,6 @@ wezterm.plugin
     flavor = "mocha",
     sync = true,
     sync_flavors = { light = "latte", dark = "mocha" },
-    overrides = {
-      mocha = {
-        base = "#000000",
-        mantle = "#010101",
-        crust = "#020202",
-      },
-    },
   })
 wezterm.plugin
   .require("https://github.com/nekowinston/wezterm-bar")
