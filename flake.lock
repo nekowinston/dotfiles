@@ -111,11 +111,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1679480702,
-        "narHash": "sha256-npuRD61YmxUPitI1TqKwlxLrU6iGl5E+BPT196LgUDo=",
+        "lastModified": 1679684476,
+        "narHash": "sha256-WTYZFt9cJmOSp1n3hxAS+BQnu7smcBsC98RSgdp2qsE=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "363c46b2480f1b73ec37cf68caac61f5daa82a2e",
+        "rev": "db37c537603d1d45d022cc0666ad45197455b364",
         "type": "github"
       },
       "original": {
@@ -160,6 +160,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-master": {
+      "locked": {
+        "lastModified": 1679784606,
+        "narHash": "sha256-n5wGxz4KN90Wv00PgH1R1ZxaSDmdPeZ/rA9+FKM5mPo=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "2f0ff93fcff3f9675a7c6875742e7d16ad0d80a3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "master",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1678872516,
@@ -194,11 +210,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1679553901,
-        "narHash": "sha256-OhmJc18XNIj0wVC4ZoPnCVoY3SGfcPxaeKJOz1WHo5M=",
+        "lastModified": 1679614379,
+        "narHash": "sha256-2KddLHHmcIlJu0PuS/vISLKxihTyICUwKWGn0R//028=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "09ad6a72359f6aff0f96ce8e4d1ec2d1271ad15d",
+        "rev": "994e2ef9e9c70b4dd7257f73452a94e871723685",
         "type": "github"
       },
       "original": {
@@ -258,11 +274,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1679636577,
-        "narHash": "sha256-VITq8l3SCnw/MBuve5VX1SNHcamrYOdGGvHPMwX8HsI=",
+        "lastModified": 1679694339,
+        "narHash": "sha256-KkoBTJK7XBUVWGYPFh4cHys2NHO6p5Jh5NLP1KYA+AQ=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "fc32207b8e7def548d5f5c1acb010f8b59df16d4",
+        "rev": "2cd23c2a269fd3ebbb3a312e19e2e56ad770da7f",
         "type": "github"
       },
       "original": {
@@ -300,6 +316,7 @@
         "home-manager": "home-manager",
         "nekowinston-nur": "nekowinston-nur",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
         "pre-commit-hooks": "pre-commit-hooks",
