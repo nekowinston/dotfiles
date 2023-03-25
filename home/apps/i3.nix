@@ -279,7 +279,6 @@
     for_window [window_role="task_dialog"] floating enable
 
     # apps
-    for_window [class="Lightdm-settings"] floating enable
     for_window [class="Pavucontrol"] floating enable
     for_window [class="Yad" title="Authentication"] floating enable
     for_window [class="jetbrains*" title="Welcome*"] floating enable
@@ -468,6 +467,9 @@ in {
     config =
       commonConfig {wayland = true;}
       // {
+        input."type:keyboard" = {
+          xkb_options = "ctrl:nocaps";
+        };
         output = {"*" = {scale = "2";};};
         startup = [
           {
