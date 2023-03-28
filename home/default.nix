@@ -86,6 +86,7 @@ in {
       enable = isLinux && machine.personal;
       package = pkgs.unstable.mangohud;
     };
+    zathura.enable = true;
   };
 
   xdg.configFile."ideavim/ideavimrc".source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/home/apps/ideavim/ideavimrc";

@@ -27,6 +27,9 @@
       {
         command = "${lib.getExe pkgs._1password-gui} --silent";
       }
+      {
+        command = "${pkgs.volnoti}/bin/volnoti";
+      }
     ];
     workspaceAutoBackAndForth = true;
     terminal = "wezterm start --always-new-process";
@@ -46,9 +49,24 @@
       screenshot =
         if wayland
         then "${lib.getExe pkgs.sway-contrib.grimshot} copy area"
-        else "${lib.getExe pkgs.flameshot} gui";
+        else "${pkgs.flameshot}/bin/flameshot gui";
       playerctl = lib.getExe pkgs.playerctl;
       wpctl = pkgs.wireplumber + "/bin/wpctl";
+      volnotify = pkgs.writeShellScript "volnotify" ''
+        volumeRaw=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | head -n1)
+        volume=$(echo $volumeRaw | sed 's/Volume: //' | awk '{printf "%.0f\n", $1 * 100}')
+        if [[ "$volumeRaw" =~ "MUTED" ]]; then
+          volnoti-show -m
+        else
+          volnoti-show $volume
+        fi
+      '';
+      gopassRofi = pkgs.writeShellScript "gopass-rofi" ''
+        ${gopass} ls --flat | \
+        ${rofi} -dmenu -dpi $dpi | \
+        ${xargs} --no-run-if-empty ${gopass} show -o | \
+        ${xdotool} type --clearmodifiers --file -
+      '';
     in {
       "${mod}+Shift+b" = "border none";
       "${mod}+b" = "border pixel 2";
@@ -62,8 +80,8 @@
       "${mod}+e" = "exec --no-startup-id ${thunar}";
       "${mod}+Ctrl+x" = "exec --no-startup-id ${lib.getExe pkgs.xorg.xkill}";
       # TODO: replace xdotool with wayland equivalent
-      "${hyper}+space" = "exec --no-startup-id ${gopass} ls --flat | ${rofi} -dmenu -dpi $dpi | ${xargs} --no-run-if-empty ${gopass} show -o | ${xdotool} type --clearmodifiers --file -";
-      "${hyper}+p" = "--release exec --no-startup-id ${screenshot}";
+      "${hyper}+space" = "exec --no-startup-id ${gopassRofi}";
+      "${hyper}+p" = "exec --no-startup-id ${screenshot}";
 
       # change focus
       "${modFocus}+h" = "focus left";
@@ -143,9 +161,9 @@
       "${mod}+Shift+space" = "exec ${lib.getExe pkgs._1password-gui} --quick-access";
 
       # audio
-      "XF86AudioRaiseVolume" = "exec --no-startup-id ${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.0";
-      "XF86AudioLowerVolume" = "exec --no-startup-id ${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1.0";
-      "XF86AudioMute" = "exec --no-startup-id ${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle";
+      "XF86AudioRaiseVolume" = "exec --no-startup-id ${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.0 && ${volnotify}";
+      "XF86AudioLowerVolume" = "exec --no-startup-id ${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1.0 && ${volnotify}";
+      "XF86AudioMute" = "exec --no-startup-id ${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle && ${volnotify}";
       "XF86AudioNext" = "exec --no-startup-id ${playerctl} next";
       "XF86AudioPrev" = "exec --no-startup-id ${playerctl} previous";
       "XF86AudioPause" = "exec --no-startup-id ${playerctl} play-pause";
@@ -190,8 +208,6 @@
         mode = "hide";
         # use waybar if wayland
         command = lib.mkIf wayland "${lib.getExe config.programs.waybar.package}";
-        # otherwise use i3status-rust
-        statusCommand = lib.mkIf (!wayland) "${config.programs.i3status-rust.package}/bin/i3status-rs ${config.xdg.configHome}/i3status-rust/config-default.toml";
         position = "top";
         workspaceNumbers = false;
         inherit fonts;
@@ -331,70 +347,22 @@ in {
     packages = with pkgs; [
       arandr
       blueberry
+      flameshot
       pavucontrol
+      sway-contrib.grimshot
+      volnoti
       xclip
     ];
   };
 
-  programs = lib.mkIf isLinux {
-    i3status-rust = {
-      enable = true;
-      bars.default = {
-        blocks = [
-          {
-            block = "taskwarrior";
-            data_location = config.programs.taskwarrior.dataLocation;
-          }
-          {
-            block = "pomodoro";
-            notifier = "notifysend";
-            notifier_path = "${lib.getExe pkgs.libnotify}";
-          }
-          {
-            block = "sound";
-            max_vol = 100;
-            on_click = "${lib.getExe pkgs.pavucontrol}";
-          }
-          {
-            block = "time";
-            interval = 5;
-            format = "%R";
-          }
-        ];
-        settings = {
-          icons.name = "material-nf";
-          icons.overrides = {
-            pomodoro = " ";
-            pomodoro_break = " ";
-          };
-          theme.overrides = {
-            idle_fg = "#cdd6f4";
-            info_fg = "#89b4fa";
-            good_fg = "#a6e3a1";
-            warning_fg = "#fab387";
-            critical_fg = "#f38ba8";
-            separator = " ";
-            separator_bg = "auto";
-            separator_fg = "auto";
-          };
-        };
-      };
-    };
-    zathura.enable = true;
-  };
-
   services = lib.mkIf isLinux {
     dunst.enable = true;
-    flameshot = {
-      enable = true;
-      settings.General.showStartupLaunchMessage = false;
-    };
     gnome-keyring = {
       enable = true;
       components = ["secrets"];
     };
     picom = {
-      enable = true;
+      enable = false;
       package = pkgs.nur.repos.nekowinston.picom-ft-labs;
       fade = false;
       backend = "glx";
@@ -425,13 +393,8 @@ in {
         ];
       };
     };
-    redshift = {
-      enable = true;
-      latitude = 48.2;
-      longitude = 16.366667;
-    };
     screen-locker = {
-      enable = true;
+      enable = false;
       inactiveInterval = 5;
       lockCmd = "${lib.getExe pkgs.i3lock} -n -c 000000";
     };
@@ -453,7 +416,15 @@ in {
     windowManager.i3 = {
       enable = true;
       package = pkgs.unstable.i3;
-      config = commonConfig {wayland = false;};
+      config =
+        commonConfig {wayland = false;}
+        // {
+          startup = [
+            {
+              command = "${lib.getExe pkgs.flameshot}";
+            }
+          ];
+        };
       extraConfig = ''
         set_from_resource $dpi Xft.dpi 140
         ${commonExtraConfig}
@@ -470,10 +441,15 @@ in {
         input."type:keyboard" = {
           xkb_options = "ctrl:nocaps";
         };
-        output = {"*" = {scale = "2";};};
+        output = {
+          "*" = {
+            scale = "2";
+            bg = "${flakePath}/home/wallpapers/dhm_1610.png fill #171320";
+          };
+        };
         startup = [
           {
-            command = "${lib.getExe pkgs.nur.repos.nekowinston.swww} init";
+            command = "wl-paste -t text --watch clipman store";
           }
         ];
       };

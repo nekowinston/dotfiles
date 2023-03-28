@@ -28,6 +28,21 @@
     udisks2.enable = true;
     devmon.enable = true;
 
+    greetd = {
+      enable = true;
+      settings = {
+        default_session = let
+          swaycmd = pkgs.writeShellScript "swaycmd" ''
+            export NIXOS_OZONE_WL=1 XDG_CURRENT_DESKTOP=sway
+            sway > /tmp/sway.log 2>&1
+          '';
+        in {
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd ${swaycmd}";
+          user = "greeter";
+        };
+      };
+    };
+
     # thumbnails
     tumbler.enable = true;
 
@@ -35,7 +50,7 @@
 
     kanata = {
       enable = true;
-      package = pkgs.master.kanata;
+      package = pkgs.unstable.kanata;
       keyboards.keychron-k6 = {
         devices = ["/dev/input/by-id/usb-Keychron_Keychron_K6-event-kbd"];
         config = ''
@@ -62,11 +77,7 @@
     xserver = {
       enable = true;
       desktopManager.xterm.enable = false;
-      displayManager = {
-        gdm.enable = true;
-        # one of these days, it'll be sway :COPIUM:
-        defaultSession = "none+i3";
-      };
+      displayManager.startx.enable = true;
       libinput.enable = true;
       windowManager.i3 = {
         enable = true;

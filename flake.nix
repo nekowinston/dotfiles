@@ -4,7 +4,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs-master.url = "github:nixos/nixpkgs/master";
 
     darwin = {
       url = "github:lnl7/nix-darwin";
@@ -34,7 +33,6 @@
     nekowinston-nur,
     nixpkgs,
     nixpkgs-unstable,
-    nixpkgs-master,
     nur,
     pre-commit-hooks,
     sops,
@@ -43,10 +41,6 @@
   }: let
     overlays = final: prev: {
       unstable = import nixpkgs-unstable {
-        system = prev.system;
-        config.allowUnfree = true;
-      };
-      master = import nixpkgs-master {
         system = prev.system;
         config.allowUnfree = true;
       };

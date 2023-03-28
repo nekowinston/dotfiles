@@ -6,11 +6,10 @@
   inherit (pkgs.stdenv.hostPlatform) isLinux;
 in {
   home.packages = lib.mkIf isLinux (with pkgs; [
-    cliphist
+    clipman
     grim
     slurp
     wl-clipboard
-    nur.repos.nekowinston.swww
   ]);
 
   programs.waybar = lib.mkIf isLinux {

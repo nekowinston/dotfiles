@@ -1,3 +1,4 @@
 flake.lock -diff
 home/secrets/**/*.json -diff
 lazy-lock.json -diff
+*.png filter=lfs diff=lfs merge=lfs -text
