@@ -36,6 +36,7 @@
       "qt-creator"
       "rustdesk"
       "uninstallpkg"
+      "utm"
       "yubico-yubikey-manager"
       (noQuarantine "easy-move-plus-resize")
       (noQuarantine "eloston-chromium")

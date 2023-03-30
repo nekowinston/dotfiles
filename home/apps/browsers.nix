@@ -8,6 +8,10 @@
 in {
   programs.chromium = {
     enable = isLinux;
+    package =
+      if isLinux
+      then pkgs.ungoogled-chromium
+      else (pkgs.writeScriptBin "__dummy-chromium" "");
     extensions = [
       {id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";}
     ];

@@ -81,6 +81,7 @@ in {
   programs = {
     home-manager.enable = true;
     man.enable = true;
+    mpv.enable = isLinux;
     taskwarrior.enable = true;
     mangohud = {
       enable = isLinux && machine.personal;
