@@ -12,7 +12,9 @@
     kubeconform
     kubectl
     kubectx
+    kubepug
     kubernetes-helm
+    minikube
     popeye
     pv-migrate
     velero
