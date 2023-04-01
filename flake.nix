@@ -69,7 +69,10 @@
                 nixpkgs.overlays = [overlays];
                 home-manager = {
                   useGlobalPkgs = true;
-                  sharedModules = [sops.homeManagerModules.sops];
+                  sharedModules = [
+                    sops.homeManagerModules.sops
+                    ./modules/darkman.nix
+                  ];
                   users.winston.imports = [./home];
                   extraSpecialArgs = {
                     flakePath = "/home/winston/.config/nixpkgs";

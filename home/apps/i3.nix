@@ -356,6 +356,14 @@ in {
   };
 
   services = lib.mkIf isLinux {
+    darkman = {
+      enable = true;
+      config = {
+        lat = 48.210033;
+        lng = 16.363449;
+        useGeoclue = false;
+      };
+    };
     dunst.enable = true;
     gnome-keyring = {
       enable = true;
