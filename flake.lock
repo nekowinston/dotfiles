@@ -131,11 +131,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1680144713,
-        "narHash": "sha256-cXe2cObjV08LcxbwSmGt2inN6nFCVFuRhVMFRchk8rw=",
+        "lastModified": 1680386606,
+        "narHash": "sha256-ET0OYu0mQtWCMvjZVP6nw8kX/yzfOEcrhlOn6/jK7lw=",
         "owner": "nekowinston",
         "repo": "nur",
-        "rev": "04dd7c6609e177b5f6fdb9639cee1ea02a6a4a9c",
+        "rev": "f3fbfe4e06a05006e6137636c1675a4747eba6ac",
         "type": "github"
       },
       "original": {

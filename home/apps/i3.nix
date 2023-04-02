@@ -353,6 +353,25 @@ in {
       volnoti
       xclip
     ];
+    pointerCursor = {
+      name = "Numix-Cursor";
+      package = pkgs.numix-cursor-theme;
+      gtk.enable = true;
+      size = 24;
+      x11.enable = true;
+    };
+  };
+
+  xresources = lib.mkIf isLinux {
+    properties = {
+      "Xft.dpi" = 192;
+      "Xft.autohint" = 0;
+      "Xft.lcdfilter" = "lcddefault";
+      "Xft.hintstyle" = "hintfull";
+      "Xft.hinting" = 1;
+      "Xft.antialias" = 1;
+      "Xft.rgba" = "rgb";
+    };
   };
 
   services = lib.mkIf isLinux {
