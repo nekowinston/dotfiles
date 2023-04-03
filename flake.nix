@@ -54,6 +54,27 @@
         };
       };
     };
+    commonHMConfig = {username}: ({
+      config,
+      pkgs,
+      ...
+    }: {
+      config = {
+        nixpkgs.overlays = [overlays];
+        home-manager = {
+          useGlobalPkgs = true;
+          backupFileExtension = "backup";
+          sharedModules = [sops.homeManagerModules.sops ./modules];
+          users.${username}.imports = [./home];
+          extraSpecialArgs = {
+            flakePath =
+              if pkgs.stdenv.isDarwin
+              then "/Users/${username}/.config/nixpkgs"
+              else "/home/${username}/.config/nixpkgs";
+          };
+        };
+      };
+    });
   in
     {
       nixosConfigurations = {
@@ -63,25 +84,7 @@
             home-manager.nixosModules.home-manager
             ./machines/common
             ./machines/futomaki
-
-            ({config, ...}: {
-              config = {
-                nixpkgs.overlays = [overlays];
-                home-manager = {
-                  useGlobalPkgs = true;
-                  sharedModules = [
-                    sops.homeManagerModules.sops
-                    ./modules/darkman.nix
-                  ];
-                  users.winston.imports = [./home];
-                  extraSpecialArgs = {
-                    flakePath = "/home/winston/.config/nixpkgs";
-                    machine.personal = true;
-                    swayfx = swayfx.packages.${system}.swayfx-unwrapped;
-                  };
-                };
-              };
-            })
+            (commonHMConfig {username = "winston";})
           ];
         };
         "bento" = nixpkgs.lib.nixosSystem rec {
@@ -90,51 +93,18 @@
             home-manager.nixosModules.home-manager
             ./machines/common
             ./machines/bento
-
-            ({config, ...}: {
-              config = {
-                nixpkgs.overlays = [overlays swayfx.overlays.default];
-                home-manager = {
-                  useGlobalPkgs = true;
-                  sharedModules = [sops.homeManagerModules.sops];
-                  users.w.imports = [./home];
-                  extraSpecialArgs = {
-                    flakePath = "/home/w/.config/nixpkgs";
-                    machine.personal = false;
-                    swayfx = swayfx.packages.${system}.swayfx-unwrapped;
-                  };
-                };
-              };
-            })
+            (commonHMConfig {username = "w";})
           ];
         };
       };
       darwinConfigurations = {
         "sashimi" = darwin.lib.darwinSystem rec {
           system = "aarch64-darwin";
-
           modules = [
             home-manager.darwinModules.home-manager
             ./machines/common
             ./machines/sashimi
-
-            ({config, ...}: {
-              config = {
-                nixpkgs.overlays = [overlays];
-                home-manager = {
-                  useGlobalPkgs = true;
-                  backupFileExtension = "backup";
-                  sharedModules = [
-                    sops.homeManagerModules.sops
-                  ];
-                  users.winston.imports = [./home];
-                  extraSpecialArgs = {
-                    flakePath = "/Users/winston/.config/nixpkgs";
-                    machine.personal = true;
-                  };
-                };
-              };
-            })
+            (commonHMConfig {username = "winston";})
           ];
         };
       };
@@ -164,7 +134,7 @@
           };
         };
       };
-      devShell = let
+      devShells.default = let
         pkgs = nixpkgs.legacyPackages.${system};
       in
         pkgs.mkShell {
