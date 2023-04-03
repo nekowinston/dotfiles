@@ -14,7 +14,6 @@
       layout = "bsp";
       mouse_drop_action = "swap";
       mouse_follows_focus = "off";
-      mouse_modifier = "off";
       window_animation_duration = "0.0";
       window_border = "on";
       window_border_blur = "on";
