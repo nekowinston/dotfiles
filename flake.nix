@@ -7,16 +7,15 @@
 
     darwin = {
       url = "github:lnl7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    nur.url = "github:nix-community/NUR";
+    nur.url = "github:nix-community/nur";
     nekowinston-nur.url = "github:nekowinston/nur";
-    nekowinston-nur.inputs.nixpkgs.follows = "nixpkgs-unstable";
     sops.url = "github:Mic92/sops-nix";
 
     # dev
