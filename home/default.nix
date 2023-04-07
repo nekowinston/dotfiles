@@ -54,7 +54,7 @@ in {
         victor-mono
         ibm-plex
         xkcd-font
-        unstable.wezterm
+        nur.repos.nekowinston.wezterm-nightly
       ]
       ++ lib.optionals isLinux [
         _1password-gui
