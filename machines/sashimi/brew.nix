@@ -4,6 +4,11 @@
     caskArgs.require_sha = true;
     onActivation.autoUpdate = true;
     onActivation.upgrade = true;
+    brews = [
+      "koekeishiya/formulae/yabai"
+      "koekeishiya/formulae/skhd"
+      "felixkratz/formulae/sketchybar"
+    ];
     casks = let
       skipSha = name: {
         inherit name;
@@ -54,6 +59,9 @@
     taps = [
       "homebrew/cask"
       "homebrew/cask-drivers"
+      "homebrew/services"
+      "koekeishiya/formulae"
+      "felixkratz/formulae"
     ];
   };
 }

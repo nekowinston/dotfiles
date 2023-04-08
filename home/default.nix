@@ -16,12 +16,12 @@ in {
       ./apps/gpg.nix
       ./apps/i3.nix
       ./apps/kubernetes.nix
+      ./apps/macos.nix
       ./apps/mail.nix
       ./apps/music.nix
       ./apps/neovim.nix
       ./apps/newsboat.nix
       ./apps/rice.nix
-      ./apps/sketchybar.nix
       ./apps/vscode.nix
       ./apps/wezterm.nix
       ./apps/wayland.nix

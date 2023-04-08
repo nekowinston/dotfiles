@@ -6,7 +6,6 @@
 }: {
   imports = [
     ./brew.nix
-    ./wm.nix
   ];
 
   users.users.winston.home = "/Users/winston";
