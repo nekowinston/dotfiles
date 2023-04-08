@@ -53,7 +53,10 @@
         };
       };
     };
-    commonHMConfig = {username}: ({
+    commonHMConfig = {
+      username,
+      machine,
+    }: ({
       config,
       pkgs,
       ...
@@ -70,6 +73,7 @@
               if pkgs.stdenv.isDarwin
               then "/Users/${username}/.config/nixpkgs"
               else "/home/${username}/.config/nixpkgs";
+            inherit machine swayfx;
           };
         };
       };
@@ -83,7 +87,10 @@
             home-manager.nixosModules.home-manager
             ./machines/common
             ./machines/futomaki
-            (commonHMConfig {username = "winston";})
+            (commonHMConfig {
+              username = "winston";
+              machine.personal = true;
+            })
           ];
         };
         "bento" = nixpkgs.lib.nixosSystem rec {
@@ -92,7 +99,10 @@
             home-manager.nixosModules.home-manager
             ./machines/common
             ./machines/bento
-            (commonHMConfig {username = "w";})
+            (commonHMConfig {
+              username = "w";
+              machine.personal = false;
+            })
           ];
         };
       };
@@ -103,7 +113,10 @@
             home-manager.darwinModules.home-manager
             ./machines/common
             ./machines/sashimi
-            (commonHMConfig {username = "winston";})
+            (commonHMConfig {
+              username = "winston";
+              machine.personal = true;
+            })
           ];
         };
       };
