@@ -10,10 +10,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
+    home-manager.url = "github:nix-community/home-manager";
     nur.url = "github:nix-community/nur";
     nekowinston-nur.url = "github:nekowinston/nur";
     sops.url = "github:Mic92/sops-nix";
