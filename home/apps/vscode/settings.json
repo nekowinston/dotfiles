@@ -1,7 +1,10 @@
 {
-  "workbench.iconTheme": "material-icon-theme",
+  "workbench.iconTheme": "catppuccin-mocha",
   "workbench.colorTheme": "Catppuccin Mocha",
+  "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
+  "workbench.preferredLightColorTheme": "Catppuccin Latte",
   "window.titleBarStyle": "custom",
+  "window.autoDetectColorScheme": true,
   "telemetry.telemetryLevel": "off",
   "update.mode": "none",
   "extensions.autoUpdate": false,
@@ -12,14 +15,15 @@
   "editor.inlineSuggest.enabled": true,
   "git.autofetch": true,
   "editor.lineNumbers": "relative",
+  "editor.minimap.enabled": false,
   "vim.incsearch": true,
   "vim.replaceWithRegister": true,
-  "vim.useSystemClipboard": false,
+  "vim.useSystemClipboard": true,
   "vim.camelCaseMotion.enable": true,
-  "vim.useCtrlKeys": false,
   "vim.hlsearch": true,
   "vim.highlightedyank.enable": true,
   "vim.highlightedyank.color": "rgba(128, 128, 128, 0.8)",
+  "vim.smartRelativeLine": true,
   "vim.insertModeKeyBindings": [],
   "vim.normalModeKeyBindingsNonRecursive": [
     {
@@ -85,13 +89,6 @@
     "<C-v>": true
   },
   "catppuccin.accentColor": "pink",
-  "catppuccin.colorOverrides": {
-    "mocha": {
-      "base": "#000000",
-      "mantle": "#010101",
-      "crust": "#020202"
-    }
-  },
   "catppuccin.customUIColors": {
     "all": {
       "statusBar.foreground": "accent",
@@ -105,12 +102,19 @@
   "editor.inlayHints.fontFamily": "Victor Mono",
   "editor.inlayHints.fontSize": 12,
   "vs-kubernetes": {
-    "vs-kubernetes.crd-code-completion": "enabled"
+    "vs-kubernetes.crd-code-completion": "enabled",
+    "vs-kubernetes.minikube-show-information-expiration": "2023-10-01T02:24:51.560Z"
   },
   "markdown.preview.fontFamily": "IBM Plex Sans, sans-serif",
-  "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
-  "workbench.preferredHighContrastColorTheme": "Catppuccin Latte",
-  "window.autoDetectColorScheme": true,
-  "vim.smartRelativeLine": true,
-  "ltex.additionalRules.motherTongue": "de-AT"
+  "ltex.additionalRules.motherTongue": "de-AT",
+  "diffEditor.ignoreTrimWhitespace": false,
+  "search.useGlobalIgnoreFiles": true,
+  "search.useParentIgnoreFiles": true,
+  "typescript.inlayHints.parameterNames.enabled": "all",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[less]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
