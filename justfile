@@ -6,7 +6,14 @@ default:
 # check flake syntax {{{
 [macos]
 check:
-  darwin-rebuild check --flake .
+  #!/usr/bin/env bash
+  set -euxo pipefail
+  if [[ -x "./result/sw/bin/darwin-rebuild" ]]; then
+    ./result/sw/bin/darwin-rebuild check --flake .
+  else
+    nix build .\#darwinConfigurations.${HOST}.system
+    ./result/sw/bin/darwin-rebuild check --flake .
+  fi
 
 [linux]
 check:
@@ -16,7 +23,14 @@ check:
 # build {{{
 [macos]
 switch: secret-stage && secret-unstage
-  darwin-rebuild switch --flake .
+  #!/usr/bin/env bash
+  set -euxo pipefail
+  if [[ -x "./result/sw/bin/darwin-rebuild" ]]; then
+    ./result/sw/bin/darwin-rebuild switch --flake .
+  else
+    nix build .\#darwinConfigurations.${HOST}.system
+    ./result/sw/bin/darwin-rebuild switch --flake .
+  fi
 
 [linux]
 switch: secret-stage && secret-unstage
@@ -36,7 +50,7 @@ fontdir := if os() == "macos" {"$HOME/Library/Fonts"} else {"${XDG_DATA_HOME:-$H
 
 install-fonts:
   #!/usr/bin/env bash
-  set -euo pipefail
+  set -euxo pipefail
   mkdir -p "{{fontdir}}"
   gpg --decrypt home/secrets/fonts.tgz.gpg | tar -xz -C "{{fontdir}}" --strip-components=1
 # }}}
