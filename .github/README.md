@@ -5,7 +5,6 @@
 [![commit activity](https://img.shields.io/github/commit-activity/w/nekowinston/dotfiles?style=flat-square&label=commits&color=f5c2e7)](https://github.com/nekowinston/dotfiles/commits)
 [![SLOC](https://img.shields.io/tokei/lines/github/nekowinston/dotfiles?style=flat-square&color=f5c2e7)](#)
 [![MIT license](https://img.shields.io/github/license/nekowinston/dotfiles?style=flat-square&color=f5c2e7)](https://github.com/nekowinston/dotfiles/blob/main/LICENSE)
-
 Welcome to my cross-platform dots. Focused on improving productivity, and reducing the pain of switching between operating systems. Minimal rice, with a focus on getting the annoying stuff out of the way.
 
 > **Note**
@@ -36,3 +35,32 @@ These are things I used to have with chezmoi, but are currently missing in this 
 
 - **[bugwarrior](https://github.com/ralphbean/bugwarrior)** for ticket integration
 - **[taskwiki](https://github.com/tools-life/taskwiki)** for task management in neovim
+
+### Notes for a new install
+
+#### macOS
+
+##### Install the [XCode Command Line Tools](https://developer.apple.com/download/all/)
+
+```sh
+xcode-select --install
+```
+
+##### [Install Brew](https://brew.sh)
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
+```
+
+##### Exclude `/nix/` from Time Machine:
+
+```sh
+sudo tmutil addexclusion -v /nix
+```
+
+##### Initial build for the flake
+
+```sh
+nix build .#darwinConfigurations.sashimi.system
+./result/sw/bin/darwin-rebuild switch --flake .
+```
