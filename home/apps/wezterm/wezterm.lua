@@ -9,12 +9,11 @@ end
 require("fonts").apply(c)
 require("keys").apply(c)
 c.window_padding = {
-  left = 10,
-  right = 10,
-  top = 10,
-  bottom = 10,
+  left = 0,
+  right = 0,
+  top = 0,
+  bottom = 0,
 }
-require("smartpadding").apply_to_config(c)
 
 -- set up terminfo on nix
 c.set_environment_variables = {
