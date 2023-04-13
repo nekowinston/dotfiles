@@ -14,6 +14,8 @@
     nur.url = "github:nix-community/nur";
     nekowinston-nur.url = "github:nekowinston/nur";
     sops.url = "github:Mic92/sops-nix";
+    nix-index-database.url = "github:Mic92/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
     # dev
     swayfx.url = "github:willpower3309/swayfx";
@@ -27,6 +29,7 @@
     flake-utils,
     home-manager,
     nekowinston-nur,
+    nix-index-database,
     nixpkgs,
     nixpkgs-unstable,
     nur,
@@ -63,7 +66,11 @@
         home-manager = {
           useGlobalPkgs = true;
           backupFileExtension = "backup";
-          sharedModules = [sops.homeManagerModules.sops ./modules];
+          sharedModules = [
+            ./modules
+            nix-index-database.hmModules.nix-index
+            sops.homeManagerModules.sops
+          ];
           users.${username}.imports = [./home];
           extraSpecialArgs = {
             flakePath =
