@@ -81,7 +81,7 @@ in {
 
       envExtra = ''
         export PATH="$PATH:${config.xdg.dataHome}/krew/bin:${config.home.sessionVariables.GOPATH}/bin:${config.home.sessionVariables.CARGO_HOME}/bin:$HOME/.local/bin"
-        export ZVM_INIT_MODE=sourcing
+        export ZVM_INIT_MODE=sourcing ZVM_CURSOR_STYLE_ENABLED=false
       '';
 
       dotDir = ".config/zsh";
