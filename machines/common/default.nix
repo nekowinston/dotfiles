@@ -7,8 +7,8 @@
   nix = {
     gc.automatic = true;
     settings = {
-      experimental-features = ["nix-command" "flakes"];
-      auto-optimise-store = true;
+      experimental-features = ["nix-command" "flakes" "repl-flake"];
+      auto-optimise-store = pkgs.stdenv.isLinux;
       substituters = [
         "https://catppuccin.cachix.org"
         "https://mic92.cachix.org"
