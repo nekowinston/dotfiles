@@ -6,21 +6,6 @@ return {
     end,
     config = function()
       local treesitter = require("nvim-treesitter.configs")
-      local parsers = require("nvim-treesitter.parsers")
-
-      local parser_config = parsers.get_parser_configs()
-      parser_config.gotmpl = {
-        install_info = {
-          url = "https://github.com/ngalaiko/tree-sitter-go-template",
-          files = { "src/parser.c" },
-        },
-        filetype = "gotmpl",
-        used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl", "yaml", "helm" },
-      }
-
-      local ft_to_parser = parsers.filetype_to_parsername
-      ft_to_parser.helm = "gotmpl"
-
       treesitter.setup({
         auto_install = true,
         ignore_install = {

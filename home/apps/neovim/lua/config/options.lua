@@ -30,7 +30,9 @@ vim.o.shiftwidth = 2
 vim.o.tabstop = 2
 vim.o.softtabstop = 0
 vim.o.expandtab = true
+-- always show 1 column of sign column (gitsigns, etc.)
 vim.o.signcolumn = "yes:1"
+-- hide search notices, intro
 vim.opt.shortmess:append("sI")
 -- double box drawing characters for splits
 vim.opt.fillchars:append({
