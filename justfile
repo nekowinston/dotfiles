@@ -11,7 +11,7 @@ check:
   if [[ -x "./result/sw/bin/darwin-rebuild" ]]; then
     ./result/sw/bin/darwin-rebuild check --flake .
   else
-    nix build .\#darwinConfigurations.${HOST}.system
+    nix build .\#darwinConfigurations.`hostname`.system
     ./result/sw/bin/darwin-rebuild check --flake .
   fi
 
@@ -28,7 +28,7 @@ switch: secret-stage && secret-unstage
   if [[ -x "./result/sw/bin/darwin-rebuild" ]]; then
     ./result/sw/bin/darwin-rebuild switch --flake .
   else
-    nix build .\#darwinConfigurations.${HOST}.system
+    nix build .\#darwinConfigurations.`hostname`.system
     ./result/sw/bin/darwin-rebuild switch --flake .
   fi
 
