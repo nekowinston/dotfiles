@@ -16,7 +16,6 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 M.setup = function(plugins)
   require("lazy").setup(plugins, {
     install = {
-      missing = false,
       colorscheme = { "catppuccin" },
     },
     performance = {

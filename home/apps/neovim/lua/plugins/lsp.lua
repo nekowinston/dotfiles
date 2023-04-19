@@ -14,7 +14,10 @@ return {
       "onsails/lspkind.nvim",
       "rafamadriz/friendly-snippets",
       "jose-elias-alvarez/null-ls.nvim",
-      "folke/trouble.nvim",
+      {
+        "folke/trouble.nvim",
+        opts = { padding = false },
+      },
       "nvim-lua/lsp-status.nvim",
       "barreiroleo/ltex-extra.nvim",
       "b0o/schemastore.nvim",

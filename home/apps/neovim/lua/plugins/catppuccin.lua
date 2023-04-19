@@ -54,8 +54,6 @@ return {
         highlight_overrides = {
           all = function(colors)
             return {
-              -- custom selection highlight
-              Selection = { bg = colors.surface1, fg = colors.text },
               -- borders
               FloatBorder = { fg = colors.overlay0 },
               LspInfoBorder = { link = "FloatBorder" },
