@@ -71,7 +71,10 @@ in {
         done
 
         # WezTerm
-        [[ "$TERM_PROGRAM" == "WezTerm" ]] && TERM=wezterm
+        if [[ "$TERM_PROGRAM" == "WezTerm" ]]; then
+          TERM=wezterm
+          source ${pkgs.nur.repos.nekowinston.wezterm-nightly}/etc/profile.d/wezterm.sh
+        fi
 
         source <(konf-go shellwrapper zsh)
         source <(konf-go completion zsh)
