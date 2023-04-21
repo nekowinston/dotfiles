@@ -9,8 +9,11 @@
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    home-manager.url = "github:nix-community/home-manager";
     nur.url = "github:nix-community/nur";
     nekowinston-nur.url = "github:nekowinston/nur";
     sops.url = "github:Mic92/sops-nix";
@@ -124,6 +127,37 @@
           ];
         };
       };
+      homeConfigurations.winston = let
+        system = "aarch64-linux";
+        pkgs = import nixpkgs-unstable {
+          inherit system;
+          config.allowUnfree = true;
+        };
+        username = "winston";
+      in
+        home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [
+            {
+              home.homeDirectory = "/home/winston";
+              home.username = "/home/winston";
+              nixpkgs.overlays = [overlays];
+              nixpkgs.config.allowUnfree = true;
+            }
+            ./modules
+            ./home
+            nix-index-database.hmModules.nix-index
+            sops.homeManagerModules.sops
+          ];
+          extraSpecialArgs = {
+            flakePath =
+              if pkgs.stdenv.isDarwin
+              then "/Users/${username}/.config/nixpkgs"
+              else "/home/${username}/.config/nixpkgs";
+            inherit swayfx;
+            machine.personal = false;
+          };
+        };
     }
     // flake-utils.lib.eachDefaultSystem (system: {
       checks = {

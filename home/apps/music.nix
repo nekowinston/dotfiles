@@ -74,7 +74,7 @@ in {
     };
   };
 
-  home.packages = lib.mkIf isLinux [pkgs.unstable.cider];
+  #home.packages = lib.mkIf isLinux [pkgs.unstable.cider];
 
   launchd.agents.discord-applemusic-rich-presence = {
     enable = true;

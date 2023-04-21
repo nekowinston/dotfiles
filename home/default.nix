@@ -54,15 +54,15 @@ in {
         victor-mono
         ibm-plex
         xkcd-font
-        nur.repos.nekowinston.wezterm-nightly
+        wezterm
       ]
       ++ lib.optionals isLinux [
         _1password-gui
-        insomnia
-        mattermost-desktop
+        #insomnia
+        #mattermost-desktop
         neovide
-        unstable.jetbrains.webstorm
-        gnome.gnome-boxes
+        #unstable.jetbrains.webstorm
+        #gnome.gnome-boxes
       ]
       ++ lib.optionals (isLinux && machine.personal) [
         nur.repos.nekowinston.discover-overlay

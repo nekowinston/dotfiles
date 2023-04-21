@@ -41,10 +41,12 @@ boot: secret-stage && secret-unstage
 # }}}
 
 # secrets {{{
+secretExists := path_exists("./home/secrets/default.nix")
+
 secret-stage:
-  git add -f home/secrets/default.nix
+  {{secretExists}} && git add -f home/secrets/default.nix || exit 0
 secret-unstage:
-  git restore --staged home/secrets/default.nix
+  {{secretExists}} && git restore --staged home/secrets/default.nix || exit 0
 
 fontdir := if os() == "macos" {"$HOME/Library/Fonts"} else {"${XDG_DATA_HOME:-$HOME/.local/share}/fonts"}
 

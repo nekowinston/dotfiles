@@ -64,7 +64,7 @@
       rustfmt
 
       # etc
-      deno
+      #deno
       ltex-ls
       nodePackages.prettier
       rnix-lsp
