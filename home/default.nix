@@ -55,6 +55,10 @@ in {
         ibm-plex
         xkcd-font
         wezterm
+
+        unstable.podman
+        unstable.podman-compose
+        unstable.qemu
       ]
       ++ lib.optionals isLinux [
         _1password-gui
