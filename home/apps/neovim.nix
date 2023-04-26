@@ -64,7 +64,7 @@
       rustfmt
 
       # etc
-      #deno
+      deno
       ltex-ls
       nodePackages.prettier
       rnix-lsp
@@ -83,7 +83,7 @@
       (writeShellScriptBin "gsed" "exec ${gnused}/bin/sed")
 
       # needed for some plugin build steps
-      gcc
+      gcc11
       gnumake
       unzip
     ];

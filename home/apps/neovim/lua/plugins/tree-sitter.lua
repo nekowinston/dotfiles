@@ -6,6 +6,18 @@ return {
     end,
     config = function()
       local treesitter = require("nvim-treesitter.configs")
+
+      require("nvim-treesitter.parsers").get_parser_configs().just = {
+        install_info = {
+          url = "https://github.com/indianboy42/tree-sitter-just",
+          files = { "src/parser.c", "src/scanner.cc" },
+          branch = "main",
+          use_makefile = true,
+        },
+        maintainers = { "@IndianBoy42" },
+      }
+      require("nvim-treesitter.install").compilers = { "gcc" }
+
       treesitter.setup({
         auto_install = true,
         ignore_install = {
@@ -56,5 +68,4 @@ return {
       vim.g.astro_typescript = "enable"
     end,
   },
-  "noahtheduke/vim-just",
 }

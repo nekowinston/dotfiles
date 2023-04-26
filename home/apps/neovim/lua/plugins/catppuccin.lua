@@ -4,7 +4,7 @@ return {
     name = "catppuccin",
     config = function()
       require("catppuccin").setup({
-        transparent_background = true,
+        transparent_background = not vim.g.neovide,
         dim_inactive = {
           enable = true,
           shade = "dark",
