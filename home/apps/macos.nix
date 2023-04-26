@@ -42,8 +42,7 @@ in {
           window_placement second_child \
           window_shadow float \
           active_window_border_color 0xfff5c2e7 \
-          normal_window_border_color 0xffcba6f7 \
-          external_bar all:32:0
+          normal_window_border_color 0xffcba6f7
 
         # auto-inject scripting additions
         yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"

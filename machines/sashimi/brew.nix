@@ -2,12 +2,14 @@
   homebrew = {
     enable = true;
     caskArgs.require_sha = true;
-    onActivation.autoUpdate = true;
-    onActivation.upgrade = true;
+    onActivation = {
+      autoUpdate = true;
+      cleanup = "uninstall";
+      upgrade = true;
+    };
     brews = [
       "koekeishiya/formulae/yabai"
       "koekeishiya/formulae/skhd"
-      "felixkratz/formulae/sketchybar"
     ];
     casks = let
       skipSha = name: {
@@ -49,6 +51,7 @@
       (skipSha "affinity-designer")
       (skipSha "affinity-photo")
       (skipSha "affinity-publisher")
+      (skipSha "element")
       (skipSha "sizzy")
 
       # drivers
@@ -61,7 +64,6 @@
       "homebrew/cask-drivers"
       "homebrew/services"
       "koekeishiya/formulae"
-      "felixkratz/formulae"
     ];
   };
 }
