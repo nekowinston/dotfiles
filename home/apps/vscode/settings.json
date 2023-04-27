@@ -18,7 +18,6 @@
   "editor.minimap.enabled": false,
   "vim.incsearch": true,
   "vim.replaceWithRegister": true,
-  "vim.useSystemClipboard": true,
   "vim.camelCaseMotion.enable": true,
   "vim.hlsearch": true,
   "vim.highlightedyank.enable": true,
