@@ -50,7 +50,7 @@
 
     kanata = {
       enable = true;
-      package = pkgs.unstable.kanata;
+      package = pkgs.kanata;
       keyboards.keychron-k6 = {
         devices = ["/dev/input/by-id/usb-Keychron_Keychron_K6-event-kbd"];
         config = ''
@@ -81,7 +81,7 @@
       libinput.enable = true;
       windowManager.i3 = {
         enable = true;
-        package = pkgs.unstable.i3;
+        package = pkgs.i3;
       };
       xkbOptions = "caps:ctrl_modifier";
     };

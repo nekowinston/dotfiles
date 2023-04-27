@@ -14,7 +14,7 @@
 
     withNodeJs = true;
 
-    extraPackages = with pkgs.unstable; [
+    extraPackages = with pkgs; [
       # external deps
       fd
       ripgrep

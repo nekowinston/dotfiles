@@ -2,12 +2,10 @@
   description = "nekowinston's hm flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     darwin = {
       url = "github:lnl7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -34,7 +32,6 @@
     nekowinston-nur,
     nix-index-database,
     nixpkgs,
-    nixpkgs-unstable,
     nur,
     pre-commit-hooks,
     sops,
@@ -42,16 +39,12 @@
     ...
   }: let
     overlays = final: prev: {
-      unstable = import nixpkgs-unstable {
-        system = prev.system;
-        config.allowUnfree = true;
-      };
       nur = import nur {
         nurpkgs = prev;
         pkgs = prev;
         repoOverrides = {
           nekowinston = import nekowinston-nur {
-            pkgs = import nixpkgs-unstable {system = prev.system;};
+            pkgs = import nixpkgs {system = prev.system;};
           };
         };
       };
@@ -129,7 +122,7 @@
       };
       homeConfigurations.winston = let
         system = "aarch64-linux";
-        pkgs = import nixpkgs-unstable {
+        pkgs = import nixpkgs {
           inherit system;
           config.allowUnfree = true;
         };

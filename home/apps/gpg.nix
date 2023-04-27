@@ -9,7 +9,7 @@
   mailvelopeConfig = builtins.toJSON {
     name = "gpgmejson";
     description = "JavaScript binding for GnuPG";
-    path = pkgs.unstable.gpgme.dev + /bin/gpgme-json;
+    path = pkgs.gpgme.dev + /bin/gpgme-json;
     type = "stdio";
     allowed_extensions = ["jid1-AQqSMBYb0a8ADg@jetpack"];
   };
@@ -18,9 +18,9 @@ in {
     gnupg-pkcs11-scd
     pcsclite
     pinentry
-    unstable.git-credential-gopass
-    unstable.gopass
-    unstable.gopass-jsonapi
+    git-credential-gopass
+    gopass
+    gopass-jsonapi
     yubikey-personalization
   ];
 

@@ -35,4 +35,6 @@
     "94e2d5"
     "94e2d5"
   ];
+
+  programs.zsh.enable = true;
 }

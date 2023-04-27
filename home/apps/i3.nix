@@ -41,7 +41,7 @@
       modFocus = "${mod}+Ctrl";
       hyper = "Mod4+Mod1+Shift+Ctrl";
 
-      gopass = lib.getExe pkgs.unstable.gopass;
+      gopass = lib.getExe pkgs.gopass;
       rofi = lib.getExe config.programs.rofi.package;
       thunar = lib.getExe pkgs.xfce.thunar;
       xargs = "${lib.getExe pkgs.findutils}/bin/xargs";
@@ -442,7 +442,7 @@ in {
     scriptPath = "${config.xdg.cacheHome}/X11/xsession";
     windowManager.i3 = {
       enable = true;
-      package = pkgs.unstable.i3;
+      package = pkgs.i3;
       config =
         commonConfig {wayland = false;}
         // {

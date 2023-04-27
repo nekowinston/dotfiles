@@ -66,7 +66,7 @@ in {
         }
       '');
     in {
-      ProgramArguments = ["${pkgs.unstable.mpd}/bin/mpd" "--no-daemon" "${mpdConf}"];
+      ProgramArguments = ["${pkgs.mpd}/bin/mpd" "--no-daemon" "${mpdConf}"];
       KeepAlive = true;
       RunAtLoad = true;
       StandardErrorPath = "${config.xdg.cacheHome}/mpd.log";
@@ -74,7 +74,7 @@ in {
     };
   };
 
-  #home.packages = lib.mkIf isLinux [pkgs.unstable.cider];
+  #home.packages = lib.mkIf isLinux [pkgs.cider];
 
   launchd.agents.discord-applemusic-rich-presence = {
     enable = true;

@@ -49,7 +49,7 @@ in {
   programs = {
     steam = {
       enable = true;
-      package = pkgs.unstable.steam.override {
+      package = pkgs.steam.override {
         extraPkgs = pkgs: with pkgs; [gamemode mangohud];
         extraLibraries = pkgs:
           with config.hardware.opengl;

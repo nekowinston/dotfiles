@@ -38,7 +38,7 @@ in {
 
     starship = {
       enable = true;
-      package = pkgs.unstable.starship;
+      package = pkgs.starship;
     };
 
     tealdeer = {

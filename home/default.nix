@@ -50,29 +50,29 @@ in {
         mosh
 
         nur.repos.nekowinston.org-stats
-        (unstable.nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
+        (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
         victor-mono
         ibm-plex
         xkcd-font
         wezterm
 
-        unstable.podman
-        unstable.podman-compose
-        unstable.qemu
+        podman
+        podman-compose
+        qemu
       ]
       ++ lib.optionals isLinux [
         _1password-gui
         #insomnia
         #mattermost-desktop
         neovide
-        #unstable.jetbrains.webstorm
+        #jetbrains.webstorm
         #gnome.gnome-boxes
       ]
       ++ lib.optionals (isLinux && machine.personal) [
         nur.repos.nekowinston.discover-overlay
-        (unstable.discord.override {withOpenASAR = true;})
-        unstable.lutris
-        unstable.heroic
+        (discord.override {withOpenASAR = true;})
+        lutris
+        heroic
       ]);
 
     sessionVariables = lib.mkIf isDarwin {
@@ -89,7 +89,7 @@ in {
     taskwarrior.enable = true;
     mangohud = {
       enable = isLinux && machine.personal;
-      package = pkgs.unstable.mangohud;
+      package = pkgs.mangohud;
     };
     zathura.enable = true;
   };

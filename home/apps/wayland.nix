@@ -14,7 +14,7 @@ in {
 
   programs.waybar = lib.mkIf isLinux {
     enable = true;
-    package = pkgs.unstable.waybar;
+    package = pkgs.waybar;
     settings = [
       {
         layer = "top";
