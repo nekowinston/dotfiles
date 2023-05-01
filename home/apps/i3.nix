@@ -480,11 +480,14 @@ in {
       };
     extraConfig = ''
       ${commonExtraConfig}
-      shadows             on
+      shadows             enable
       shadow_color        #00000099
       shadow_blur_radius  10
       corner_radius       5
-      smart_corner_radius on
+      smart_corner_radius enable
+      blur                enable
+      blur_passes         2
+      blur_radius         2
     '';
     systemdIntegration = true;
     wrapperFeatures = {
