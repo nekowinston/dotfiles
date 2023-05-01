@@ -50,7 +50,7 @@ wezterm.plugin
   .require("https://github.com/catppuccin/wezterm")
   .apply_to_config(c, {
     flavor = "mocha",
-    sync = true,
+    sync = wezterm.target_triple:find("darwin") ~= nil,
     sync_flavors = { light = "latte", dark = "mocha" },
   })
 wezterm.plugin
