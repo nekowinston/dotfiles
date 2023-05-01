@@ -3,7 +3,6 @@
   lib,
   flakePath,
   pkgs,
-  swayfx,
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isLinux;
@@ -461,7 +460,6 @@ in {
 
   wayland.windowManager.sway = lib.mkIf isLinux {
     enable = true;
-    package = swayfx;
     config =
       commonConfig {wayland = true;}
       // {

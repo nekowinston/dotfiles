@@ -34,10 +34,10 @@
         default_session = let
           swaycmd = pkgs.writeShellScript "swaycmd" ''
             export NIXOS_OZONE_WL=1 XDG_CURRENT_DESKTOP=sway
-            sway > /tmp/sway.log 2>&1
+            ${pkgs.sway}/bin/sway > /tmp/sway.log 2>&1
           '';
         in {
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd ${swaycmd}";
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time -r --cmd ${swaycmd}";
           user = "greeter";
         };
       };

@@ -20,6 +20,8 @@
 
     # dev
     swayfx.url = "github:willpower3309/swayfx";
+    swayfx.inputs.nixpkgs.follows = "nixpkgs";
+
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     flake-utils.url = "github:numtide/flake-utils";
   };
@@ -48,6 +50,7 @@
           };
         };
       };
+      sway-unwrapped = swayfx.packages.${prev.system}.default;
     };
     commonHMConfig = {
       username,
@@ -73,7 +76,7 @@
               if pkgs.stdenv.isDarwin
               then "/Users/${username}/.config/nixpkgs"
               else "/home/${username}/.config/nixpkgs";
-            inherit machine swayfx;
+            inherit machine;
           };
         };
       };
@@ -147,7 +150,6 @@
               if pkgs.stdenv.isDarwin
               then "/Users/${username}/.config/nixpkgs"
               else "/home/${username}/.config/nixpkgs";
-            inherit swayfx;
             machine.personal = false;
           };
         };
