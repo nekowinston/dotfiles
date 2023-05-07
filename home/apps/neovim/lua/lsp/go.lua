@@ -29,7 +29,7 @@ M.setup = function(opts)
       only_current_line = false,
       only_current_line_autocmd = "CursorHold",
       show_variable_name = true,
-      parameter_hints_prefix = " ",
+      parameter_hints_prefix = "󰊕 ",
       show_parameter_hints = true,
       other_hints_prefix = "=> ",
       highlight = "InlayHint",

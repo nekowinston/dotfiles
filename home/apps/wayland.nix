@@ -46,7 +46,7 @@ in {
           interval = 1;
         };
         memory = {
-          format = " {percentage:2}%";
+          format = "󰍛 {percentage:2}%";
           interval = 1;
         };
         spacing = 4;

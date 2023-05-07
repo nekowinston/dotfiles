@@ -8,8 +8,8 @@ return {
         key_labels = {
           ["<space>"] = "␣",
           ["<leader>"] = "␣",
-          ["<cr>"] = " ",
-          ["<tab>"] = " ",
+          ["<cr>"] = "󰌑 ",
+          ["<tab>"] = "󰌒 ",
           ["<esc>"] = "⎋ ",
         },
         window = {

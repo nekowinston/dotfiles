@@ -57,7 +57,7 @@ wezterm.plugin
   .require("https://github.com/nekowinston/wezterm-bar")
   .apply_to_config(c, {
     indicator = {
-      leader = { off = "ﱤ", on = "ﱣ" },
+      leader = { off = "", on = "" },
     },
   })
 

@@ -4,7 +4,7 @@ return {
     opts = {
       text = {
         spinner = "dots",
-        done = "﫠",
+        done = "󰗡",
         commenced = "init",
         completed = "done",
       },

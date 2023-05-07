@@ -21,49 +21,49 @@ case "$INFO" in
   "WezTerm") ICON=" ";;
 
   # browsers
-  "Chromium") ICON=" ";;
+  "Chromium") ICON="󰊯 ";;
   "Firefox") ICON=" ";;
-  "Safari") ICON=" ";;
+  "Safari") ICON="󰀹 ";;
   "qutebrowser") ICON=" ";;
 
   # system
   "App Store") ICON=" ";;
   "Books") ICON=" ";;
-  "Finder") ICON=" ";;
-  "Music") ICON="ﱘ ";;
+  "Finder") ICON="󰀶 ";;
+  "Music") ICON="󰝚 ";;
   "Podcasts") ICON=" ";;
   "Photos") ICON=" ";;
   "Preview") ICON=" ";;
   "System Preferences") ICON=" ";;
 
   # chat
-  "Discord") ICON="ﭮ ";;
+  "Discord") ICON="󰙯 ";;
   "Mattermost") ICON=" ";;
   "Slack") ICON=" ";;
 
   # creativity
-  "Affinity Designer") ICON=" ";;
-  "Affinity Photo") ICON=" ";;
-  "Affinity Publisher") ICON=" ";;
-  "Blender") ICON=" ";;
+  "Affinity Designer") ICON="󰃣 ";;
+  "Affinity Photo") ICON="󰃣 ";;
+  "Affinity Publisher") ICON="󰈙 ";;
+  "Blender") ICON="󰂫 ";;
   "Final Cut") ICON=" ";;
-  "Garageband") ICON=" ";;
-  "Logic Pro X") ICON=" ";;
+  "Garageband") ICON="󰋄 ";;
+  "Logic Pro X") ICON="󰋄 ";;
   "iMovie") ICON=" ";;
 
   # password managers
   "GPG Keychain") ;&
   "KeePassXC") ;&
   "LastPass") ;&
-  "1Password") ICON=" ";;
+  "1Password") ICON="󰌋 ";;
 
   # other
-  "Audible") ICON=" ";;
+  "Audible") ICON="󰋋 ";;
   "Pocket Casts") ICON=" ";;
   "Setapp") ICON=" ";;
   "Spotify") ICON=" ";;
   "Steam") ICON=" ";;
-  *) ICON="ﬓ ";;
+  *) ICON="󰘔 ";;
 esac
 
 sketchybar --set "$NAME" label="$INFO" icon="$ICON"

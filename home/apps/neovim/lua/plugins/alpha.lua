@@ -16,7 +16,7 @@ return {
       }
       dashboard.section.buttons.val = {
         dashboard.button("e", "  New file", ":ene <BAR> startinsert <CR>"),
-        dashboard.button("q", "  Quit NVIM", ":qa<CR>"),
+        dashboard.button("q", "󰅚  Quit NVIM", ":qa<CR>"),
       }
       local version = vim.version()
       dashboard.section.footer.val = "neovim v"
