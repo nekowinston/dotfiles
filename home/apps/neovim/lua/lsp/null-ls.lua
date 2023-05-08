@@ -23,10 +23,6 @@ null.setup({
     null.builtins.formatting.taplo,
     null.builtins.diagnostics.alex,
     null.builtins.diagnostics.proselint,
-    null.builtins.diagnostics.deadnix.with({
-      -- ignore dead lambda arguments
-      extra_args = { "-l", "-L" },
-    }),
     null.builtins.hover.dictionary,
     null.builtins.hover.printenv,
   },

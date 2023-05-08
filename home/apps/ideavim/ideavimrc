@@ -48,14 +48,10 @@ map <leader>rn <Action>(RenameElement)
 map <C-N> :NERDTreeToggle<CR>
 
 " easier split navigation
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
 
 sethandler <C-D> a:vim
 sethandler <C-U> a:vim
@@ -70,7 +66,7 @@ map <A-x> <Action>(CloseContent)
 map <leader>zz <Action>(ToggleZenMode)
 
 " File navigation
-map <leader>ff <Action>(GotoFile)
+map <leader>fd <Action>(GotoFile)
 map <leader>fg <Action>(FindInPath)
 map <leader>fl <Action>(RecentLocations)
 

@@ -13,7 +13,9 @@
     kubectl
     kubectx
     kubepug
-    kubernetes-helm
+    (wrapHelm kubernetes-helm {
+      plugins = [kubernetes-helmPlugins.helm-diff];
+    })
     minikube
     popeye
     pv-migrate

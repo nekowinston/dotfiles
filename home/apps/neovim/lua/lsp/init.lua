@@ -210,7 +210,7 @@ local servers = {
   "dockerls",
   "helm_ls",
   "jqls",
-  "rnix",
+  "nil",
   "taplo",
   "teal_ls",
 }

@@ -183,6 +183,7 @@
         pkgs = nixpkgs.legacyPackages.${system};
       in
         pkgs.mkShell {
+          name = "nixpkgs";
           inherit (self.checks.${system}.pre-commit-check) shellHook;
           packages = [
             pkgs.just

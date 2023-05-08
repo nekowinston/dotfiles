@@ -64,16 +64,15 @@
       rustfmt
 
       # etc
+      alejandra
       deno
       ltex-ls
+      nil
       nodePackages.prettier
-      rnix-lsp
       proselint
       shellcheck
       shfmt
       tree-sitter
-      alejandra
-      deadnix
       pkgs.nur.repos.nekowinston.jq-lsp
       pkgs.nur.repos.nekowinston.helm-ls
       pkgs.nur.repos.bandithedoge.nodePackages.emmet-ls

@@ -70,7 +70,7 @@ return {
             },
           },
           lualine_b = {
-            { "branch", icon = "" },
+            { "branch", icon = "" },
             "diff",
             "diagnostics",
           },
