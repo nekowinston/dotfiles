@@ -4,6 +4,7 @@
   ...
 }: {
   home.packages = with pkgs; [
+    (wrapHelm kubernetes-helm {plugins = [kubernetes-helmPlugins.helm-diff];})
     cmctl
     dyff
     gojq
@@ -13,9 +14,7 @@
     kubectl
     kubectx
     kubepug
-    (wrapHelm kubernetes-helm {
-      plugins = [kubernetes-helmPlugins.helm-diff];
-    })
+    kubeseal
     minikube
     popeye
     pv-migrate

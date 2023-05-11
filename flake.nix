@@ -84,7 +84,7 @@
   in
     {
       nixosConfigurations = {
-        "futomaki" = nixpkgs.lib.nixosSystem rec {
+        "futomaki" = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
             home-manager.nixosModules.home-manager
@@ -96,7 +96,7 @@
             })
           ];
         };
-        "bento" = nixpkgs.lib.nixosSystem rec {
+        "bento" = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
             home-manager.nixosModules.home-manager
@@ -110,7 +110,7 @@
         };
       };
       darwinConfigurations = {
-        "sashimi" = darwin.lib.darwinSystem rec {
+        "sashimi" = darwin.lib.darwinSystem {
           system = "aarch64-darwin";
           modules = [
             home-manager.darwinModules.home-manager

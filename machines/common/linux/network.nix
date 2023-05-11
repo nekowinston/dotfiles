@@ -1,8 +1,4 @@
 {
-  lib,
-  pkgs,
-  ...
-}: {
   services = {
     dnsmasq = {
       enable = true;
