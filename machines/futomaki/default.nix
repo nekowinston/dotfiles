@@ -46,18 +46,16 @@ in {
 
   system.stateVersion = "22.11";
 
+  environment.systemPackages = with pkgs; [
+    (discord.override {withOpenASAR = true;})
+    heroic
+    lutris
+    nur.repos.nekowinston.discover-overlay
+    wineWowPackages.staging
+    winetricks
+  ];
+
   programs = {
-    steam = {
-      enable = true;
-      package = pkgs.steam.override {
-        extraPkgs = pkgs: with pkgs; [gamemode mangohud];
-        extraLibraries = pkgs:
-          with config.hardware.opengl;
-            if pkgs.hostPlatform.is64bit
-            then [package] ++ extraPackages
-            else [package32] ++ extraPackages32;
-      };
-    };
     gamemode = {
       enable = true;
       settings = {

@@ -1,20 +1,23 @@
-{
+{pkgs, ...}: {
+  environment.systemPackages = with pkgs; [
+    mullvad-vpn
+  ];
+
   services = {
     dnsmasq = {
       enable = true;
-      servers = [
-        "::1#53000"
-        "127.0.0.1#53000"
-      ];
-      extraConfig = ''
+      settings = {
         # stubby
-        no-resolv
-        proxy-dnssec
-        listen-address=::1,127.0.0.1
-
+        no-resolv = true;
+        proxy-dnssec = true;
+        listen-address = "::1,127.0.0.1";
+        server = [
+          "::1#53000"
+          "127.0.0.1#53000"
+        ];
         # loopback for development
-        address=/test/127.0.0.1
-      '';
+        address = "/test/127.0.0.1";
+      };
     };
     mullvad-vpn = {
       enable = true;

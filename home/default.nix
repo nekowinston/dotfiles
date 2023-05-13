@@ -12,6 +12,7 @@ in {
   imports =
     [
       ./apps/browsers.nix
+      ./apps/fonts.nix
       ./apps/git.nix
       ./apps/gpg.nix
       ./apps/i3.nix
@@ -23,8 +24,8 @@ in {
       ./apps/newsboat.nix
       ./apps/rice.nix
       ./apps/vscode.nix
-      ./apps/wezterm.nix
       ./apps/wayland.nix
+      ./apps/wezterm.nix
       ./apps/zsh.nix
       ./secrets/sops.nix
       ./xdg.nix
@@ -37,7 +38,6 @@ in {
 
   home = {
     packages = with pkgs; ([
-        zsh
         fd
         ffmpeg
         file
@@ -49,13 +49,7 @@ in {
         gh
         mosh
 
-        nur.repos.nekowinston.org-stats
-        (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
-        victor-mono
-        ibm-plex
-        xkcd-font
         wezterm
-
         podman
         podman-compose
         qemu
@@ -65,16 +59,10 @@ in {
         #insomnia
         #mattermost-desktop
         neovide
+        kooha
         #jetbrains.webstorm
-        #gnome.gnome-boxes
-      ]
-      ++ lib.optionals (isLinux && machine.personal) [
-        nur.repos.nekowinston.discover-overlay
-        (discord.override {withOpenASAR = true;})
-        lutris
-        heroic
+        gnome.gnome-boxes
       ]);
-
     sessionVariables = lib.mkIf isDarwin {
       SSH_AUTH_SOCK = "${config.programs.gpg.homedir}/S.gpg-agent.ssh";
     };

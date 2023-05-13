@@ -7,19 +7,27 @@
 }: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
 in {
-  home.sessionVariables = {
-    AZURE_CONFIG_DIR = "${config.xdg.configHome}/azure";
-    CARGO_HOME = "${config.xdg.dataHome}/cargo";
-    CARGO_REGISTRIES_CRATES_IO_PROTOCOL = "sparse";
-    CARGO_UNSTABLE_SPARSE_REGISTRY = "true";
-    CUDA_CACHE_PATH = "${config.xdg.dataHome}/nv";
-    DOCKER_CONFIG = "${config.xdg.configHome}/docker";
-    GEM_HOME = "${config.xdg.dataHome}/gem";
-    GEM_SPEC_CACHE = "${config.xdg.cacheHome}/gem";
-    GOPATH = "${config.xdg.dataHome}/go";
-    NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
-    RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
-    XCOMPOSECACHE = "${config.xdg.cacheHome}/X11/xcompose";
+  home = {
+    sessionVariables = {
+      AZURE_CONFIG_DIR = "${config.xdg.configHome}/azure";
+      CARGO_HOME = "${config.xdg.dataHome}/cargo";
+      CARGO_REGISTRIES_CRATES_IO_PROTOCOL = "sparse";
+      CARGO_UNSTABLE_SPARSE_REGISTRY = "true";
+      CUDA_CACHE_PATH = "${config.xdg.dataHome}/nv";
+      DOCKER_CONFIG = "${config.xdg.configHome}/docker";
+      GEM_HOME = "${config.xdg.dataHome}/gem";
+      GEM_SPEC_CACHE = "${config.xdg.cacheHome}/gem";
+      GOPATH = "${config.xdg.dataHome}/go";
+      NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
+      RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
+      XCOMPOSECACHE = "${config.xdg.cacheHome}/X11/xcompose";
+    };
+    sessionPath = [
+      "$HOME/.local/bin"
+      "${config.xdg.dataHome}/krew/bin"
+      "${config.home.sessionVariables.GOPATH}/bin"
+      "${config.home.sessionVariables.CARGO_HOME}/bin"
+    ];
   };
 
   home.activation.npmrc_xdg = ''
@@ -48,6 +56,7 @@ in {
         "inode/directory" = "thunar.desktop";
         "application/pdf" = "zathura.desktop";
 
+        "text/plain" = "code.desktop";
         "text/html" = "firefox.desktop";
         "x-scheme-handler/http" = "firefox.desktop";
         "x-scheme-handler/https" = "firefox.desktop";

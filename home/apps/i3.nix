@@ -26,9 +26,6 @@
       {
         command = "${lib.getExe pkgs._1password-gui} --silent";
       }
-      {
-        command = "${pkgs.volnoti}/bin/volnoti";
-      }
     ];
     workspaceAutoBackAndForth = true;
     terminal = "wezterm start --always-new-process";
@@ -51,15 +48,7 @@
         else "${pkgs.flameshot}/bin/flameshot gui";
       playerctl = lib.getExe pkgs.playerctl;
       wpctl = pkgs.wireplumber + "/bin/wpctl";
-      volnotify = pkgs.writeShellScript "volnotify" ''
-        volumeRaw=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | head -n1)
-        volume=$(echo $volumeRaw | sed 's/Volume: //' | awk '{printf "%.0f\n", $1 * 100}')
-        if [[ "$volumeRaw" =~ "MUTED" ]]; then
-          volnoti-show -m
-        else
-          volnoti-show $volume
-        fi
-      '';
+      # TODO: replace xdotool with wayland equivalent
       gopassRofi = pkgs.writeShellScript "gopass-rofi" ''
         ${gopass} ls --flat | \
         ${rofi} -dmenu -dpi $dpi | \
@@ -77,8 +66,6 @@
       # Start Applications
       "${mod}+Shift+Return" = "exec ${terminal}";
       "${mod}+e" = "exec --no-startup-id ${thunar}";
-      "${mod}+Ctrl+x" = "exec --no-startup-id ${lib.getExe pkgs.xorg.xkill}";
-      # TODO: replace xdotool with wayland equivalent
       "${hyper}+space" = "exec --no-startup-id ${gopassRofi}";
       "${hyper}+p" = "exec --no-startup-id ${screenshot}";
 
@@ -160,9 +147,9 @@
       "${mod}+Shift+space" = "exec ${lib.getExe pkgs._1password-gui} --quick-access";
 
       # audio
-      "XF86AudioRaiseVolume" = "exec --no-startup-id ${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.0 && ${volnotify}";
-      "XF86AudioLowerVolume" = "exec --no-startup-id ${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1.0 && ${volnotify}";
-      "XF86AudioMute" = "exec --no-startup-id ${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle && ${volnotify}";
+      "XF86AudioRaiseVolume" = "exec --no-startup-id ${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.0";
+      "XF86AudioLowerVolume" = "exec --no-startup-id ${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1.0";
+      "XF86AudioMute" = "exec --no-startup-id ${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle";
       "XF86AudioNext" = "exec --no-startup-id ${playerctl} next";
       "XF86AudioPrev" = "exec --no-startup-id ${playerctl} previous";
       "XF86AudioPause" = "exec --no-startup-id ${playerctl} play-pause";
@@ -205,8 +192,6 @@
     bars = [
       {
         mode = "hide";
-        # use waybar if wayland
-        command = lib.mkIf wayland "${lib.getExe config.programs.waybar.package}";
         position = "top";
         workspaceNumbers = false;
         inherit fonts;
@@ -278,9 +263,11 @@
     set $ws9  9:Ⅸ
     set $ws10 10:Ⅹ
 
+    for_window [floating] border pixel 2
+
     # floating sticky
-    for_window [class="1Password"] floating enable sticky enable border pixel 1
-    for_window [window_role="PictureInPicture"] floating enable sticky enable border pixel 1
+    for_window [class="1Password"] floating enable sticky enable
+    for_window [window_role="PictureInPicture"] floating enable sticky enable
 
     # floating
     for_window [class="GParted"] floating enable
@@ -349,7 +336,6 @@ in {
       flameshot
       pavucontrol
       sway-contrib.grimshot
-      volnoti
       xclip
     ];
     pointerCursor = {
@@ -483,8 +469,10 @@ in {
       shadows             enable
       shadow_color        #00000099
       shadow_blur_radius  10
+
       corner_radius       5
       smart_corner_radius enable
+
       blur                enable
       blur_passes         2
       blur_radius         2
