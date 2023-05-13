@@ -1,4 +1,12 @@
+# noisy diffs
 flake.lock -diff
-home/secrets/**/*.json -diff
 lazy-lock.json -diff
+
+# git lfs
 *.png filter=lfs diff=lfs merge=lfs -text
+
+# git crypt
+home/secrets/fonts/*      filter=git-crypt diff=git-crypt
+home/secrets/*.nix        filter=git-crypt diff=git-crypt
+home/secrets/fallback.nix !filter !diff
+home/secrets/sops.nix     !filter !diff
