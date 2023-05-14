@@ -23,6 +23,8 @@ vim.o.pumheight = 15
 vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.wrap = false
+vim.o.ignorecase = true
+vim.o.smartcase = true
 -- redefine word boundaries - '_' is a word separator, this helps with snake_case
 vim.opt.iskeyword:remove("_")
 -- indentations settings
