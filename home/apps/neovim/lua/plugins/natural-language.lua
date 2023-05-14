@@ -1,3 +1,4 @@
+---@type LazyPluginSpec[]
 return {
   {
     "dhruvasagar/vim-table-mode",

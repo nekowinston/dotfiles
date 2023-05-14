@@ -1,3 +1,4 @@
+---@type LazyPluginSpec[]
 return {
   {
     "folke/which-key.nvim",
@@ -22,12 +23,13 @@ return {
       wk.register({
         ["<leader>f"] = {
           name = "+Telescope",
-          b = { "<cmd>Telescope buffers<cr>", "File Browser" },
-          d = { "<cmd>Telescope find_files<cr>", "Find File" },
-          g = { "<cmd>Telescope live_grep<cr>", "Live Grep" },
-          h = { "<cmd>Telescope help_tags<cr>", "Help Tags" },
+          b = { "<cmd>Telescope file_browser grouped=true<cr>", "File browser" },
+          d = { "<cmd>Telescope find_files<cr>", "Find file" },
+          g = { "<cmd>Telescope live_grep<cr>", "Live grep" },
+          h = { "<cmd>Telescope help_tags<cr>", "Help tags" },
+          n = { "<cmd>Telescope notify<cr>", "Show notifications" },
           p = { "<cmd>Telescope project<cr>", "Project" },
-          r = { "<cmd>Telescope asynctasks all<cr>", "Run Asynctasks" },
+          r = { "<cmd>Telescope asynctasks all<cr>", "Run asynctasks" },
           s = {
             function()
               local confpath = vim.fn.resolve(vim.fn.stdpath("config"))
@@ -44,9 +46,8 @@ return {
           y = { '"+y', "Copy to clipboard" },
           p = { '"+p', "Paste from clipboard" },
           db = { "<cmd>DBUIToggle<cr>", "Toggle DBUI" },
-          gd = { "<cmd>Gvdiff!<CR>", "Git Diff" },
+          gd = { "<cmd>Gvdiff!<CR>", "Git diff" },
           ng = { "<cmd>Neogit<cr>", "Neogit" },
-          sl = { "<cmd>SessionLoad<cr>", "Load Session" },
         },
       }, { mode = { "n", "v" } })
     end,

@@ -1,6 +1,5 @@
+---@type LazyPluginSpec[]
 return {
-  -- TODO: remove in nvim 0.9 because of upstream merge
-  "luukvbaal/stabilize.nvim",
   -- zen mode
   "pocco81/true-zen.nvim",
   -- respect project settings

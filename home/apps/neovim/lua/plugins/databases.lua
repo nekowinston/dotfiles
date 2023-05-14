@@ -1,3 +1,4 @@
+---@type LazyPluginSpec[]
 return {
   "tpope/vim-dadbod",
   "kristijanhusak/vim-dadbod-completion",

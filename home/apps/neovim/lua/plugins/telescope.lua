@@ -1,3 +1,4 @@
+---@type LazySpec[]
 return {
   {
     {
@@ -9,6 +10,7 @@ return {
         pcall(telescope.load_extension, "asynctasks")
         pcall(telescope.load_extension, "file_browser")
         pcall(telescope.load_extension, "project")
+        pcall(telescope.load_extension, "notify")
 
         telescope.setup({
           defaults = {
@@ -25,6 +27,10 @@ return {
             },
           },
           extensions = {
+            file_browser = {
+              grouped = true,
+              sorting_strategy = "ascending",
+            },
             fzf = {
               fuzzy = true,
               override_generic_sorter = true,

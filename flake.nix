@@ -162,20 +162,17 @@
             alejandra.enable = true;
             commitizen.enable = true;
             editorconfig-checker.enable = true;
-            nil.enable = true;
-            shellcheck.enable = true;
-            stylua.enable = true;
             flake-check = {
-              enable = false;
+              enable = true;
               types = ["nix"];
               language = "system";
               entry = "just check";
               pass_filenames = false;
             };
-          };
-          settings.deadnix = {
-            noLambdaPatternNames = true;
-            noLambdaArg = true;
+            luacheck.enable = true;
+            nil.enable = true;
+            shellcheck.enable = true;
+            stylua.enable = true;
           };
         };
       };

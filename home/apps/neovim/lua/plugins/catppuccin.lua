@@ -1,3 +1,4 @@
+---@type LazySpec[]
 return {
   {
     "catppuccin/nvim",
@@ -50,6 +51,7 @@ return {
           symbols_outline = true,
           ts_rainbow = true,
           vimwiki = true,
+          notify = true,
         },
         highlight_overrides = {
           all = function(colors)

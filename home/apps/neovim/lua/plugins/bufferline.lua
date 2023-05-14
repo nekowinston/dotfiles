@@ -1,3 +1,4 @@
+---@type LazyPluginSpec[]
 return {
   {
     "akinsho/bufferline.nvim",

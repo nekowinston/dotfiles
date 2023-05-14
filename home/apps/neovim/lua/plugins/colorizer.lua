@@ -1,3 +1,4 @@
+---@type LazyPluginSpec[]
 return {
   {
     "nvchad/nvim-colorizer.lua",

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec[]
 return {
   {
     "andweeb/presence.nvim",
@@ -5,7 +6,7 @@ return {
     config = function()
       local presence = require("presence")
 
-      function string.starts(self, str)
+      local function starts_with(self, str)
         return self:find("^" .. str) ~= nil
       end
 
@@ -22,7 +23,7 @@ return {
       local conceal = function(activity, info)
         local cur_file = vim.fn.expand("%:p")
         for k, v in pairs(blacklist) do
-          if cur_file:starts(k) then
+          if starts_with(cur_file, k) then
             return v
           end
         end
@@ -42,7 +43,7 @@ return {
         -- Main image display (either "neovim" or "file")
         main_image = "file",
         show_time = false,
-        buttons = function(buffer, repo_url)
+        buttons = function(_, repo_url)
           local concealed = conceal()
           if concealed then
             return {
