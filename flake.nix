@@ -185,10 +185,7 @@
         pkgs.mkShell {
           name = "nixpkgs";
           inherit (self.checks.${system}.pre-commit-check) shellHook;
-          packages = [
-            pkgs.just
-            pkgs.sops
-          ];
+          packages = [pkgs.just pkgs.git-crypt pkgs.sops];
         };
     });
 }
