@@ -10,7 +10,7 @@ default:
 rebuild *args:
   #!/usr/bin/env bash
   set -euxo pipefail
-  dir="{{env_var('TMPDIR')}}/nix-darwin"
+  dir="{{join(env_var('TMPDIR'), 'nix-darwin')}}"
   ! [[ -x "$dir/sw/bin/darwin-rebuild" ]] && nix build .\#darwinConfigurations.`hostname`.system -o "$dir"
   "$dir/sw/bin/darwin-rebuild" --flake . {{args}}
 
