@@ -7,7 +7,6 @@ return {
       "sindrets/diffview.nvim",
     },
     opts = {
-      kind = "vsplit",
       integrations = {
         diffview = true,
       },

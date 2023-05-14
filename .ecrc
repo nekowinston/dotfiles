@@ -5,9 +5,7 @@
   "SpacesAftertabs": false,
   "NoColor": false,
   "Exclude": [
-    ".gitsecret",
     "lazy-lock.json",
-    "*.secret"
   ],
   "AllowedContentTypes": [],
   "PassedFiles": [],
