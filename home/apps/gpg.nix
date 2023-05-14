@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+{pkgs, ...}: let
   inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
   key = "0x0B89BC45007EE9CC";
   mailvelopeConfig = builtins.toJSON {

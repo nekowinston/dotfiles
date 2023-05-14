@@ -60,9 +60,9 @@ in {
         port                "6600"
         bind_to_address     "127.0.0.1"
         audio_output {
-         type "osx"
-         name "CoreAudio"
-         mixer_type "software"
+          type "osx"
+          name "CoreAudio"
+          mixer_type "software"
         }
       '');
     in {

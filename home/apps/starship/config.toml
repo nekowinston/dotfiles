@@ -1,24 +1,24 @@
 "$schema" = "https://starship.rs/config-schema.json"
 
 format = """
-[ ](bg:red)\
+[ ](bg:base fg:red)\
 $directory\
 $username\
 $hostname\
 $container\
 $sudo\
 $shlvl\
-[](fg:red bg:peach)\
+[ ](fg:red bg:peach)\
 $vcsh\
 $git_branch\
 $git_commit\
 $git_state\
 $git_status\
 $git_metrics\
-[](fg:peach bg:yellow)\
+[ ](fg:peach bg:yellow)\
 $cmd_duration\
 $status\
-[](fg:yellow bg:green)\
+[ ](fg:yellow bg:green)\
 $deno\
 $golang\
 $helm\
@@ -27,14 +27,14 @@ $nodejs\
 $php\
 $python\
 $rust\
-[](fg:green bg:blue)\
+[ ](fg:green bg:blue)\
 $package\
 $nix_shell\
-[](fg:blue bg:mauve)\
+[ ](fg:blue bg:mauve)\
 $azure\
 $docker_context\
 $kubernetes\
-[](fg:mauve)\
+[ ](fg:mauve)\
 $line_break\
 $shell\
 $character"""
@@ -44,58 +44,58 @@ palette = "catppuccin_mocha"
 
 [directory]
 format = "[$path]($style)[$read_only]($read_only_style)"
-style = 'bg:red fg:#000000'
+style = 'bg:red fg:contrast'
 read_only = ''
-read_only_style = 'bg:red fg:#000000'
+read_only_style = 'bg:red fg:contrast'
 use_os_path_sep = false
 
 [username]
 format = '[ $user]($style)'
-style_root = 'bg:red fg:#000000'
-style_user = 'bg:red fg:#000000'
+style_root = 'bg:red fg:contrast'
+style_user = 'bg:red fg:contrast'
 
 [hostname]
 format = '[$ssh_symbol$hostname ]($style)'
-style = 'bg:red fg:#000000'
+style = 'bg:red fg:contrast'
 ssh_symbol = '@'
 
 [container]
 format = '[$hostname]($style)'
-style = 'bg:red fg:#000000'
+style = 'bg:red fg:contrast'
 
 [sudo]
 disabled = false
 format = '[$symbol]($style)'
-style = 'bg:red fg:#000000'
+style = 'bg:red fg:contrast'
 symbol = ' '
 
 [shlvl]
-style = 'bg:red fg:#000000'
+style = 'bg:red fg:contrast'
 
 ### VCS
 [git_branch]
-symbol = ' '
+symbol = ' '
 format = '[$symbol$branch]($style)'
-style = 'bg:peach fg:#000000'
+style = 'bg:peach fg:contrast'
 
 [hg_branch]
 format = '[$symbol$branch]($style)'
-style = 'bg:peach fg:#000000'
+style = 'bg:peach fg:contrast'
 
 [git_commit]
 format = '[\($hash$tag\)]($style)'
 tag_disabled = false
 tag_symbol = '  '
-style = 'bg:peach fg:#000000'
+style = 'bg:peach fg:contrast'
 
 [git_state]
 format = '[\($state( $progress_current/$progress_total)\)]($style)'
-style = 'bg:peach fg:#000000'
+style = 'bg:peach fg:contrast'
 
 [git_metrics]
-format = '([ +$added]($added_style)[/](bg:peach fg:#000000)[-$deleted]($deleted_style))'
-added_style = 'bg:peach fg:#000000'
-deleted_style = 'bg:peach fg:#000000'
+format = '([ +$added]($added_style)[/](bg:peach fg:contrast)[-$deleted]($deleted_style))'
+added_style = 'bg:peach fg:contrast'
+deleted_style = 'bg:peach fg:contrast'
 disabled = false
 
 [git_status]
@@ -110,217 +110,217 @@ renamed = "»"
 untracked = "+"
 staged = "●"
 stashed = "󰚇 "
-style = 'bg:peach fg:#000000'
+style = 'bg:peach fg:contrast'
 
 [cmd_duration]
 format = '[󰚭 $duration]($style)'
-style = 'bg:yellow fg:#000000'
+style = 'bg:yellow fg:contrast'
 show_milliseconds = true
 min_time = 2000
 
 [status]
-style = 'bg:yellow fg:#000000'
+style = 'bg:yellow fg:contrast'
 
 ### LANGUAGE VERSION INDICATORS
 [c]
 format = '[ $symbol($version(-$name)) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [cmake]
 format = '[ $symbol($version) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [cobol]
 format = '[ $symbol($version) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [conda]
 format = '[ $symbol$environment ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [crystal]
 format = '[ $symbol($version) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [dart]
 format = '[ $symbol($version) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [deno]
 format = '[ $symbol($version) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [dotnet]
 format = '[ $symbol($version)( $tfm) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [elixir]
 format = '[ $symbol($version \(OTP $otp_version\)) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [elm]
 format = '[ $symbol($version) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [erlang]
 format = '[ $symbol($version) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [golang]
 symbol = ' '
 format = '[ $symbol($version) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [haskell]
 symbol = ' '
 format = '[ $symbol($version) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [helm]
 symbol = '󱃾 '
 format = '[ $symbol($version) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [java]
 symbol = ' '
 format = '[ $symbol($version) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [julia]
 format = '[ $symbol($version) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [kotlin]
 format = '[ $symbol($version) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [lua]
 symbol = ' '
 format = '[ $symbol($version) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [nim]
 format = '[ $symbol($version) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [nix_shell]
 format = '[ $symbol$state( \($name\)) ]($style)'
-symbol = ' '
-style = 'bg:blue fg:#000000'
+symbol = '󱄅 '
+style = 'bg:blue fg:contrast'
 
 [nodejs]
 format = '[ $symbol($version) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [ocaml]
 format = '[ $symbol($version)(\($switch_indicator$switch_name\)) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [perl]
 format = '[ $symbol($version) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [php]
 symbol = ' '
 format = '[ $symbol($version) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [pulumi]
 format = '[ $symbol$stack ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [purescript]
 format = '[ $symbol($version) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [python]
 symbol = ' '
 format = '[ ${symbol}${pyenv_prefix}(${version})(\($virtualenv\)) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [red]
 format = '[ $symbol($version) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [ruby]
 symbol = ' '
 format = '[ $symbol($version) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [rust]
 symbol = ' '
 format = '[ $symbol($version) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [scala]
 format = '[ $symbol($version) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [spack]
 format = '[ $symbol$environment ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [swift]
 symbol = ' '
 format = '[ $symbol($version) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [vagrant]
 format = '[ $symbol($version) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [vlang]
 format = '[ $symbol($version) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 [zig]
 format = '[ $symbol($version) ]($style)'
-style = 'bg:green fg:#000000'
+style = 'bg:green fg:contrast'
 
 ### PACKAGE INDICATORS
 
 [package]
 symbol = ' '
 format = '[ $symbol$version ]($style)'
-style = 'bg:blue fg:#000000'
+style = 'bg:blue fg:contrast'
 
 ### CONTEXT INDICATORS
 [aws]
 symbol = ' '
 format = '[ $symbol($profile)(\($region\))(\[$duration\]) ]($style)'
-style = 'bg:mauve fg:#000000'
+style = 'bg:mauve fg:contrast'
 
 [docker_context]
 symbol = ' '
 format = '[ $symbol$context ]($style)'
-style = 'bg:mauve fg:#000000'
+style = 'bg:mauve fg:contrast'
 
 [gcloud]
 symbol = ' '
 format = '[ $symbol$account(@$domain)(\($region\)) ]($style)'
-style = 'bg:mauve fg:#000000'
+style = 'bg:mauve fg:contrast'
 
 [kubernetes]
-symbol = ' '
+symbol = '󱃾 '
 format = '[ $symbol($cluster/$namespace) ]($style)'
 disabled = false
-style = 'bg:mauve fg:#000000'
+style = 'bg:mauve fg:contrast'
 
 [openstack]
 symbol = ' '
 format = '[ $symbol$cloud(\($project\)) ]($style)'
-style = 'bg:mauve fg:#000000'
+style = 'bg:mauve fg:contrast'
 
 [terraform]
 format = '[ $symbol$workspace ]($style)'
-style = 'bg:mauve fg:#000000'
+style = 'bg:mauve fg:contrast'
 
 ### STATUS INDICATORS
 
 [character]
-success_symbol = '[󰘧](bold cyan)'
-error_symbol = '[󰘧](bold red)'
-vimcmd_symbol = '[󰘧](bold cyan)'
+success_symbol = '[  ](bold text)'
+error_symbol = '[  ](bold red)'
+vimcmd_symbol = '[  ](bold cyan)'
 
 [palettes.catppuccin_latte]
 rosewater = "#dc8a78"
@@ -349,6 +349,7 @@ surface0 = "#ccd0da"
 base = "#eff1f5"
 mantle = "#e6e9ef"
 crust = "#dce0e8"
+contrast = "#ffffff"
 
 [palettes.catppuccin_mocha]
 rosewater = "#f5e0dc"
@@ -377,3 +378,4 @@ surface0 = "#313244"
 base = "#1e1e2e"
 mantle = "#181825"
 crust = "#11111b"
+contrast = "#000000"

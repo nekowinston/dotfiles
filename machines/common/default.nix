@@ -1,8 +1,4 @@
-{
-  lib,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   nixpkgs.config.allowUnfree = true;
   nix = {
     gc.automatic = true;

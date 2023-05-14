@@ -6,6 +6,8 @@
   "NoColor": false,
   "Exclude": [
     "lazy-lock.json",
+    ".git-crypt/",
+    "vscode/settings.json"
   ],
   "AllowedContentTypes": [],
   "PassedFiles": [],

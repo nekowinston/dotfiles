@@ -1,9 +1,4 @@
-{
-  config,
-  nur,
-  pkgs,
-  ...
-}: let
+{pkgs, ...}: let
   inherit (pkgs.stdenv.hostPlatform) isLinux;
 in {
   programs.chromium = {

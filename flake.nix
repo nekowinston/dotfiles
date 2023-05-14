@@ -162,7 +162,7 @@
             alejandra.enable = true;
             commitizen.enable = true;
             editorconfig-checker.enable = true;
-            deadnix.enable = true;
+            nil.enable = true;
             shellcheck.enable = true;
             stylua.enable = true;
             flake-check = {
@@ -187,5 +187,6 @@
           inherit (self.checks.${system}.pre-commit-check) shellHook;
           packages = [pkgs.just pkgs.git-crypt pkgs.sops];
         };
+      formatter = nixpkgs.legacyPackages.${system}.alejandra;
     });
 }
