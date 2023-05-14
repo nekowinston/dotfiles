@@ -42,14 +42,13 @@ in {
         ffmpeg
         file
         imagemagick
+        just
         mdcat
         ranger
         ripgrep
         git-secret
         gh
         mosh
-
-        wezterm
         podman
         podman-compose
         qemu
