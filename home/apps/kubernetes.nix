@@ -10,6 +10,7 @@
     gojq
     jqp
     konf
+    kubecolor
     kubeconform
     kubectl
     kubectx
@@ -23,8 +24,21 @@
 
   home.shellAliases = {
     jq = "gojq";
-    kcuc = "konf set";
     kcn = "konf ns";
+    kcuc = "konf set";
+    kubectl = "kubecolor";
+  };
+
+  programs.zsh = {
+    initExtra = ''
+      # kubecolor
+      compdef kubecolor=kubectl
+      # konf
+      source <(konf-go shellwrapper zsh)
+      source <(konf-go completion zsh)
+      # open last konf on new shell session, only if konf store has been initialized
+      [[ -d ~/.kube/konfs/store ]] && export KUBECONFIG=$(konf-go --silent set -)
+    '';
   };
 
   home.sessionVariables = {

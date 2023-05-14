@@ -10,8 +10,6 @@
     recursive = recursive;
   };
 in {
-  home.sessionVariables = {LESSHISTFILE = "-";};
-
   programs = {
     bat.enable = true;
     btop = {
@@ -25,7 +23,15 @@ in {
     direnv.enable = true;
     direnv.nix-direnv.enable = true;
 
-    fzf.enable = true;
+    fzf = {
+      enable = true;
+      defaultOptions = [
+        "--height=30%"
+        "--layout=reverse"
+        "--info=inline"
+        "--color=spinner:#f5e0dc,hl:#f38ba8,fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc,marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
+      ];
+    };
 
     lsd = {
       enable = true;
@@ -60,7 +66,7 @@ in {
       enable = true;
       enableAutosuggestions = true;
       enableCompletion = true;
-      enableSyntaxHighlighting = true;
+      enableSyntaxHighlighting = false;
 
       initExtra = let
         functionsDir = "${config.home.homeDirectory}/${config.programs.zsh.dotDir}/functions";
@@ -68,22 +74,13 @@ in {
         for conf in "${functionsDir}"/**/*.zsh; do
           source "$conf"
         done
-
-        # WezTerm
-        if [[ "$TERM_PROGRAM" == "WezTerm" ]]; then
-          TERM=wezterm
-          source ${pkgs.nur.repos.nekowinston.wezterm-nightly}/etc/profile.d/wezterm.sh
-        fi
-
-        source <(konf-go shellwrapper zsh)
-        source <(konf-go completion zsh)
-        # open last konf on new shell session
-        export KUBECONFIG=$(konf-go --silent set -)
       '';
 
-      envExtra = ''
-        export ZVM_INIT_MODE=sourcing ZVM_CURSOR_BLINKING_BEAM=1
-      '';
+      sessionVariables = {
+        ZVM_INIT_MODE = "sourcing";
+        ZVM_CURSOR_BLINKING_BEAM = "1";
+        LESSHISTFILE = "-";
+      };
 
       dotDir = ".config/zsh";
       oh-my-zsh = {
@@ -99,14 +96,19 @@ in {
       };
       plugins = [
         {
-          name = "zsh-vi-mode";
-          src = pkgs.zsh-vi-mode;
-          file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
+          name = "zsh-fast-syntax-highlighting";
+          src = pkgs.zsh-fast-syntax-highlighting;
+          file = "share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh";
         }
         {
           name = "zsh-nix-shell";
           src = pkgs.zsh-nix-shell;
           file = "share/zsh-nix-shell/nix-shell.plugin.zsh";
+        }
+        {
+          name = "zsh-vi-mode";
+          src = pkgs.zsh-vi-mode;
+          file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
         }
       ];
       shellAliases = {
@@ -116,6 +118,7 @@ in {
           else "bat";
         # switch between yubikeys for the same GPG key
         switch_yubikeys = "gpg-connect-agent \"scd serialno\" \"learn --force\" /bye";
+        tree = "lsd --tree";
       };
       history = {
         path = "${config.xdg.configHome}/zsh/history";
