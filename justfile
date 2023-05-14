@@ -7,30 +7,31 @@ default:
 # wrapper around {nixos,darwin}-rebuild, always taking the flake {{{
 [private]
 [macos]
-rebuild args:
+rebuild *args:
   #!/usr/bin/env bash
   set -euxo pipefail
-  ! [[ -x "./result/sw/bin/darwin-rebuild" ]] && nix build .\#darwinConfigurations.`hostname`.system
-  ./result/sw/bin/darwin-rebuild "{{args}}" --flake .
+  dir="{{env_var('TMPDIR')}}/nix-darwin"
+  ! [[ -x "$dir/sw/bin/darwin-rebuild" ]] && nix build .\#darwinConfigurations.`hostname`.system -o "$dir"
+  "$dir/sw/bin/darwin-rebuild" --flake . {{args}}
 
 [private]
 [linux]
-rebuild args:
-  sudo nixos-rebuild "{{args}}" --flake .
+rebuild *args:
+  sudo nixos-rebuild --flake . {{args}}
 # }}}
 
-build:
-  just rebuild build
+build *args:
+  @just rebuild build {{args}}
 
 [linux]
-boot:
-  just rebuild boot
+boot *args:
+  @just rebuild boot {{args}}
 
-check:
-  just rebuild check
+check *args:
+  @just rebuild check {{args}}
 
-switch:
-  just rebuild switch
+switch *args:
+  @just rebuild switch {{args}}
 
 # these will fail, should variables not be set
 fontdir := if os() == "macos" {
