@@ -1,51 +1,46 @@
 # vim:ft=just:fdm=marker
 
+[private]
 default:
   @just --choose
 
-# check flake syntax {{{
+# wrapper around {nixos,darwin}-rebuild, always taking the flake {{{
+[private]
 [macos]
-check:
+rebuild args:
   #!/usr/bin/env bash
   set -euxo pipefail
-  if [[ -x "./result/sw/bin/darwin-rebuild" ]]; then
-    ./result/sw/bin/darwin-rebuild check --flake .
-  else
-    nix build .\#darwinConfigurations.`hostname`.system
-    ./result/sw/bin/darwin-rebuild check --flake .
-  fi
+  ! [[ -x "./result/sw/bin/darwin-rebuild" ]] && nix build .\#darwinConfigurations.`hostname`.system
+  ./result/sw/bin/darwin-rebuild "{{args}}" --flake .
 
+[private]
 [linux]
-check:
-  nix flake check .
+rebuild args:
+  sudo nixos-rebuild "{{args}}" --flake .
 # }}}
 
-# build {{{
-[macos]
-switch:
-  #!/usr/bin/env bash
-  set -euxo pipefail
-  if [[ -x "./result/sw/bin/darwin-rebuild" ]]; then
-    ./result/sw/bin/darwin-rebuild switch --flake .
-  else
-    nix build .\#darwinConfigurations.`hostname`.system
-    ./result/sw/bin/darwin-rebuild switch --flake .
-  fi
+build:
+  just rebuild build
 
-[linux]
-switch:
-  sudo nixos-rebuild switch --flake .
 [linux]
 boot:
-  sudo nixos-rebuild boot --flake .
-# }}}
+  just rebuild boot
 
-secretExists := path_exists("./home/secrets/default.nix")
+check:
+  just rebuild check
 
-fontdir := if os() == "macos" {"$HOME/Library/Fonts"} else {"${XDG_DATA_HOME:-$HOME/.local/share}/fonts"}
+switch:
+  just rebuild switch
+
+# these will fail, should variables not be set
+fontdir := if os() == "macos" {
+  env_var('HOME') + "/Library/Fonts"
+} else {
+  env_var_or_default('XDG_DATA_HOME', env_var('HOME') + "/.local/share") + "/fonts"
+}
+# TODO: move these to the home.activation hook
 install-fonts:
-  install -Dm644 home/secrets/fonts/* "{{fontdir}}"
+  install -Dm644 {{justfile_directory()}}/home/secrets/fonts/* "{{fontdir}}"
 
 fetch:
-  @nix run nixpkgs\#onefetch -- --true-color never --no-bots -d lines-of-code
-  @nix run nixpkgs\#scc -- . --no-cocomo
+  @nix shell nixpkgs\#onefetch nixpkgs\#scc -c sh -c "onefetch --true-color never --no-bots -d lines-of-code && scc --no-cocomo ."
