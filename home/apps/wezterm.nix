@@ -1,12 +1,22 @@
 {
   config,
   flakePath,
+  pkgs,
   ...
 }: {
-  home.sessionVariables = {TERMINAL = "wezterm";};
-
-  xdg.configFile."wezterm" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/home/apps/wezterm";
-    recursive = true;
+  programs.wezterm = {
+    enable = true;
+    package = pkgs.nur.repos.nekowinston.wezterm-nightly;
+    extraConfig = ''
+      package.path = "${flakePath}/home/apps/wezterm/?.lua;" .. package.path;
+      return require("config")
+    '';
   };
+
+  programs.zsh.initExtra = ''
+    if [[ "$TERM_PROGRAM" == "WezTerm" ]]; then
+      TERM=wezterm
+      source ${config.programs.wezterm.package}/etc/profile.d/wezterm.sh
+    fi
+  '';
 }
