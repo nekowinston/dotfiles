@@ -54,7 +54,7 @@
       nodePackages.typescript
       nodePackages.typescript-language-server
       nodePackages.vscode-langservers-extracted
-      pkgs.nodePackages.yaml-language-server
+      nodePackages.yaml-language-server
       yarn
 
       # rust
