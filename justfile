@@ -27,8 +27,13 @@ build *args:
 boot *args:
   @just rebuild boot {{args}}
 
+[macos]
 check *args:
   @just rebuild check {{args}}
+
+[linux]
+check *args:
+  @just rebuild test {{args}}
 
 switch *args:
   @just rebuild switch {{args}}

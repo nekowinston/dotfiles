@@ -162,13 +162,6 @@
             alejandra.enable = true;
             commitizen.enable = true;
             editorconfig-checker.enable = true;
-            flake-check = {
-              enable = true;
-              types = ["nix"];
-              language = "system";
-              entry = "just check";
-              pass_filenames = false;
-            };
             luacheck.enable = true;
             nil.enable = true;
             shellcheck.enable = true;
