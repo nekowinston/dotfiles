@@ -6,7 +6,7 @@
 }: {
   programs.wezterm = {
     enable = true;
-    package = pkgs.nur.repos.nekowinston.wezterm-nightly;
+    # package = pkgs.nur.repos.nekowinston.wezterm-nightly;
     extraConfig = ''
       package.path = "${flakePath}/home/apps/wezterm/?.lua;" .. package.path;
       return require("config")

@@ -6,50 +6,46 @@
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
+  inherit (config.xdg) cacheHome configHome dataHome;
+  inherit (config.home) homeDirectory;
 in {
-  home = {
+  home = rec {
     sessionVariables = {
-      AZURE_CONFIG_DIR = "${config.xdg.configHome}/azure";
-      CARGO_HOME = "${config.xdg.dataHome}/cargo";
+      AZURE_CONFIG_DIR = "${configHome}/azure";
+      CARGO_HOME = "${dataHome}/cargo";
       CARGO_REGISTRIES_CRATES_IO_PROTOCOL = "sparse";
       CARGO_UNSTABLE_SPARSE_REGISTRY = "true";
-      CUDA_CACHE_PATH = "${config.xdg.dataHome}/nv";
-      DOCKER_CONFIG = "${config.xdg.configHome}/docker";
-      GEM_HOME = "${config.xdg.dataHome}/gem";
-      GEM_SPEC_CACHE = "${config.xdg.cacheHome}/gem";
-      GOPATH = "${config.xdg.dataHome}/go";
-      NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
-      RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
-      XCOMPOSECACHE = "${config.xdg.cacheHome}/X11/xcompose";
+      CUDA_CACHE_PATH = "${dataHome}/nv";
+      DOCKER_CONFIG = "${configHome}/docker";
+      GEM_HOME = "${dataHome}/gem";
+      GEM_SPEC_CACHE = "${cacheHome}/gem";
+      GOPATH = "${dataHome}/go";
+      NPM_CONFIG_USERCONFIG = "${configHome}/npm/npmrc";
+      NODE_REPL_HISTORY = "${dataHome}/node_repl_history";
+      RUSTUP_HOME = "${dataHome}/rustup";
+      WINEPREFIX = "${dataHome}/wine";
+      XCOMPOSECACHE = "${cacheHome}/X11/xcompose";
     };
     sessionPath = [
       "$HOME/.local/bin"
-      "${config.xdg.dataHome}/krew/bin"
-      "${config.home.sessionVariables.GOPATH}/bin"
-      "${config.home.sessionVariables.CARGO_HOME}/bin"
+      "${dataHome}/krew/bin"
+      "${sessionVariables.GOPATH}/bin"
+      "${sessionVariables.CARGO_HOME}/bin"
     ];
   };
-
-  home.activation.npmrc_xdg = ''
-    export NPM_CONFIG_USERCONFIG="${config.home.sessionVariables.NPM_CONFIG_USERCONFIG}"
-    ${pkgs.nodejs + "/bin/npm"} config set \
-      prefix="${config.xdg.dataHome}/npm" \
-      cache="${config.xdg.cacheHome}/npm" \
-      init-module="${config.xdg.configHome}/npm/config/npm-init.js"
-  '';
 
   # NOTE: workaround for gpgme on Darwin, since GUI apps aren't aware of $GNUPGHOME
   programs.gpg.homedir =
     if isDarwin
-    then "${config.home.homeDirectory}/.gnupg"
-    else "${config.xdg.configHome}/gnupg";
+    then "${homeDirectory}/.gnupg"
+    else "${configHome}/gnupg";
 
   xdg = {
     enable = true;
     userDirs.enable = isLinux;
-    cacheHome = "${config.home.homeDirectory}/.cache";
-    configHome = "${config.home.homeDirectory}/.config";
-    dataHome = "${config.home.homeDirectory}/.local/share";
+    cacheHome = "${homeDirectory}/.cache";
+    configHome = "${homeDirectory}/.config";
+    dataHome = "${homeDirectory}/.local/share";
     mimeApps = {
       enable = isLinux;
       defaultApplications = {

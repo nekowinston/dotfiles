@@ -9,8 +9,21 @@
     source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/${fileName}";
     recursive = recursive;
   };
+  zshPlugins = plugins: (map (plugin: rec {
+      name = src.name;
+      inherit (plugin) file src;
+    })
+    plugins);
 in {
   programs = {
+    atuin = {
+      enable = true;
+      flags = ["--disable-up-arrow"];
+      settings = {
+        inline_height = 30;
+        style = "compact";
+      };
+    };
     bat.enable = true;
     btop = {
       enable = true;
@@ -38,7 +51,6 @@ in {
       enableAliases = true;
     };
 
-    mcfly.enable = true;
     nix-index.enable = true;
 
     starship = {
@@ -71,16 +83,15 @@ in {
       initExtra = let
         functionsDir = "${config.home.homeDirectory}/${config.programs.zsh.dotDir}/functions";
       in ''
-        for conf in "${functionsDir}"/**/*.zsh; do
-          source "$conf"
+        for script in "${functionsDir}"/**/*; do
+          source "$script"
         done
       '';
-
-      sessionVariables = {
-        ZVM_INIT_MODE = "sourcing";
-        ZVM_CURSOR_BLINKING_BEAM = "1";
-        LESSHISTFILE = "-";
-      };
+      envExtra = ''
+        export LESSHISTFILE="-"
+        export ZVM_INIT_MODE="sourcing"
+        export ZVM_CURSOR_BLINKING_BEAM="1"
+      '';
 
       dotDir = ".config/zsh";
       oh-my-zsh = {
@@ -94,35 +105,30 @@ in {
           "kubectl"
         ];
       };
-      plugins = [
+      plugins = with pkgs; (zshPlugins [
         {
-          name = "zsh-fast-syntax-highlighting";
-          src = pkgs.zsh-fast-syntax-highlighting;
-          file = "share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh";
+          src = zsh-vi-mode;
+          file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
         }
         {
-          name = "zsh-nix-shell";
-          src = pkgs.zsh-nix-shell;
+          src = zsh-nix-shell;
           file = "share/zsh-nix-shell/nix-shell.plugin.zsh";
         }
         {
-          name = "zsh-vi-mode";
-          src = pkgs.zsh-vi-mode;
-          file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
+          src = zsh-fast-syntax-highlighting;
+          file = "share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh";
         }
-      ];
+      ]);
       shellAliases = {
         cat =
           if isDarwin
           then "bat --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo Catppuccin-mocha || echo Catppuccin-latte)"
           else "bat";
         # switch between yubikeys for the same GPG key
-        switch_yubikeys = "gpg-connect-agent \"scd serialno\" \"learn --force\" /bye";
+        switch_yubikeys = ''gpg-connect-agent "scd serialno" "learn --force" "/bye"'';
         tree = "lsd --tree";
       };
-      history = {
-        path = "${config.xdg.configHome}/zsh/history";
-      };
+      history.path = "${config.xdg.configHome}/zsh/history";
     };
   };
 

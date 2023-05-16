@@ -1,3 +1,4 @@
+# vim:ft=zsh
 local MAPPINGS='
 video/3gpp,3gp
 video/3gpp2,3g2
@@ -35,8 +36,8 @@ function icat() {
   }
 
   if [ ! -t 0 ]; then
-    input="$(cat - | base64)"
-    headers="$(echo "$input" | base64 -d | file - --mime-type | cut -d " " -f2-)"
+    local input="$(cat - | base64)"
+    local headers="$(echo "$input" | base64 -d | file - --mime-type | cut -d " " -f2-)"
 
     case $headers in
       *svg*) echo "$input" | base64 -d | displaySVG ;;

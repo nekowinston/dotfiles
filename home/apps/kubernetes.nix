@@ -36,8 +36,8 @@
       # konf
       source <(konf-go shellwrapper zsh)
       source <(konf-go completion zsh)
-      # open last konf on new shell session, only if konf store has been initialized
-      [[ -d ~/.kube/konfs/store ]] && export KUBECONFIG=$(konf-go --silent set -)
+      # ignore if konf store hasn't been initialized
+      export KUBECONFIG=$(konf-go --silent set - || true)
     '';
   };
 
