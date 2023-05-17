@@ -28,16 +28,26 @@
     udisks2.enable = true;
     devmon.enable = true;
 
-    greetd = {
+    greetd = let
+      sway-run = pkgs.writeShellScript "sway-run" ''
+        # session
+        export XDG_SESSION_TYPE=wayland
+        export XDG_SESSION_DESKTOP=sway
+        export XDG_CURRENT_DESKTOP=sway
+        # wayland
+        export NIXOS_OZONE_WL=1
+        export MOZ_ENABLE_WAYLAND=1
+        export QT_QPA_PLATFORM=wayland
+        export SDL_VIDEODRIVER=wayland
+        export _JAVA_AWT_WM_NONREPARENTING=1
+
+        exec systemd-cat --identifier=sway sway $@
+      '';
+    in {
       enable = true;
       settings = {
-        default_session = let
-          swaycmd = pkgs.writeShellScript "swaycmd" ''
-            export NIXOS_OZONE_WL=1 XDG_CURRENT_DESKTOP=sway
-            ${pkgs.sway}/bin/sway > /tmp/sway.log 2>&1
-          '';
-        in {
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time -r --cmd ${swaycmd}";
+        default_session = {
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time -r --cmd ${sway-run}";
           user = "greeter";
         };
       };
@@ -50,7 +60,6 @@
 
     kanata = {
       enable = true;
-      package = pkgs.kanata;
       keyboards.keychron-k6 = {
         devices = ["/dev/input/by-id/usb-Keychron_Keychron_K6-event-kbd"];
         config = ''

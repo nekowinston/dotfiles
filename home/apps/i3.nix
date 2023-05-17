@@ -28,8 +28,8 @@
       }
     ];
     workspaceAutoBackAndForth = true;
-    terminal = "wezterm start --always-new-process";
-    menu = "";
+    terminal = "${lib.getExe config.programs.wezterm.package}";
+    menu = "${lib.getExe config.programs.rofi.package}";
     defaultWorkspace = "$ws1";
     keybindings = let
       mod = modifier;
@@ -38,7 +38,6 @@
       hyper = "Mod4+Mod1+Shift+Ctrl";
 
       gopass = lib.getExe pkgs.gopass;
-      rofi = lib.getExe config.programs.rofi.package;
       thunar = lib.getExe pkgs.xfce.thunar;
       xargs = "${lib.getExe pkgs.findutils}/bin/xargs";
       xdotool = lib.getExe pkgs.xdotool;
@@ -51,7 +50,7 @@
       # TODO: replace xdotool with wayland equivalent
       gopassRofi = pkgs.writeShellScript "gopass-rofi" ''
         ${gopass} ls --flat | \
-        ${rofi} -dmenu -dpi $dpi | \
+        ${menu} -dmenu -dpi $dpi | \
         ${xargs} --no-run-if-empty ${gopass} show -o | \
         ${xdotool} type --clearmodifiers --file -
       '';
@@ -142,7 +141,7 @@
       "${modMove}+9" = "move container to workspace $ws9;  workspace $ws9";
       "${modMove}+0" = "move container to workspace $ws10; workspace $ws10";
       # rofi instead of drun
-      "${mod}+space" = "exec --no-startup-id ${rofi} -show drun -dpi $dpi";
+      "${mod}+space" = "exec --no-startup-id ${menu} -show drun -dpi $dpi";
       # 1password
       "${mod}+Shift+space" = "exec ${lib.getExe pkgs._1password-gui} --quick-access";
 
@@ -374,7 +373,7 @@ in {
       components = ["secrets"];
     };
     picom = {
-      enable = false;
+      enable = true;
       package = pkgs.nur.repos.nekowinston.picom-ft-labs;
       fade = false;
       backend = "glx";
@@ -427,7 +426,6 @@ in {
     scriptPath = "${config.xdg.cacheHome}/X11/xsession";
     windowManager.i3 = {
       enable = true;
-      package = pkgs.i3;
       config =
         commonConfig {wayland = false;}
         // {
@@ -435,12 +433,13 @@ in {
             {
               command = "${lib.getExe pkgs.flameshot}";
             }
+            {
+              command = "${lib.getExe pkgs.feh} --bg-fill ${flakePath}/home/wallpapers/dhm_1610.png";
+              always = true;
+            }
           ];
         };
-      extraConfig = ''
-        set_from_resource $dpi Xft.dpi 140
-        ${commonExtraConfig}
-      '';
+      extraConfig = commonExtraConfig;
     };
   };
 
