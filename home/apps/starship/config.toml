@@ -93,9 +93,9 @@ style = 'fg:subtext0'
 disabled = true
 
 [directory]
-format = '[ $path ]($style)[$read_only]($read_only_style)'
+format = '[ $path ]($style)[($read_only )]($read_only_style)'
 style = 'fg:red'
-read_only = ''
+read_only = ' '
 read_only_style = 'fg:red'
 truncate_to_repo = true
 use_os_path_sep = false

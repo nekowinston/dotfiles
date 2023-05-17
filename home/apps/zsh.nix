@@ -38,12 +38,19 @@ in {
 
     fzf = {
       enable = true;
-      defaultOptions = [
-        "--height=30%"
-        "--layout=reverse"
-        "--info=inline"
-        "--color=spinner:#f5e0dc,hl:#f38ba8,fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc,marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
-      ];
+      colors = {
+        fg = "#cdd6f4";
+        "fg+" = "#cdd6f4";
+        hl = "#f38ba8";
+        "hl+" = "#f38ba8";
+        header = "#ff69b4";
+        info = "#cba6f7";
+        marker = "#f5e0dc";
+        pointer = "#f5e0dc";
+        prompt = "#cba6f7";
+        spinner = "#f5e0dc";
+      };
+      defaultOptions = ["--height=30%" "--layout=reverse" "--info=inline"];
     };
 
     lsd = {
@@ -53,10 +60,7 @@ in {
 
     nix-index.enable = true;
 
-    starship = {
-      enable = true;
-      package = pkgs.starship;
-    };
+    starship.enable = true;
 
     tealdeer = {
       enable = true;
