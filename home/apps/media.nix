@@ -6,8 +6,17 @@
 }: let
   inherit (pkgs.stdenv.hostPlatform) isLinux;
 in {
+  programs.mpv.enable = isLinux;
+  xdg.mimeApps.defaultApplications = {
+    "video/mp4" = "mpv.desktop";
+    "video/webm" = "mpv.desktop";
+  };
+  programs.zathura.enable = true;
+  xdg.mimeApps.defaultApplications."application/pdf" = "zathura.desktop";
+
   programs.ncmpcpp = {
     enable = true;
+    settings."lyrics_directory" = "${config.xdg.dataHome}/ncmpcpp";
     bindings =
       lib.mapAttrsToList (key: command: {inherit key command;})
       {
@@ -28,10 +37,10 @@ in {
       };
   };
 
-  services = {
-    mpd.enable = isLinux;
+  services = lib.mkIf isLinux {
+    mpd.enable = true;
     mpd-discord-rpc = {
-      enable = isLinux;
+      enable = true;
       settings = {
         format = {
           state = "$artist";
@@ -42,6 +51,7 @@ in {
         };
       };
     };
+    mpd-mpris.enable = true;
   };
 
   launchd.agents.mpd = {
@@ -73,8 +83,6 @@ in {
       StandardOutPath = "${config.xdg.cacheHome}/mpd.log";
     };
   };
-
-  #home.packages = lib.mkIf isLinux [pkgs.cider];
 
   launchd.agents.discord-applemusic-rich-presence = {
     enable = true;

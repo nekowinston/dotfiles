@@ -10,6 +10,7 @@
   inherit (config.home) homeDirectory;
 in {
   home = rec {
+    packages = [pkgs.sccache];
     sessionVariables = {
       AZURE_CONFIG_DIR = "${configHome}/azure";
       CARGO_HOME = "${dataHome}/cargo";
@@ -20,11 +21,15 @@ in {
       GEM_HOME = "${dataHome}/gem";
       GEM_SPEC_CACHE = "${cacheHome}/gem";
       GOPATH = "${dataHome}/go";
-      NPM_CONFIG_USERCONFIG = "${configHome}/npm/npmrc";
       NODE_REPL_HISTORY = "${dataHome}/node_repl_history";
+      NPM_CONFIG_USERCONFIG = "${configHome}/npm/npmrc";
+      RUSTC_WRAPPER = "sccache";
       RUSTUP_HOME = "${dataHome}/rustup";
+      W3M_DIR = "${dataHome}/w3m";
       WINEPREFIX = "${dataHome}/wine";
+      XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
       XCOMPOSECACHE = "${cacheHome}/X11/xcompose";
+      XINITRC = "${configHome}/X11/xinitrc";
     };
     sessionPath = [
       "$HOME/.local/bin"
@@ -32,12 +37,7 @@ in {
       "${sessionVariables.GOPATH}/bin"
       "${sessionVariables.CARGO_HOME}/bin"
     ];
-    packages = [pkgs.sccache];
   };
-  xdg.configFile."cargo/config".text = ''
-    [build]
-    rustc-wrapper = "sccache"
-  '';
 
   # NOTE: workaround for gpgme on Darwin, since GUI apps aren't aware of $GNUPGHOME
   programs.gpg.homedir =
@@ -53,17 +53,7 @@ in {
     dataHome = "${homeDirectory}/.local/share";
     mimeApps = {
       enable = isLinux;
-      defaultApplications = {
-        "inode/directory" = "thunar.desktop";
-        "application/pdf" = "zathura.desktop";
-
-        "text/plain" = "code.desktop";
-        "text/html" = "firefox.desktop";
-        "x-scheme-handler/http" = "firefox.desktop";
-        "x-scheme-handler/https" = "firefox.desktop";
-        "x-scheme-handler/about" = "firefox.desktop";
-        "x-scheme-handler/unknown" = "firefox.desktop";
-      };
+      defaultApplications."inode/directory" = "thunar.desktop";
     };
   };
 }

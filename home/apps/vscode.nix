@@ -33,4 +33,5 @@ in {
       source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/home/apps/vscode/settings.json";
     };
   };
+  xdg.mimeApps.defaultApplications."text/plain" = "code.desktop";
 }

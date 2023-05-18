@@ -16,7 +16,7 @@ in {
     ./apps/kubernetes.nix
     ./apps/macos.nix
     ./apps/mail.nix
-    ./apps/music.nix
+    ./apps/media.nix
     ./apps/neovim.nix
     ./apps/newsboat.nix
     ./apps/rice.nix
