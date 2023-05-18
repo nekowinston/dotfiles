@@ -1,289 +1,163 @@
 {
   config,
-  lib,
   pkgs,
   ...
-}: let
-  inherit (pkgs.stdenv.hostPlatform) isLinux;
-in {
-  accounts.email.maildirBasePath = "${config.xdg.dataHome}/mail";
-
-  accounts.email.accounts = {
-    "personal" = {
-      primary = true;
-      passwordCommand = "${lib.getExe pkgs.gopass} -o mail/personal";
-      maildir.path = "personal";
-
-      aliases = ["hey@winston.sh"];
-
-      imap = {
-        host = "imap.fastmail.com";
-        port = 993;
-        tls.enable = true;
-      };
-
-      smtp = {
-        host = "smtp.fastmail.com";
-        port = 465;
-        tls.enable = true;
-      };
-
-      mbsync = {
-        enable = true;
-        create = "both";
-        expunge = "both";
-      };
-
-      imapnotify = {
-        enable = true;
-        onNotify = "${lib.getExe pkgs.isync} %s";
-        onNotifyPost = "${lib.getExe pkgs.notmuch} new && ${lib.getExe pkgs.libnotify} 'New mail arrived'";
-      };
-
-      msmtp.enable = true;
-      neomutt = {
-        enable = true;
-      };
-      notmuch.enable = true;
-    };
-  };
-
-  home.packages = with pkgs; [w3m];
-
-  services.imapnotify.enable = isLinux;
-
+}: {
+  home.packages = with pkgs; [chroma pandoc w3m];
+  sops.secrets."aerc-accounts".path = "${config.xdg.configHome}/aerc/accounts.conf";
   programs = {
-    mbsync.enable = true;
-    msmtp.enable = true;
-    neomutt = {
+    aerc = {
       enable = true;
-      sidebar.enable = true;
-      sort = "reverse-threads";
-      vimKeys = true;
-      extraConfig = "";
-      settings = {
-        mailcap_path = "$HOME/.config/neomutt/mailcap:$mailcap_path";
+      extraConfig = {
+        general = {
+          default-save-path = "~/Downloads";
+          pgp-provider = "gpg";
+          # sops-nix manages the accounts.conf,
+          # so the permissions appear unsafe to aerc
+          unsafe-accounts-conf = true;
+        };
+        filters = {
+          "text/plain" = "colorize";
+          "text/html" = "w3m -s -T text/html -o display_link_number=1 -dump | colorize";
+          "text/calendar" = "calendar";
+          "message/delivery-status" = "colorize";
+          "message/rfc822" = "colorize";
+        };
       };
-      binds = [
-        {
-          map = ["index" "pager"];
-          key = "i";
-          action = "noop";
-        }
-        {
-          map = ["index" "pager"];
-          key = "g";
-          action = "noop";
-        }
-        {
-          map = ["index"];
-          key = "\\Cf";
-          action = "noop";
-        }
-        {
-          map = ["index" "pager"];
-          key = "M";
-          action = "noop";
-        }
-        {
-          map = ["index" "pager"];
-          key = "C";
-          action = "noop";
-        }
-        {
-          map = ["index"];
-          key = "gg";
-          action = "first-entry";
-        }
-        {
-          map = ["index"];
-          key = "j";
-          action = "next-entry";
-        }
-        {
-          map = ["index"];
-          key = "k";
-          action = "previous-entry";
-        }
-        {
-          map = ["attach"];
-          key = "<return>";
-          action = "view-mailcap";
-        }
-        {
-          map = ["attach"];
-          key = "l";
-          action = "view-mailcap";
-        }
-        {
-          map = ["editor"];
-          key = "<space>";
-          action = "noop";
-        }
-        {
-          map = ["index"];
-          key = "G";
-          action = "last-entry";
-        }
-        {
-          map = ["index"];
-          key = "gg";
-          action = "first-entry";
-        }
-        {
-          map = ["pager" "attach"];
-          key = "h";
-          action = "exit";
-        }
-        {
-          map = ["pager"];
-          key = "j";
-          action = "next-line";
-        }
-        {
-          map = ["pager"];
-          key = "k";
-          action = "previous-line";
-        }
-        {
-          map = ["pager"];
-          key = "l";
-          action = "view-attachments";
-        }
-        {
-          map = ["index"];
-          key = "D";
-          action = "delete-message";
-        }
-        {
-          map = ["index"];
-          key = "U";
-          action = "undelete-message";
-        }
-        {
-          map = ["index"];
-          key = "L";
-          action = "limit";
-        }
-        {
-          map = ["index"];
-          key = "h";
-          action = "noop";
-        }
-        {
-          map = ["index"];
-          key = "l";
-          action = "display-message";
-        }
-        {
-          map = ["index" "query"];
-          key = "<space>";
-          action = "tag-entry";
-        }
-        {
-          map = ["browser"];
-          key = "h";
-          action = "goto-parent";
-        }
-        # { map = [ "browser" ]; key = "h"; action = "'<change-dir><kill-line>..<enter>' \"Go to parent folder\""; }
-        {
-          map = ["index" "pager"];
-          key = "H";
-          action = "view-raw-message";
-        }
-        {
-          map = ["browser"];
-          key = "l";
-          action = "select-entry";
-        }
-        {
-          map = ["browser"];
-          key = "gg";
-          action = "top-page";
-        }
-        {
-          map = ["browser"];
-          key = "G";
-          action = "bottom-page";
-        }
-        {
-          map = ["pager"];
-          key = "gg";
-          action = "top";
-        }
-        {
-          map = ["pager"];
-          key = "G";
-          action = "bottom";
-        }
-        {
-          map = ["index" "pager" "browser"];
-          key = "d";
-          action = "half-down";
-        }
-        {
-          map = ["index" "pager" "browser"];
-          key = "u";
-          action = "half-up";
-        }
-        {
-          map = ["index" "pager"];
-          key = "S";
-          action = "sync-mailbox";
-        }
-        {
-          map = ["index" "pager"];
-          key = "R";
-          action = "group-reply";
-        }
-        {
-          map = ["index"];
-          key = "\\031";
-          action = "previous-undeleted";
-        }
-        {
-          map = ["index"];
-          key = "\\005";
-          action = "next-undeleted";
-        }
-        {
-          map = ["pager"];
-          key = "\\031";
-          action = "previous-line";
-        }
-        {
-          map = ["pager"];
-          key = "\\005";
-          action = "next-line";
-        }
-        {
-          map = ["editor"];
-          key = "<Tab>";
-          action = "complete-query";
-        }
-      ];
-    };
-    notmuch.enable = true;
-  };
+      extraBinds = {
+        global = {
+          "<C-p>" = ":prev-tab<Enter>";
+          "<C-n>" = ":next-tab<Enter>";
+          "<C-t>" = ":term<Enter>";
+          "?" = ":help keys<Enter>";
+        };
 
-  # need to use setsid on video/* mpv
-  xdg.configFile = {
-    "neomutt/mailcap".text = let
-      openurl = "${config.xdg.configHome}/neomutt/openurl";
-    in ''
-      text/plain; $EDITOR %s ;
-      text/html; ${openurl} %s ; nametemplate=%s.html
-      text/html; ${lib.getExe pkgs.lynx} -assume_charset=%{charset} -display_charset=utf-8 -dump -width=1024 %s; nametemplate=%s.html; copiousoutput;
-      image/*; ${openurl} %s ;
-      video/*; ${lib.getExe pkgs.mpv} --quiet %s &; copiousoutput
-      audio/*; ${lib.getExe pkgs.mpv} %s ;
-      application/pdf; ${openurl} %s ;
-      application/pgp-encrypted; ${lib.getExe pkgs.gnupg} -d '%s'; copiousoutput;
-      application/pgp-keys; ${lib.getExe pkgs.gnupg} --import '%s'; copiousoutput;
-    '';
-    "neomutt/openurl" = {
-      source = ./neomutt/openurl;
-      executable = true;
+        messages = {
+          q = ":quit<Enter>";
+          j = ":next<Enter>";
+          k = ":prev<Enter>";
+          "<Up>" = ":prev<Enter>";
+          "<Down>" = ":next<Enter>";
+          "<C-d>" = ":next 50%<Enter>";
+          "<C-u>" = ":prev 50%<Enter>";
+          "<C-f>" = ":next 100%<Enter>";
+          "<C-b>" = ":prev 100%<Enter>";
+          "<PgDn>" = ":next 100%<Enter>";
+          "<PgUp>" = ":prev 100%<Enter>";
+          g = ":select 0<Enter>";
+          G = ":select -1<Enter>";
+
+          H = ":collapse-folder<Enter>";
+          J = ":next-folder<Enter>";
+          K = ":prev-folder<Enter>";
+          L = ":expand-folder<Enter>";
+
+          v = ":mark -t<Enter>";
+          V = ":mark -v<Enter>";
+
+          T = ":toggle-threads<Enter>";
+
+          "<Enter>" = ":view<Enter>";
+          d = ":prompt 'Really delete this message?' 'delete-message'<Enter>";
+          D = ":delete<Enter>";
+          A = ":archive flat<Enter>";
+
+          C = ":compose<Enter>";
+
+          rr = ":reply -a<Enter>";
+          rq = ":reply -aq<Enter>";
+          Rr = ":reply<Enter>";
+          Rq = ":reply -q<Enter>";
+
+          c = ":cf<space>";
+          "$" = ":term<space>";
+          "!" = ":term<space>";
+          "|" = ":pipe<space>";
+
+          "/" = ":search<space>";
+          "\\" = ":filter<space>";
+          n = ":next-result<Enter>";
+          N = ":prev-result<Enter>";
+          "<Esc>" = ":clear<Enter>";
+        };
+
+        "messages:folder=Drafts" = {
+          "<Enter>" = ":recall<Enter>";
+        };
+
+        view = {
+          "/" = ":toggle-key-passthrough<Enter>/";
+          q = ":close<Enter>";
+          O = ":open<Enter>";
+          S = ":save<space>";
+          "|" = ":pipe<space>";
+          D = ":delete<Enter>";
+          A = ":archive flat<Enter>";
+
+          "<C-l>" = ":open-link <space>";
+
+          f = ":forward<Enter>";
+          rr = ":reply -a<Enter>";
+          rq = ":reply -aq<Enter>";
+          Rr = ":reply<Enter>";
+          Rq = ":reply -q<Enter>";
+
+          H = ":toggle-headers<Enter>";
+          "<C-k>" = ":prev-part<Enter>";
+          "<C-j>" = ":next-part<Enter>";
+          K = ":prev<Enter>";
+          J = ":next<Enter>";
+        };
+
+        "view::passthrough" = {
+          "$noinherit" = "true";
+          "$ex" = "<C-x>";
+          "<Esc>" = ":toggle-key-passthrough<Enter>";
+        };
+
+        # Keybindings used when the embedded terminal is not selected in the compose view
+        "compose" = {
+          "$noinherit" = "true";
+          "$ex" = "<C-x>";
+          "<C-k>" = ":prev-field<Enter>";
+          "<C-j>" = ":next-field<Enter>";
+          "<A-p>" = ":switch-account -p<Enter>";
+          "<A-n>" = ":switch-account -n<Enter>";
+          "<tab>" = ":next-field<Enter>";
+          "<backtab>" = ":prev-field<Enter>";
+          "<C-p>" = ":prev-tab<Enter>";
+          "<C-n>" = ":next-tab<Enter>";
+        };
+
+        # Keybindings used when the embedded terminal is selected in the compose view
+        "compose::editor" = {
+          "$noinherit" = "true";
+          "$ex" = "<C-x>";
+          "<C-k>" = ":prev-field<Enter>";
+          "<C-j>" = ":next-field<Enter>";
+          "<C-p>" = ":prev-tab<Enter>";
+          "<C-n>" = ":next-tab<Enter>";
+        };
+
+        # Keybindings used when reviewing a message to be sent
+        "compose::review" = {
+          y = ":send<Enter>";
+          n = ":abort<Enter>";
+          v = ":preview<Enter>";
+          p = ":postpone<Enter>";
+          q = ":choose -o d discard abort -o p postpone postpone<Enter>";
+          e = ":edit<Enter>";
+          a = ":attach<space>";
+          d = ":detach<space>";
+        };
+
+        "terminal" = {
+          "$noinherit" = "true";
+          "$ex" = "<C-x>";
+          "<C-p>" = ":prev-tab<Enter>";
+          "<C-n>" = ":next-tab<Enter>";
+        };
+      };
     };
   };
 }

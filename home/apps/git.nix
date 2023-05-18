@@ -1,6 +1,18 @@
-{pkgs, ...}: let
+{
+  config,
+  pkgs,
+  ...
+}: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
 in {
+  sops.secrets."gitconfig-work".path = "${config.xdg.configHome}/git/gitconfig-work";
+  programs.git.includes = [
+    {
+      condition = "gitdir:~/Code/work/";
+      path = config.sops.secrets.gitconfig-work.path;
+    }
+  ];
+
   programs.git = {
     enable = true;
     userName = "winston";
