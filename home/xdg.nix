@@ -32,7 +32,12 @@ in {
       "${sessionVariables.GOPATH}/bin"
       "${sessionVariables.CARGO_HOME}/bin"
     ];
+    packages = [pkgs.sccache];
   };
+  xdg.configFile."cargo/config".text = ''
+    [build]
+    rustc-wrapper = "sccache"
+  '';
 
   # NOTE: workaround for gpgme on Darwin, since GUI apps aren't aware of $GNUPGHOME
   programs.gpg.homedir =
