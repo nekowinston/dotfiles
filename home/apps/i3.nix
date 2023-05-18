@@ -8,8 +8,41 @@
   inherit (pkgs.stdenv.hostPlatform) isLinux;
   fonts = {
     names = ["IBM Plex Sans" "Symbols Nerd Font"];
-    size = 16.0;
+    size = 12.0;
   };
+
+  recursiveMerge = with lib;
+    attrList: let
+      f = attrPath:
+        zipAttrsWith (
+          n: values:
+            if tail values == []
+            then head values
+            else if all isList values
+            then unique (concatLists values)
+            else if all isAttrs values
+            then f (attrPath ++ [n]) values
+            else last values
+        );
+    in
+      f [] attrList;
+
+  swaylocker = pkgs.writeShellScript "swaylocker" ''
+    swaylock \
+      --screenshots \
+      --clock \
+      --indicator \
+      --indicator-radius 100 \
+      --indicator-thickness 7 \
+      --effect-blur 7x5 \
+      --effect-vignette 0.5:0.5 \
+      --ring-color f5c2e7 \
+      --key-hl-color 1e1e2e \
+      --line-color 00000000 \
+      --inside-color 00000088 \
+      --separator-color 00000000 \
+      --text-color cdd6f4
+  '';
 
   commonConfig = {wayland ? false}: rec {
     modifier = "Mod4";
@@ -20,11 +53,15 @@
       else true;
     startup = [
       {
-        command = "${lib.getExe pkgs.autotiling} -l2";
+        command = "autotiling -l2";
         always = true;
       }
       {
-        command = "${lib.getExe pkgs._1password-gui} --silent";
+        command = "1password --silent";
+      }
+      {
+        command = "swaync";
+        always = true;
       }
     ];
     workspaceAutoBackAndForth = true;
@@ -161,7 +198,7 @@
       "power: (l)ock, (e)xit, (r)eboot, (s)uspend, (h)ibernate, (S)hut off" = let
         lock =
           if wayland
-          then "swaylock"
+          then swaylocker
           else "i3lock";
         msg =
           if wayland
@@ -190,47 +227,48 @@
     inherit fonts;
     bars = [
       {
-        mode = "hide";
         position = "top";
+        trayOutput = "none";
+        statusCommand = "${config.programs.i3status-rust.package}/bin/i3status-rs ~/.config/i3status-rust/config-top.toml";
         workspaceNumbers = false;
         inherit fonts;
         colors = {
-          background = "#000000";
+          background = "#1e1e2e";
           focusedWorkspace = {
             background = "#F5C2E7";
-            text = "#000000";
+            text = "#11111b";
             border = "#F5C2E7";
           };
           activeWorkspace = {
             background = "#CBA6F7";
-            text = "#000000";
+            text = "#11111b";
             border = "#CBA6F7";
           };
           inactiveWorkspace = {
-            background = "#000000";
+            background = "#11111b";
             text = "#CDD6F4";
-            border = "#000000";
+            border = "#11111b";
           };
         };
       }
     ];
     colors = rec {
       focused = {
-        background = "#000000";
+        background = "#1e1e2e";
         border = "#F5C2E7";
         childBorder = "#F5C2E7";
         text = "#CDD6F4";
         indicator = "#F5C2E7";
       };
       urgent = {
-        background = "#000000";
+        background = "#1e1e2e";
         border = "#F38BA8";
         childBorder = "#F38BA8";
         text = "#CDD6F4";
         indicator = "#F38BA8";
       };
       unfocused = {
-        background = "#000000";
+        background = "#1e1e2e";
         border = "#CBA6F7";
         childBorder = "#CBA6F7";
         text = "#CDD6F4";
@@ -331,10 +369,13 @@ in {
   home = lib.mkIf isLinux {
     packages = with pkgs; [
       arandr
+      autotiling
       blueberry
       flameshot
+      libnotify
       pavucontrol
       sway-contrib.grimshot
+      swaynotificationcenter
       xclip
     ];
     pointerCursor = {
@@ -343,6 +384,64 @@ in {
       gtk.enable = true;
       size = 24;
       x11.enable = true;
+    };
+  };
+
+  programs.i3status-rust = lib.mkIf isLinux {
+    enable = true;
+    bars.top = {
+      blocks = [
+        {
+          block = "vpn";
+          driver = "mullvad";
+          format_connected = "󰍁 ";
+          format_disconnected = "󰍀 ";
+          state_connected = "good";
+          state_disconnected = "critical";
+        }
+        {
+          block = "tea_timer";
+          done_cmd = "notify-send 'Timer Finished'";
+        }
+        {
+          block = "time";
+          interval = 60;
+          format = " $timestamp.datetime(f:'%d/%m %R') ";
+        }
+        {
+          block = "notify";
+          format = " $icon {($notification_count.eng(w:1)) |}";
+          driver = "swaync";
+          click = [
+            {
+              button = "left";
+              action = "show";
+            }
+            {
+              button = "right";
+              action = "toggle_paused";
+            }
+          ];
+        }
+      ];
+      settings = {
+        icons.icons = "material-nf";
+        theme.overrides = {
+          idle_fg = "#cdd6f4";
+          idle_bg = "#00000000";
+          info_fg = "#89b4fa";
+          info_bg = "#00000000";
+          good_fg = "#a6e3a1";
+          good_bg = "#00000000";
+          warning_fg = "#fab387";
+          warning_bg = "#00000000";
+          critical_fg = "#f38ba8";
+          critical_bg = "#00000000";
+          separator = " ";
+          separator_bg = "auto";
+          separator_fg = "auto";
+        };
+      };
     };
   };
 
@@ -367,7 +466,6 @@ in {
         useGeoclue = false;
       };
     };
-    dunst.enable = true;
     gnome-keyring = {
       enable = true;
       components = ["secrets"];
@@ -404,11 +502,6 @@ in {
         ];
       };
     };
-    screen-locker = {
-      enable = false;
-      inactiveInterval = 5;
-      lockCmd = "${lib.getExe pkgs.i3lock} -n -c 000000";
-    };
     udiskie.enable = true;
   };
 
@@ -426,43 +519,53 @@ in {
     scriptPath = "${config.xdg.cacheHome}/X11/xsession";
     windowManager.i3 = {
       enable = true;
-      config =
-        commonConfig {wayland = false;}
-        // {
+      config = recursiveMerge [
+        (commonConfig {wayland = false;})
+        {
           startup = [
             {
               command = "${lib.getExe pkgs.flameshot}";
             }
             {
-              command = "${lib.getExe pkgs.feh} --bg-fill ${flakePath}/home/wallpapers/dhm_1610.png";
+              command = "${lib.getExe pkgs.feh} --bg-fill ${flakePath}/home/wallpapers/dhm_1610.png --no-fehbg";
               always = true;
             }
           ];
-        };
-      extraConfig = commonExtraConfig;
+        }
+      ];
+      extraConfig = ''
+        set_from_resource $dpi Xft.dpi 192
+        ${commonExtraConfig}
+      '';
     };
   };
 
   wayland.windowManager.sway = lib.mkIf isLinux {
     enable = true;
-    config =
-      commonConfig {wayland = true;}
-      // {
-        input."type:keyboard" = {
-          xkb_options = "ctrl:nocaps";
-        };
-        output = {
-          "*" = {
-            scale = "2";
-            bg = "${flakePath}/home/wallpapers/dhm_1610.png fill #171320";
-          };
+    config = recursiveMerge [
+      (commonConfig {wayland = true;})
+      {
+        input."type:keyboard".xkb_options = "ctrl:nocaps";
+        output."*" = {
+          scale = "2";
+          bg = "${flakePath}/home/wallpapers/dhm_1610.png fill #171320";
         };
         startup = [
           {
             command = "wl-paste -t text --watch clipman store";
           }
+          {
+            command = ''
+              swayidle -w \
+                timeout 180 ${swaylocker} \
+                timeout 240 'swaymsg "output * dpms off"' \
+                  resume 'swaymsg "output * dpms on"' \
+                before-sleep ${swaylocker}
+            '';
+          }
         ];
-      };
+      }
+    ];
     extraConfig = ''
       ${commonExtraConfig}
       shadows             enable

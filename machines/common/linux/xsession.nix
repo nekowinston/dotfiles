@@ -29,7 +29,15 @@
       swaylock-effects
       swayidle
     ];
+    wrapperFeatures = {
+      base = true;
+      gtk = true;
+    };
   };
+  # needed for gnome3 pinentry
+  services.dbus.packages = [pkgs.gcr];
+  xdg.portal.enable = true;
+  xdg.portal.wlr.enable = true;
 
   services = {
     # mounting
@@ -79,11 +87,6 @@
       xkbOptions = "caps:ctrl_modifier";
     };
   };
-
-  # needed for gnome3 pinentry
-  services.dbus.packages = [pkgs.gcr];
-  xdg.portal.enable = true;
-  xdg.portal.wlr.enable = true;
 
   security.polkit.enable = true;
   systemd = {
