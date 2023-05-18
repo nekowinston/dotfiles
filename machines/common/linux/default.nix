@@ -1,14 +1,11 @@
-{pkgs, ...}: {
+{
   imports = [
     ./boot.nix
+    ./input.nix
     ./network.nix
     ./sound.nix
     ./xsession.nix
   ];
-  # needed for gnome3 pinentry
-  services.dbus.packages = [pkgs.gcr];
-  xdg.portal.enable = true;
-  xdg.portal.wlr.enable = true;
 
   console.colors = [
     "1e1e2e"

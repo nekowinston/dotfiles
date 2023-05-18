@@ -52,10 +52,7 @@
       };
       sway-unwrapped = swayfx.packages.${prev.system}.default;
     };
-    commonHMConfig = {
-      username,
-      machine,
-    }: ({
+    commonHMConfig = {username}: ({
       config,
       pkgs,
       ...
@@ -76,7 +73,6 @@
               if pkgs.stdenv.isDarwin
               then "/Users/${username}/.config/nixpkgs"
               else "/home/${username}/.config/nixpkgs";
-            inherit machine;
           };
         };
       };
@@ -92,7 +88,6 @@
             ./machines/futomaki
             (commonHMConfig {
               username = "winston";
-              machine.personal = true;
             })
           ];
         };
@@ -104,7 +99,6 @@
             ./machines/bento
             (commonHMConfig {
               username = "w";
-              machine.personal = false;
             })
           ];
         };
@@ -118,7 +112,6 @@
             ./machines/sashimi
             (commonHMConfig {
               username = "winston";
-              machine.personal = true;
             })
           ];
         };
@@ -150,7 +143,6 @@
               if pkgs.stdenv.isDarwin
               then "/Users/${username}/.config/nixpkgs"
               else "/home/${username}/.config/nixpkgs";
-            machine.personal = false;
           };
         };
     }

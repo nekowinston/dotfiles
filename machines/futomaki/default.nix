@@ -44,6 +44,7 @@ in {
 
   environment.systemPackages = with pkgs; [
     (discord.override {withOpenASAR = true;})
+    gnome.gnome-boxes
     heroic
     lutris
     nur.repos.nekowinston.discover-overlay
