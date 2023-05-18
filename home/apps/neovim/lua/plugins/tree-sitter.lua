@@ -3,23 +3,10 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     build = function()
-      require("nvim-treesitter.install").update({ with_sync = true })
+      require("nvim-treesitter.install").update()
     end,
     config = function()
-      local treesitter = require("nvim-treesitter.configs")
-
-      require("nvim-treesitter.parsers").get_parser_configs().just = {
-        install_info = {
-          url = "https://github.com/indianboy42/tree-sitter-just",
-          files = { "src/parser.c", "src/scanner.cc" },
-          branch = "main",
-          use_makefile = true,
-        },
-        maintainers = { "@IndianBoy42" },
-      }
-      require("nvim-treesitter.install").compilers = { "gcc" }
-
-      treesitter.setup({
+      require("nvim-treesitter.configs").setup({
         auto_install = true,
         ignore_install = {
           "phpdoc",
@@ -52,7 +39,6 @@ return {
           "yaml",
         },
       })
-
       vim.o.foldmethod = "expr"
       vim.o.foldexpr = "nvim_treesitter#foldexpr()"
       vim.o.foldenable = false
@@ -60,7 +46,7 @@ return {
   },
   "nvim-treesitter/playground",
   "windwp/nvim-ts-autotag",
-  "HiPhish/nvim-ts-rainbow2",
+  "hiphish/nvim-ts-rainbow2",
 
   -- not treesitter, but close enough
   {
