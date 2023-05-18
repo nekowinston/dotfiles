@@ -1,6 +1,5 @@
 {
   config,
-  flakePath,
   lib,
   pkgs,
   ...
@@ -11,9 +10,10 @@
         if pkgs.stdenv.isDarwin
         then "${config.home.homeDirectory}/Library/Fonts"
         else "${config.xdg.dataHome}/fonts";
+      fontPath = ../secrets/fonts;
     in
       lib.hm.dag.entryAfter ["writeBoundary"] ''
-        install -Dm644 ${flakePath}/home/secrets/fonts/* "${fontDirectory}"
+        install -Dm644 ${fontPath}/* "${fontDirectory}"
       '';
   };
   home.packages = with pkgs; [
