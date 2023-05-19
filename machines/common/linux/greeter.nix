@@ -29,8 +29,18 @@ in {
   services.greetd.settings.default_session.command = "${lib.getExe config.programs.sway.package} --config ${greetdConfig}";
   services.gnome.gnome-keyring.enable = true;
 
-  security.pam.services.greetd.gnupg.enable = true;
+  security.pam = {
+    u2f = {
+      enable = true;
+      cue = true;
+    };
+    services.greetd = {
+      enableGnomeKeyring = true;
+      u2fAuth = true;
+    };
+  };
   security.polkit.enable = true;
+
   systemd = {
     packages = [pkgs.polkit_gnome];
     user.services.polkit-gnome-authentication-agent-1 = {

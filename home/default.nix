@@ -63,4 +63,7 @@ in {
   };
 
   xdg.configFile."ideavim/ideavimrc".source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/home/apps/ideavim/ideavimrc";
+  xdg.configFile."Yubico/u2f_keys".text = ''
+    winston:+SzANNyl5RpjNZFCthItSi7rQgiNqKNQztm2omNDnMOMNYXbnpoxMY/tqNCqoUtcAnkSmfC1/2E3WMZZ+IupFw==,gw1FnUrGJ2/vsxrcyOP17603yWSSk2OaatqvqkzhiEmRd/FAzWuXYE2YA16SBB9n+f6IypjerPgwY06zOw3DOA==,es256,+presence%
+  '';
 }
