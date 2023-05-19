@@ -1,10 +1,8 @@
-# vim:ft=just:fdm=marker
-
 [private]
 default:
   @just --choose
 
-# wrapper around {nixos,darwin}-rebuild, always taking the flake {{{
+# wrapper around {nixos,darwin}-rebuild, always taking the flake
 [private]
 [macos]
 rebuild *args:
@@ -18,8 +16,8 @@ rebuild *args:
 [linux]
 rebuild *args:
   sudo nixos-rebuild --flake . {{args}}
-# }}}
 
+# public commands
 build *args:
   @just rebuild build {{args}}
 
