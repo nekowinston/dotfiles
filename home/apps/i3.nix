@@ -27,23 +27,6 @@
     in
       f [] attrList;
 
-  swaylocker = pkgs.writeShellScript "swaylocker" ''
-    swaylock \
-      --screenshots \
-      --clock \
-      --indicator \
-      --indicator-radius 100 \
-      --indicator-thickness 7 \
-      --effect-blur 7x5 \
-      --effect-vignette 0.5:0.5 \
-      --ring-color f5c2e7 \
-      --key-hl-color 1e1e2e \
-      --line-color 00000000 \
-      --inside-color 00000088 \
-      --separator-color 00000000 \
-      --text-color cdd6f4
-  '';
-
   commonConfig = {wayland ? false}: rec {
     modifier = "Mod4";
     focus.wrapping = "no";
@@ -59,10 +42,6 @@
       {
         command = "1password --silent";
       }
-      {
-        command = "swaync";
-        always = true;
-      }
     ];
     workspaceAutoBackAndForth = true;
     terminal = "${lib.getExe config.programs.wezterm.package}";
@@ -74,23 +53,13 @@
       modFocus = "${mod}+Ctrl";
       hyper = "Mod4+Mod1+Shift+Ctrl";
 
-      gopass = lib.getExe pkgs.gopass;
       thunar = lib.getExe pkgs.xfce.thunar;
-      xargs = "${lib.getExe pkgs.findutils}/bin/xargs";
-      xdotool = lib.getExe pkgs.xdotool;
       screenshot =
         if wayland
         then "${lib.getExe pkgs.sway-contrib.grimshot} copy area"
         else "${pkgs.flameshot}/bin/flameshot gui";
       playerctl = lib.getExe pkgs.playerctl;
       wpctl = pkgs.wireplumber + "/bin/wpctl";
-      # TODO: replace xdotool with wayland equivalent
-      gopassRofi = pkgs.writeShellScript "gopass-rofi" ''
-        ${gopass} ls --flat | \
-        ${menu} -dmenu -dpi $dpi | \
-        ${xargs} --no-run-if-empty ${gopass} show -o | \
-        ${xdotool} type --clearmodifiers --file -
-      '';
     in {
       "${mod}+Shift+b" = "border none";
       "${mod}+b" = "border pixel 2";
@@ -102,7 +71,6 @@
       # Start Applications
       "${mod}+Shift+Return" = "exec ${terminal}";
       "${mod}+e" = "exec --no-startup-id ${thunar}";
-      "${hyper}+space" = "exec --no-startup-id ${gopassRofi}";
       "${hyper}+p" = "exec --no-startup-id ${screenshot}";
 
       # change focus
@@ -188,7 +156,7 @@
       "XF86AudioMute" = "exec --no-startup-id ${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle";
       "XF86AudioNext" = "exec --no-startup-id ${playerctl} next";
       "XF86AudioPrev" = "exec --no-startup-id ${playerctl} previous";
-      "XF86AudioPause" = "exec --no-startup-id ${playerctl} play-pause";
+      "XF86AudioPlay" = "exec --no-startup-id ${playerctl} play-pause";
 
       # modes
       "${mod}+r" = "mode \"resize\"";
@@ -198,7 +166,7 @@
       "power: (l)ock, (e)xit, (r)eboot, (s)uspend, (h)ibernate, (S)hut off" = let
         lock =
           if wayland
-          then swaylocker
+          then "swaylock"
           else "i3lock";
         msg =
           if wayland
@@ -235,18 +203,18 @@
         colors = {
           background = "#1e1e2e";
           focusedWorkspace = {
-            background = "#F5C2E7";
+            background = "#f5c2e7";
             text = "#11111b";
-            border = "#F5C2E7";
+            border = "#f5c2e7";
           };
           activeWorkspace = {
-            background = "#CBA6F7";
+            background = "#cba6f7";
             text = "#11111b";
-            border = "#CBA6F7";
+            border = "#cba6f7";
           };
           inactiveWorkspace = {
             background = "#11111b";
-            text = "#CDD6F4";
+            text = "#cdd6f4";
             border = "#11111b";
           };
         };
@@ -255,24 +223,24 @@
     colors = rec {
       focused = {
         background = "#1e1e2e";
-        border = "#F5C2E7";
-        childBorder = "#F5C2E7";
-        text = "#CDD6F4";
-        indicator = "#F5C2E7";
+        border = "#f5c2e7";
+        childBorder = "#f5c2e7";
+        text = "#cdd6f4";
+        indicator = "#f5c2e7";
       };
       urgent = {
         background = "#1e1e2e";
-        border = "#F38BA8";
-        childBorder = "#F38BA8";
-        text = "#CDD6F4";
-        indicator = "#F38BA8";
+        border = "#f38ba8";
+        childBorder = "#f38ba8";
+        text = "#cdd6f4";
+        indicator = "#f38ba8";
       };
       unfocused = {
         background = "#1e1e2e";
-        border = "#CBA6F7";
-        childBorder = "#CBA6F7";
-        text = "#CDD6F4";
-        indicator = "#CBA6F7";
+        border = "#cba6f7";
+        childBorder = "#cba6f7";
+        text = "#cdd6f4";
+        indicator = "#cba6f7";
       };
       focusedInactive = unfocused;
       placeholder = unfocused;
@@ -371,78 +339,15 @@ in {
       arandr
       autotiling
       blueberry
+      clipman
       flameshot
       libnotify
       pavucontrol
       sway-contrib.grimshot
       swaynotificationcenter
+      wl-clipboard
       xclip
     ];
-    pointerCursor = {
-      name = "Numix-Cursor";
-      package = pkgs.numix-cursor-theme;
-      gtk.enable = true;
-      size = 24;
-      x11.enable = true;
-    };
-  };
-
-  programs.i3status-rust = lib.mkIf isLinux {
-    enable = true;
-    bars.top = {
-      blocks = [
-        {
-          block = "vpn";
-          driver = "mullvad";
-          format_connected = "󰍁 ";
-          format_disconnected = "󰍀 ";
-          state_connected = "good";
-          state_disconnected = "critical";
-        }
-        {
-          block = "tea_timer";
-          done_cmd = "notify-send 'Timer Finished'";
-        }
-        {
-          block = "time";
-          interval = 60;
-          format = " $timestamp.datetime(f:'%d/%m %R') ";
-        }
-        {
-          block = "notify";
-          format = " $icon {($notification_count.eng(w:1)) |}";
-          driver = "swaync";
-          click = [
-            {
-              button = "left";
-              action = "show";
-            }
-            {
-              button = "right";
-              action = "toggle_paused";
-            }
-          ];
-        }
-      ];
-      settings = {
-        icons.icons = "material-nf";
-        theme.overrides = {
-          idle_fg = "#cdd6f4";
-          idle_bg = "#00000000";
-          info_fg = "#89b4fa";
-          info_bg = "#00000000";
-          good_fg = "#a6e3a1";
-          good_bg = "#00000000";
-          warning_fg = "#fab387";
-          warning_bg = "#00000000";
-          critical_fg = "#f38ba8";
-          critical_bg = "#00000000";
-          separator = " ";
-          separator_bg = "auto";
-          separator_fg = "auto";
-        };
-      };
-    };
   };
 
   xresources = lib.mkIf isLinux {
@@ -511,6 +416,7 @@ in {
       Description = "Home Manager System Tray";
       Requires = ["graphical-session-pre.target"];
     };
+    user.services.picom = lib.mkForce {};
   };
 
   xsession = lib.mkIf isLinux {
@@ -528,6 +434,10 @@ in {
             }
             {
               command = "${lib.getExe pkgs.feh} --bg-fill ${flakePath}/home/wallpapers/dhm_1610.png --no-fehbg";
+              always = true;
+            }
+            {
+              command = "${lib.getExe config.services.picom.package}";
               always = true;
             }
           ];
@@ -557,10 +467,10 @@ in {
           {
             command = ''
               swayidle -w \
-                timeout 180 ${swaylocker} \
-                timeout 240 'swaymsg "output * dpms off"' \
-                  resume 'swaymsg "output * dpms on"' \
-                before-sleep ${swaylocker}
+                timeout 180 swaylock \
+                timeout 360 'swaymsg "output * dpms off"' \
+                resume 'swaymsg "output * dpms on"' \
+                before-sleep swaylock
             '';
           }
         ];
@@ -584,5 +494,17 @@ in {
       base = true;
       gtk = true;
     };
+    extraSessionCommands = ''
+      # session
+      export XDG_SESSION_TYPE=wayland
+      export XDG_SESSION_DESKTOP=sway
+      export XDG_CURRENT_DESKTOP=sway
+      # wayland
+      export NIXOS_OZONE_WL=1
+      export MOZ_ENABLE_WAYLAND=1
+      export QT_QPA_PLATFORM=wayland
+      export SDL_VIDEODRIVER=wayland
+      export _JAVA_AWT_WM_NONREPARENTING=1
+    '';
   };
 }

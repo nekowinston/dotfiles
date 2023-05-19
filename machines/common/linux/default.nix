@@ -1,6 +1,7 @@
 {
   imports = [
     ./boot.nix
+    ./greeter.nix
     ./input.nix
     ./network.nix
     ./sound.nix
