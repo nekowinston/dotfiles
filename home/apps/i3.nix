@@ -467,11 +467,12 @@ in {
           {
             command = ''
               swayidle -w \
-                timeout 180 swaylock \
+                timeout 180 'swaylock -f' \
                 timeout 360 'swaymsg "output * dpms off"' \
                 resume 'swaymsg "output * dpms on"' \
-                before-sleep swaylock
+                before-sleep 'swaylock -f'
             '';
+            always = true;
           }
         ];
       }
