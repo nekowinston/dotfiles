@@ -6,15 +6,6 @@ in {
     ../common/linux
   ];
 
-  boot = {
-    kernelPackages = pkgs.linuxPackages_6_2;
-    kernelParams = ["quiet" "splash"];
-  };
-
-  hardware = {
-    bluetooth.enable = true;
-  };
-
   networking = {
     hostName = "futomaki";
     networkmanager.enable = true;
