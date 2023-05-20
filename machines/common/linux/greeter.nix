@@ -5,6 +5,9 @@
   ...
 }: let
   greetdConfig = pkgs.writeText "greetd-config" ''
+    output "*" {
+      scale 2
+    }
     exec "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP"
     seat seat0 xcursor_theme "Numix-Cursor" 24
     xwayland disable
@@ -21,7 +24,7 @@ in {
       GTK = {
         font_name = "IBM Plex Mono 16";
         cursor_theme_name = "Numix-Cursor";
-        icon_theme_name = "Papirus-Dark";
+        icon_theme_name = "Papirus";
         theme_name = "Catppuccin-Mocha-Compact-Pink-Dark";
       };
     };
@@ -72,6 +75,20 @@ in {
       .override {
         accents = ["pink"];
         variant = "mocha";
+        size = "compact";
+      })
+    ((pkgs.catppuccin-gtk.overrideAttrs (final: rec {
+        version = "0.5.0";
+        src = fetchFromGitHub {
+          owner = "catppuccin";
+          repo = "gtk";
+          rev = "v${version}";
+          sha256 = "sha256-tVkB9R3Z4lApCIveWPweTnB/JlwbiVAHREGq+xRINkM=";
+        };
+      }))
+      .override {
+        accents = ["pink"];
+        variant = "latte";
         size = "compact";
       })
     (pkgs.nur.repos.nekowinston.papirus-folders-catppuccin.override {
