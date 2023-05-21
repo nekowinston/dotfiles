@@ -62,37 +62,33 @@ in {
       };
     };
   };
-  environment.systemPackages = with pkgs; [
-    ((pkgs.catppuccin-gtk.overrideAttrs (final: rec {
-        version = "0.5.0";
-        src = fetchFromGitHub {
-          owner = "catppuccin";
-          repo = "gtk";
-          rev = "v${version}";
-          sha256 = "sha256-tVkB9R3Z4lApCIveWPweTnB/JlwbiVAHREGq+xRINkM=";
-        };
-      }))
-      .override {
-        accents = ["pink"];
-        variant = "mocha";
-        size = "compact";
-      })
-    ((pkgs.catppuccin-gtk.overrideAttrs (final: rec {
-        version = "0.5.0";
-        src = fetchFromGitHub {
-          owner = "catppuccin";
-          repo = "gtk";
-          rev = "v${version}";
-          sha256 = "sha256-tVkB9R3Z4lApCIveWPweTnB/JlwbiVAHREGq+xRINkM=";
-        };
-      }))
-      .override {
-        accents = ["pink"];
-        variant = "latte";
-        size = "compact";
-      })
+  environment.systemPackages = with pkgs; let
+    gtk = pkgs.catppuccin-gtk.overrideAttrs (final: rec {
+      version = "0.6.0";
+      src = pkgs.fetchFromGitHub {
+        owner = "catppuccin";
+        repo = "gtk";
+        rev = "v${version}";
+        sha256 = "sha256-3HplAmlj8hK9Myy8mgvR88sMa2COmYAU75Fk1JuKtMc=";
+      };
+    });
+  in [
+    (gtk.override {
+      accents = ["pink"];
+      variant = "mocha";
+      size = "compact";
+    })
+    (gtk.override {
+      accents = ["pink"];
+      variant = "latte";
+      size = "compact";
+    })
     (pkgs.nur.repos.nekowinston.papirus-folders-catppuccin.override {
       flavour = "mocha";
+      accent = "pink";
+    })
+    (pkgs.nur.repos.nekowinston.papirus-folders-catppuccin.override {
+      flavour = "latte";
       accent = "pink";
     })
     numix-cursor-theme
