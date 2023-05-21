@@ -45,9 +45,7 @@
         nurpkgs = prev;
         pkgs = prev;
         repoOverrides = {
-          nekowinston = import nekowinston-nur {
-            pkgs = import nixpkgs {system = prev.system;};
-          };
+          nekowinston = nekowinston-nur.packages.${prev.system};
         };
       };
       sway-unwrapped = swayfx.packages.${prev.system}.default;
