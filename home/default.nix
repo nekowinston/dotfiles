@@ -29,6 +29,7 @@ in {
 
   home = {
     packages = with pkgs; ([
+        _1password
         fd
         ffmpeg
         file
