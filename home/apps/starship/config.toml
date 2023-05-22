@@ -151,9 +151,9 @@ deleted = '󱪢 '
 diverged = '󱐎 '
 modified = '󱇨 '
 renamed = '󱀱 '
-untracked = '󰮗 '
-staged = '󰩎 '
-stashed = '󱀮 '
+untracked = '󰻭 '
+staged = '󱧳 '
+stashed = '󱧶 '
 
 ### SHELL STATUS
 [cmd_duration]
