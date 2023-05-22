@@ -29,7 +29,6 @@ in {
     name = "Numix-Cursor";
     package = pkgs.numix-cursor-theme;
     gtk.enable = true;
-    size = 24;
     x11.enable = true;
   };
 

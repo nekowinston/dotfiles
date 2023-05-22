@@ -18,8 +18,7 @@
     nix-index-database.url = "github:Mic92/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
-    # TODO: commit remove once fixed
-    swayfx.url = "github:willpower3309/swayfx/479cc4e7456a93aed1a89bef8d83c1f8c43bd291";
+    swayfx.url = "github:willpower3309/swayfx";
     swayfx.inputs.nixpkgs.follows = "nixpkgs";
 
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";

@@ -439,17 +439,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1684127469,
-        "narHash": "sha256-vkAXmf+3ZpTRS8zzgSjQyeYvoVK7E+3yiWUnIw2GDT8=",
+        "lastModified": 1684677874,
+        "narHash": "sha256-d+KHaeOxr81rb+otnYKHhqHur6u4bBzPs21+nQ0FRms=",
         "owner": "willpower3309",
         "repo": "swayfx",
-        "rev": "479cc4e7456a93aed1a89bef8d83c1f8c43bd291",
+        "rev": "60e24c9cf4c9c729513c8103326e51c983414118",
         "type": "github"
       },
       "original": {
         "owner": "willpower3309",
         "repo": "swayfx",
-        "rev": "479cc4e7456a93aed1a89bef8d83c1f8c43bd291",
         "type": "github"
       }
     },
