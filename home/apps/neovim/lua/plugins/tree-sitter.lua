@@ -55,4 +55,6 @@ return {
       vim.g.astro_typescript = "enable"
     end,
   },
+  "towolf/vim-helm",
+  "NoahTheDuke/vim-just",
 }

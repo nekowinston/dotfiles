@@ -38,5 +38,4 @@ return {
       require("lsp")
     end,
   },
-  "towolf/vim-helm",
 }
