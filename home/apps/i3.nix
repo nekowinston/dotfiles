@@ -480,15 +480,17 @@ in {
     extraConfig = ''
       ${commonExtraConfig}
       shadows             enable
-      shadow_color        #00000099
-      shadow_blur_radius  10
+      shadow_color        #11111b99
+      shadow_blur_radius  20
 
       corner_radius       5
       smart_corner_radius enable
 
       blur                enable
       blur_passes         2
-      blur_radius         2
+      blur_radius         4
+
+      layer_effects       "swaync-notification-window" blur enable; shadows enable; corner_radius 5;
     '';
     systemdIntegration = true;
     wrapperFeatures = {
