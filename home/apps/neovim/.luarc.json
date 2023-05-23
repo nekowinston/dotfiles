@@ -1,4 +1,5 @@
 {
   "Lua.runtime.version": "Lua 5.1",
-  "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json"
+  "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
+  "workspace.checkThirdParty": false
 }

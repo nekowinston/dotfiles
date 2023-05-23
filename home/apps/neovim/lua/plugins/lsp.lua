@@ -19,6 +19,7 @@ return {
         "folke/trouble.nvim",
         opts = { padding = false },
       },
+      { "folke/neodev.nvim", opts = {} },
       "nvim-lua/lsp-status.nvim",
       "barreiroleo/ltex-extra.nvim",
       "b0o/schemastore.nvim",

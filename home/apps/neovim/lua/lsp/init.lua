@@ -150,29 +150,6 @@ local on_attach = function(client, bufnr)
   end
 end
 
-lspconfig.lua_ls.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-  settings = {
-    Lua = {
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-        checkThirdParty = false,
-        maxPreload = 150000,
-        preloadFileSize = 1000,
-      },
-      diagnostics = {
-        -- Get the server to recognize the `vim` global
-        globals = { "vim" },
-      },
-      telemetry = {
-        enable = false,
-      },
-    },
-  },
-})
-
 lspconfig.ltex.setup({
   capabilities = capabilities,
   on_attach = function(client, bufnr)
@@ -211,6 +188,7 @@ local servers = {
   "helm_ls",
   "jqls",
   "nil_ls",
+  "lua_ls",
   "taplo",
   "teal_ls",
 }
