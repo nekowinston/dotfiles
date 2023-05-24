@@ -12,8 +12,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # NUR
     nur.url = "github:nix-community/nur";
     nekowinston-nur.url = "github:nekowinston/nur";
+    caarlos0-nur.url = "github:caarlos0/nur";
+
     sops.url = "github:Mic92/sops-nix";
     nix-index-database.url = "github:Mic92/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
@@ -28,26 +31,20 @@
   outputs = {
     self,
     darwin,
-    flake-utils,
     home-manager,
-    nekowinston-nur,
-    nix-index-database,
     nixpkgs,
-    nur,
-    pre-commit-hooks,
-    sops,
-    swayfx,
     ...
-  }: let
+  } @ inputs: let
     overlays = final: prev: {
-      nur = import nur {
+      nur = import inputs.nur {
         nurpkgs = prev;
         pkgs = prev;
         repoOverrides = {
-          nekowinston = nekowinston-nur.packages.${prev.system};
+          caarlos0 = inputs.caarlos0-nur.packages.${prev.system};
+          nekowinston = inputs.nekowinston-nur.packages.${prev.system};
         };
       };
-      sway-unwrapped = swayfx.packages.${prev.system}.default;
+      sway-unwrapped = inputs.swayfx.packages.${prev.system}.default;
     };
     commonHMConfig = {username}: ({
       config,
@@ -61,8 +58,8 @@
           backupFileExtension = "backup";
           sharedModules = [
             ./modules
-            nix-index-database.hmModules.nix-index
-            sops.homeManagerModules.sops
+            inputs.nix-index-database.hmModules.nix-index
+            inputs.sops.homeManagerModules.sops
           ];
           users.${username}.imports = [./home];
           extraSpecialArgs = {
@@ -132,8 +129,8 @@
             }
             ./modules
             ./home
-            nix-index-database.hmModules.nix-index
-            sops.homeManagerModules.sops
+            inputs.nix-index-database.hmModules.nix-index
+            inputs.sops.homeManagerModules.sops
           ];
           extraSpecialArgs = {
             flakePath =
@@ -143,29 +140,26 @@
           };
         };
     }
-    // flake-utils.lib.eachDefaultSystem (system: {
-      checks = {
-        pre-commit-check = pre-commit-hooks.lib.${system}.run {
-          src = ./.;
-          hooks = {
-            alejandra.enable = true;
-            commitizen.enable = true;
-            editorconfig-checker.enable = true;
-            luacheck.enable = true;
-            nil.enable = true;
-            shellcheck.enable = true;
-            stylua.enable = true;
-          };
+    // inputs.flake-utils.lib.eachDefaultSystem (system: let
+      pkgs = nixpkgs.legacyPackages.${system};
+    in {
+      checks.pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
+        src = ./.;
+        hooks = {
+          alejandra.enable = true;
+          commitizen.enable = true;
+          editorconfig-checker.enable = true;
+          luacheck.enable = true;
+          nil.enable = true;
+          shellcheck.enable = true;
+          stylua.enable = true;
         };
       };
-      devShells.default = let
-        pkgs = nixpkgs.legacyPackages.${system};
-      in
-        pkgs.mkShell {
-          name = "nixpkgs";
-          inherit (self.checks.${system}.pre-commit-check) shellHook;
-          packages = [pkgs.just pkgs.git-crypt pkgs.sops];
-        };
-      formatter = nixpkgs.legacyPackages.${system}.alejandra;
+      devShells.default = pkgs.mkShell {
+        name = "nixpkgs";
+        inherit (self.checks.${system}.pre-commit-check) shellHook;
+        nativeBuildInputs = [pkgs.just pkgs.git-crypt pkgs.sops];
+      };
+      formatter = pkgs.alejandra;
     });
 }

@@ -85,9 +85,9 @@ in {
   };
 
   launchd.agents.discord-applemusic-rich-presence = {
-    enable = true;
+    enable = false;
     config = {
-      ProgramArguments = ["${lib.getExe pkgs.nur.repos.nekowinston.discord-applemusic-rich-presence}"];
+      ProgramArguments = ["${lib.getExe pkgs.nur.repos.caarlos0.discord-applemusic-rich-presence}"];
       KeepAlive = true;
       RunAtLoad = true;
       StandardErrorPath = "${config.xdg.cacheHome}/discord-applemusic-rich-presence.log";
