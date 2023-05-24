@@ -4,6 +4,7 @@
   "asynctasks.vim": { "branch": "master", "commit": "784a4b1f75a913cc6c43dd6c4dbe69d648dbbfa5" },
   "auto-dark-mode.nvim": { "branch": "master", "commit": "79a614f12ec21f99123c61a9b85e441238455113" },
   "bufferline.nvim": { "branch": "main", "commit": "32d74d5d044f7cc89892d4781a83d55ee4ed552a" },
+  "catppuccin": { "branch": "main", "commit": "1d3eda15703ba70f57e94e6451db55914ff7017f" },
   "cmp-buffer": { "branch": "main", "commit": "3022dbc9166796b644a841a02de8dd1cc1d311fa" },
   "cmp-cmdline": { "branch": "main", "commit": "5af1bb7d722ef8a96658f01d6eb219c4cf746b32" },
   "cmp-git": { "branch": "main", "commit": "3b58a59f0238318ba20b1e19a1dec8e3589da2dc" },
