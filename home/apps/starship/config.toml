@@ -76,7 +76,7 @@ $character"""
 
 add_newline = true
 continuation_prompt = '[>](bold subtext0) '
-palette = 'catppuccin_mocha'
+palette = "catppuccin_mocha"
 
 [character]
 success_symbol = '[\$](bold text)'
@@ -402,7 +402,7 @@ style = 'fg:mauve'
 symbol = ' '
 
 [azure]
-disabled = false
+disabled = true
 format = '[$symbol($subscription)]($style)'
 style = 'fg:mauve'
 symbol = ' '
