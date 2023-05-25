@@ -58,7 +58,19 @@ in {
       executable = true;
     };
     "skhd/skhdrc" = {
-      text = ''
+      text = let
+        mapKeymaps = with builtins;
+          cmd:
+            concatStringsSep "\n" (map (i:
+              replaceStrings ["Num"] [
+                (toString (
+                  if (i == 10)
+                  then 0
+                  else i
+                ))
+              ]
+              cmd) (lib.range 1 10));
+      in ''
         #!/usr/bin/env sh
 
         # WORKS WITH SIP ENABLED:
@@ -88,27 +100,9 @@ in {
         ctrl - left  : yabai -m space --focus prev
         ctrl - right : yabai -m space --focus next
         # switch to space
-        cmd + ctrl - 1 : yabai -m space --focus 1
-        cmd + ctrl - 2 : yabai -m space --focus 2
-        cmd + ctrl - 3 : yabai -m space --focus 3
-        cmd + ctrl - 4 : yabai -m space --focus 4
-        cmd + ctrl - 5 : yabai -m space --focus 5
-        cmd + ctrl - 6 : yabai -m space --focus 6
-        cmd + ctrl - 7 : yabai -m space --focus 7
-        cmd + ctrl - 8 : yabai -m space --focus 8
-        cmd + ctrl - 9 : yabai -m space --focus 9
-        cmd + ctrl - 0 : yabai -m space --focus 10
+        ${mapKeymaps "cmd + ctrl - Num : yabai -m space --focus Num"}
         # send window to desktop and follow focus
-        cmd + shift - 1 : yabai -m window --space 1; yabai -m space --focus 1
-        cmd + shift - 2 : yabai -m window --space 2; yabai -m space --focus 2
-        cmd + shift - 3 : yabai -m window --space 3; yabai -m space --focus 3
-        cmd + shift - 4 : yabai -m window --space 4; yabai -m space --focus 4
-        cmd + shift - 5 : yabai -m window --space 5; yabai -m space --focus 5
-        cmd + shift - 6 : yabai -m window --space 6; yabai -m space --focus 6
-        cmd + shift - 7 : yabai -m window --space 7; yabai -m space --focus 7
-        cmd + shift - 8 : yabai -m window --space 8; yabai -m space --focus 8
-        cmd + shift - 9 : yabai -m window --space 9; yabai -m space --focus 9
-        cmd + shift - 0 : yabai -m window --space 10; yabai -m space --focus 10
+        ${mapKeymaps "cmd + shift - Num : yabai -m window --space Num; yabai -m space --focus Num"}
       '';
       executable = true;
     };
