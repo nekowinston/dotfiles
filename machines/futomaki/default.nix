@@ -35,11 +35,12 @@ in {
 
   environment.systemPackages = with pkgs; [
     (discord.override {withOpenASAR = true;})
+    cabextract
     gnome.gnome-boxes
     heroic
     lutris
     nur.repos.nekowinston.discover-overlay
-    wineWowPackages.staging
+    wineWowPackages.waylandFull
     winetricks
   ];
 
