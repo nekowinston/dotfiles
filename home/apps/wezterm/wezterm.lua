@@ -11,10 +11,6 @@ end
 require("fonts").apply(c)
 require("keys").apply(c)
 
--- load terminfo from nix profile
-c.set_environment_variables = {
-  TERMINFO_DIRS = wezterm.home_dir .. "/.nix-profile/share/terminfo",
-}
 -- window
 c.window_decorations = "RESIZE"
 c.window_padding = { left = 0, right = 0, top = 0, bottom = 0 }

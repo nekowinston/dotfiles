@@ -55,6 +55,7 @@
         nixpkgs.overlays = [overlays];
         home-manager = {
           useGlobalPkgs = true;
+          useUserPackages = true;
           backupFileExtension = "backup";
           sharedModules = [
             ./modules
