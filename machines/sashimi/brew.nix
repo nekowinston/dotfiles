@@ -7,10 +7,6 @@
       cleanup = "uninstall";
       upgrade = true;
     };
-    brews = [
-      "koekeishiya/formulae/yabai"
-      "koekeishiya/formulae/skhd"
-    ];
     casks = let
       skipSha = name: {
         inherit name;
@@ -30,17 +26,14 @@
       "firefox"
       "iina"
       "imageoptim"
-      "insomnia"
       "jetbrains-toolbox"
       "karabiner-elements"
-      "keepassxc"
       "keka"
       "little-snitch"
       "mattermost"
       "mullvadvpn"
       "obs"
       "postman"
-      "qt-creator"
       "rustdesk"
       "uninstallpkg"
       "utm"
@@ -58,11 +51,6 @@
       "uhk-agent"
       (noQuarantine "vial")
     ];
-    taps = [
-      "homebrew/cask"
-      "homebrew/cask-drivers"
-      "homebrew/services"
-      "koekeishiya/formulae"
-    ];
+    taps = ["homebrew/cask" "homebrew/cask-drivers"];
   };
 }
