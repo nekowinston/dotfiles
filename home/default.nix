@@ -40,6 +40,7 @@ in {
         ripgrep
         git-secret
         gh
+        gocryptfs
         mosh
         podman
         podman-compose

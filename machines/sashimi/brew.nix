@@ -30,6 +30,7 @@
       "karabiner-elements"
       "keka"
       "little-snitch"
+      "macfuse"
       "mattermost"
       "mullvadvpn"
       "obs"
