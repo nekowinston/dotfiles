@@ -17,7 +17,7 @@ null.setup({
     null.builtins.formatting.gofumpt,
     null.builtins.formatting.isort,
     null.builtins.formatting.prettier,
-    null.builtins.formatting.rustfmt,
+    -- null.builtins.formatting.rustfmt,
     null.builtins.formatting.shfmt,
     null.builtins.formatting.stylua,
     null.builtins.formatting.taplo,

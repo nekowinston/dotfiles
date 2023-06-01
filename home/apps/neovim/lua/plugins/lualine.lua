@@ -6,7 +6,9 @@ return {
       "nvim-tree/nvim-web-devicons",
       {
         "SmiteshP/nvim-navic",
+        dependencies = { "neovim/nvim-lspconfig" },
         opts = {
+          highlight = true,
           icons = {
             File = " ",
             Module = " ",
@@ -40,19 +42,12 @@ return {
     },
     config = function()
       local lualine = require("lualine")
-      local navic = require("nvim-navic")
-
-      local config = {
+      lualine.setup({
         options = {
           icons_enabled = true,
-          theme = "auto",
+          theme = "catppuccin",
           component_separators = { left = "", right = "" },
           section_separators = { left = "", right = "" },
-          disabled_filetypes = {
-            statusline = {},
-            winbar = {},
-          },
-          ignore_focus = {},
           always_divide_middle = true,
           globalstatus = true,
           refresh = {
@@ -62,35 +57,22 @@ return {
           },
         },
         sections = {
-          lualine_a = {
-            {
-              "mode",
-              fmt = function(str)
-                return " " .. str
-              end,
-            },
-          },
+          lualine_a = { "mode" },
           lualine_b = {
-            { "branch", icon = "" },
+            "branch",
             "diff",
             "diagnostics",
           },
-          lualine_c = {
-            { navic.get_location, condition = navic.is_available },
-            "searchcount",
-            "lsp_progress",
-          },
-          lualine_x = { "filetype" },
+          lualine_c = { "searchcount" },
+          lualine_x = { { "filetype", colored = false } },
           lualine_y = { "progress" },
           lualine_z = { "location" },
         },
         tabline = {},
-        winbar = {},
+        winbar = { lualine_c = { "navic" } },
         inactive_winbar = {},
         extensions = {},
-      }
-
-      lualine.setup(config)
+      })
     end,
   },
 }

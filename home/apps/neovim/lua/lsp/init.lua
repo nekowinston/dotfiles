@@ -115,50 +115,48 @@ cmp.setup.cmdline(":", {
   }),
 })
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities(
-  vim.lsp.protocol.make_client_capabilities()
-)
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
----@diagnostic disable-next-line: unused-local
-local on_attach = function(client, bufnr)
-  vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+  callback = function(ev)
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    if navic_present and client.server_capabilities.documentSymbolProvider then
+      navic.attach(client, ev.buf)
+    end
 
-  local bufopts = { noremap = true, silent = true, buffer = bufnr }
-  vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-  vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
-  vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, bufopts)
-  vim.keymap.set(
-    "n",
-    "<leader>wr",
-    vim.lsp.buf.remove_workspace_folder,
-    bufopts
-  )
-  vim.keymap.set("n", "<leader>wl", function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts)
-  vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
-  vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-  vim.keymap.set("n", "<leader>lr", "<cmd>LspRestart<CR>", bufopts)
-  vim.keymap.set("n", "]d", vim.diagnostic.goto_next, bufopts)
-  vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, bufopts)
-  if navic_present and client.server_capabilities.documentSymbolProvider then
-    navic.attach(client, bufnr)
-  end
-end
+    local opts = { buffer = ev.buf }
+    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+    vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
+    vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, opts)
+    vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, opts)
+    vim.keymap.set("n", "<space>wl", function()
+      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, opts)
+    vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
+    vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
+    vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, opts)
+    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+    vim.keymap.set("n", "<space>lr", "<cmd>LspRestart<CR>", opts)
+    vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+    vim.keymap.set("n", "<space>fm", function()
+      vim.lsp.buf.format({ async = true })
+    end, opts)
+  end,
+})
 
 lspconfig.ltex.setup({
   capabilities = capabilities,
-  on_attach = function(client, bufnr)
+  on_attach = function()
     require("ltex_extra").setup({
       load_langs = { "en-US", "de-AT" },
       init_check = true,
       path = vim.fn.stdpath("data") .. "/dictionary",
     })
-    on_attach(client, bufnr)
   end,
   settings = {
     ltex = {},
@@ -168,10 +166,7 @@ lspconfig.ltex.setup({
 -- register jq for jqls
 vim.cmd([[au BufRead,BufNewFile *.jq setfiletype jq]])
 
-local common = {
-  capabilities = capabilities,
-  on_attach = on_attach,
-}
+local common = { capabilities = capabilities }
 
 require("lsp.go").setup(common)
 require("lsp.helm-ls")
