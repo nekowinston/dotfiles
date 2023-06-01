@@ -103,7 +103,7 @@ in {
     enable = true;
     package = pkgs.swaylock-effects;
     settings = {
-      ignore-empty-password = true;
+      ignore-empty-password = false;
       font = "IBM Plex Sans";
       fade-in = "0.2";
       screenshots = true;
