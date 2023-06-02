@@ -78,7 +78,7 @@
           useUserPackages = true;
           backupFileExtension = "backup";
           sharedModules = [
-            ./modules
+            ./modules/hm
             inputs.nix-index-database.hmModules.nix-index
             inputs.sops.homeManagerModules.sops
           ];
@@ -123,6 +123,7 @@
           system = "aarch64-darwin";
           modules = [
             home-manager.darwinModules.home-manager
+            ./modules/darwin
             ./machines/common
             ./machines/sashimi
             (commonHMConfig {
@@ -148,7 +149,7 @@
               nixpkgs.overlays = [overlays];
               nixpkgs.config.allowUnfree = true;
             }
-            ./modules
+            ./modules/hm
             ./home
             inputs.nix-index-database.hmModules.nix-index
             inputs.sops.homeManagerModules.sops

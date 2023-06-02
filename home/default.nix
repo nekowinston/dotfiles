@@ -14,7 +14,6 @@ in {
     ./apps/gpg.nix
     ./apps/i3.nix
     ./apps/kubernetes.nix
-    ./apps/macos.nix
     ./apps/mail.nix
     ./apps/media.nix
     ./apps/neovim.nix
