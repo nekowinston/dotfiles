@@ -28,33 +28,7 @@ return {
           left_mouse_command = "buffer %d",
           middle_mouse_command = "bdelete! %d",
           right_mouse_command = nil,
-          indicator = { icon = "‣" },
-          numbers = function(tab)
-            local roman = {
-              "Ⅰ",
-              "Ⅱ",
-              "Ⅲ",
-              "Ⅳ",
-              "Ⅴ",
-              "Ⅵ",
-              "Ⅶ",
-              "Ⅷ",
-              "Ⅸ",
-              "Ⅹ",
-              "Ⅺ",
-              "Ⅻ",
-              "XⅢ",
-              "XⅣ",
-              "ⅩⅤ",
-              "ⅩⅥ",
-              "ⅩⅦ",
-              "ⅩⅧ",
-              "ⅩⅨ",
-              "ⅩⅩ",
-            }
-
-            return string.format("%s ", roman[tab.ordinal])
-          end,
+          numbers = "ordinal",
         },
       })
 

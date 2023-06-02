@@ -40,6 +40,14 @@ wezterm.plugin
   })
 wezterm.plugin
   .require("https://github.com/nekowinston/wezterm-bar")
-  .apply_to_config(c)
+  .apply_to_config(c, {
+    dividers = false,
+    indicator = {
+      leader = {
+        off = "󰝣",
+        on = "󰝤",
+      },
+    },
+  })
 
 return c
