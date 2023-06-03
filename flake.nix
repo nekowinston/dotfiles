@@ -15,7 +15,7 @@
     # NUR
     nur.url = "github:nix-community/nur";
     nekowinston-nur.url = "github:nekowinston/nur";
-    caarlos0-nur.url = "github:caarlos0/nur";
+    caarlos0-nur.url = "github:nekowinston/caarlos0-nur/feat/add-apple-music-discord-module";
 
     sops.url = "github:Mic92/sops-nix";
     nix-index-database.url = "github:Mic92/nix-index-database";
@@ -81,6 +81,7 @@
             ./modules/hm
             inputs.nix-index-database.hmModules.nix-index
             inputs.sops.homeManagerModules.sops
+            inputs.caarlos0-nur.homeManagerModules.default
           ];
           users.${username}.imports = [./home];
           extraSpecialArgs = {

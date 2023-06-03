@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (pkgs.stdenv.hostPlatform) isLinux;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
 in {
   programs.mpv.enable = isLinux;
   xdg.mimeApps.defaultApplications = {
@@ -37,10 +37,11 @@ in {
       };
   };
 
-  services = lib.mkIf isLinux {
-    mpd.enable = true;
+  services = {
+    discord-applemusic-rich-presence.enable = isDarwin;
+    mpd.enable = isLinux;
     mpd-discord-rpc = {
-      enable = true;
+      enable = isLinux;
       settings = {
         format = {
           state = "$artist";
@@ -51,7 +52,7 @@ in {
         };
       };
     };
-    mpd-mpris.enable = true;
+    mpd-mpris.enable = isLinux;
   };
 
   launchd.agents.mpd = {
@@ -81,17 +82,6 @@ in {
       RunAtLoad = true;
       StandardErrorPath = "${config.xdg.cacheHome}/mpd.log";
       StandardOutPath = "${config.xdg.cacheHome}/mpd.log";
-    };
-  };
-
-  launchd.agents.discord-applemusic-rich-presence = {
-    enable = false;
-    config = {
-      ProgramArguments = ["${lib.getExe pkgs.nur.repos.caarlos0.discord-applemusic-rich-presence}"];
-      KeepAlive = true;
-      RunAtLoad = true;
-      StandardErrorPath = "${config.xdg.cacheHome}/discord-applemusic-rich-presence.log";
-      StandardOutPath = "${config.xdg.cacheHome}/discord-applemusic-rich-presence.log";
     };
   };
 }
