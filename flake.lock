@@ -205,11 +205,11 @@
         "wezterm-src": "wezterm-src"
       },
       "locked": {
-        "lastModified": 1685516712,
-        "narHash": "sha256-12jRUKFRCEFajGn+R8vRf/X5EwAMS7syjzh1Cgl0rS4=",
+        "lastModified": 1685838267,
+        "narHash": "sha256-FE7fhLMlLXbHaihSlUtlXrnhGf6vPMppH6qRw/Tm8uA=",
         "owner": "nekowinston",
         "repo": "nur",
-        "rev": "8d7582ca117274ec894d871001fff39125d54be4",
+        "rev": "aab9dadf5c687862907f516916592e4ffd5f23b0",
         "type": "github"
       },
       "original": {

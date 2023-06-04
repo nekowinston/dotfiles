@@ -78,10 +78,10 @@
           useUserPackages = true;
           backupFileExtension = "backup";
           sharedModules = [
-            ./modules/hm
             inputs.nix-index-database.hmModules.nix-index
             inputs.sops.homeManagerModules.sops
             inputs.caarlos0-nur.homeManagerModules.default
+            inputs.nekowinston-nur.homeManagerModules.default
           ];
           users.${username}.imports = [./home];
           extraSpecialArgs = {
@@ -124,7 +124,7 @@
           system = "aarch64-darwin";
           modules = [
             home-manager.darwinModules.home-manager
-            ./modules/darwin
+            inputs.nekowinston-nur.darwinModules.default
             ./machines/common
             ./machines/sashimi
             (commonHMConfig {
@@ -133,35 +133,6 @@
           ];
         };
       };
-      homeConfigurations.winston = let
-        system = "aarch64-linux";
-        pkgs = import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-        };
-        username = "winston";
-      in
-        home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [
-            {
-              home.homeDirectory = "/home/winston";
-              home.username = "/home/winston";
-              nixpkgs.overlays = [overlays];
-              nixpkgs.config.allowUnfree = true;
-            }
-            ./modules/hm
-            ./home
-            inputs.nix-index-database.hmModules.nix-index
-            inputs.sops.homeManagerModules.sops
-          ];
-          extraSpecialArgs = {
-            flakePath =
-              if pkgs.stdenv.isDarwin
-              then "/Users/${username}/.config/nixpkgs"
-              else "/home/${username}/.config/nixpkgs";
-          };
-        };
     }
     // inputs.flake-utils.lib.eachDefaultSystem (system: let
       pkgs = nixpkgs.legacyPackages.${system};
