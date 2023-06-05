@@ -22,6 +22,7 @@ in {
     ./apps/vscode.nix
     ./apps/wezterm.nix
     ./apps/zsh.nix
+    ./langs
     ./secrets/sops.nix
     ./xdg.nix
   ];

@@ -10,12 +10,8 @@
   inherit (config.home) homeDirectory;
 in {
   home = rec {
-    packages = [pkgs.sccache];
     sessionVariables = {
       AZURE_CONFIG_DIR = "${configHome}/azure";
-      CARGO_HOME = "${dataHome}/cargo";
-      CARGO_REGISTRIES_CRATES_IO_PROTOCOL = "sparse";
-      CARGO_UNSTABLE_SPARSE_REGISTRY = "true";
       CUDA_CACHE_PATH = "${dataHome}/nv";
       DOCKER_CONFIG = "${configHome}/docker";
       GEM_HOME = "${dataHome}/gem";
@@ -23,8 +19,6 @@ in {
       GOPATH = "${dataHome}/go";
       NODE_REPL_HISTORY = "${dataHome}/node_repl_history";
       NPM_CONFIG_USERCONFIG = "${configHome}/npm/npmrc";
-      RUSTC_WRAPPER = "sccache";
-      RUSTUP_HOME = "${dataHome}/rustup";
       W3M_DIR = "${dataHome}/w3m";
       WINEPREFIX = "${dataHome}/wine";
       XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
@@ -35,7 +29,6 @@ in {
       "$HOME/.local/bin"
       "${dataHome}/krew/bin"
       "${sessionVariables.GOPATH}/bin"
-      "${sessionVariables.CARGO_HOME}/bin"
     ];
   };
 
