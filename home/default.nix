@@ -42,9 +42,6 @@ in {
         gh
         gocryptfs
         mosh
-        podman
-        podman-compose
-        qemu
       ]
       ++ lib.optionals isLinux [
         _1password-gui
