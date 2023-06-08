@@ -30,6 +30,7 @@ in {
   home = {
     packages = with pkgs; ([
         _1password
+        age
         fd
         ffmpeg
         file
