@@ -53,7 +53,7 @@
       modFocus = "${mod}+Ctrl";
       hyper = "Mod4+Mod1+Shift+Ctrl";
 
-      thunar = lib.getExe pkgs.xfce.thunar;
+      pcmanfm = lib.getExe pkgs.pcmanfm;
       screenshot =
         if wayland
         then "${lib.getExe pkgs.sway-contrib.grimshot} copy area"
@@ -70,7 +70,7 @@
       "${mod}+Shift+q" = "kill";
       # Start Applications
       "${mod}+Shift+Return" = "exec ${terminal}";
-      "${mod}+e" = "exec --no-startup-id ${thunar}";
+      "${mod}+e" = "exec --no-startup-id ${pcmanfm}";
       "${hyper}+p" = "exec --no-startup-id ${screenshot}";
 
       # change focus

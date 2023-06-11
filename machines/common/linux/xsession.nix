@@ -5,6 +5,7 @@
     unzip
     zip
     gnome.file-roller
+    pcmanfm
 
     # thumbnails
     webp-pixbuf-loader
@@ -13,13 +14,6 @@
   programs = {
     dconf.enable = true;
     noisetorch.enable = true;
-    thunar = {
-      enable = true;
-      plugins = with pkgs.xfce; [
-        thunar-archive-plugin
-        thunar-volman
-      ];
-    };
   };
 
   programs.sway = {

@@ -46,7 +46,7 @@ in {
     dataHome = "${homeDirectory}/.local/share";
     mimeApps = {
       enable = isLinux;
-      defaultApplications."inode/directory" = "thunar.desktop";
+      defaultApplications."inode/directory" = "pcmanfm.desktop";
     };
   };
 }

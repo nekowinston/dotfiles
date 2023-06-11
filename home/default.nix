@@ -34,15 +34,15 @@ in {
         fd
         ffmpeg
         file
+        gh
+        gocryptfs
         imagemagick
         just
         mdcat
+        mosh
         ranger
         ripgrep
-        git-secret
-        gh
-        gocryptfs
-        mosh
+        sops
       ]
       ++ lib.optionals isLinux [
         _1password-gui
