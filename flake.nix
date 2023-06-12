@@ -3,21 +3,21 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    darwin = {
-      url = "github:lnl7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixpkgs-stable.url = "github:nixos/nixpkgs/release-23.05";
+    darwin.url = "github:lnl7/nix-darwin";
+    darwin.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # NUR
     nur.url = "github:nix-community/nur";
     nekowinston-nur.url = "github:nekowinston/nur";
     caarlos0-nur.url = "github:nekowinston/caarlos0-nur/feat/add-apple-music-discord-module";
+    caarlos0-nur.inputs.nixpkgs.follows = "nixpkgs";
 
     sops.url = "github:Mic92/sops-nix";
+    sops.inputs.nixpkgs.follows = "nixpkgs";
+    sops.inputs.nixpkgs-stable.follows = "nixpkgs-stable";
     nix-index-database.url = "github:Mic92/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -25,6 +25,8 @@
     swayfx.inputs.nixpkgs.follows = "nixpkgs";
 
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
+    pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
+    pre-commit-hooks.inputs.nixpkgs-stable.follows = "nixpkgs-stable";
     flake-utils.url = "github:numtide/flake-utils";
   };
 

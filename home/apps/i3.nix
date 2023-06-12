@@ -492,7 +492,6 @@ in {
 
       layer_effects       "swaync-notification-window" blur enable; shadows enable; corner_radius 5;
     '';
-    systemdIntegration = true;
     wrapperFeatures = {
       base = true;
       gtk = true;
@@ -509,5 +508,9 @@ in {
       export SDL_VIDEODRIVER=wayland
       export _JAVA_AWT_WM_NONREPARENTING=1
     '';
+    systemd = {
+      enable = true;
+      xdgAutostart = true;
+    };
   };
 }
