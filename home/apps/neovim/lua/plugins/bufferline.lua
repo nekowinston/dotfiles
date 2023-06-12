@@ -22,7 +22,7 @@ return {
               filetype = "NvimTree",
               text = "   neovim " .. vStr,
               text_align = "left",
-              separator = "║",
+              separator = vim.g.bc.vert,
             },
           },
           left_mouse_command = "buffer %d",

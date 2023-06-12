@@ -65,7 +65,7 @@ M.setup = function(plugins)
         start = " ",
         task = " ",
       },
-      border = "double",
+      border = vim.g.bc.style,
     },
   })
 end

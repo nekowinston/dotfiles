@@ -12,7 +12,7 @@ return {
           function(...)
             local opts = stages[1](...)
             if opts then
-              opts.border = "double"
+              opts.border = vim.g.bc.style
             end
             return opts
           end,

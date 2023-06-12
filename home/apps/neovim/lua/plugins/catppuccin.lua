@@ -77,22 +77,7 @@ return {
               FidgetTask = { fg = colors.subtext0 },
             }
           end,
-          -- mocha = function(colors)
-          --   return {
-          --     Selection = { bg = "#121212", fg = colors.text },
-          --     Comment = { fg = colors.surface2, style = { "italic" } },
-          --     InlayHint = { fg = colors.surface0, style = { "italic" } },
-          --     WinSeparator = { fg = colors.surface2 },
-          --   }
-          -- end,
         },
-        -- color_overrides = {
-        --   mocha = {
-        --     base = "#000000",
-        --     crust = "#010101",
-        --     mantle = "#020202",
-        --   },
-        -- },
       })
 
       vim.cmd.colorscheme("catppuccin")

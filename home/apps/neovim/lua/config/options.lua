@@ -36,15 +36,63 @@ vim.o.expandtab = true
 vim.o.signcolumn = "yes:1"
 -- hide search notices, intro
 vim.opt.shortmess:append("sI")
--- double box drawing characters for splits
+
+local borderchars = {
+  single = {
+    style = "single",
+    vert = "│",
+    vertleft = "┤",
+    vertright = "├",
+    horiz = "─",
+    horizup = "┴",
+    horizdown = "┬",
+    verthoriz = "┼",
+    topleft = "┌",
+    topright = "┐",
+    botleft = "└",
+    botright = "┘",
+  },
+  double = {
+    style = "double",
+    vert = "║",
+    vertleft = "╣",
+    vertright = "╠",
+    horiz = "═",
+    horizup = "╩",
+    horizdown = "╦",
+    verthoriz = "╬",
+    topleft = "╔",
+    topright = "╗",
+    botleft = "╚",
+    botright = "╝",
+  },
+  rounded = {
+    style = "rounded",
+    vert = "│",
+    vertleft = "┤",
+    vertright = "├",
+    horiz = "─",
+    horizup = "┴",
+    horizdown = "┬",
+    verthoriz = "┼",
+    topleft = "╭",
+    topright = "╮",
+    botleft = "╰",
+    botright = "╯",
+  },
+}
+
+-- my custom borderchars
+vim.g.bc = borderchars.rounded
+-- drawing characters for splits
 vim.opt.fillchars:append({
-  horiz = "═",
-  horizup = "╩",
-  horizdown = "╦",
-  vert = "║",
-  vertright = "╠",
-  vertleft = "╣",
-  verthoriz = "╬",
+  horiz = vim.g.bc.horiz,
+  horizup = vim.g.bc.horizup,
+  horizdown = vim.g.bc.horizdown,
+  vert = vim.g.bc.vert,
+  vertright = vim.g.bc.vertright,
+  vertleft = vim.g.bc.vertleft,
+  verthoriz = vim.g.bc.verthoriz,
 })
 
 if vim.g.neovide then

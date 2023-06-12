@@ -16,14 +16,14 @@ return {
           defaults = {
             selection_caret = "▶ ",
             borderchars = {
-              "═",
-              "║",
-              "═",
-              "║",
-              "╔",
-              "╗",
-              "╝",
-              "╚",
+              vim.g.bc.horiz,
+              vim.g.bc.vert,
+              vim.g.bc.horiz,
+              vim.g.bc.vert,
+              vim.g.bc.topleft,
+              vim.g.bc.topright,
+              vim.g.bc.botright,
+              vim.g.bc.botleft,
             },
           },
           extensions = {

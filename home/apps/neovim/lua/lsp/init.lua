@@ -13,10 +13,19 @@ vim.lsp.set_log_level("error")
 -- border style
 require("lspconfig.ui.windows").default_options.border = "double"
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = "double",
+  border = vim.g.bc.style,
 })
 local cmp_borders = {
-  border = { "╔", "═", "╗", "║", "╝", "═", "╚", "║" },
+  border = {
+    vim.g.bc.topleft,
+    vim.g.bc.horiz,
+    vim.g.bc.topright,
+    vim.g.bc.vert,
+    vim.g.bc.botright,
+    vim.g.bc.horiz,
+    vim.g.bc.botleft,
+    vim.g.bc.vert,
+  },
   winhighlight = "Normal:CmpPmenu,FloatBorder:CmpBorder,CursorLine:PmenuSel,Search:None",
 }
 

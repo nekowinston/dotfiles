@@ -14,7 +14,7 @@ return {
           ["<esc>"] = "⎋ ",
         },
         window = {
-          border = "double",
+          border = vim.g.bc.style,
           margin = { 0, 0, 0, 0 },
         },
       })

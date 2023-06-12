@@ -14,7 +14,7 @@ return {
       actions = {
         file_popup = {
           open_win_config = {
-            border = "double",
+            border = vim.g.bc.style,
           },
         },
       },
