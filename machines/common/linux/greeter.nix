@@ -77,20 +77,10 @@ in {
       variant = "mocha";
       size = "compact";
     })
-    (catppuccin-gtk.override {
-      accents = ["pink"];
-      variant = "latte";
-      size = "compact";
-    })
     (catppuccin-papirus-folders.override {
       flavor = "mocha";
       accent = "pink";
     })
-    (catppuccin-papirus-folders.override {
-      flavor = "latte";
-      accent = "pink";
-    })
     numix-cursor-theme
-    # nur.repos.nekowinston.posy-improved-cursor
   ];
 }
