@@ -9,6 +9,7 @@ return {
         dependencies = { "neovim/nvim-lspconfig" },
         opts = {
           highlight = true,
+          separator = " ",
           icons = {
             File = " ",
             Module = " ",
@@ -58,18 +59,30 @@ return {
         },
         sections = {
           lualine_a = { "mode" },
-          lualine_b = {
-            "branch",
-            "diff",
-            "diagnostics",
-          },
+          lualine_b = { "branch", "diff", "diagnostics" },
           lualine_c = { "searchcount" },
           lualine_x = { { "filetype", colored = false } },
           lualine_y = { "progress" },
           lualine_z = { "location" },
         },
         tabline = {},
-        winbar = { lualine_c = { "navic" } },
+        winbar = {
+          lualine_c = { "navic" },
+          lualine_x = {
+            {
+              function()
+                return "  "
+              end,
+              cond = function()
+                local present, navic = pcall(require, "nvim-navic")
+                if not present then
+                  return false
+                end
+                return navic.is_available()
+              end,
+            },
+          },
+        },
         inactive_winbar = {},
         extensions = {},
       })

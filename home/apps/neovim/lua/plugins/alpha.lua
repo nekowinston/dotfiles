@@ -1,6 +1,10 @@
 ---@type LazyPluginSpec[]
 return {
   {
+    "Shatur/neovim-session-manager",
+    opts = { autoload_mode = "CurrentDir" },
+  },
+  {
     "goolord/alpha-nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
@@ -20,8 +24,24 @@ return {
         "  `--'   `--'                ",
       }
       dashboard.section.buttons.val = {
-        dashboard.button("e", "  New file", ":ene <BAR> startinsert <CR>"),
-        dashboard.button("q", "󰅚  Quit NVIM", ":qa<CR>"),
+        dashboard.button("n", "  New file", ":ene <bar> startinsert <cr>"),
+        dashboard.button(
+          "SPC fd",
+          "  Find file",
+          ":Telescope find_files<cr>"
+        ),
+        dashboard.button(
+          "SPC fg",
+          "  Live grep",
+          ":Telescope live_grep<cr>"
+        ),
+        dashboard.button(
+          "s",
+          "  Show sessions",
+          ":SessionManager load_session<cr>"
+        ),
+        dashboard.button("SPC fp", "  Projects", ":Telescope project<CR>"),
+        dashboard.button("q", "  Quit", ":qa<CR>"),
       }
       local version = vim.version()
       dashboard.section.footer.val = "neovim v"
