@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/release-23.05";
     darwin.url = "github:lnl7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
@@ -17,7 +16,7 @@
 
     sops.url = "github:Mic92/sops-nix";
     sops.inputs.nixpkgs.follows = "nixpkgs";
-    sops.inputs.nixpkgs-stable.follows = "nixpkgs-stable";
+    sops.inputs.nixpkgs-stable.follows = "nixpkgs";
     nix-index-database.url = "github:Mic92/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -26,7 +25,8 @@
 
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
-    pre-commit-hooks.inputs.nixpkgs-stable.follows = "nixpkgs-stable";
+    pre-commit-hooks.inputs.flake-utils.follows = "flake-utils";
+    pre-commit-hooks.inputs.nixpkgs-stable.follows = "nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
