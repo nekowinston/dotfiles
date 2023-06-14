@@ -8,10 +8,9 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    # NUR
     nur.url = "github:nix-community/nur";
     nekowinston-nur.url = "github:nekowinston/nur";
-    caarlos0-nur.url = "github:nekowinston/caarlos0-nur/feat/add-apple-music-discord-module";
+    caarlos0-nur.url = "github:caarlos0/nur";
     caarlos0-nur.inputs.nixpkgs.follows = "nixpkgs";
 
     sops.url = "github:Mic92/sops-nix";
@@ -28,7 +27,65 @@
     pre-commit-hooks.inputs.flake-utils.follows = "flake-utils";
     pre-commit-hooks.inputs.nixpkgs-stable.follows = "nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
+    flake-parts.url = "github:hercules-ci/flake-parts";
   };
+
+  outputs = {flake-parts, ...} @ inputs: let
+    inherit (import ./lib {inherit inputs;}) mkSystems overlays;
+  in
+    flake-parts.lib.mkFlake {inherit inputs;}
+    {
+      systems = ["aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux"];
+      flake = mkSystems [
+        {
+          host = "sashimi";
+          system = "aarch64-darwin";
+          username = "winston";
+        }
+        {
+          host = "futomaki";
+          system = "x86_64-linux";
+          username = "winston";
+        }
+        {
+          host = "bento";
+          system = "x86_64-linux";
+          username = "w";
+        }
+      ];
+      perSystem = {
+        config,
+        self',
+        inputs',
+        pkgs,
+        system,
+        ...
+      }: {
+        _module.args.pkgs = import inputs.nixpkgs {
+          inherit system;
+          overlays = [overlays];
+        };
+
+        checks.pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
+          src = ./.;
+          hooks = {
+            alejandra.enable = true;
+            commitizen.enable = true;
+            editorconfig-checker.enable = true;
+            luacheck.enable = true;
+            nil.enable = true;
+            shellcheck.enable = true;
+            stylua.enable = true;
+          };
+        };
+
+        devShells.default = pkgs.mkShell {
+          name = "nixpkgs";
+          inherit (self'.checks.pre-commit-check) shellHook;
+          nativeBuildInputs = with pkgs; [git-crypt just sops];
+        };
+      };
+    };
 
   nixConfig = {
     extra-substituters = [
@@ -49,113 +106,4 @@
     tarball-ttl = 604800;
     warn-dirty = false;
   };
-
-  outputs = {
-    self,
-    darwin,
-    home-manager,
-    nixpkgs,
-    ...
-  } @ inputs: let
-    overlays = final: prev: {
-      nur = import inputs.nur {
-        nurpkgs = prev;
-        pkgs = prev;
-        repoOverrides = {
-          caarlos0 = inputs.caarlos0-nur.packages.${prev.system};
-          nekowinston = inputs.nekowinston-nur.packages.${prev.system};
-        };
-      };
-      sway-unwrapped = inputs.swayfx.packages.${prev.system}.default;
-    };
-    commonHMConfig = {username}: ({
-      config,
-      pkgs,
-      ...
-    }: {
-      config = {
-        nixpkgs.overlays = [overlays];
-        home-manager = {
-          useGlobalPkgs = true;
-          useUserPackages = true;
-          backupFileExtension = "backup";
-          sharedModules = [
-            inputs.nix-index-database.hmModules.nix-index
-            inputs.sops.homeManagerModules.sops
-            inputs.caarlos0-nur.homeManagerModules.default
-            inputs.nekowinston-nur.homeManagerModules.default
-          ];
-          users.${username}.imports = [./home];
-          extraSpecialArgs = {
-            flakePath =
-              if pkgs.stdenv.isDarwin
-              then "/Users/${username}/.config/nixpkgs"
-              else "/home/${username}/.config/nixpkgs";
-          };
-        };
-      };
-    });
-  in
-    {
-      nixosConfigurations = {
-        "futomaki" = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            home-manager.nixosModules.home-manager
-            ./machines/common
-            ./machines/futomaki
-            (commonHMConfig {
-              username = "winston";
-            })
-          ];
-        };
-        "bento" = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            home-manager.nixosModules.home-manager
-            ./machines/common
-            ./machines/bento
-            (commonHMConfig {
-              username = "w";
-            })
-          ];
-        };
-      };
-      darwinConfigurations = {
-        "sashimi" = darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
-          modules = [
-            home-manager.darwinModules.home-manager
-            inputs.nekowinston-nur.darwinModules.default
-            ./machines/common
-            ./machines/sashimi
-            (commonHMConfig {
-              username = "winston";
-            })
-          ];
-        };
-      };
-    }
-    // inputs.flake-utils.lib.eachDefaultSystem (system: let
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      checks.pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
-        src = ./.;
-        hooks = {
-          alejandra.enable = true;
-          commitizen.enable = true;
-          editorconfig-checker.enable = true;
-          luacheck.enable = true;
-          nil.enable = true;
-          shellcheck.enable = true;
-          stylua.enable = true;
-        };
-      };
-      devShells.default = pkgs.mkShell {
-        name = "nixpkgs";
-        inherit (self.checks.${system}.pre-commit-check) shellHook;
-        nativeBuildInputs = [pkgs.just pkgs.git-crypt pkgs.sops];
-      };
-      formatter = pkgs.alejandra;
-    });
 }
