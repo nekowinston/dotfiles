@@ -21,6 +21,9 @@ rebuild *args:
 build *args:
   @just rebuild build {{args}}
 
+home *args:
+  nix run .\#homeConfigurations.winston.activationPackage
+
 [linux]
 boot *args:
   @just rebuild boot {{args}}

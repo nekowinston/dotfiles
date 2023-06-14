@@ -10,30 +10,22 @@
     };
     sway-unwrapped = inputs.swayfx.packages.${prev.system}.default;
   };
-  commonHMConfig = {username}: ({
+  hmCommonConfig = {username}: ({
     config,
     pkgs,
     ...
-  }: {
+  }: let
+    homeLib = import ../home/lib.nix {inherit inputs username pkgs;};
+  in {
     config = {
       nixpkgs.overlays = [overlays];
       home-manager = {
         backupFileExtension = "backup";
+        extraSpecialArgs = homeLib.extraSpecialArgs;
+        sharedModules = homeLib.modules;
         useGlobalPkgs = true;
         useUserPackages = true;
-        sharedModules = with inputs; [
-          nix-index-database.hmModules.nix-index
-          sops.homeManagerModules.sops
-          caarlos0-nur.homeManagerModules.default
-          nekowinston-nur.homeManagerModules.default
-        ];
         users.${username}.imports = [../home];
-        extraSpecialArgs = {
-          flakePath =
-            if pkgs.stdenv.isDarwin
-            then "/Users/${username}/.config/nixpkgs"
-            else "/home/${username}/.config/nixpkgs";
-        };
       };
     };
   });
@@ -53,23 +45,26 @@
       else if isDarwin
       then "darwinConfigurations"
       else throw "Unsupported system";
-    builder =
+    builder = with inputs;
       if isLinux
-      then inputs.nixpkgs.lib.nixosSystem
+      then nixpkgs.lib.nixosSystem
       else if isDarwin
-      then inputs.darwin.lib.darwinSystem
+      then darwin.lib.darwinSystem
+      else throw "Unsupported system";
+    module =
+      if isLinux
+      then "nixosModules"
+      else if isDarwin
+      then "darwinModules"
       else throw "Unsupported system";
     pkgs = inputs.nixpkgs.legacyPackages.${system};
-    inherit (pkgs) lib;
-    inherit (pkgs.stdenv) isLinux isDarwin;
+    inherit (pkgs.stdenv) isDarwin isLinux;
   in {
     ${target}."${host}" = builder {
       inherit system;
-      modules =
-        [../machines/common ../machines/${host}]
-        ++ lib.optionals isLinux [inputs.home-manager.nixosModules.home-manager]
-        ++ lib.optionals isDarwin [inputs.home-manager.darwinModules.home-manager]
-        ++ [(commonHMConfig {inherit username;})]
+      modules = with inputs;
+        [./common ./${host} home-manager.${module}.home-manager]
+        ++ [(hmCommonConfig {inherit username;})]
         ++ extraModules;
     };
   };

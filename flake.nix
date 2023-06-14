@@ -31,7 +31,7 @@
   };
 
   outputs = {flake-parts, ...} @ inputs: let
-    inherit (import ./lib {inherit inputs;}) mkSystems overlays;
+    inherit (import ./machines/lib.nix {inherit inputs;}) mkSystems overlays;
   in
     flake-parts.lib.mkFlake {inherit inputs;}
     {
@@ -83,6 +83,19 @@
           name = "nixpkgs";
           inherit (self'.checks.pre-commit-check) shellHook;
           nativeBuildInputs = with pkgs; [git-crypt just sops];
+        };
+
+        legacyPackages.homeConfigurations = let
+          homeLib = import ./home/lib.nix {
+            inherit inputs pkgs username;
+            isNixos = false;
+          };
+          username = "winston";
+        in {
+          ${username} = inputs.home-manager.lib.homeManagerConfiguration {
+            inherit pkgs;
+            inherit (homeLib) extraSpecialArgs modules;
+          };
         };
       };
     };
