@@ -37,8 +37,7 @@ in {
     (discord.override {withOpenASAR = true;})
     cabextract
     gnome.gnome-boxes
-    heroic
-    lutris
+    lutris-free
     nur.repos.nekowinston.discover-overlay
     wineWowPackages.waylandFull
     winetricks
