@@ -13,6 +13,7 @@
       fontPath = ../secrets/fonts;
     in
       lib.hm.dag.entryAfter ["writeBoundary"] ''
+        mkdir -p "${fontDirectory}"
         install -Dm644 ${fontPath}/* "${fontDirectory}"
       '';
   };
