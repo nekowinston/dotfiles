@@ -88,7 +88,7 @@
         legacyPackages.homeConfigurations = let
           homeLib = import ./home/lib.nix {
             inherit inputs pkgs username;
-            isNixos = false;
+            isNixOS = false;
           };
           username = "winston";
         in {

@@ -17,12 +17,11 @@ rebuild *args:
 rebuild *args:
   sudo nixos-rebuild --flake . {{args}}
 
-# public commands
 build *args:
   @just rebuild build {{args}}
 
 home *args:
-  nix run .\#homeConfigurations.winston.activationPackage
+  nix run ".#homeConfigurations.winston.activationPackage"
 
 [linux]
 boot *args:
