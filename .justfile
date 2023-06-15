@@ -21,7 +21,7 @@ build *args:
   @just rebuild build {{args}}
 
 home *args:
-  nix run ".#homeConfigurations.winston.activationPackage"
+  nix run ".#homeConfigurations.winston.activationPackage" --accept-flake-config {{args}}
 
 [linux]
 boot *args:

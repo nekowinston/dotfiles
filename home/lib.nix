@@ -17,7 +17,6 @@
       else if pkgs.stdenv.isDarwin
       then "/Users/${username}"
       else throw "Unsupported system";
-    home.stateVersion = "23.05";
     home.username = username;
     targets.genericLinux.enable = true;
     xdg.mime.enable = true;
@@ -28,6 +27,7 @@
       sops.homeManagerModules.sops
       caarlos0-nur.homeManagerModules.default
       nekowinston-nur.homeManagerModules.default
+      ./.
     ]
     ++ pkgs.lib.optionals (!isNixOS) [hmStandaloneConfig];
 }
