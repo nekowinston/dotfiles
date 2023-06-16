@@ -2,11 +2,9 @@
 return {
   {
     "f-person/auto-dark-mode.nvim",
+    cond = vim.fn.has("mac"),
     config = function()
       local autodm = require("auto-dark-mode")
-      if vim.fn.has("mac") ~= 1 then
-        return
-      end
 
       local update_neovide_background = function()
         if not vim.g.neovide then

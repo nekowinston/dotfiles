@@ -1,3 +1,20 @@
+local bc = vim.g.bc
+
+-- stylua: ignore
+local no_preview = function()
+  return require("telescope.themes").get_dropdown({
+    borderchars = {
+      { bc.horiz, bc.vert, bc.horiz, bc.vert, bc.topleft, bc.topright, bc.botright, bc.botleft },
+      prompt = { bc.horiz, bc.vert, " ", bc.vert, bc.topleft, bc.topright, bc.vert, bc.vert },
+      results = { bc.horiz, bc.vert, bc.horiz, bc.vert, bc.vertright, bc.vertleft, bc.botright, bc.botleft },
+      preview = { bc.horiz, bc.vert, bc.horiz, bc.vert, bc.topleft, bc.topright, bc.botright, bc.botleft },
+    },
+    width = 0.8,
+    previewer = false,
+    prompt_title = false,
+  })
+end
+
 ---@type LazySpec[]
 return {
   {
@@ -30,16 +47,12 @@ return {
             prompt_prefix = " ",
             selection_caret = " ",
             multi_icon = "│",
-            borderchars = {
-              vim.g.bc.horiz,
-              vim.g.bc.vert,
-              vim.g.bc.horiz,
-              vim.g.bc.vert,
-              vim.g.bc.topleft,
-              vim.g.bc.topright,
-              vim.g.bc.botright,
-              vim.g.bc.botleft,
-            },
+            -- stylua: ignore
+            borderchars = { bc.horiz, bc.vert, bc.horiz, bc.vert, bc.topleft, bc.topright, bc.botright, bc.botleft },
+          },
+          pickers = {
+            find_files = no_preview(),
+            live_grep = no_preview(),
           },
           extensions = {
             file_browser = {

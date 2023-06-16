@@ -37,63 +37,27 @@ vim.o.signcolumn = "yes:1"
 -- hide search notices, intro
 vim.opt.shortmess:append("sI")
 
+-- stylua: ignore
 local borderchars = {
-  single = {
+  single  = {
     style = "single",
-    vert = "│",
-    vertleft = "┤",
-    vertright = "├",
-    horiz = "─",
-    horizup = "┴",
-    horizdown = "┬",
-    verthoriz = "┼",
-    topleft = "┌",
-    topright = "┐",
-    botleft = "└",
-    botright = "┘",
+    vert = "│", vertleft = "┤", vertright = "├", horiz = "─", horizup = "┴", horizdown = "┬", verthoriz = "┼", topleft = "┌", topright = "┐", botleft = "└", botright = "┘"
   },
-  double = {
+  double  = {
     style = "double",
-    vert = "║",
-    vertleft = "╣",
-    vertright = "╠",
-    horiz = "═",
-    horizup = "╩",
-    horizdown = "╦",
-    verthoriz = "╬",
-    topleft = "╔",
-    topright = "╗",
-    botleft = "╚",
-    botright = "╝",
+    vert = "║", vertleft = "╣", vertright = "╠", horiz = "═", horizup = "╩", horizdown = "╦", verthoriz = "╬", topleft = "╔", topright = "╗", botleft = "╚", botright = "╝"
   },
   rounded = {
     style = "rounded",
-    vert = "│",
-    vertleft = "┤",
-    vertright = "├",
-    horiz = "─",
-    horizup = "┴",
-    horizdown = "┬",
-    verthoriz = "┼",
-    topleft = "╭",
-    topright = "╮",
-    botleft = "╰",
-    botright = "╯",
+    vert = "│", vertleft = "┤", vertright = "├", horiz = "─", horizup = "┴", horizdown = "┬", verthoriz = "┼", topleft = "╭", topright = "╮", botleft = "╰", botright = "╯"
   },
 }
 
 -- my custom borderchars
 vim.g.bc = borderchars.rounded
--- drawing characters for splits
-vim.opt.fillchars:append({
-  horiz = vim.g.bc.horiz,
-  horizup = vim.g.bc.horizup,
-  horizdown = vim.g.bc.horizdown,
-  vert = vim.g.bc.vert,
-  vertright = vim.g.bc.vertright,
-  vertleft = vim.g.bc.vertleft,
-  verthoriz = vim.g.bc.verthoriz,
-})
+
+-- stylua: ignore
+vim.opt.fillchars:append({ horiz = vim.g.bc.horiz, horizup = vim.g.bc.horizup, horizdown = vim.g.bc.horizdown, vert = vim.g.bc.vert, vertright = vim.g.bc.vertright, vertleft = vim.g.bc.vertleft, verthoriz = vim.g.bc.verthoriz })
 
 if vim.g.neovide then
   vim.g.neovide_refresh_rate = 60

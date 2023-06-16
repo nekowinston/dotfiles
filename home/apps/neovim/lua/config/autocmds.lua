@@ -12,16 +12,44 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight yanked text",
 })
 
-local trnuGroup = vim.api.nvim_create_augroup("toggleRnu", {})
-vim.api.nvim_create_autocmd("InsertEnter,BufLeave,WinLeave,FocusLost", {
-  callback = function()
-    vim.opt_local.relativenumber = false
+local numbertoggle = vim.api.nvim_create_augroup("numbertoggle", {})
+local ignore_ft = { "alpha", "TelescopePrompt", "" }
+
+---@param callback fun(): nil
+local ft_guard = function(callback)
+  if not vim.tbl_contains(ignore_ft, vim.bo.filetype) then
+    callback()
+  end
+end
+
+vim.api.nvim_create_autocmd(
+  { "InsertEnter", "BufLeave", "WinLeave", "FocusLost" },
+  {
+    callback = function()
+      ft_guard(function()
+        vim.opt_local.rnu = false
+      end)
+    end,
+    group = numbertoggle,
+  }
+)
+vim.api.nvim_create_autocmd(
+  { "InsertLeave", "BufEnter", "WinEnter", "FocusGained" },
+  {
+    callback = function()
+      ft_guard(function()
+        vim.opt_local.rnu = true
+      end)
+    end,
+    group = numbertoggle,
+  }
+)
+vim.api.nvim_create_autocmd({ "CmdlineEnter", "CmdlineLeave" }, {
+  callback = function(data)
+    ft_guard(function()
+      vim.opt.rnu = data.event == "CmdlineLeave"
+      vim.cmd("redraw")
+    end)
   end,
-  group = trnuGroup,
-})
-vim.api.nvim_create_autocmd("InsertLeave,BufEnter,WinEnter,FocusGained", {
-  callback = function()
-    vim.opt_local.relativenumber = true
-  end,
-  group = trnuGroup,
+  group = numbertoggle,
 })
