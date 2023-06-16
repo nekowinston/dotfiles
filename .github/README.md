@@ -5,11 +5,10 @@
 [![commit activity](https://img.shields.io/github/commit-activity/w/nekowinston/dotfiles?style=flat-square&label=commits&color=f5c2e7)](https://github.com/nekowinston/dotfiles/commits)
 [![SLOC](https://img.shields.io/tokei/lines/github/nekowinston/dotfiles?style=flat-square&color=f5c2e7)](#)
 [![MIT license](https://img.shields.io/github/license/nekowinston/dotfiles?style=flat-square&color=f5c2e7)](https://github.com/nekowinston/dotfiles/blob/main/LICENSE)
-Welcome to my cross-platform dots. Focused on improving productivity, and reducing the pain of switching between operating systems. Minimal rice, with a focus on getting the annoying stuff out of the way.
 
-> **Note**
-> I've recently switched to **[Nix](https://nixos.org)** & **[Home-Manager](https://github.com/nix-community/home-manager)** for my dotfile management.\
-> Since the chezmoi version of my dots was somewhat popular, I have [tagged them](https://github.com/nekowinston/dotfiles/tree/chezmoi) if you want to use them for reference.
+Welcome to my cross-platform dots.
+Focused on improving productivity, and reducing the pain of switching between operating systems.
+Minimal rice, with a focus on getting the annoying stuff out of the way.
 
 ### Overview
 
@@ -21,26 +20,19 @@ Here's what you can find:
 - **[Taskwarrior](https://taskwarrior.org)** for task management
 - **[Starship](https://starship.rs)** as my prompt
 - **Firefox** with privacy-centered settings
-- My **PGP** & **[Sops.nix](https://github.com/Mic92/sops-nix)** settings
+- My **GPG** & **[Sops.nix](https://github.com/Mic92/sops-nix)** settings
 - Other random bits of config tools I've collected over the years
 - The **[Catppuccin](https://github.com/catppuccin)** theme, wherever possible
 - macOS:
-  - **[Yabai](https://github.com/koekeishiya/yabai)** as my wm
+  - **[Yabai](https://github.com/koekeishiya/yabai)** as my WM
 - Linux:
-  - **[i3](https://i3wm.org)** as my wm
-
-### Todos from my previous chezmoi setup:
-
-These are things I used to have with chezmoi, but are currently missing in this config:
-
-- **[bugwarrior](https://github.com/ralphbean/bugwarrior)** for ticket integration
-- **[taskwiki](https://github.com/tools-life/taskwiki)** for task management in neovim
+  - **[sway](https://swaywm.org)** as my WM
 
 ### Notes for a new install
 
 #### macOS
 
-##### Install the [XCode Command Line Tools](https://developer.apple.com/download/all/)
+##### Install the [Xcode Command Line Tools](https://developer.apple.com/download/all/)
 
 ```sh
 xcode-select --install
