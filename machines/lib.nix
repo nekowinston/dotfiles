@@ -64,6 +64,7 @@
       inherit system;
       modules = with inputs;
         [./common ./${host} home-manager.${module}.home-manager]
+        ++ pkgs.lib.optionals isDarwin [nekowinston-nur.darwinModules.default]
         ++ [(hmCommonConfig {inherit username;})]
         ++ extraModules;
     };
