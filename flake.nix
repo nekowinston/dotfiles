@@ -83,7 +83,6 @@
         devShells.default = pkgs.mkShell {
           name = "nixpkgs";
           inherit (self'.checks.pre-commit-check) shellHook;
-          nativeBuildInputs = with pkgs; [git-crypt just sops];
         };
 
         legacyPackages.homeConfigurations = let

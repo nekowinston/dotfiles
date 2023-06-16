@@ -35,6 +35,7 @@ in {
         ffmpeg
         file
         gh
+        git-crypt
         gocryptfs
         imagemagick
         just
