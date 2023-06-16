@@ -115,8 +115,5 @@
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "pre-commit-hooks.cachix.org-1:Pkk3Panw5AW24TOv6kz3PvLhlH8puAsJTBbOPmBo7Rc="
     ];
-    extra-trusted-users = ["@sudo" "@wheel"];
-    tarball-ttl = 604800;
-    warn-dirty = false;
   };
 }
