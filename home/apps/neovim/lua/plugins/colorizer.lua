@@ -26,5 +26,6 @@ return {
         "!prompt",
       },
     },
+    { "ziontee113/color-picker.nvim", opts = {} },
   },
 }

@@ -6,7 +6,6 @@ return {
       local notify = require("notify")
       local stages = require("notify.stages.static")("top_down")
       notify.setup({
-        background_colour = "#000000",
         delay = 5000,
         stages = {
           function(...)
