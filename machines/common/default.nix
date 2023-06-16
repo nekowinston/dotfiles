@@ -8,6 +8,7 @@
     package = pkgs.nixVersions.nix_2_15;
     settings = {
       experimental-features = [
+        "auto-allocate-uids"
         "flakes"
         "nix-command"
         "repl-flake"
