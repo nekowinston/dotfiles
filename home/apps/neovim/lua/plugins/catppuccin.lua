@@ -15,6 +15,7 @@ return {
           comments = { "italic" },
           conditionals = { "italic" },
         },
+        term_colors = true,
         integrations = {
           treesitter = true,
           native_lsp = {
@@ -75,6 +76,11 @@ return {
               --
               FidgetTitle = { fg = colors.subtext1 },
               FidgetTask = { fg = colors.subtext0 },
+
+              NotifyBackground = { bg = colors.base },
+              NotifyINFOBorder = { link = "NotifyInfoTitle" },
+              NotifyINFOIcon = { link = "NotifyINFOTitle" },
+              NotifyINFOTitle = { fg = colors.pink },
             }
           end,
         },

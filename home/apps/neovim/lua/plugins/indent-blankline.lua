@@ -7,12 +7,15 @@ return {
         space_char_blankline = " ",
       })
       vim.g.indent_blankline_filetype_exclude = {
-        "dashboard",
+        "alpha",
         "fugitive",
         "help",
         "lazy",
+        "NeogitCommitView",
+        "NeogitConsole",
+        "NeogitStatus",
         "NvimTree",
-        "neogitstatus",
+        "TelescopePrompt",
         "Trouble",
       }
     end,

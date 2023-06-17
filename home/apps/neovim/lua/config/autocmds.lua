@@ -12,9 +12,30 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight yanked text",
 })
 
-local numbertoggle = vim.api.nvim_create_augroup("numbertoggle", {})
-local ignore_ft = { "alpha", "TelescopePrompt", "" }
+vim.api.nvim_create_autocmd({ "RecordingEnter", "RecordingLeave" }, {
+  callback = function(data)
+    local msg = data.event == "RecordingEnter" and "Recording macro..."
+      or "Macro recorded"
+    vim.notify(msg, vim.log.levels.INFO, { title = "Macro" })
+  end,
+  desc = "Notify when recording macro",
+})
 
+local numbertoggle = vim.api.nvim_create_augroup("numbertoggle", {})
+local ignore_ft = {
+  "",
+  "alpha",
+  "fugitive",
+  "help",
+  "lazy",
+  "NeogitCommitView",
+  "NeogitConsole",
+  "NeogitStatus",
+  "NvimTree",
+  "TelescopePrompt",
+  "toggleterm",
+  "Trouble",
+}
 ---@param callback fun(): nil
 local ft_guard = function(callback)
   if not vim.tbl_contains(ignore_ft, vim.bo.filetype) then

@@ -1,8 +1,8 @@
 local bc = vim.g.bc
 
 -- stylua: ignore
-local no_preview = function()
-  return require("telescope.themes").get_dropdown({
+local no_preview = function(opts)
+  local defaults = require("telescope.themes").get_dropdown({
     borderchars = {
       { bc.horiz, bc.vert, bc.horiz, bc.vert, bc.topleft, bc.topright, bc.botright, bc.botleft },
       prompt = { bc.horiz, bc.vert, " ", bc.vert, bc.topleft, bc.topright, bc.vert, bc.vert },
@@ -12,7 +12,9 @@ local no_preview = function()
     width = 0.8,
     previewer = false,
     prompt_title = false,
+    results_title = false,
   })
+  return vim.tbl_deep_extend("force", defaults, opts or {})
 end
 
 ---@type LazySpec[]
@@ -21,14 +23,14 @@ return {
     {
       "nvim-telescope/telescope.nvim",
       dependencies = {
-        "nvim-lua/plenary.nvim",
-        "nvim-tree/nvim-web-devicons",
+        { "nvim-lua/plenary.nvim" },
+        { "nvim-tree/nvim-web-devicons" },
 
-        "GustavoKatel/telescope-asynctasks.nvim",
-        "nvim-telescope/telescope-file-browser.nvim",
+        { "GustavoKatel/telescope-asynctasks.nvim" },
+        { "nvim-telescope/telescope-file-browser.nvim" },
         { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-        "nvim-telescope/telescope-project.nvim",
-        "nvim-telescope/telescope-ui-select.nvim",
+        { "nvim-telescope/telescope-project.nvim" },
+        { "nvim-telescope/telescope-ui-select.nvim" },
 
         { "pwntester/octo.nvim", opts = {} },
       },
@@ -52,7 +54,10 @@ return {
           },
           pickers = {
             find_files = no_preview(),
-            live_grep = no_preview(),
+            live_grep = no_preview({
+              previewer = true,
+            }),
+            load_session = no_preview(),
           },
           extensions = {
             file_browser = {
@@ -65,6 +70,7 @@ return {
               override_file_sorter = true,
               case_mode = "smart_case",
             },
+            ["ui-select"] = no_preview(),
           },
         })
 
