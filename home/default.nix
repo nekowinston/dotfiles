@@ -12,13 +12,13 @@ in {
     ./apps/fonts.nix
     ./apps/git.nix
     ./apps/gpg.nix
-    ./apps/i3.nix
     ./apps/kubernetes.nix
     ./apps/mail.nix
     ./apps/media.nix
     ./apps/neovim.nix
     ./apps/newsboat.nix
     ./apps/rice.nix
+    ./apps/sway.nix
     ./apps/vscode.nix
     ./apps/wezterm.nix
     ./apps/zsh.nix

@@ -136,7 +136,7 @@ format = '[\[$state($progress_current/$progress_total)\] ]($style)'
 style = 'fg:peach'
 
 [git_metrics]
-disabled = true
+disabled = false
 format = '[+$added]($added_style)[/](fg:peach )[-$deleted ]($deleted_style)'
 added_style = 'fg:peach'
 deleted_style = 'fg:peach'

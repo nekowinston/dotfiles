@@ -21,9 +21,6 @@ in {
       NPM_CONFIG_USERCONFIG = "${configHome}/npm/npmrc";
       W3M_DIR = "${dataHome}/w3m";
       WINEPREFIX = "${dataHome}/wine";
-      XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
-      XCOMPOSECACHE = "${cacheHome}/X11/xcompose";
-      XINITRC = "${configHome}/X11/xinitrc";
     };
     sessionPath = [
       "$HOME/.local/bin"

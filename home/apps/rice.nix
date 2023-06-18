@@ -5,6 +5,18 @@
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isLinux;
+  ctp = {
+    base = "#1e1e2e";
+    crust = "#11111b";
+    text = "#cdd6f4";
+    pink = "#f5c2e7";
+    red = "#f38ba8";
+    mauve = "#cba6f7";
+  };
+  fonts = {
+    names = ["IBM Plex Sans" "Symbols Nerd Font"];
+    size = 12.0;
+  };
 in {
   gtk = lib.mkIf isLinux {
     enable = true;
@@ -29,7 +41,6 @@ in {
     name = "Numix-Cursor";
     package = pkgs.numix-cursor-theme;
     gtk.enable = true;
-    x11.enable = true;
   };
 
   programs.i3status-rust = lib.mkIf isLinux {
@@ -72,7 +83,7 @@ in {
       settings = {
         icons.icons = "material-nf";
         theme.overrides = {
-          idle_fg = "#cdd6f4";
+          idle_fg = ctp.text;
           idle_bg = "#00000000";
           info_fg = "#89b4fa";
           info_bg = "#00000000";
@@ -89,6 +100,33 @@ in {
       };
     };
   };
+
+  wayland.windowManager.sway.config.bars = [
+    {
+      position = "top";
+      statusCommand = "${config.programs.i3status-rust.package}/bin/i3status-rs ~/.config/i3status-rust/config-top.toml";
+      workspaceNumbers = false;
+      inherit fonts;
+      colors = {
+        background = ctp.base;
+        focusedWorkspace = {
+          background = ctp.pink;
+          text = ctp.crust;
+          border = ctp.pink;
+        };
+        activeWorkspace = {
+          background = ctp.mauve;
+          text = ctp.crust;
+          border = ctp.mauve;
+        };
+        inactiveWorkspace = {
+          background = ctp.crust;
+          text = ctp.text;
+          border = ctp.crust;
+        };
+      };
+    }
+  ];
 
   programs.rofi = lib.mkIf isLinux {
     enable = true;

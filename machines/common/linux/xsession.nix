@@ -37,17 +37,5 @@
 
     # thumbnails
     tumbler.enable = true;
-
-    xserver = {
-      enable = true;
-      desktopManager.xterm.enable = false;
-      displayManager.startx.enable = true;
-      libinput.enable = true;
-      windowManager.i3 = {
-        enable = true;
-        package = pkgs.i3;
-      };
-      xkbOptions = "caps:ctrl_modifier";
-    };
   };
 }

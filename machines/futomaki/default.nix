@@ -25,7 +25,7 @@ in {
   virtualisation.libvirtd.enable = true;
 
   users.users."${mainUser}" = {
-    extraGroups = ["docker" "libvirtd" "wheel"];
+    extraGroups = ["docker" "libvirtd" "wheel" "transmission"];
     isNormalUser = true;
     openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILm0O46zW/XfVOSwz0okRWYeOAg+wCVkCtCAoVTpZsOh"];
     shell = pkgs.zsh;
@@ -54,4 +54,7 @@ in {
       };
     };
   };
+
+  services.transmission.enable = true;
+  services.transmission.openFirewall = true;
 }
