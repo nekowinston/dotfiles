@@ -53,7 +53,7 @@
       nodePackages.intelephense
       nodePackages.typescript
       nodePackages.typescript-language-server
-      nodePackages.vscode-langservers-extracted
+      nodePackages.vscode-json-languageserver
       nodePackages.yaml-language-server
       yarn
 
