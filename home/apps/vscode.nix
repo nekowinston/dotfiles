@@ -9,13 +9,13 @@ in {
   programs.vscode = {
     enable = true;
     package = pkgs.vscode;
-    extensions = with pkgs.vscode-extensions; [
+    extensions = with pkgs.vscode-extensions.vscode-marketplace; [
       jnoortheen.nix-ide
-      matklad.rust-analyzer
       mkhl.direnv
       ms-kubernetes-tools.vscode-kubernetes-tools
       pkief.material-icon-theme
       redhat.vscode-yaml
+      rust-lang.rust-analyzer
       tamasfe.even-better-toml
       valentjn.vscode-ltex
       vscodevim.vim

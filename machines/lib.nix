@@ -9,6 +9,7 @@
       };
     };
     sway-unwrapped = inputs.swayfx.packages.${prev.system}.default;
+    vscode-extensions = inputs.nix-vscode-extensions.extensions.${prev.system};
   };
   hmCommonConfig = {username}: ({
     config,

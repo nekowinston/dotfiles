@@ -12,6 +12,12 @@
     nekowinston-nur.url = "github:nekowinston/nur";
     caarlos0-nur.url = "github:caarlos0/nur";
     caarlos0-nur.inputs.nixpkgs.follows = "nixpkgs";
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs.flake-compat.follows = "flake-compat";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     sops.url = "github:Mic92/sops-nix";
     sops.inputs.nixpkgs.follows = "nixpkgs";
@@ -20,12 +26,19 @@
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
     swayfx.url = "github:willpower3309/swayfx";
+    swayfx.inputs.flake-compat.follows = "flake-compat";
     swayfx.inputs.nixpkgs.follows = "nixpkgs";
 
-    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
-    pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
-    pre-commit-hooks.inputs.flake-utils.follows = "flake-utils";
-    pre-commit-hooks.inputs.nixpkgs-stable.follows = "nixpkgs";
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs.flake-compat.follows = "flake-compat";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs-stable.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    flake-compat.url = "github:edolstra/flake-compat";
+    flake-compat.flake = false;
     flake-utils.url = "github:numtide/flake-utils";
     flake-parts.url = "github:hercules-ci/flake-parts";
   };
