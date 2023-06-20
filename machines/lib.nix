@@ -1,16 +1,19 @@
 {inputs}: rec {
-  overlays = final: prev: {
-    nur = import inputs.nur {
-      nurpkgs = prev;
-      pkgs = prev;
-      repoOverrides = {
-        caarlos0 = inputs.caarlos0-nur.packages.${prev.system};
-        nekowinston = inputs.nekowinston-nur.packages.${prev.system};
+  overlays = [
+    (final: prev: {
+      nur = import inputs.nur {
+        nurpkgs = prev;
+        pkgs = prev;
+        repoOverrides = {
+          caarlos0 = inputs.caarlos0-nur.packages.${prev.system};
+          nekowinston = inputs.nekowinston-nur.packages.${prev.system};
+        };
       };
-    };
-    sway-unwrapped = inputs.swayfx.packages.${prev.system}.default;
-    vscode-extensions = inputs.nix-vscode-extensions.extensions.${prev.system};
-  };
+      sway-unwrapped = inputs.swayfx.packages.${prev.system}.default;
+      vscode-extensions = inputs.nix-vscode-extensions.extensions.${prev.system};
+    })
+    inputs.nekowinston-nur.overlays.default
+  ];
   hmCommonConfig = {username}: ({
     config,
     pkgs,
@@ -19,7 +22,7 @@
     homeLib = import ../home/lib.nix {inherit inputs username pkgs;};
   in {
     config = {
-      nixpkgs.overlays = [overlays];
+      nixpkgs.overlays = overlays;
       home-manager = {
         backupFileExtension = "backup";
         extraSpecialArgs = homeLib.extraSpecialArgs;

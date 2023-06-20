@@ -75,9 +75,8 @@
         ...
       }: {
         _module.args.pkgs = import inputs.nixpkgs {
-          inherit system;
+          inherit overlays system;
           config.allowUnfree = true;
-          overlays = [overlays];
         };
 
         checks.pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {

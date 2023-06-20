@@ -1,27 +1,4 @@
-{
-  lib,
-  pkgs,
-  ...
-}: let
-  yabaiPkg = pkgs.yabai.overrideAttrs (oldAttrs: let
-    version = "5.0.6";
-    srcs = {
-      "aarch64-darwin" = pkgs.fetchzip {
-        url = "https://github.com/koekeishiya/yabai/releases/download/v${version}/yabai-v${version}.tar.gz";
-        sha256 = "sha256-wpm9VnR4yPk6Ybo/V2DMLgRcSzDl3dWGSKDCjYfz+xQ=";
-      };
-      "x86_64-darwin" = pkgs.fetchFromGitHub {
-        owner = "koekeishiya";
-        repo = "yabai";
-        rev = "v${version}";
-        sha256 = "";
-      };
-    };
-  in {
-    inherit version;
-    src = srcs."${pkgs.stdenv.hostPlatform.system}" or (throw "Unsupported platform");
-  });
-in {
+{lib, ...}: {
   # manipulate the global /etc/zshenv for PATH, etc.
   programs.zsh.enable = true;
 
@@ -38,7 +15,6 @@ in {
   services = {
     yabai = {
       enable = true;
-      package = yabaiPkg;
       enableScriptingAddition = true;
       logFile = "/var/tmp/yabai.log";
       config = {
