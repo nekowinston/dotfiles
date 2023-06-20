@@ -1,0 +1,47 @@
+[
+  {
+    "key": "alt+x",
+    "command": "workbench.action.closeActiveEditor",
+    "when": "editorFocus"
+  },
+  {
+    "key": "alt+,",
+    "command": "workbench.action.previousEditor",
+    "when": "editorFocus"
+  },
+  {
+    "key": "alt+.",
+    "command": "workbench.action.nextEditor",
+    "when": "editorFocus"
+  },
+  {
+    "key": "shift+cmd+]",
+    "command": "-workbench.action.nextEditor",
+    "when": "editorFocus"
+  },
+  {
+    "key": "shift+cmd+[",
+    "command": "-workbench.action.previousEditor",
+    "when": "editorFocus"
+  },
+  {
+    "key": "ctrl+t",
+    "command": "terminal.focus",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+t",
+    "command": "workbench.action.focusLastEditorGroup",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+n",
+    "command": "workbench.files.action.focusFilesExplorer",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+n",
+    "command": "workbench.action.focusLastEditorGroup",
+    "when": "filesExplorerFocus"
+  }
+]
