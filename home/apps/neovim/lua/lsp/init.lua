@@ -100,7 +100,7 @@ cmp.setup({
   },
 })
 
-cmp.setup.filetype("gitcommit", {
+cmp.setup.filetype({ "gitcommit", "NeogitCommitMessage" }, {
   sources = cmp.config.sources({
     { name = "cmp_git" },
   }, {
@@ -158,32 +158,20 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
-lspconfig.ltex.setup({
-  capabilities = capabilities,
-  on_attach = function()
-    require("ltex_extra").setup({
-      load_langs = { "en-US", "de-AT" },
-      init_check = true,
-      path = vim.fn.stdpath("data") .. "/dictionary",
-    })
-  end,
-  settings = {
-    ltex = {},
-  },
-})
-
 -- register jq for jqls
 vim.cmd([[au BufRead,BufNewFile *.jq setfiletype jq]])
 
 local common = { capabilities = capabilities }
 
 require("lsp.go").setup(common)
+require("lsp.ltex").setup(common)
 require("lsp.helm-ls")
 require("lsp.null-ls")
 require("lsp.validation").setup(common)
 require("lsp.webdev").setup(common)
-require("py_lsp").setup(common)
-require("rust-tools").setup({ server = common })
+-- external dependencies
+pcall(require("py_lsp").setup, common)
+pcall(require("rust-tools").setup, { server = common })
 
 local servers = {
   "astro",

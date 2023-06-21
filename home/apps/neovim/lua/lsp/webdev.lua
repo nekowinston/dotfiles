@@ -1,49 +1,48 @@
-local lspconfig = require("lspconfig")
+local lsp_present, lspconfig = pcall(require, "lspconfig")
+
+if not lsp_present then
+  return
+end
 
 local M = {}
 
 M.setup = function(opts)
-  local common = {
-    capabilities = opts.capabilities,
-    on_attach = opts.on_attach,
-  }
-  lspconfig.cssls.setup(common)
-  lspconfig.emmet_ls.setup(common)
-  lspconfig.graphql.setup({
-    capabilities = opts.capabilities,
-    on_attach = opts.on_attach,
+  lspconfig.cssls.setup(vim.tbl_extend("keep", {
+    cmd = { "css-languageserver", "--stdio" },
+  }, opts))
+  lspconfig.emmet.setup(opts)
+  lspconfig.graphql.setup(vim.tbl_extend("keep", {
     filetypes = {
       "graphql",
       "typescriptreact",
       "javascriptreact",
       "typescript",
     },
-  })
-  lspconfig.intelephense.setup(common)
-  lspconfig.tailwindcss.setup({
-    capabilities = opts.capabilities,
-    on_attach = opts.on_attach,
+  }, opts))
+  lspconfig.html.setup(vim.tbl_extend("keep", {
+    cmd = { "html-languageserver", "--stdio" },
+  }, opts))
+  lspconfig.intelephense.setup(opts)
+  lspconfig.tailwindcss.setup(vim.tbl_extend("keep", {
     filetypes = {
       "javascriptreact",
       "typescriptreact",
       "html",
       "css",
     },
-  })
+  }, opts))
+
   -- attach tsserver only when there's a 'package.json' file in the CWD
-  lspconfig.tsserver.setup({
-    capabilities = opts.capabilities,
-    on_attach = opts.on_attach,
+  lspconfig.tsserver.setup(vim.tbl_extend("keep", {
     root_dir = lspconfig.util.root_pattern("package.json"),
     single_file_support = false,
-  })
+  }, opts))
+
   -- attach deno only when there's a 'deps.ts' file in the CWD
-  lspconfig.denols.setup({
-    capabilities = opts.capabilities,
-    on_attach = opts.on_attach,
+  lspconfig.denols.setup(vim.tbl_extend("keep", {
     root_dir = lspconfig.util.root_pattern("deps.ts"),
     single_file_support = false,
-  })
+  }, opts))
 end
 
 return M

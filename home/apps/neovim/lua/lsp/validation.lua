@@ -1,21 +1,22 @@
-local lspconfig = require("lspconfig")
+local lsp_present, lspconfig = pcall(require, "lspconfig")
+
+if not lsp_present then
+  return
+end
 
 local M = {}
 
 M.setup = function(opts)
-  lspconfig.jsonls.setup({
-    capabilities = opts.capabilities,
-    on_attach = opts.on_attach,
+  lspconfig.jsonls.setup(vim.tbl_extend("keep", {
+    cmd = { "json-languageserver", "--stdio" },
     settings = {
       json = {
         schemas = require("schemastore").json.schemas(),
         validate = { enable = true },
       },
     },
-  })
-  lspconfig.yamlls.setup({
-    capabilities = opts.capabilities,
-    on_attach = opts.on_attach,
+  }, opts))
+  lspconfig.yamlls.setup(vim.tbl_extend("keep", {
     settings = {
       yaml = {
         completion = true,
@@ -44,8 +45,13 @@ M.setup = function(opts)
         },
         },
       },
+      redhat = {
+        telemetry = {
+          enabled = false,
+        },
+      },
     },
-  })
+  }, opts))
 end
 
 return M

@@ -1,8 +1,8 @@
 local bc = vim.g.bc
 
--- stylua: ignore
 local no_preview = function(opts)
   local defaults = require("telescope.themes").get_dropdown({
+    -- stylua: ignore
     borderchars = {
       { bc.horiz, bc.vert, bc.horiz, bc.vert, bc.topleft, bc.topright, bc.botright, bc.botleft },
       prompt = { bc.horiz, bc.vert, " ", bc.vert, bc.topleft, bc.topright, bc.vert, bc.vert },
@@ -14,7 +14,7 @@ local no_preview = function(opts)
     prompt_title = false,
     results_title = false,
   })
-  return vim.tbl_deep_extend("force", defaults, opts or {})
+  return vim.tbl_deep_extend("keep", opts or {}, defaults)
 end
 
 ---@type LazySpec[]

@@ -11,10 +11,7 @@ M.setup = function(opts)
       breakpoint = " ",
       currentpos = " ",
     },
-    lsp_cfg = {
-      on_attach = opts.on_attach,
-      capabilities = opts.capabilities,
-    },
+    lsp_cfg = opts,
     lsp_gofumpt = true,
     lsp_keymaps = false,
     lsp_codelens = true,
