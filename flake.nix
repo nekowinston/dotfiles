@@ -109,6 +109,8 @@
             inherit (homeLib) extraSpecialArgs modules;
           };
         };
+
+        formatter = pkgs.alejandra;
       };
     };
 
