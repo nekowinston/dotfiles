@@ -128,6 +128,9 @@ in {
           if isDarwin
           then "bat --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo Catppuccin-mocha || echo Catppuccin-latte)"
           else "bat";
+        cp = "cp -i";
+        mv = "mv -i";
+        rm = "rm -i";
         # switch between yubikeys for the same GPG key
         switch_yubikeys = ''gpg-connect-agent "scd serialno" "learn --force" "/bye"'';
         tree = "lsd --tree";
