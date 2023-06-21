@@ -10,7 +10,7 @@ M.setup = function(opts)
   lspconfig.cssls.setup(vim.tbl_extend("keep", {
     cmd = { "css-languageserver", "--stdio" },
   }, opts))
-  lspconfig.emmet.setup(opts)
+  lspconfig.emmet_ls.setup(opts)
   lspconfig.graphql.setup(vim.tbl_extend("keep", {
     filetypes = {
       "graphql",
