@@ -8,9 +8,12 @@ if wezterm.config_builder then
   c:set_strict_mode(true)
 end
 
-require("fonts").apply(c)
 require("keys").apply(c)
 
+c.font = wezterm.font_with_fallback({
+  "Berkeley Mono",
+  "Symbols Nerd Font",
+})
 -- window
 c.window_decorations = "RESIZE"
 c.window_padding = { left = 0, right = 0, top = 0, bottom = 0 }
