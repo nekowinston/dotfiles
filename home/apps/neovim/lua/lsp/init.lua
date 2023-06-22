@@ -108,6 +108,10 @@ cmp.setup.filetype({ "gitcommit", "NeogitCommitMessage" }, {
   }),
 })
 
+require("cmp_git").setup({
+  filetypes = { "gitcommit", "NeogitCommitMessage", "Octo" },
+})
+
 cmp.setup.cmdline({ "/", "?" }, {
   mapping = cmp.mapping.preset.cmdline(),
   sources = {

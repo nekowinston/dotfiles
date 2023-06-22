@@ -14,6 +14,13 @@
 
     withNodeJs = true;
 
+    package = pkgs.symlinkJoin {
+      name = "neovim";
+      paths = [pkgs.neovim-unwrapped];
+      buildInputs = [pkgs.makeWrapper pkgs.gcc];
+      postBuild = "wrapProgram $out/bin/nvim --prefix CC : ${pkgs.lib.getExe pkgs.gcc}";
+    };
+
     extraPackages = with pkgs; [
       # external deps
       fd
@@ -84,7 +91,6 @@
       (writeShellScriptBin "gsed" "exec ${gnused}/bin/sed")
 
       # needed for some plugin build steps
-      gcc11
       gnumake
       unzip
     ];
