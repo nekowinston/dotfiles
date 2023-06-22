@@ -62,6 +62,12 @@ in {
       push.default = "current";
       push.gpgSign = "if-asked";
       rebase.autosquash = true;
+      url = {
+        "https://github.com/".insteadOf = "github:";
+        "https://github.com/catppuccin/".insteadOf = "catppuccin:";
+        "https://github.com/nekowinston/".insteadOf = "nekowinston:";
+        "https://gitlab.com/".insteadOf = "gitlab:";
+      };
     };
   };
 }
