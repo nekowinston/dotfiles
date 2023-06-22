@@ -1,13 +1,17 @@
 local lsp_present, lspconfig = pcall(require, "lspconfig")
 local cmp_present, cmp = pcall(require, "cmp")
 local navic_present, navic = pcall(require, "nvim-navic")
+local luasnip_present, luasnip = pcall(require, "luasnip")
 
-if not (cmp_present and lsp_present) then
+if not (cmp_present and lsp_present and luasnip_present) then
   return
 end
 
 vim.opt.completeopt = "menu,menuone,noselect"
-vim.g.vsnip_snippet_dir = vim.fn.stdpath("config") .. "/snippets"
+require("luasnip.loaders.from_vscode").lazy_load()
+require("luasnip.loaders.from_vscode").load({
+  path = { vim.fn.stdpath("config") .. "/snippets" },
+})
 vim.lsp.set_log_level("error")
 
 -- border style
@@ -29,29 +33,17 @@ local cmp_borders = {
   winhighlight = "Normal:CmpPmenu,FloatBorder:CmpBorder,CursorLine:PmenuSel,Search:None",
 }
 
+-- stylua: ignore
 local has_words_before = function()
   ---@diagnostic disable-next-line: deprecated
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0
-    and vim.api
-        .nvim_buf_get_lines(0, line - 1, line, true)[1]
-        :sub(col, col)
-        :match("%s")
-      == nil
-end
-
-local feedkey = function(key, mode)
-  vim.api.nvim_feedkeys(
-    vim.api.nvim_replace_termcodes(key, true, true, true),
-    mode,
-    true
-  )
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
 cmp.setup({
   snippet = {
     expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)
+      luasnip.lsp_expand(args.body)
     end,
   },
   window = {
@@ -64,11 +56,12 @@ cmp.setup({
     ["<C-Space>"] = cmp.mapping.complete(),
     ["<C-e>"] = cmp.mapping.abort(),
     ["<CR>"] = cmp.mapping.confirm({ select = true }),
+
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
-      elseif vim.fn["vsnip#available"](1) == 1 then
-        feedkey("<Plug>(vsnip-expand-or-jump)", "")
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
       elseif has_words_before() then
         cmp.complete()
       else
@@ -76,17 +69,19 @@ cmp.setup({
       end
     end, { "i", "s" }),
 
-    ["<S-Tab>"] = cmp.mapping(function()
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
-      elseif vim.fn["vsnip#jumpable"](-1) == 1 then
-        feedkey("<Plug>(vsnip-jump-prev)", "")
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
       end
     end, { "i", "s" }),
   }),
   sources = cmp.config.sources({
     { name = "nvim_lsp" },
-    { name = "vsnip" },
+    { name = "luasnip" },
     { name = "vim-dadbod-completion" },
   }, {
     { name = "buffer" },

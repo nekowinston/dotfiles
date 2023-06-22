@@ -1,4 +1,5 @@
 {
+  "LuaSnip": { "branch": "master", "commit": "3d2ad0c0fa25e4e272ade48a62a185ebd0fe26c1" },
   "alpha-nvim": { "branch": "main", "commit": "9e33db324b8bb7a147bce9ea5496686ee859461d" },
   "asyncrun.vim": { "branch": "master", "commit": "7191d0c30dd105e5d7f897b9a6ee19cabe734466" },
   "asynctasks.vim": { "branch": "master", "commit": "784a4b1f75a913cc6c43dd6c4dbe69d648dbbfa5" },
@@ -10,7 +11,7 @@
   "cmp-git": { "branch": "main", "commit": "f900a4cf117300fdc3ba31d26f8b6223ccd9c574" },
   "cmp-nvim-lsp": { "branch": "main", "commit": "0e6b2ed705ddcff9738ec4ea838141654f12eeef" },
   "cmp-path": { "branch": "main", "commit": "91ff86cd9c29299a64f968ebb45846c485725f23" },
-  "cmp-vsnip": { "branch": "main", "commit": "989a8a73c44e926199bfd05fa7a516d51f2d2752" },
+  "cmp_luasnip": { "branch": "master", "commit": "18095520391186d634a0045dacaa346291096566" },
   "color-picker.nvim": { "branch": "master", "commit": "06cb5f853535dea529a523e9a0e8884cdf9eba4d" },
   "comment.nvim": { "branch": "master", "commit": "176e85eeb63f1a5970d6b88f1725039d85ca0055" },
   "copilot.lua": { "branch": "master", "commit": "9cb5396205faf609bc9df0e841e133ccb1b70540" },
@@ -80,6 +81,5 @@
   "vim-helm": { "branch": "master", "commit": "c2e7b85711d410e1d73e64eb5df7b70b1c4c10eb" },
   "vim-just": { "branch": "main", "commit": "9fc9a1afaa9e3567b25f4141a01f6172a1992a0b" },
   "vim-table-mode": { "branch": "master", "commit": "9555a3e6e5bcf285ec181b7fc983eea90500feb4" },
-  "vim-vsnip": { "branch": "master", "commit": "7753ba9c10429c29d25abfd11b4c60b76718c438" },
   "which-key.nvim": { "branch": "main", "commit": "d871f2b664afd5aed3dc1d1573bef2fb24ce0484" }
 }
