@@ -11,62 +11,12 @@ if not vim.loop.fs_stat(lazypath) then
     lazypath,
   })
 end
-vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
+vim.opt.rtp:prepend(lazypath)
 
 M.setup = function(plugins)
   require("lazy").setup(plugins, {
-    install = {
-      colorscheme = { "catppuccin" },
-    },
-    performance = {
-      rtp = {
-        disabled_plugins = {
-          "2html_plugin",
-          "bugreport",
-          "compiler",
-          "ftplugin",
-          "fzf",
-          "getscript",
-          "getscriptPlugin",
-          "gzip",
-          "logipat",
-          "matchit",
-          "netrw",
-          "netrwFileHandlers",
-          "netrwPlugin",
-          "netrwSettings",
-          "optwin",
-          "rplugin",
-          "rrhelper",
-          "spellfile_plugin",
-          "synmenu",
-          "syntax",
-          "tar",
-          "tarPlugin",
-          "tutor",
-          "vimball",
-          "vimballPlugin",
-          "zip",
-          "zipPlugin",
-        },
-      },
-    },
-    ui = {
-      icons = {
-        cmd = " ",
-        config = "",
-        event = " ",
-        ft = " ",
-        init = " ",
-        keys = " ",
-        plugin = " ",
-        runtime = " ",
-        source = " ",
-        start = " ",
-        task = " ",
-      },
-      border = vim.g.bc.style,
-    },
+    install = { colorscheme = { "catppuccin" } },
+    ui = { border = vim.g.bc.style },
   })
 end
 
