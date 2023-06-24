@@ -33,10 +33,6 @@
       };
     };
   });
-  mkMerge = contents: {
-    _type = "merge";
-    inherit contents;
-  };
   mkSystem = {
     host,
     system,
@@ -61,17 +57,36 @@
       else if isDarwin
       then "darwinModules"
       else throw "Unsupported system";
+    hostPlatform =
+      if isLinux
+      then "linux"
+      else if isDarwin
+      then "darwin"
+      else throw "Unsupported system";
     pkgs = inputs.nixpkgs.legacyPackages.${system};
     inherit (pkgs.stdenv) isDarwin isLinux;
   in {
     ${target}."${host}" = builder {
       inherit system;
       modules = with inputs;
-        [./common ./${host} home-manager.${module}.home-manager]
+        [
+          {
+            options.dotfiles.username = with pkgs.lib;
+              mkOption {
+                description = "Main user of this configuration.";
+                type = types.str;
+                default = "${username}";
+              };
+          }
+          ./common/shared
+          ./common/${hostPlatform}
+          ./${host}
+          home-manager.${module}.home-manager
+        ]
         ++ pkgs.lib.optionals isDarwin [nekowinston-nur.darwinModules.default]
         ++ [(hmCommonConfig {inherit username;})]
         ++ extraModules;
     };
   };
-  mkSystems = systems: mkMerge (map mkSystem systems);
+  mkSystems = systems: inputs.nixpkgs.lib.mkMerge (map mkSystem systems);
 }

@@ -1,7 +1,4 @@
 {pkgs, ...}: {
-  imports = [
-    ./shared
-  ];
   nixpkgs.config.allowUnfree = true;
   nix = {
     gc.automatic = true;

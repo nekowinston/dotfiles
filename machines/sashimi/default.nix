@@ -1,10 +1,6 @@
 {
-  imports = [
-    ./brew.nix
-    ../common/darwin
-  ];
+  imports = [./brew.nix];
 
-  users.users.winston.home = "/Users/winston";
   networking.computerName = "sashimi";
   networking.hostName = "sashimi";
 }

@@ -1,10 +1,9 @@
-{pkgs, ...}: let
-  mainUser = "winston";
-in {
-  imports = [
-    ./hardware.nix
-    ../common/linux
-  ];
+{
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [./hardware.nix];
 
   networking = {
     hostName = "futomaki";
@@ -19,19 +18,14 @@ in {
     blueman.enable = true;
     openssh.enable = true;
     pcscd.enable = true;
+    transmission.enable = true;
+    transmission.openFirewall = true;
   };
 
   virtualisation.docker.enable = true;
   virtualisation.libvirtd.enable = true;
 
-  users.users."${mainUser}" = {
-    extraGroups = ["docker" "libvirtd" "wheel" "transmission"];
-    isNormalUser = true;
-    openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILm0O46zW/XfVOSwz0okRWYeOAg+wCVkCtCAoVTpZsOh"];
-    shell = pkgs.zsh;
-  };
-
-  system.stateVersion = "22.11";
+  users.users."${config.dotfiles.username}".extraGroups = ["docker" "libvirtd" "transmission"];
 
   environment.systemPackages = with pkgs; [
     (discord.override {withOpenASAR = true;})
@@ -54,7 +48,4 @@ in {
       };
     };
   };
-
-  services.transmission.enable = true;
-  services.transmission.openFirewall = true;
 }

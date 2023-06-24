@@ -2,8 +2,6 @@
   # manipulate the global /etc/zshenv for PATH, etc.
   programs.zsh.enable = true;
 
-  # Used for backwards compatibility, please read the changelog before changing.
-  # $ darwin-rebuild changelog
   system.stateVersion = 4;
 
   security.pam.enableSudoTouchIdAuth = true;

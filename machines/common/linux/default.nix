@@ -36,4 +36,6 @@
 
   programs.nix-ld.enable = true;
   programs.zsh.enable = true;
+
+  system.stateVersion = "22.11";
 }
