@@ -32,6 +32,12 @@ in {
   services.greetd.settings.default_session.command = "${lib.getExe config.programs.sway.package} --config ${greetdConfig}";
   services.gnome.gnome-keyring.enable = true;
 
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+    xwayland.hidpi = true;
+  };
+
   security.pam = {
     u2f = {
       enable = true;
@@ -73,5 +79,6 @@ in {
       accent = "pink";
     })
     numix-cursor-theme
+    xorg.xprop
   ];
 }

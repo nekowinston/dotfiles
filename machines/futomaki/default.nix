@@ -15,7 +15,6 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   services = {
-    blueman.enable = true;
     openssh.enable = true;
     pcscd.enable = true;
     transmission.enable = true;

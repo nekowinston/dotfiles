@@ -54,6 +54,7 @@ in {
   in
     lib.mkIf isLinux {
       enable = true;
+      package = null;
       config = rec {
         inherit modifier;
         focus.wrapping = "no";
@@ -78,6 +79,9 @@ in {
                 before-sleep 'swaylock -f'
             '';
             always = true;
+          }
+          {
+            command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
           }
         ];
         workspaceAutoBackAndForth = true;
