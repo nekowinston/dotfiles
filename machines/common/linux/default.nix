@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   imports = [
     ./boot.nix
     ./greeter.nix
@@ -36,6 +36,7 @@
 
   programs.nix-ld.enable = true;
   programs.zsh.enable = true;
+  environment.systemPackages = [pkgs.xdg-utils];
 
   system.stateVersion = "22.11";
 }

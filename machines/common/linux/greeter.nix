@@ -24,7 +24,7 @@ in {
       GTK = {
         font_name = "IBM Plex Mono 16";
         cursor_theme_name = "Numix-Cursor";
-        icon_theme_name = "Papirus";
+        icon_theme_name = "Papirus-Dark";
         theme_name = "Catppuccin-Mocha-Compact-Pink-Dark";
       };
     };
