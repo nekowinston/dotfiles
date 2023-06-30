@@ -18,30 +18,7 @@
     size = 12.0;
   };
 in {
-  gtk = lib.mkIf isLinux {
-    enable = true;
-    iconTheme.name = "Papirus-Dark";
-    theme.name = "Catppuccin-Mocha-Compact-Pink-Dark";
-    gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
-    gtk2.extraConfig = ''
-      gtk-xft-antialias=1
-      gtk-xft-hinting=1
-      gtk-xft-hintstyle="hintslight"
-      gtk-xft-rgba="rgb"
-    '';
-    gtk3.extraConfig = {
-      gtk-xft-antialias = 1;
-      gtk-xft-hinting = 1;
-      gtk-xft-hintstyle = "hintslight";
-      gtk-xft-rgba = "rgb";
-    };
-  };
-
-  home.pointerCursor = lib.mkIf isLinux {
-    name = "Numix-Cursor";
-    package = pkgs.numix-cursor-theme;
-    gtk.enable = true;
-  };
+  dotfiles.gtk.enable = isLinux;
 
   programs.i3status-rust = lib.mkIf isLinux {
     enable = true;

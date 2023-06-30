@@ -6,25 +6,7 @@
 }: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
 in {
-  imports = [
-    ./apps/browsers.nix
-    ./apps/fonts.nix
-    ./apps/git.nix
-    ./apps/gpg.nix
-    ./apps/kubernetes.nix
-    ./apps/mail.nix
-    ./apps/media.nix
-    ./apps/neovim.nix
-    ./apps/newsboat.nix
-    ./apps/rice.nix
-    ./apps/sway.nix
-    ./apps/vscode.nix
-    ./apps/wezterm.nix
-    ./apps/zsh.nix
-    ./langs
-    ./secrets/sops.nix
-    ./xdg.nix
-  ];
+  imports = [./apps ./langs ./secrets/sops.nix ./xdg.nix];
 
   home = {
     packages = with pkgs; ([
