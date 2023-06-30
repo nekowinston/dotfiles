@@ -39,7 +39,6 @@
   "vim.replaceWithRegister": true,
   "vim.smartRelativeLine": true,
   "window.autoDetectColorScheme": true,
-  "window.titleBarStyle": "custom",
   "workbench.colorTheme": "Catppuccin Mocha",
   "workbench.iconTheme": "catppuccin-mocha",
   "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
