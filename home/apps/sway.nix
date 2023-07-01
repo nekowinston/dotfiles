@@ -18,6 +18,8 @@
     red = "#f38ba8";
     mauve = "#cba6f7";
   };
+  lat = 48.210033;
+  lng = 16.363449;
 in {
   fonts.fontconfig.enable = true;
 
@@ -37,14 +39,18 @@ in {
     darkman = {
       enable = true;
       config = {
-        lat = 48.210033;
-        lng = 16.363449;
+        inherit lat lng;
         useGeoclue = false;
       };
     };
     gnome-keyring = {
       enable = true;
       components = ["secrets"];
+    };
+    wlsunset = {
+      enable = true;
+      latitude = toString lat;
+      longitude = toString lng;
     };
     udiskie.enable = true;
   };
@@ -350,23 +356,6 @@ in {
         blur_radius         4
 
         layer_effects       "swaync-notification-window" blur enable; shadows enable; corner_radius 5;
-      '';
-
-      wrapperFeatures = {
-        base = true;
-        gtk = true;
-      };
-      extraSessionCommands = ''
-        # session
-        export XDG_SESSION_TYPE=wayland
-        export XDG_SESSION_DESKTOP=sway
-        export XDG_CURRENT_DESKTOP=sway
-        # wayland
-        export NIXOS_OZONE_WL=1
-        export MOZ_ENABLE_WAYLAND=1
-        export QT_QPA_PLATFORM=wayland
-        export SDL_VIDEODRIVER=wayland
-        export _JAVA_AWT_WM_NONREPARENTING=1
       '';
       systemd = {
         enable = true;

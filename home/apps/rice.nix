@@ -25,6 +25,10 @@ in {
     bars.top = {
       blocks = [
         {
+          block = "music";
+          format = "$icon $combo.str";
+        }
+        {
           block = "vpn";
           driver = "mullvad";
           format_connected = "󰍁 ";

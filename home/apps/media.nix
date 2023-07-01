@@ -40,6 +40,11 @@ in {
   services = {
     discord-applemusic-rich-presence.enable = isDarwin;
     mpd.enable = isLinux;
+    mpdris2 = {
+      enable = isLinux;
+      multimediaKeys = true;
+      notifications = true;
+    };
     mpd-discord-rpc = {
       enable = isLinux;
       settings = {

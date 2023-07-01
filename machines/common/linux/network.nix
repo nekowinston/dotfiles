@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   services = {
     dnsmasq = {
       enable = true;
@@ -15,9 +15,7 @@
         address = "/test/127.0.0.1";
       };
     };
-    mullvad-vpn = {
-      enable = true;
-    };
+    mullvad-vpn.enable = true;
     stubby = {
       enable = true;
       settings = {
@@ -38,4 +36,16 @@
       };
     };
   };
+  networking.stevenblack = {
+    enable = true;
+    block = ["fakenews" "gambling"];
+  };
+  networking.hostFiles = [
+    "${pkgs.runCommand "stevenblack-hosts-custom" {} ''
+      mkdir -p $out
+      grep -E "(facebook|instagram|tiktok|twitter)" \
+        ${pkgs.stevenblack-blocklist}/alternates/social/hosts \
+        > $out/hosts
+    ''}/hosts"
+  ];
 }
