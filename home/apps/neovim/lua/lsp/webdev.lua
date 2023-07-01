@@ -7,6 +7,7 @@ end
 local M = {}
 
 M.setup = function(opts)
+  lspconfig.astro.setup(opts)
   lspconfig.cssls.setup(vim.tbl_extend("keep", {
     cmd = { "css-languageserver", "--stdio" },
   }, opts))
@@ -25,6 +26,7 @@ M.setup = function(opts)
   lspconfig.intelephense.setup(opts)
   lspconfig.tailwindcss.setup(vim.tbl_extend("keep", {
     filetypes = {
+      "astro",
       "javascriptreact",
       "typescriptreact",
       "html",

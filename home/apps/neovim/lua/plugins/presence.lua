@@ -42,7 +42,7 @@ return {
         neovim_image_text = "Neovim " .. vStr,
         -- Main image display (either "neovim" or "file")
         main_image = "file",
-        show_time = false,
+        show_time = true,
         buttons = function(_, repo_url)
           local concealed = conceal()
           if concealed then
@@ -62,9 +62,13 @@ return {
           end
         end,
         file_assets = {
+          ["astro"] = {
+            "Astro",
+            "https://github.com/withastro.png",
+          },
           ["k8s.yaml"] = {
             "Kubernetes",
-            "https://avatars.githubusercontent.com/u/13629408",
+            "https://github.com/kubernetes.png",
           },
           ["Chart.yaml"] = {
             "Helm Chart",
@@ -76,15 +80,15 @@ return {
           },
           ["prisma"] = {
             "Prisma",
-            "https://avatars.githubusercontent.com/u/17219288",
+            "https://github.com/prisma.png",
           },
           ["bu"] = {
             "Butane Config",
-            "https://avatars.githubusercontent.com/u/3730757",
+            "https://github.com/coreos.png",
           },
           ["ign"] = {
             "CoreOS Ignition",
-            "https://avatars.githubusercontent.com/u/3730757",
+            "https://github.com/coreos.png",
           },
         },
         -- Rich Presence text options

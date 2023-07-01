@@ -20,7 +20,11 @@ null.setup({
     }),
     null.builtins.formatting.gofumpt,
     null.builtins.formatting.isort,
-    null.builtins.formatting.prettier,
+    null.builtins.formatting.prettier.with({
+      filetypes = {
+        "astro",
+      },
+    }),
     null.builtins.formatting.shfmt,
     null.builtins.formatting.stylua,
     null.builtins.formatting.taplo,

@@ -34,6 +34,11 @@ return {
       }
       devicons.setup({
         override_by_extension = {
+          ["astro"] = {
+            icon = "",
+            name = "Astro",
+            color = "#ff5d01",
+          },
           ["norg"] = {
             icon = "",
             name = "Neorg",
