@@ -6,6 +6,7 @@ return {
       require("nvim-treesitter.install").update()
     end,
     config = function()
+      require("nvim-treesitter.install").prefer_git = true
       require("nvim-treesitter.configs").setup({
         auto_install = true,
         ignore_install = {
@@ -50,12 +51,6 @@ return {
   "hiphish/nvim-ts-rainbow2",
 
   -- not treesitter, but close enough
-  {
-    "wuelnerdotexe/vim-astro",
-    config = function()
-      vim.g.astro_typescript = "enable"
-    end,
-  },
   "towolf/vim-helm",
   "NoahTheDuke/vim-just",
 }
