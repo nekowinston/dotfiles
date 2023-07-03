@@ -82,7 +82,6 @@ in {
       enable = true;
       enableAutosuggestions = true;
       enableCompletion = true;
-      enableSyntaxHighlighting = false;
 
       initExtra = let
         functionsDir = "${config.home.homeDirectory}/${config.programs.zsh.dotDir}/functions";

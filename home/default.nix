@@ -12,6 +12,7 @@ in {
     packages = with pkgs; ([
         _1password
         age
+        age-plugin-yubikey
         fd
         ffmpeg
         file
