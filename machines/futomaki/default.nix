@@ -15,6 +15,7 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   services = {
+    flatpak.enable = true;
     openssh.enable = true;
     pcscd.enable = true;
     transmission.enable = true;
@@ -27,7 +28,6 @@
   users.users."${config.dotfiles.username}".extraGroups = ["docker" "libvirtd" "transmission"];
 
   environment.systemPackages = with pkgs; [
-    (discord.override {withOpenASAR = true;})
     cabextract
     gnome.gnome-boxes
     lutris-free
