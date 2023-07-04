@@ -18,8 +18,6 @@
     size = 12.0;
   };
 in {
-  dotfiles.gtk.enable = isLinux;
-
   programs.i3status-rust = lib.mkIf isLinux {
     enable = true;
     bars.top = {

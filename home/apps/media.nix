@@ -60,10 +60,6 @@ in {
     mpd-mpris.enable = isLinux;
   };
 
-  systemd.user.tmpfiles.rules = lib.mkIf isLinux [
-    "L %t/discord-ipc-0 - - - - app/com.discordapp.Discord/discord-ipc-0"
-  ];
-
   launchd.agents.mpd = {
     enable = true;
     config = let

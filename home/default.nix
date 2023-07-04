@@ -28,10 +28,14 @@ in {
         sops
       ]
       ++ lib.optionals isLinux [
+        (discord.override {
+          withOpenASAR = true;
+          withTTS = true;
+        })
         _1password-gui
-        kooha
         jetbrains.goland
         jetbrains.webstorm
+        kooha
       ]);
     sessionVariables = lib.mkIf isDarwin {
       SSH_AUTH_SOCK = "${config.programs.gpg.homedir}/S.gpg-agent.ssh";
