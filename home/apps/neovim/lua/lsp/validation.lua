@@ -8,7 +8,6 @@ local M = {}
 
 M.setup = function(opts)
   lspconfig.jsonls.setup(vim.tbl_extend("keep", {
-    cmd = { "json-languageserver", "--stdio" },
     settings = {
       json = {
         schemas = require("schemastore").json.schemas(),

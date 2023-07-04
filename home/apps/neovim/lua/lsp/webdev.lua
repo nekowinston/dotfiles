@@ -8,9 +8,7 @@ local M = {}
 
 M.setup = function(opts)
   lspconfig.astro.setup(opts)
-  lspconfig.cssls.setup(vim.tbl_extend("keep", {
-    cmd = { "css-languageserver", "--stdio" },
-  }, opts))
+  lspconfig.cssls.setup(opts)
   lspconfig.emmet_ls.setup(opts)
   lspconfig.graphql.setup(vim.tbl_extend("keep", {
     filetypes = {
@@ -20,9 +18,7 @@ M.setup = function(opts)
       "typescript",
     },
   }, opts))
-  lspconfig.html.setup(vim.tbl_extend("keep", {
-    cmd = { "html-languageserver", "--stdio" },
-  }, opts))
+  lspconfig.html.setup(opts)
   lspconfig.intelephense.setup(opts)
   lspconfig.tailwindcss.setup(vim.tbl_extend("keep", {
     filetypes = {

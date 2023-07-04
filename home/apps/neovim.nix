@@ -68,11 +68,8 @@
       nodePackages.graphql
       nodePackages.graphql-language-service-cli
       nodePackages.intelephense
-      nodePackages.typescript
       nodePackages.typescript-language-server
-      nodePackages.vscode-css-languageserver-bin
-      nodePackages.vscode-html-languageserver-bin
-      nodePackages.vscode-json-languageserver-bin
+      nodePackages.vscode-langservers-extracted
       nodePackages.yaml-language-server
       yarn
 

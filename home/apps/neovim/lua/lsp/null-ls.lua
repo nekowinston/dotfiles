@@ -25,6 +25,7 @@ null.setup({
         "astro",
       },
     }),
+    null.builtins.formatting.rustfmt,
     null.builtins.formatting.shfmt,
     null.builtins.formatting.stylua,
     null.builtins.formatting.taplo,
