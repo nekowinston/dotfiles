@@ -1,14 +1,18 @@
 {
   config,
+  lib,
   pkgs,
   ...
-}: rec {
-  gtk = {
+}: let
+  inherit (pkgs.stdenv) isLinux;
+in {
+  home.pointerCursor = lib.mkIf isLinux {
+    name = "macOS-Monterey";
+    package = pkgs.nur.repos.nekowinston.apple-cursor;
+    size = 24;
+  };
+  gtk = lib.mkIf isLinux {
     enable = true;
-    cursorTheme = {
-      name = "Numix-Cursor";
-      package = pkgs.numix-cursor-theme;
-    };
     iconTheme = {
       name = "Papirus-Dark";
       package = pkgs.catppuccin-papirus-folders.override {
@@ -40,13 +44,14 @@
   };
 
   xdg = let
-    themeDir = "${gtk.theme.package}/share/themes/${gtk.theme.name}";
-  in {
-    configFile."gtk-4.0/assets" = {
-      source = "${themeDir}/gtk-4.0/assets";
-      recursive = true;
+    themeDir = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}";
+  in
+    lib.mkIf config.gtk.enable {
+      configFile."gtk-4.0/assets" = {
+        source = "${themeDir}/gtk-4.0/assets";
+        recursive = true;
+      };
+      configFile."gtk-4.0/gtk.css".source = "${themeDir}/gtk-4.0/gtk.css";
+      configFile."gtk-4.0/gtk-dark.css".source = "${themeDir}/gtk-4.0/gtk-dark.css";
     };
-    configFile."gtk-4.0/gtk.css".source = "${themeDir}/gtk-4.0/gtk.css";
-    configFile."gtk-4.0/gtk-dark.css".source = "${themeDir}/gtk-4.0/gtk-dark.css";
-  };
 }

@@ -9,7 +9,7 @@
       scale 2
     }
     exec "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP"
-    seat seat0 xcursor_theme "Numix-Cursor" 24
+    seat seat0 xcursor_theme "macOS Monterey" 24
     xwayland disable
     exec "${lib.getExe config.programs.regreet.package}; swaymsg exit"
   '';
@@ -23,7 +23,7 @@ in {
       };
       GTK = {
         font_name = "IBM Plex Mono 16";
-        cursor_theme_name = "Numix-Cursor";
+        cursor_theme_name = "macOS Monterey";
         icon_theme_name = "Papirus-Dark";
         theme_name = "Catppuccin-Mocha-Compact-Pink-Dark";
       };
@@ -78,7 +78,7 @@ in {
       flavor = "mocha";
       accent = "pink";
     })
-    numix-cursor-theme
+    pkgs.nur.repos.nekowinston.apple-cursor
     xorg.xprop
   ];
 }
