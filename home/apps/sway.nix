@@ -26,7 +26,6 @@ in {
   home = lib.mkIf isLinux {
     packages = with pkgs; [
       blueberry
-      clipman
       libnotify
       pavucontrol
       sway-contrib.grimshot
@@ -36,6 +35,7 @@ in {
   };
 
   services = lib.mkIf isLinux {
+    clipman.enable = true;
     darkman = {
       enable = true;
       config = {
@@ -72,9 +72,6 @@ in {
           }
           {
             command = "1password --silent";
-          }
-          {
-            command = "wl-paste -t text --watch clipman store";
           }
           {
             command = ''
