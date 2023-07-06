@@ -1,6 +1,7 @@
 {
   imports = [
     ./browsers.nix
+    ./discord.nix
     ./fonts.nix
     ./git.nix
     ./gpg.nix
