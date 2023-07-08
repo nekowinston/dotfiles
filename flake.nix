@@ -95,6 +95,7 @@
         devShells.default = pkgs.mkShell {
           name = "nixpkgs";
           inherit (self'.checks.pre-commit-check) shellHook;
+          buildInputs = with pkgs; [nvd nix-output-monitor];
         };
 
         legacyPackages.homeConfigurations = let

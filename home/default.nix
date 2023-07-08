@@ -23,6 +23,8 @@ in {
         just
         mdcat
         mosh
+        nix-output-monitor
+        nvd
         ranger
         ripgrep
         sops
