@@ -22,6 +22,8 @@ in {
       settings = {
         inline_height = 30;
         style = "compact";
+        sync_address = "https://atuin.winston.sh";
+        sync_frequency = "5m";
       };
     };
     bat.enable = true;
