@@ -37,17 +37,16 @@
       compdef kubecolor=kubectl
       # konf
       source <(konf-go shellwrapper zsh)
-      source <(konf-go completion zsh)
+      source <(konf completion zsh)
       # ignore if konf store hasn't been initialized
-      export KUBECONFIG=$(konf-go --silent set - || true)
+      konf --silent set -
     '';
   };
 
   sops.secrets = let
-    konfStore = "${config.xdg.configHome}/.kube/konfs/store";
+    konfStore = "${config.home.homeDirectory}/.kube/konfs/store";
   in {
     "konf-ctp".path = "${konfStore}/ctp_ctp.yaml";
-    "konf-fra1".path = "${konfStore}/fra1_fra1.yaml";
     "konf-work-prod".path = "${konfStore}/work-prod_work-prod.yaml";
     "konf-work-staging".path = "${konfStore}/work-staging_work-staging.yaml";
   };
