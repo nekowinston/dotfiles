@@ -15,6 +15,7 @@ in {
     package = pkgs.vscodium;
     extensions = with pkgs.vscode-extensions.vscode-marketplace; [
       adrianwilczynski.alpine-js-intellisense
+      astro-build.astro-vscode
       bradlc.vscode-tailwindcss
       catppuccin.catppuccin-vsc-icons
       denoland.vscode-deno
@@ -23,6 +24,8 @@ in {
       github.vscode-pull-request-github
       gitlab.gitlab-workflow
       jnoortheen.nix-ide
+      kamadorueda.alejandra
+      leonardssh.vscord
       lunuan.kubernetes-templates
       mkhl.direnv
       ms-kubernetes-tools.vscode-kubernetes-tools

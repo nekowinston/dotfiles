@@ -1,4 +1,19 @@
 {
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[less]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "catppuccin.accentColor": "pink",
   "catppuccin.customUIColors": {
     "all": {
@@ -10,9 +25,10 @@
   "diffEditor.ignoreTrimWhitespace": false,
   "editor.cursorSmoothCaretAnimation": "on",
   "editor.fontFamily": "Berkeley Mono, Symbols Nerd Font, monospace",
-  "editor.fontSize": 14,
+  "editor.fontSize": 15,
+  "editor.formatOnSave": true,
   "editor.inlayHints.fontFamily": "Victor Mono",
-  "editor.inlayHints.fontSize": 12,
+  "editor.inlayHints.fontSize": 14,
   "editor.inlayHints.padding": true,
   "editor.inlineSuggest.enabled": true,
   "editor.lineNumbers": "relative",
@@ -31,163 +47,84 @@
   "typescript.inlayHints.parameterNames.enabled": "all",
   "update.mode": "none",
   "vim.camelCaseMotion.enable": true,
+  "vim.handleKeys": {
+    "<C-a>": true,
+    "<C-d>": true,
+    "<C-u>": true,
+    "<C-v>": true,
+    "<C-w>": true,
+    "<C-x>": true
+  },
   "vim.highlightedyank.color": "rgba(128, 128, 128, 0.8)",
   "vim.highlightedyank.enable": true,
   "vim.hlsearch": true,
   "vim.incsearch": true,
   "vim.insertModeKeyBindings": [],
-  "vim.replaceWithRegister": true,
-  "vim.smartRelativeLine": true,
-  "window.autoDetectColorScheme": true,
-  "workbench.colorTheme": "Catppuccin Mocha",
-  "workbench.iconTheme": "catppuccin-mocha",
-  "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
-  "workbench.preferredLightColorTheme": "Catppuccin Latte",
-  "vim.handleKeys": {
-    "<C-a>": true,
-    "<C-u>": true,
-    "<C-d>": true,
-    "<C-w>": true,
-    "<C-x>": true,
-    "<C-v>": true
-  },
   "vim.leader": "<space>",
   "vim.normalModeKeyBindingsNonRecursive": [
     {
-      "before": [
-        "K"
-      ],
-      "commands": [
-        "editor.action.showHover"
-      ]
+      "before": ["K"],
+      "commands": ["editor.action.showHover"]
     },
     {
-      "before": [
-        "<leader>",
-        "f",
-        "d"
-      ],
-      "commands": [
-        "workbench.action.quickOpen"
-      ]
+      "before": ["<leader>", "f", "d"],
+      "commands": ["workbench.action.quickOpen"]
     },
     {
-      "before": [
-        "<leader>",
-        "f",
-        "t"
-      ],
-      "commands": [
-        "workbench.action.selectTheme"
-      ]
+      "before": ["<leader>", "f", "t"],
+      "commands": ["workbench.action.selectTheme"]
     },
     {
-      "before": [
-        "<leader>",
-        "n",
-        "f"
-      ],
-      "commands": [
-        "editor.action.formatDocument"
-      ]
+      "before": ["<leader>", "n", "f"],
+      "commands": ["editor.action.formatDocument"]
     },
     {
-      "before": [
-        "[",
-        "d"
-      ],
-      "commands": [
-        "editor.action.marker.prevInFiles"
-      ]
+      "before": ["[", "d"],
+      "commands": ["editor.action.marker.prevInFiles"]
     },
     {
-      "before": [
-        "]",
-        "d"
-      ],
-      "commands": [
-        "editor.action.marker.nextInFiles"
-      ]
+      "before": ["]", "d"],
+      "commands": ["editor.action.marker.nextInFiles"]
     },
     {
-      "before": [
-        "[",
-        "c"
-      ],
-      "commands": [
-        "workbench.action.editor.previousChange"
-      ]
+      "before": ["[", "c"],
+      "commands": ["workbench.action.editor.previousChange"]
     },
     {
-      "before": [
-        "]",
-        "c"
-      ],
-      "commands": [
-        "workbench.action.editor.nextChange"
-      ]
+      "before": ["]", "c"],
+      "commands": ["workbench.action.editor.nextChange"]
     },
     {
-      "before": [
-        "<C-l>"
-      ],
-      "after": [
-        "<C-W>",
-        "l"
-      ]
+      "after": ["<C-W>", "l"],
+      "before": ["<C-l>"]
     },
     {
-      "before": [
-        "<C-h>"
-      ],
-      "after": [
-        "<C-W>",
-        "h"
-      ]
+      "after": ["<C-W>", "h"],
+      "before": ["<C-h>"]
     },
     {
-      "before": [
-        "K"
-      ],
-      "commands": [
-        "editor.action.showHover"
-      ]
+      "before": ["K"],
+      "commands": ["editor.action.showHover"]
     },
     {
-      "before": [
-        "<C-W>",
-        "\\"
-      ],
-      "after": [
-        "<C-W>",
-        "v"
-      ]
+      "after": ["<C-W>", "v"],
+      "before": ["<C-W>", "\\"]
     },
     {
-      "before": [
-        "<C-W>",
-        "-"
-      ],
-      "after": [
-        "<C-W>",
-        "s"
-      ]
+      "after": ["<C-W>", "s"],
+      "before": ["<C-W>", "-"]
     }
   ],
+  "vim.replaceWithRegister": true,
+  "vim.smartRelativeLine": true,
   "vs-kubernetes": {
     "vs-kubernetes.crd-code-completion": "enabled",
     "vs-kubernetes.minikube-show-information-expiration": "2024-12-00T00:00:00.000Z"
   },
-  "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[less]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
+  "vscord.app.name": "VSCodium",
+  "window.autoDetectColorScheme": true,
+  "workbench.colorTheme": "Catppuccin Mocha",
+  "workbench.iconTheme": "catppuccin-mocha",
+  "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
+  "workbench.preferredLightColorTheme": "Catppuccin Latte"
 }
