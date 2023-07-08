@@ -30,7 +30,7 @@
   environment.systemPackages = with pkgs; [
     cabextract
     gnome.gnome-boxes
-    lutris-free
+    heroic
     nur.repos.nekowinston.discover-overlay
     wineWowPackages.waylandFull
     winetricks
