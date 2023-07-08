@@ -20,6 +20,7 @@ in {
       NODE_REPL_HISTORY = "${dataHome}/node_repl_history";
       NPM_CONFIG_USERCONFIG = "${configHome}/npm/npmrc";
       W3M_DIR = "${dataHome}/w3m";
+      WAKATIME_HOME = "${configHome}/wakatime";
       WINEPREFIX = "${dataHome}/wine";
     };
     sessionPath = [

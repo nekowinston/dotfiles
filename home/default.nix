@@ -26,6 +26,7 @@ in {
         ranger
         ripgrep
         sops
+        wakatime
       ]
       ++ lib.optionals isLinux [
         (discord.override {
@@ -43,11 +44,13 @@ in {
     stateVersion = "23.05";
   };
 
+  home.mac-wallpaper = ./wallpapers/dhm_1610.png;
+
   programs = {
     home-manager.enable = true;
     man.enable = true;
     taskwarrior.enable = true;
   };
 
-  home.mac-wallpaper = ./wallpapers/dhm_1610.png;
+  sops.secrets."wakatime-cfg".path = "${config.xdg.configHome}/wakatime/.wakatime.cfg";
 }
