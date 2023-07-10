@@ -26,6 +26,7 @@ in {
   home = lib.mkIf isLinux {
     packages = with pkgs; [
       blueberry
+      kooha
       libnotify
       pavucontrol
       sway-contrib.grimshot

@@ -24,6 +24,7 @@ in {
         mdcat
         mosh
         nix-output-monitor
+        nur.repos.nekowinston.icat
         nvd
         ranger
         ripgrep
@@ -38,7 +39,6 @@ in {
         _1password-gui
         jetbrains.goland
         jetbrains.webstorm
-        kooha
       ]);
     sessionVariables = lib.mkIf isDarwin {
       SSH_AUTH_SOCK = "${config.programs.gpg.homedir}/S.gpg-agent.ssh";
