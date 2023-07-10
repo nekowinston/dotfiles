@@ -116,7 +116,7 @@
     };
 
   nixConfig = {
-    extra-substituters = [
+    extra-trusted-substituters = [
       "https://cache.garnix.io"
       "https://mic92.cachix.org"
       "https://nekowinston.cachix.org"
