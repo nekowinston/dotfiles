@@ -42,22 +42,7 @@
 
       # go
       go
-      delve
-      ginkgo
-      gofumpt
-      golangci-lint
-      golines
-      gomodifytags
-      gopls
-      gotests
-      gotestsum
-      gotools
-      govulncheck
-      iferr
-      impl
-      mockgen
-      reftools
-      richgo
+      pkgs.nur.repos.nekowinston.gonvim-tools
 
       # webdev
       nodePackages."@astrojs/language-server"

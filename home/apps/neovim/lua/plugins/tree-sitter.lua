@@ -47,7 +47,7 @@ return {
   "nvim-treesitter/playground",
   "nvim-treesitter/nvim-treesitter-textobjects",
   "windwp/nvim-ts-autotag",
-  "hiphish/nvim-ts-rainbow2",
+  "hiphish/rainbow-delimiters.nvim",
 
   -- not treesitter, but close enough
   "towolf/vim-helm",
