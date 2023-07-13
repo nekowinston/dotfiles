@@ -134,12 +134,13 @@ tag_symbol = ' '
 [git_state]
 format = '[\[$state($progress_current/$progress_total)\] ]($style)'
 style = 'fg:peach'
+disabled = false
 
 [git_metrics]
-disabled = false
 format = '[+$added]($added_style)[/](fg:peach )[-$deleted ]($deleted_style)'
 added_style = 'fg:peach'
 deleted_style = 'fg:peach'
+disabled = false
 
 [git_status]
 format = '[$all_status$ahead_behind ]($style)'
@@ -154,6 +155,7 @@ renamed = '󱀱 '
 untracked = '󰻭 '
 staged = '󱧳 '
 stashed = '󱧶 '
+disabled = false
 
 ### SHELL STATUS
 [cmd_duration]
