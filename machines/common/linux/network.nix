@@ -43,7 +43,7 @@
   networking.hostFiles = [
     "${pkgs.runCommand "stevenblack-hosts-custom" {} ''
       mkdir -p $out
-      grep -E "(facebook|instagram|tiktok|twitter)" \
+      grep -zoiP "#\s?(facebook|instagram|reddit|twitter|tiktok|whatsapp)\n[\d.\w\s-]*" \
         ${pkgs.stevenblack-blocklist}/alternates/social/hosts \
         > $out/hosts
     ''}/hosts"
