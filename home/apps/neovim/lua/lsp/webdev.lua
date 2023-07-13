@@ -31,10 +31,7 @@ M.setup = function(opts)
   }, opts))
 
   -- attach tsserver only when there's a 'package.json' file in the CWD
-  lspconfig.tsserver.setup(vim.tbl_extend("keep", {
-    root_dir = lspconfig.util.root_pattern("package.json"),
-    single_file_support = false,
-  }, opts))
+  require("typescript-tools").setup({ on_attach = opts.on_attach })
 
   -- attach deno only when there's a 'deps.ts' file in the CWD
   lspconfig.denols.setup(vim.tbl_extend("keep", {

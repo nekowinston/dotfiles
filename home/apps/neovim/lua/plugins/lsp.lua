@@ -25,6 +25,7 @@ return {
       "b0o/schemastore.nvim",
       "hallerpatrick/py_lsp.nvim",
       "simrat39/rust-tools.nvim",
+      "pmizio/typescript-tools.nvim",
       { "ray-x/go.nvim", dependencies = { "ray-x/guihua.lua" } },
       {
         "rcarriga/nvim-dap-ui",

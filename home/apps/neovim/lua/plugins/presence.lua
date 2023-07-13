@@ -15,28 +15,28 @@ return {
       local blacklist = {
         [vim.fn.resolve(home .. "work")] = "Using nvim at work.",
         [vim.fn.resolve(home .. "freelance")] = "Using nvim to freelance.",
-        [vim.fn.resolve(vim.fn.stdpath("config"))] = "Configuring nvim. ("
-          .. require("lazy").stats().count
-          .. " plugins)",
       }
 
+      ---@param activity string?
+      ---@param info string?
+      ---@return {text: string, state: boolean}
       local conceal = function(activity, info)
         local cur_file = vim.fn.expand("%:p")
         for k, v in pairs(blacklist) do
           if starts_with(cur_file, k) then
-            return v
+            return { text = v, state = true }
           end
         end
         if info ~= nil then
-          return activity .. " " .. info
+          return { text = activity .. " " .. info, state = false }
         end
+        return { text = activity, state = false }
       end
 
       local v = vim.version()
       local vStr = string.format("v%d.%d.%d", v.major, v.minor, v.patch)
 
       presence:setup({
-        -- General options
         auto_update = true,
         debounce_timeout = 10,
         neovim_image_text = "Neovim " .. vStr,
@@ -44,7 +44,8 @@ return {
         main_image = "file",
         show_time = true,
         buttons = function(_, repo_url)
-          local concealed = conceal()
+          local concealed = conceal().state
+
           if concealed then
             return {
               {
@@ -55,7 +56,7 @@ return {
           else
             return {
               {
-                label = "View the repository",
+                label = "Steal the code",
                 url = repo_url,
               },
             }
@@ -93,17 +94,17 @@ return {
         },
         -- Rich Presence text options
         editing_text = function(s)
-          return conceal("Editing", s)
+          return conceal("Editing", s).text
         end,
         reading_text = function(s)
-          return conceal("Reading", s)
+          return conceal("Reading", s).text
         end,
         file_explorer_text = function(s)
-          return conceal("Browsing", s)
+          return conceal("Browsing", s).text
         end,
         workspace_text = function(s)
           local concealed = conceal()
-          if s ~= nil and not concealed then
+          if s ~= nil and not concealed.state then
             return "Working on " .. s
           else
             return nil
