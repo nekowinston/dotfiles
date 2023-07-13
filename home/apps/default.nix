@@ -1,6 +1,7 @@
 {
   imports = [
     ./browsers.nix
+    ./colorscheme-sync.nix
     ./discord.nix
     ./fonts.nix
     ./git.nix

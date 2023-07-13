@@ -4,7 +4,6 @@
   pkgs,
   ...
 }: let
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
   symlink = fileName: {recursive ? false}: {
     source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/${fileName}";
     recursive = recursive;
@@ -26,7 +25,20 @@ in {
         sync_frequency = "5m";
       };
     };
-    bat.enable = true;
+    bat = let
+      themes = pkgs.fetchFromGitHub {
+        owner = "catppuccin";
+        repo = "bat";
+        rev = "ba4d16880d63e656acced2b7d4e034e4a93f74b1";
+        sha256 = "sha256-6WVKQErGdaqb++oaXnY3i6/GuH2FhTgK0v4TN4Y0Wbw=";
+      };
+    in {
+      enable = true;
+      themes = {
+        "Catppuccin-latte" = builtins.readFile (themes + /Catppuccin-latte.tmTheme);
+        "Catppuccin-mocha" = builtins.readFile (themes + /Catppuccin-mocha.tmTheme);
+      };
+    };
     btop = {
       enable = true;
       settings = {
@@ -120,15 +132,18 @@ in {
           file = "share/zsh-nix-shell/nix-shell.plugin.zsh";
         }
         {
-          src = zsh-fast-syntax-highlighting;
+          src = zsh-fast-syntax-highlighting.overrideAttrs (old: {
+            src = fetchFromGitHub {
+              owner = "zdharma-continuum";
+              repo = "fast-syntax-highlighting";
+              rev = "cf318e06a9b7c9f2219d78f41b46fa6e06011fd9";
+              hash = "sha256-RVX9ZSzjBW3LpFs2W86lKI6vtcvDWP6EPxzeTcRZua4=";
+            };
+          });
           file = "share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh";
         }
       ]);
       shellAliases = {
-        cat =
-          if isDarwin
-          then "bat --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo Catppuccin-mocha || echo Catppuccin-latte)"
-          else "bat";
         cp = "cp -i";
         mv = "mv -i";
         rm = "rm -i";

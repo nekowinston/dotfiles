@@ -37,13 +37,6 @@ in {
 
   services = lib.mkIf isLinux {
     clipman.enable = true;
-    darkman = {
-      enable = true;
-      config = {
-        inherit lat lng;
-        useGeoclue = false;
-      };
-    };
     gnome-keyring = {
       enable = true;
       components = ["secrets"];

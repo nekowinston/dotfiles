@@ -40,11 +40,12 @@
       gtk = true;
     };
   };
-  # needed for gnome3 pinentry
-  services.dbus.packages = [pkgs.gcr];
+
+  # gcr needed for gnome3 pinentry
+  services.dbus.packages = with pkgs; [darkman gcr];
   xdg.portal.enable = true;
   xdg.portal.wlr.enable = true;
-  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
+  xdg.portal.extraPortals = with pkgs; [darkman xdg-desktop-portal-gtk];
 
   services = {
     # mounting
