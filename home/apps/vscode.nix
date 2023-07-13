@@ -13,7 +13,7 @@ in {
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
-    extensions = with pkgs.vscode-extensions.vscode-marketplace; [
+    extensions = with pkgs.nix-vscode-extensions.vscode-marketplace; [
       adrianwilczynski.alpine-js-intellisense
       astro-build.astro-vscode
       bradlc.vscode-tailwindcss

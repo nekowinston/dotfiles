@@ -10,7 +10,7 @@
         };
       };
       sway-unwrapped = inputs.swayfx.packages.${prev.system}.default;
-      vscode-extensions = inputs.nix-vscode-extensions.extensions.${prev.system};
+      nix-vscode-extensions = inputs.nix-vscode-extensions.extensions.${prev.system};
     })
     inputs.nekowinston-nur.overlays.default
   ];

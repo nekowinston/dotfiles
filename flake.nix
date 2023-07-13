@@ -48,7 +48,6 @@
   in
     flake-parts.lib.mkFlake {inherit inputs;}
     {
-      systems = ["aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux"];
       flake = mkSystems [
         {
           host = "sashimi";
@@ -66,6 +65,7 @@
           username = "w";
         }
       ];
+      imports = [inputs.pre-commit-hooks.flakeModule];
       perSystem = {
         config,
         self',
@@ -79,9 +79,9 @@
           config.allowUnfree = true;
         };
 
-        checks.pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
-          src = ./.;
-          hooks = {
+        pre-commit = {
+          check.enable = true;
+          settings.hooks = {
             alejandra.enable = true;
             commitizen.enable = true;
             editorconfig-checker.enable = true;
@@ -92,11 +92,9 @@
           };
         };
 
-        devShells.default = pkgs.mkShell {
-          name = "nixpkgs";
-          inherit (self'.checks.pre-commit-check) shellHook;
+        devShells.default = config.pre-commit.devShell.overrideAttrs (old: {
           buildInputs = with pkgs; [nvd nix-output-monitor];
-        };
+        });
 
         legacyPackages.homeConfigurations = let
           homeLib = import ./home/lib.nix {
@@ -113,6 +111,7 @@
 
         formatter = pkgs.alejandra;
       };
+      systems = ["aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux"];
     };
 
   nixConfig = {
