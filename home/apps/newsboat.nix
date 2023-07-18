@@ -1,40 +1,19 @@
-{
-  lib,
-  pkgs,
-  ...
-}: let
+{pkgs, ...}: let
   inherit (pkgs.stdenv.hostPlatform) isLinux;
 in {
-  programs.newsboat = {
+  programs.newsboat = rec {
     enable = true;
     autoReload = true;
     browser =
       if isLinux
-      then (lib.getExe pkgs.xdg-utils)
+      then "${pkgs.xdg-utils}/bin/xdg-open"
       else "open";
-    urls = [
-      {
-        url = "https://blog.gitea.io/index.xml";
-        title = "Gitea Blog";
-      }
-      {
-        title = "Gitea Helm Chart";
-        url = "https://gitea.com/gitea/helm-chart/releases.rss";
-      }
-      {
-        title = "Neomutt";
-        url = "https://neomutt.org/feed.xml";
-      }
-      {
-        title = "This Week in Neovim";
-        url = "https://this-week-in-neovim.org/rss";
-      }
-      {
-        title = "XKCD";
-        url = "https://xkcd.com/rss.xml";
-      }
-    ];
     extraConfig = ''
+      urls-source "freshrss"
+      freshrss-url "https://freshrss.winston.sh/api/greader.php"
+      freshrss-login "winston"
+      freshrss-passwordeval "gopass -o freshrss"
+
       bind-key j down feedlist
       bind-key k up feedlist
       bind-key j next articlelist
@@ -43,6 +22,8 @@ in {
       bind-key K prev-feed articlelist
       bind-key j down article
       bind-key k up article
+
+      macro m set browser "mpv %u &"; open-in-browser-noninteractively; set browser "${browser}"
 
       unbind-key C feedlist
       confirm-exit no
