@@ -15,7 +15,6 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   services = {
-    flatpak.enable = true;
     openssh.enable = true;
     pcscd.enable = true;
     transmission.enable = true;
@@ -29,9 +28,10 @@
 
   environment.systemPackages = with pkgs; [
     cabextract
-    gnome.gnome-boxes
     heroic
+    mangohud
     nur.repos.nekowinston.discover-overlay
+    virt-manager
     wineWowPackages.waylandFull
     winetricks
   ];
@@ -44,6 +44,13 @@
           start = "${pkgs.libnotify}/bin/notify-send 'GameMode started'";
           end = "${pkgs.libnotify}/bin/notify-send 'GameMode ended'";
         };
+      };
+    };
+    steam = {
+      enable = true;
+      package = pkgs.steam.override {
+        extraEnv.MANGOHUD = 1;
+        extraPkgs = p: with p; [corefonts protontricks];
       };
     };
   };
