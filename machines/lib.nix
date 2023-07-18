@@ -9,8 +9,9 @@
           nekowinston = inputs.nekowinston-nur.packages.${prev.system};
         };
       };
-      sway-unwrapped = inputs.swayfx.packages.${prev.system}.default;
+      nekowinston-nur = import inputs.nekowinston-nur;
       nix-vscode-extensions = inputs.nix-vscode-extensions.extensions.${prev.system};
+      sway-unwrapped = inputs.swayfx.packages.${prev.system}.default;
     })
     inputs.nekowinston-nur.overlays.default
   ];

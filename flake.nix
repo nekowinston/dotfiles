@@ -2,45 +2,34 @@
   description = "nekowinston's hm flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     darwin.url = "github:lnl7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nur.url = "github:nix-community/nur";
-    nekowinston-nur.url = "github:nekowinston/nur";
     caarlos0-nur.url = "github:caarlos0/nur";
-    caarlos0-nur.inputs.nixpkgs.follows = "nixpkgs";
+    nekowinston-nur.url = "github:nekowinston/nur";
     nix-vscode-extensions = {
       url = "github:nix-community/nix-vscode-extensions";
-      inputs.flake-compat.follows = "flake-compat";
+      inputs.flake-compat.follows = "";
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    sops.url = "github:Mic92/sops-nix";
-    sops.inputs.nixpkgs.follows = "nixpkgs";
-    sops.inputs.nixpkgs-stable.follows = "nixpkgs";
-    nix-index-database.url = "github:Mic92/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
-
-    swayfx.url = "github:willpower3309/swayfx";
-    swayfx.inputs.flake-compat.follows = "flake-compat";
+    nix-index-database.url = "github:Mic92/nix-index-database";
+    sops.inputs.nixpkgs-stable.follows = "nixpkgs";
+    sops.inputs.nixpkgs.follows = "nixpkgs";
+    sops.url = "github:Mic92/sops-nix";
+    swayfx.inputs.flake-compat.follows = "";
     swayfx.inputs.nixpkgs.follows = "nixpkgs";
+    swayfx.url = "github:willpower3309/swayfx";
 
-    pre-commit-hooks = {
-      url = "github:cachix/pre-commit-hooks.nix";
-      inputs.flake-compat.follows = "flake-compat";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.nixpkgs-stable.follows = "nixpkgs";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    flake-compat.url = "github:edolstra/flake-compat";
-    flake-compat.flake = false;
-    flake-utils.url = "github:numtide/flake-utils";
     flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-utils.url = "github:numtide/flake-utils";
+    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
   };
 
   outputs = {flake-parts, ...} @ inputs: let
@@ -115,7 +104,7 @@
     };
 
   nixConfig = {
-    extra-trusted-substituters = [
+    extra-substituters = [
       "https://cache.garnix.io"
       "https://mic92.cachix.org"
       "https://nekowinston.cachix.org"
