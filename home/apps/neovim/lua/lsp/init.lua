@@ -172,13 +172,21 @@ require("lsp.webdev").setup(common)
 pcall(require("py_lsp").setup, common)
 pcall(require("rust-tools").setup, { server = common })
 
+lspconfig.nil_ls.setup(vim.tbl_extend("keep", {
+  settings = {
+    ["nil"] = {
+      formatting = { command = { "alejandra" } },
+      nix = { maxMemoryMB = nil },
+    },
+  },
+}, common))
+
 local servers = {
   "astro",
   "bashls",
   "dockerls",
   "helm_ls",
   "jqls",
-  "nil_ls",
   "lua_ls",
   "taplo",
   "teal_ls",
