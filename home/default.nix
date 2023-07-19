@@ -25,6 +25,7 @@ in {
         mosh
         nix-output-monitor
         nur.repos.nekowinston.icat
+        nekowinston-nur.sizzy
         nvd
         ranger
         ripgrep

@@ -9,7 +9,7 @@
           nekowinston = inputs.nekowinston-nur.packages.${prev.system};
         };
       };
-      nekowinston-nur = import inputs.nekowinston-nur;
+      nekowinston-nur = import inputs.nekowinston-nur {inherit (prev) pkgs;};
       nix-vscode-extensions = inputs.nix-vscode-extensions.extensions.${prev.system};
       sway-unwrapped = inputs.swayfx.packages.${prev.system}.default;
     })
