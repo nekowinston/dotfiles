@@ -95,16 +95,17 @@ cmp.setup({
   },
 })
 
-cmp.setup.filetype({ "gitcommit", "NeogitCommitMessage" }, {
+local git_ft = { "gitcommit", "NeogitCommitMessage", "Octo" }
+cmp.setup.filetype(git_ft, {
   sources = cmp.config.sources({
-    { name = "cmp_git" },
+    { name = "git" },
   }, {
     { name = "buffer" },
   }),
 })
-
 require("cmp_git").setup({
-  filetypes = { "gitcommit", "NeogitCommitMessage", "Octo" },
+  filetypes = git_ft,
+  enableRemoteUrlRewrites = true,
 })
 
 cmp.setup.cmdline({ "/", "?" }, {
