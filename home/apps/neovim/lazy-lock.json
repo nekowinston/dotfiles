@@ -61,6 +61,7 @@
   "rainbow-delimiters.nvim": { "branch": "master", "commit": "c6c2bda90f9f2d9eb047400f9153893d425bfa3c" },
   "rust-tools.nvim": { "branch": "master", "commit": "0cc8adab23117783a0292a0c8a2fbed1005dc645" },
   "schemastore.nvim": { "branch": "main", "commit": "0682f56392ddc86cf5e6b2af76a63bc48ad4ed84" },
+  "tagalong.vim": { "branch": "main", "commit": "d12622b866c9eea5204a792517d11586c51715a2" },
   "telescope-asynctasks.nvim": { "branch": "main", "commit": "065300fb0a8ba6a1c81991da1873c73e136dcdc0" },
   "telescope-file-browser.nvim": { "branch": "master", "commit": "e03ff55962417b69c85ef41424079bb0580546ba" },
   "telescope-fzf-native.nvim": { "branch": "main", "commit": "9bc8237565ded606e6c366a71c64c0af25cd7a50" },
