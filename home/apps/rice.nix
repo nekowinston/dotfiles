@@ -5,105 +5,127 @@
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isLinux;
-  ctp = {
-    base = "#1e1e2e";
-    crust = "#11111b";
-    text = "#cdd6f4";
-    pink = "#f5c2e7";
-    red = "#f38ba8";
-    mauve = "#cba6f7";
-  };
-  fonts = {
-    names = ["IBM Plex Sans" "Symbols Nerd Font"];
-    size = 12.0;
-  };
 in {
-  programs.i3status-rust = lib.mkIf isLinux {
+  home.packages = lib.mkIf isLinux [pkgs.playerctl];
+
+  programs.waybar = lib.mkIf isLinux {
     enable = true;
-    bars.top = {
-      blocks = [
-        {
-          block = "music";
-          format = "$icon $combo.str";
-        }
-        {
-          block = "vpn";
-          driver = "mullvad";
-          format_connected = "󰍁 ";
-          format_disconnected = "󰍀 ";
-          state_connected = "good";
-          state_disconnected = "critical";
-        }
-        {
-          block = "tea_timer";
-          done_cmd = "notify-send 'Timer Finished'";
-        }
-        {
-          block = "time";
-          interval = 60;
-          format = " $timestamp.datetime(f:'%d/%m %R') ";
-        }
-        {
-          block = "notify";
-          format = " $icon {($notification_count.eng(w:1)) |}";
-          driver = "swaync";
-          click = [
-            {
-              button = "left";
-              action = "show";
-            }
-            {
-              button = "right";
-              action = "toggle_paused";
-            }
-          ];
-        }
-      ];
-      settings = {
-        icons.icons = "material-nf";
-        theme.overrides = {
-          idle_fg = ctp.text;
-          idle_bg = "#00000000";
-          info_fg = "#89b4fa";
-          info_bg = "#00000000";
-          good_fg = "#a6e3a1";
-          good_bg = "#00000000";
-          warning_fg = "#fab387";
-          warning_bg = "#00000000";
-          critical_fg = "#f38ba8";
-          critical_bg = "#00000000";
-          separator = " ";
-          separator_bg = "auto";
-          separator_fg = "auto";
+    settings = [
+      {
+        bar_id = "bar-0";
+        ipc = true;
+        layer = "top";
+        position = "top";
+        margin-left = 7;
+        margin-right = 7;
+        margin-top = 7;
+        height = 32;
+        modules-left = ["sway/workspaces" "sway/mode"];
+        modules-center = ["mpris"];
+        modules-right = ["tray" "pulseaudio" "clock" "custom/notification"];
+        "sway/workspaces" = {
+          disable-scroll = true;
+          format = "{name}";
         };
-      };
-    };
+        "sway/mode" = {
+          format = "{}";
+        };
+        "custom/notification" = {
+          tooltip = false;
+          format = "{icon}";
+          format-icons = {
+            notification = " <span foreground='red'><sup> </sup></span>";
+            none = " ";
+            dnd-notification = " <span foreground='red'><sup> </sup></span>";
+            dnd-none = " ";
+            inhibited-notification = " <span foreground='red'><sup> </sup></span>";
+            inhibited-none = " ";
+            dnd-inhibited-notification = " <span foreground='red'><sup> </sup></span>";
+            dnd-inhibited-none = " ";
+          };
+          return-type = "json";
+          exec-if = "which swaync-client";
+          exec = "swaync-client -swb";
+          on-click = "swaync-client -t -sw";
+          on-click-right = "swaync-client -d -sw";
+          escape = true;
+        };
+
+        pulseaudio = {
+          format = "{icon} {volume}%";
+          format-bluetooth = "{icon} {volume}% 󰂯 ";
+          format-muted = "󰝟 ";
+          format-icons = {
+            headphone = "󰋋 ";
+            hands-free = "󰋎 ";
+            headset = "󰋎 ";
+            phone = " ";
+            portable = " ";
+            car = " ";
+            default = ["󰕿 " "󰖀 " "󰕾 "];
+          };
+          on-click = "pavucontrol";
+        };
+        mpris = {
+          format = "{dynamic}";
+          format-paused = "";
+          interval = 10;
+        };
+        tray = {
+          reverse-direction = true;
+          spacing = 5;
+        };
+        spacing = 4;
+      }
+    ];
+    style = ''
+      @define-color red #f38ba8;
+      @define-color mauve #cba6f7;
+      @define-color pink #f5c2e7;
+      @define-color crust #11111c;
+      @define-color base #1e1e2e;
+      @define-color text #cdd6f4;
+
+      * {
+        font-family: IBM Plex Sans;
+        font-size: 16px;
+      }
+
+      window#waybar {
+        background-color: @base;
+        border: 2px solid @crust;
+        border-radius: 5px;
+        color: @text;
+      }
+
+      #workspaces button {
+        padding: 0 5px;
+        color: alpha(@mauve, 0.5);
+      }
+
+      #workspaces button.focused {
+        color: @pink;
+      }
+
+      #workspaces button.urgent {
+        color: @crust;
+        background-color: @red;
+      }
+
+      #clock,
+      #mpris,
+      #pulseaudio,
+      #tray {
+        padding: 0 5px;
+      }
+    '';
   };
 
   wayland.windowManager.sway.config.bars = [
     {
       position = "top";
-      statusCommand = "${config.programs.i3status-rust.package}/bin/i3status-rs ~/.config/i3status-rust/config-top.toml";
-      workspaceNumbers = false;
-      inherit fonts;
-      colors = {
-        background = ctp.base;
-        focusedWorkspace = {
-          background = ctp.pink;
-          text = ctp.crust;
-          border = ctp.pink;
-        };
-        activeWorkspace = {
-          background = ctp.mauve;
-          text = ctp.crust;
-          border = ctp.mauve;
-        };
-        inactiveWorkspace = {
-          background = ctp.crust;
-          text = ctp.text;
-          border = ctp.crust;
-        };
-      };
+      command = "${config.programs.waybar.package}/bin/waybar";
+      mode = "hide";
     }
   ];
 
