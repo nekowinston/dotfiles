@@ -16,6 +16,13 @@
           # so the permissions appear unsafe to aerc
           unsafe-accounts-conf = true;
         };
+        ui = {
+          border-char-vertical = "│";
+          border-char-horizontal = "─";
+          styleset-name = "catppuccin-mocha";
+          spinner = "▰▱▱▱▱▱▱,▰▰▱▱▱▱▱,▰▰▰▱▱▱▱,▰▰▰▰▱▱▱,▰▰▰▰▰▱▱,▰▰▰▰▰▰▱,▰▰▰▰▰▰▰";
+          spinner-interval = "40ms";
+        };
         filters = {
           "text/plain" = "colorize";
           "text/html" = "w3m -s -T text/html -o display_link_number=1 -dump | colorize";
