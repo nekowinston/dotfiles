@@ -15,7 +15,10 @@
         address = "/test/127.0.0.1";
       };
     };
-    mullvad-vpn.enable = true;
+    mullvad-vpn = {
+      enable = true;
+      package = pkgs.mullvad-vpn;
+    };
     stubby = {
       enable = true;
       settings = {
