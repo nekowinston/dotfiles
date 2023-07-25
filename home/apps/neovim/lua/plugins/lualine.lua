@@ -47,8 +47,8 @@ return {
         options = {
           icons_enabled = true,
           theme = "catppuccin",
-          component_separators = { left = "", right = "" },
-          section_separators = { left = "", right = "" },
+          component_separators = { left = "", right = "" },
+          section_separators = { left = "", right = "" },
           always_divide_middle = true,
           globalstatus = true,
           refresh = {
@@ -61,7 +61,7 @@ return {
           lualine_a = { "mode" },
           lualine_b = { "branch", "diff", "diagnostics" },
           lualine_c = { "searchcount" },
-          lualine_x = { { "filetype", colored = false } },
+          lualine_x = { "filetype" },
           lualine_y = { "progress" },
           lualine_z = { "location" },
         },
