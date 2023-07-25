@@ -17,6 +17,24 @@ in {
         --font-display: "IBM Plex Sans", sans-serif;
         --font-code: "Berkeley Mono", "Symbols Nerd Font", mono;
       }
+
+      @media (max-width: 1024px) {
+        nav[aria-label="Servers sidebar"] {
+          display: none;
+        }
+        .container-1-ERn5 {
+          margin: 1.3rem 0 0 0;
+        }
+      }
+
+      @media (max-width: 768px) {
+        div[class^="base-"] > div[class^="content-"] > div[class^="sidebar-"] {
+          display: none;
+        }
+        .container-ZMc96U {
+          margin: 1.3rem 0 0 0;
+        }
+      }
     '';
     json = pkgs.writeTextFile {
       name = "discord-settings.json";
@@ -29,6 +47,8 @@ in {
             setup = true;
           };
           trayBalloonShown = false;
+          MIN_WIDTH = 0;
+          MIN_HEIGHT = 0;
         };
     };
     path =
