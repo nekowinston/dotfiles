@@ -4,7 +4,9 @@
   ...
 }: {
   home.packages = with pkgs; [
-    (wrapHelm kubernetes-helm {plugins = [kubernetes-helmPlugins.helm-diff];})
+    (wrapHelm kubernetes-helm {
+      plugins = [kubernetes-helmPlugins.helm-diff];
+    })
     cmctl
     dyff
     gojq
@@ -14,6 +16,7 @@
     kubecolor
     kubeconform
     kubectl
+    kubectl-view-secret
     kubectx
     kubepug
     kubeseal
