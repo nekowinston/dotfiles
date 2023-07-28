@@ -79,7 +79,7 @@ map("Z", { "LEADER", "SUPER" }, toggleTabBar)
 map("v", "LEADER", act.ActivateCopyMode)
 map("c", { "SHIFT|CTRL", "SUPER" }, act.CopyTo("Clipboard"))
 map("v", { "SHIFT|CTRL", "SUPER" }, act.PasteFrom("Clipboard"))
-map("f", { "SHIFT|CTRL", "SUPER" }, act.Search("CurrentSelectionOrEmptyString"))
+map("f", { "SHIFT|CTRL", "SUPER" }, act.Search({ CaseInSensitiveString = "" }))
 -- rotation
 map("e", { "LEADER", "SUPER" }, act.RotatePanes("Clockwise"))
 -- pickers
