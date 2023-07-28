@@ -25,6 +25,7 @@ in {
         mosh
         nix-output-monitor
         nur.repos.nekowinston.icat
+        nekowinston-nur.uhk-agent
         nekowinston-nur.sizzy
         nvd
         ranger
