@@ -1,0 +1,4 @@
+# vim:ft=zsh
+function open() {
+  nohup xdg-open "$*" > /dev/null 2>&1
+}
