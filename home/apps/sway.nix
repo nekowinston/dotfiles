@@ -85,7 +85,7 @@ in {
         terminal = lib.getExe config.programs.wezterm.package;
         menu = lib.getExe config.programs.rofi.package;
         defaultWorkspace = "workspace number 1";
-        input."type:keyboard".xkb_options = "ctrl:nocaps";
+        input."type:keyboard".xkb_options = "ctrl:nocaps,compose:ralt";
         output."*" = {
           scale = "2";
           bg = "${flakePath}/home/wallpapers/dhm_1610.png fill #171320";
