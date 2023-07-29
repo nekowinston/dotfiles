@@ -40,7 +40,6 @@
       "utm"
       "yubico-yubikey-manager"
       (noQuarantine "easy-move-plus-resize")
-      (noQuarantine "eloston-chromium")
       (skipSha "affinity-designer")
       (skipSha "affinity-photo")
       (skipSha "affinity-publisher")

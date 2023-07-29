@@ -1,16 +1,10 @@
-{pkgs, ...}: let
+{
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
 in {
-  programs.chromium = {
-    enable = isLinux;
-    package =
-      if isLinux
-      then pkgs.ungoogled-chromium
-      else (pkgs.writeScriptBin "__dummy-chromium" "");
-    extensions = [
-      {id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";}
-    ];
-  };
   programs.firefox = {
     enable = true;
     # since I'm using firefox from brew on darwin, I need to build a dummy package
@@ -53,6 +47,7 @@ in {
         "browser.newtabpage.enabled" = false;
         "browser.newtabpage.enhanced" = false;
         "browser.newtabpage.introShown" = true;
+        "browser.quitShortcut.disabled" = true;
         "browser.safebrowsing.appRepURL" = "";
         "browser.safebrowsing.blockedURIs.enabled" = false;
         "browser.safebrowsing.downloads.enabled" = false;
@@ -103,8 +98,6 @@ in {
         "extensions.webservice.discoverURL" = "";
         "media.autoplay.default" = 1;
         "media.autoplay.enabled" = false;
-        "media.eme.enabled" = false;
-        "media.gmp-widevinecdm.enabled" = false;
         "media.navigator.enabled" = false;
         "media.peerconnection.enabled" = false;
         "media.video_stats.enabled" = false;
@@ -119,9 +112,6 @@ in {
         "network.predictor.enable-prefetch" = false;
         "network.predictor.enabled" = false;
         "network.prefetch-next" = false;
-        # "network.trr.bootstrapAddress" = "146.255.56.98";
-        # "network.trr.custom_uri" = "https://doh.applied-privacy.net/query";
-        # "network.trr.mode" = 2;
         "pdfjs.enableScripting" = false;
         "privacy.donottrackheader.enabled" = true;
         "privacy.donottrackheader.value" = 1;
@@ -152,9 +142,17 @@ in {
         "webgl.disabled" = true;
         "webgl.renderer-string-override" = " ";
         "webgl.vendor-string-override" = " ";
+
+        # set these to false if you're copying this config...
+        # it's to *enable* DRM, not disable it
+        "media.eme.enabled" = true;
+        "media.gmp-widevinecdm.enabled" = true;
       };
     };
   };
+  home.packages = lib.mkIf isLinux [
+    pkgs.nekowinston-nur.sizzy
+  ];
   xdg.mimeApps.defaultApplications = {
     "text/html" = "firefox.desktop";
     "x-scheme-handler/http" = "firefox.desktop";
