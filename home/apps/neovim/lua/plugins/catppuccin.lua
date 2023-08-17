@@ -7,7 +7,7 @@ return {
       require("catppuccin").setup({
         transparent_background = not vim.g.neovide,
         dim_inactive = {
-          enable = true,
+          enabled = false,
           shade = "dark",
           percentage = 0.15,
         },
@@ -88,5 +88,9 @@ return {
 
       vim.cmd.colorscheme("catppuccin")
     end,
+  },
+  {
+    "f-person/auto-dark-mode.nvim",
+    opts = true,
   },
 }
