@@ -53,10 +53,10 @@
       nodePackages.graphql
       nodePackages.graphql-language-service-cli
       nodePackages.intelephense
+      nodePackages.typescript
       nodePackages.typescript-language-server
       nodePackages.vscode-langservers-extracted
       nodePackages.yaml-language-server
-      yarn
 
       # rust
       cargo
@@ -85,6 +85,7 @@
       # needed for some plugin build steps
       gnumake
       unzip
+      yarn
     ];
   };
 

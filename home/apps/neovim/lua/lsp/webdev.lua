@@ -31,15 +31,36 @@ M.setup = function(opts)
   }, opts))
 
   -- attach tsserver only when there's a 'package.json' file in the CWD
-  require("typescript-tools").setup({ on_attach = opts.on_attach })
+  require("typescript-tools").setup({
+    single_file_support = false,
+    root_dir = function(fname)
+      local root_dir = lspconfig.util.root_pattern("tsconfig.json")(fname)
+
+      -- this is needed to make sure we don't pick up root_dir inside node_modules
+      local node_modules_index = root_dir
+        and root_dir:find("node_modules", 1, true)
+      if node_modules_index and node_modules_index > 0 then
+        ---@diagnostic disable-next-line: need-check-nil
+        root_dir = root_dir:sub(1, node_modules_index - 2)
+      end
+
+      return root_dir
+    end,
+    settings = {
+      expose_as_code_action = {
+        "add_missing_imports",
+        "fix_all",
+        "remove_unused",
+      },
+      -- Nix silliness
+      -- stylua: ignore
+      tsserver_path = vim.fn.resolve(vim.fn.exepath("tsserver") .. "/../../lib/node_modules/typescript/bin/tsserver"),
+    },
+  })
 
   -- attach deno only when there's a 'deps.ts' file in the CWD
   lspconfig.denols.setup(vim.tbl_extend("keep", {
-    root_dir = lspconfig.util.root_pattern(
-      "deno.json",
-      "deno.jsonc",
-      "deps.ts"
-    ),
+    root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
     single_file_support = false,
   }, opts))
 end
