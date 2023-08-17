@@ -7,6 +7,7 @@
   # TODO: de-duplicate across modules
   lat = 48.210033;
   lng = 16.363449;
+  inherit (pkgs.stdenv) isLinux;
 in {
   home.packages = [
     (pkgs.writeShellApplication {
@@ -32,7 +33,7 @@ in {
   ];
 
   services.darkman = {
-    enable = true;
+    enable = isLinux;
     config = {
       inherit lat lng;
       useGeoclue = false;
