@@ -55,7 +55,7 @@ in {
       if isLinux
       then config.xdg.configHome + "/discord/settings.json"
       else if isDarwin
-      then config.home.home + "/Library/Application Support/discord/settings.json"
+      then config.home.homeDirectory + "/Library/Application Support/discord/settings.json"
       else throw "unsupported platform";
   in
     lib.hm.dag.entryAfter ["writeBoundary"] ''
