@@ -22,7 +22,7 @@
     nix-index-database.url = "github:Mic92/nix-index-database";
     sops.inputs.nixpkgs-stable.follows = "nixpkgs";
     sops.inputs.nixpkgs.follows = "nixpkgs";
-    sops.url = "github:Mic92/sops-nix";
+    sops.url = "github:Mic92/sops-nix/1c673ba1053ad3e421fe043702237497bda0c621";
     swayfx.inputs.flake-compat.follows = "";
     swayfx.inputs.nixpkgs.follows = "nixpkgs";
     swayfx.url = "github:willpower3309/swayfx";
@@ -82,7 +82,7 @@
         };
 
         devShells.default = config.pre-commit.devShell.overrideAttrs (old: {
-          buildInputs = with pkgs; [nvd nix-output-monitor];
+          buildInputs = with pkgs; [gum nix-output-monitor nvd];
         });
 
         legacyPackages.homeConfigurations = let

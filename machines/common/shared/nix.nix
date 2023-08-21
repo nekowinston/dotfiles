@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  lib,
+  inputs,
+  pkgs,
+  ...
+}: {
   nixpkgs.config.allowUnfree = true;
   nix = {
     gc.automatic = true;
@@ -13,4 +18,7 @@
       }
       // ((import ../../../flake.nix).nixConfig);
   };
+
+  # set nixPath to the flake nixpkgs without channels
+  environment.variables.NIX_PATH = lib.mkForce "nixpkgs=${inputs.nixpkgs.outPath}";
 }

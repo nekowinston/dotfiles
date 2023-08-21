@@ -87,6 +87,7 @@
         ++ pkgs.lib.optionals isDarwin [nekowinston-nur.darwinModules.default]
         ++ [(hmCommonConfig {inherit username;})]
         ++ extraModules;
+      specialArgs = {inherit inputs;};
     };
   };
   mkSystems = systems: inputs.nixpkgs.lib.mkMerge (map mkSystem systems);
