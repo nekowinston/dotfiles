@@ -10,6 +10,7 @@ null.setup({
   sources = {
     null.builtins.formatting.alejandra,
     null.builtins.formatting.black,
+    null.builtins.formatting.dfmt,
     null.builtins.formatting.deno_fmt.with({
       filetypes = {
         "javascript",

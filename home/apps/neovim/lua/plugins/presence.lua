@@ -2,7 +2,6 @@
 return {
   {
     "andweeb/presence.nvim",
-    enabled = true,
     config = function()
       local presence = require("presence")
 
@@ -43,6 +42,7 @@ return {
         -- Main image display (either "neovim" or "file")
         main_image = "file",
         show_time = true,
+        enable_line_number = true,
         buttons = function(_, repo_url)
           local concealed = conceal().state
 
@@ -63,6 +63,10 @@ return {
           end
         end,
         file_assets = {
+          ["d"] = {
+            "Dlang",
+            "https://github.com/dlang.png",
+          },
           ["astro"] = {
             "Astro",
             "https://github.com/withastro.png",

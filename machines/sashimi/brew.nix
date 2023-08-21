@@ -1,4 +1,7 @@
-{
+{config, ...}: {
+  # make brew available in PATH
+  environment.systemPath = [config.homebrew.brewPrefix];
+
   homebrew = {
     enable = true;
     caskArgs.require_sha = true;
@@ -7,6 +10,13 @@
       cleanup = "uninstall";
       upgrade = true;
     };
+    brews = [
+      # D development, might make these Nix packages someday when the ecosystem isn't as horrid
+      "dfmt"
+      "dcd"
+      "dub"
+      "ldc"
+    ];
     casks = let
       skipSha = name: {
         inherit name;

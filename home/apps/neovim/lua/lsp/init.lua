@@ -189,6 +189,7 @@ local servers = {
   "helm_ls",
   "jqls",
   "lua_ls",
+  "serve_d",
   "taplo",
   "teal_ls",
 }
