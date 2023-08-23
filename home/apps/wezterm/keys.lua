@@ -14,7 +14,9 @@ local map = function(key, mods, action)
   end
 end
 
-wezterm.GLOBAL.enable_tab_bar = true
+if wezterm.GLOBAL.enable_tab_bar == nil then
+  wezterm.GLOBAL.enable_tab_bar = true
+end
 local toggleTabBar = wezterm.action_callback(function(window)
   wezterm.GLOBAL.enable_tab_bar = not wezterm.GLOBAL.enable_tab_bar
   window:set_config_overrides({
