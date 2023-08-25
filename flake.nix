@@ -82,7 +82,7 @@
         };
 
         devShells.default = config.pre-commit.devShell.overrideAttrs (old: {
-          buildInputs = with pkgs; [gum nix-output-monitor nvd];
+          buildInputs = with pkgs; [gum just nix-output-monitor nvd];
         });
 
         legacyPackages.homeConfigurations = let

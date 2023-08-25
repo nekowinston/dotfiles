@@ -13,17 +13,17 @@ export NIX_CONFIG := "
 rebuild *args:
   #!/usr/bin/env -S bash -euo pipefail
   dir="${TMPDIR:-/tmp}/nix-darwin"
-  ! [[ -x "$dir/sw/bin/darwin-rebuild" ]] && nix build .\#darwinConfigurations.`hostname`.system -o "$dir"
+  ! [[ -x "$dir/sw/bin/darwin-rebuild" ]] && nom build .\#darwinConfigurations.`hostname`.system -o "$dir"
   "$dir/sw/bin/darwin-rebuild" --flake . {{args}}
 
 [private]
 [linux]
 rebuild *args:
-  sudo nixos-rebuild --flake . {{args}}
+  sudo nixos-rebuild --flake . {{args}} |& nom
 
 build *args:
   @sudo true
-  @just rebuild build {{args}} --log-format internal-json -v |& nom --json
+  @just rebuild build {{args}}
   @nvd diff /run/current-system result
 
 home *args:
@@ -42,11 +42,8 @@ check *args:
   @just rebuild test {{args}}
 
 switch *args:
-  #!/usr/bin/env -S bash -euo pipefail
-  just build {{args}}
-  read -r -n 1 -p "Continue? [y/N]: " REPLY
-  [[ "$REPLY" =~ ^[Yy]$ ]] || exit 0
-  just rebuild switch {{args}}
+  @just build {{args}}
+  @gum confirm && just rebuild switch {{args}}
 
 fetch:
   @nix shell nixpkgs\#onefetch nixpkgs\#scc -c sh -c "onefetch --true-color never --no-bots -d lines-of-code && scc --no-cocomo ."
