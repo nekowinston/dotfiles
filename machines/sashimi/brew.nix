@@ -32,7 +32,6 @@
       "bitwarden"
       "blender"
       "discord"
-      "docker"
       "firefox"
       "iina"
       "imageoptim"

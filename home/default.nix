@@ -30,6 +30,7 @@ in {
         ripgrep
         sops
         wakatime
+        watchexec
       ]
       ++ lib.optionals isLinux [
         (discord.override {
