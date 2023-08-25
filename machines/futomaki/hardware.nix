@@ -4,9 +4,7 @@
   pkgs,
   modulesPath,
   ...
-}: let
-  kernel = pkgs.linuxPackages_6_3;
-in {
+}: {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
@@ -14,14 +12,14 @@ in {
   boot = {
     initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usbhid" "sd_mod"];
     initrd.kernelModules = ["dm-snapshot"];
-    kernelPackages = kernel;
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = ["kvm-amd" "v4l2loopback"];
     kernelParams = ["quiet" "splash"];
   };
 
   # Intel Arc A770
   environment.sessionVariables.LIBVA_DRIVER_NAME = "iHD";
-  boot.extraModulePackages = [kernel.v4l2loopback];
+  boot.extraModulePackages = [config.boot.kernelPackages.v4l2loopback];
   hardware.opengl = {
     enable = true;
     driSupport32Bit = true;
