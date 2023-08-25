@@ -48,6 +48,8 @@
 
         ${ignored ["JetBrains Toolbox" "Mullvad VPN" "Sip" "iStat Menus"]}
         ${unmanaged ["GOG Galaxy" "Steam" "System Settings"]}
+        yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
+        yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
 
         # etc.
         ${rule} manage=off border=off app="CleanShot"
