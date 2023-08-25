@@ -21,10 +21,10 @@
     transmission.openFirewall = true;
   };
 
-  virtualisation.docker.enable = true;
+  virtualisation.podman.enable = true;
   virtualisation.libvirtd.enable = true;
 
-  users.users."${config.dotfiles.username}".extraGroups = ["docker" "libvirtd" "transmission"];
+  users.users."${config.dotfiles.username}".extraGroups = ["libvirtd" "transmission"];
 
   environment.systemPackages = with pkgs; [
     cabextract

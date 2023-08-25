@@ -28,6 +28,5 @@
     pcscd.enable = true;
   };
 
-  virtualisation.docker.enable = true;
-  users.users."${config.dotfiles.username}".extraGroups = ["docker"];
+  virtualisation.podman.enable = true;
 }

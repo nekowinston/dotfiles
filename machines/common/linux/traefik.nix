@@ -1,9 +1,4 @@
 {
-  # add the traefik user to the docker group for socket access
-  users = {
-    users.traefik.extraGroups = ["docker"];
-  };
-
   services = {
     traefik = {
       enable = true;
@@ -21,6 +16,7 @@
           https.address = ":443";
         };
         providers = {
+          # TODO: adjust for podman
           docker = {
             endpoint = "unix:///var/run/docker.sock";
             exposedByDefault = false;

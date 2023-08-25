@@ -150,6 +150,9 @@ in {
         # switch between yubikeys for the same GPG key
         switch_yubikeys = ''gpg-connect-agent "scd serialno" "learn --force" "/bye"'';
         tree = "lsd --tree";
+        # podman
+        docker = "podman";
+        docker-compose = "podman-compose";
       };
       history.path = "${config.xdg.configHome}/zsh/history";
     };
