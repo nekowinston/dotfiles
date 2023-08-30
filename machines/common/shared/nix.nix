@@ -3,7 +3,10 @@
   inputs,
   pkgs,
   ...
-}: {
+}: let
+  inherit (lib) filterAttrs mkForce;
+  flakes = filterAttrs (name: value: value ? outputs) inputs;
+in {
   nixpkgs.config.allowUnfree = true;
   nix = {
     gc.automatic = true;
@@ -17,8 +20,12 @@
         warn-dirty = false;
       }
       // ((import ../../../flake.nix).nixConfig);
+    registry =
+      builtins.mapAttrs
+      (name: v: {flake = v;})
+      flakes;
   };
 
   # set nixPath to the flake nixpkgs without channels
-  environment.variables.NIX_PATH = lib.mkForce "nixpkgs=${inputs.nixpkgs.outPath}";
+  environment.variables.NIX_PATH = mkForce "nixpkgs=${inputs.nixpkgs.outPath}";
 }
