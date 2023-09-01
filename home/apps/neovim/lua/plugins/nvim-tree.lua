@@ -26,45 +26,47 @@ return {
   {
     "nvim-tree/nvim-web-devicons",
     config = function()
+      local C = require("catppuccin.palettes").get_palette()
+
       local devicons = require("nvim-web-devicons")
       local justfile = {
         icon = "󱚣",
         name = "Justfile",
-        color = "#dea584",
+        color = C.peach,
       }
       devicons.setup({
         override_by_extension = {
           ["astro"] = {
             icon = "",
             name = "Astro",
-            color = "#ff5d01",
+            color = C.red,
           },
           ["norg"] = {
             icon = "",
             name = "Neorg",
-            color = "#77aa99",
+            color = C.green,
           },
         },
         override_by_filename = {
           [".ecrc"] = {
             icon = "",
             name = "EditorConfigChecker",
-            color = "#a6e3a1",
+            color = C.green,
           },
           [".envrc"] = {
             icon = "",
             name = "envrc",
-            color = "#faf743",
+            color = C.yellow,
           },
           [".editorconfig"] = {
             icon = "",
             name = "EditorConfig",
-            color = "#a6e3a1",
+            color = C.green,
           },
           [".luacheckrc"] = {
             icon = "󰢱",
             name = "LuacheckRC",
-            color = "#51a0cf",
+            color = C.blue,
           },
           [".Justfile"] = justfile,
           [".justfile"] = justfile,
