@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) filterAttrs mkForce;
+  inherit (lib) filterAttrs;
   flakes = filterAttrs (name: value: value ? outputs) inputs;
 in {
   nixpkgs.config.allowUnfree = true;
@@ -24,8 +24,8 @@ in {
       builtins.mapAttrs
       (name: v: {flake = v;})
       flakes;
+    nixPath = [
+      {nixpkgs = "${inputs.nixpkgs.outPath}";}
+    ];
   };
-
-  # set nixPath to the flake nixpkgs without channels
-  environment.variables.NIX_PATH = mkForce "nixpkgs=${inputs.nixpkgs.outPath}";
 }
