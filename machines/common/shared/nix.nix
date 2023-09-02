@@ -5,6 +5,7 @@
   ...
 }: let
   inherit (lib) filterAttrs;
+  inherit (pkgs.stdenv) isDarwin isLinux;
   flakes = filterAttrs (name: value: value ? outputs) inputs;
 in {
   nixpkgs.config.allowUnfree = true;
@@ -24,8 +25,15 @@ in {
       builtins.mapAttrs
       (name: v: {flake = v;})
       flakes;
-    nixPath = [
-      {nixpkgs = "${inputs.nixpkgs.outPath}";}
-    ];
+    nixPath =
+      if isDarwin
+      then [
+        {nixpkgs = "${inputs.nixpkgs.outPath}";}
+      ]
+      else if isLinux
+      then [
+        "nixpkgs=${inputs.nixpkgs.outPath}"
+      ]
+      else [];
   };
 }
