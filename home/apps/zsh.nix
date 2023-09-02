@@ -1,6 +1,7 @@
 {
   config,
   flakePath,
+  lib,
   pkgs,
   ...
 }: let
@@ -113,14 +114,19 @@ in {
       dotDir = ".config/zsh";
       oh-my-zsh = {
         enable = true;
-        plugins = [
-          "colored-man-pages"
-          "colorize"
-          "docker"
-          "docker-compose"
-          "git"
-          "kubectl"
-        ];
+        plugins =
+          [
+            "colored-man-pages"
+            "colorize"
+            "docker"
+            "docker-compose"
+            "git"
+            "kubectl"
+          ]
+          ++ lib.optionals pkgs.stdenv.isDarwin [
+            "dash"
+            "macos"
+          ];
       };
       plugins = with pkgs; (zshPlugins [
         {
