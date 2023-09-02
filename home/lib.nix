@@ -10,16 +10,18 @@
       then "/Users/${username}/.config/nixpkgs"
       else "/home/${username}/.config/nixpkgs";
   };
-  hmStandaloneConfig = {
+  hmStandaloneConfig = let
+    inherit (pkgs.stdenv) isLinux isDarwin;
+  in {
     home.homeDirectory =
-      if pkgs.stdenv.isLinux
+      if isLinux
       then "/home/${username}"
-      else if pkgs.stdenv.isDarwin
+      else if isDarwin
       then "/Users/${username}"
       else throw "Unsupported system";
     home.username = username;
-    targets.genericLinux.enable = true;
-    xdg.mime.enable = true;
+    targets.genericLinux.enable = isLinux;
+    xdg.mime.enable = isLinux;
   };
   modules = with inputs;
     [
