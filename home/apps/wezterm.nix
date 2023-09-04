@@ -1,13 +1,9 @@
 {
   config,
   flakePath,
-  pkgs,
   ...
 }: {
-  programs.wezterm = {
-    enable = true;
-    package = pkgs.nur.repos.nekowinston.wezterm-nightly;
-  };
+  programs.wezterm.enable = true;
   # disable the default config created by Home-Manager
   xdg.configFile."wezterm/wezterm.lua".enable = false;
   # and use my own config instead
