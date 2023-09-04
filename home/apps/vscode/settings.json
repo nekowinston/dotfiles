@@ -36,6 +36,9 @@
   "extensions.autoUpdate": false,
   "extensions.ignoreRecommendations": true,
   "git.autofetch": true,
+  "gopls": {
+    "ui.semanticTokens": true
+  },
   "ltex.additionalRules.enablePickyRules": true,
   "ltex.additionalRules.motherTongue": "de-AT",
   "markdown.preview.fontFamily": "IBM Plex Sans, sans-serif",
@@ -61,7 +64,17 @@
   "vim.incsearch": true,
   "vim.insertModeKeyBindings": [],
   "vim.leader": "<space>",
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": ["r", "h"],
+      "commands": ["git.revertSelectedRanges"]
+    }
+  ],
   "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["g", "r"],
+      "commands": ["editor.action.goToReferences"]
+    },
     {
       "before": ["K"],
       "commands": ["editor.action.showHover"]
@@ -119,12 +132,17 @@
   "vim.smartRelativeLine": true,
   "vs-kubernetes": {
     "vs-kubernetes.crd-code-completion": "enabled",
-    "vs-kubernetes.minikube-show-information-expiration": "2024-12-00T00:00:00.000Z"
+    "vs-kubernetes.minikube-show-information-expiration": "2024-01-29T10:44:10.813Z"
   },
   "vscord.app.name": "VSCodium",
+  "vscord.status.idle.check": false,
   "window.autoDetectColorScheme": true,
   "workbench.colorTheme": "Catppuccin Mocha",
   "workbench.iconTheme": "catppuccin-mocha",
   "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
-  "workbench.preferredLightColorTheme": "Catppuccin Latte"
+  "workbench.preferredLightColorTheme": "Catppuccin Latte",
+  "d.stdlibPath": "auto",
+  "d.servedReleaseChannel": "beta",
+  "dfmt.braceStyle": "otbs",
+  "d.alwaysShowDubStatusButtons": true
 }

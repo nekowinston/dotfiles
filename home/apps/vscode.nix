@@ -12,8 +12,8 @@
 in {
   programs.vscode = {
     enable = true;
-    package = pkgs.vscodium;
-    extensions = with pkgs.nix-vscode-extensions.vscode-marketplace; [
+    package = pkgs.vscode;
+    extensions = with pkgs.vscode-marketplace; [
       adrianwilczynski.alpine-js-intellisense
       astro-build.astro-vscode
       bradlc.vscode-tailwindcss
@@ -21,12 +21,14 @@ in {
       denoland.vscode-deno
       eamodio.gitlens
       esbenp.prettier-vscode
+      github.copilot
       github.vscode-pull-request-github
       gitlab.gitlab-workflow
       jnoortheen.nix-ide
       kamadorueda.alejandra
       leonardssh.vscord
       lunuan.kubernetes-templates
+      mikestead.dotenv
       mkhl.direnv
       ms-kubernetes-tools.vscode-kubernetes-tools
       pkief.material-icon-theme
@@ -34,6 +36,7 @@ in {
       rust-lang.rust-analyzer
       sumneko.lua
       tamasfe.even-better-toml
+      tomoki1207.pdf
       valentjn.vscode-ltex
       vscodevim.vim
     ];
@@ -41,12 +44,12 @@ in {
   };
 
   home.file = lib.mkIf isDarwin {
-    "Library/Application Support/VSCodium/User/keybindings.json".source = keybindingsJSON;
-    "Library/Application Support/VSCodium/User/settings.json".source = settingsJSON;
+    "Library/Application Support/Code/User/keybindings.json".source = keybindingsJSON;
+    "Library/Application Support/Code/User/settings.json".source = settingsJSON;
   };
   xdg.configFile = lib.mkIf isLinux {
-    "VSCodium/User/keybindings.json".source = keybindingsJSON;
-    "VSCodium/User/settings.json".source = settingsJSON;
+    "Code/User/keybindings.json".source = keybindingsJSON;
+    "Code/User/settings.json".source = settingsJSON;
   };
-  xdg.mimeApps.defaultApplications."text/plain" = "codium.desktop";
+  xdg.mimeApps.defaultApplications."text/plain" = "code.desktop";
 }
