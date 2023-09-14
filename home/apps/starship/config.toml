@@ -79,8 +79,8 @@ continuation_prompt = '[>](bold subtext0) '
 palette = "catppuccin_mocha"
 
 [character]
-success_symbol = '[\$](bold text)'
-error_symbol = '[\$](bold red)'
+success_symbol = '[λ](bold text)'
+error_symbol = '[λ](bold red)'
 vimcmd_symbol = '[](bold cyan)'
 
 [fill]
