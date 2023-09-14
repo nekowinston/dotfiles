@@ -15,6 +15,7 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   services = {
+    flatpak.enable = true;
     openssh.enable = true;
     pcscd.enable = true;
     transmission.enable = true;
@@ -32,7 +33,7 @@
     mangohud
     nur.repos.nekowinston.discover-overlay
     virt-manager
-    wineWowPackages.waylandFull
+    wineWowPackages.staging
     winetricks
   ];
 
