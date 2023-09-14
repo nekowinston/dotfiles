@@ -83,7 +83,6 @@ cmp.setup({
     { name = "nvim_lsp" },
     { name = "luasnip" },
     { name = "vim-dadbod-completion" },
-  }, {
     { name = "buffer" },
   }),
   formatting = {
@@ -93,6 +92,14 @@ cmp.setup({
       ellipsis_char = "...",
     }),
   },
+})
+
+vim.api.nvim_create_autocmd("BufRead", {
+  group = vim.api.nvim_create_augroup("CmpSourceCargo", { clear = true }),
+  pattern = "Cargo.toml",
+  callback = function()
+    cmp.setup.buffer({ sources = { { name = "crates" } } })
+  end,
 })
 
 local git_ft = { "gitcommit", "NeogitCommitMessage", "Octo" }
@@ -171,7 +178,24 @@ require("lsp.validation").setup(common)
 require("lsp.webdev").setup(common)
 -- external dependencies
 pcall(require("py_lsp").setup, common)
-pcall(require("rust-tools").setup, { server = common })
+pcall(require("rust-tools").setup, {
+  server = {
+    settings = {
+      ["rust-analyzer"] = {
+        cargo = {
+          autoReload = true,
+          target = "wasm32-unknown-unknown",
+        },
+        checkOnSave = {
+          allTargets = true,
+        },
+      },
+    },
+  },
+  tools = {
+    executor = require("rust-tools.executors").toggleterm,
+  },
+})
 
 lspconfig.nil_ls.setup(vim.tbl_extend("keep", {
   settings = {

@@ -44,6 +44,10 @@ return {
       vim.o.foldenable = false
     end,
   },
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    config = { mode = "topline" },
+  },
   "nvim-treesitter/playground",
   "nvim-treesitter/nvim-treesitter-textobjects",
   "windwp/nvim-ts-autotag",

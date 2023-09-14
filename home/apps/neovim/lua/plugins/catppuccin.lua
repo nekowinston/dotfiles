@@ -18,6 +18,7 @@ return {
         term_colors = true,
         integrations = {
           treesitter = true,
+          treesitter_context = true,
           native_lsp = {
             enabled = true,
             virtual_text = {

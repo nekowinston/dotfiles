@@ -41,6 +41,11 @@ return {
             name = "Astro",
             color = C.red,
           },
+          ["dt"] = {
+            icon = "",
+            name = "Diet",
+            color = "#427819",
+          },
           ["norg"] = {
             icon = "",
             name = "Neorg",
