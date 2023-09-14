@@ -39,8 +39,8 @@ in {
       useGeoclue = false;
     };
     activationScript = let
-      starship = lib.getExe config.programs.starship.package;
-      zsh = lib.getExe config.programs.zsh.package;
+      starship = "${config.programs.starship.package}/bin/starship";
+      zsh = "${config.programs.zsh.package}/bin/zsh";
     in {
       dark = ''
         ${starship} config palette catppuccin_mocha

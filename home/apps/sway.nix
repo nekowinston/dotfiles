@@ -61,7 +61,7 @@ in {
         focus.mouseWarping = "container";
         startup = [
           {
-            command = "${lib.getExe pkgs.autotiling} -l2";
+            command = "${pkgs.autotiling}/bin/autotiling -l2";
             always = true;
           }
           {
@@ -82,8 +82,8 @@ in {
           }
         ];
         workspaceAutoBackAndForth = true;
-        terminal = lib.getExe config.programs.wezterm.package;
-        menu = lib.getExe config.programs.rofi.package;
+        terminal = "${config.programs.wezterm.package}/bin/wezterm";
+        menu = "${config.programs.rofi.package}/bin/rofi";
         defaultWorkspace = "workspace number 1";
         input."type:keyboard".xkb_options = "ctrl:nocaps,compose:ralt";
         output."*" = {
@@ -96,9 +96,9 @@ in {
           modFocus = "${mod}+Ctrl";
           hyper = "Mod4+Mod1+Shift+Ctrl";
 
-          pcmanfm = lib.getExe pkgs.pcmanfm;
-          screenshot = "${lib.getExe pkgs.sway-contrib.grimshot} copy area";
-          playerctl = lib.getExe pkgs.playerctl;
+          pcmanfm = "${pkgs.pcmanfm}/bin/pcmanfm";
+          screenshot = "${pkgs.sway-contrib.grimshot}/bin/grimshot copy area";
+          playerctl = "${pkgs.playerctl}/bin/playerctl";
           wpctl = pkgs.wireplumber + "/bin/wpctl";
         in {
           "${mod}+Shift+b" = "border none";
@@ -188,7 +188,7 @@ in {
           # rofi instead of drun
           "${mod}+space" = "exec --no-startup-id ${menu} -show drun -dpi $dpi";
           # 1password
-          "${mod}+Shift+space" = "exec ${lib.getExe pkgs._1password-gui} --quick-access";
+          "${mod}+Shift+space" = "exec ${pkgs._1password-gui}/bin/1password-gui --quick-access";
 
           # audio
           "XF86AudioRaiseVolume" = "exec --no-startup-id ${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.0";
