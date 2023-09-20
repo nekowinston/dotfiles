@@ -10,13 +10,6 @@
       cleanup = "uninstall";
       upgrade = true;
     };
-    brews = [
-      # D development, might make these Nix packages someday when the ecosystem isn't as horrid
-      "dfmt"
-      "dcd"
-      "dub"
-      "ldc"
-    ];
     casks = let
       skipSha = name: {
         inherit name;

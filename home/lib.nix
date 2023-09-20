@@ -9,6 +9,7 @@
       if pkgs.stdenv.isDarwin
       then "/Users/${username}/.config/nixpkgs"
       else "/home/${username}/.config/nixpkgs";
+    inherit inputs;
   };
   hmStandaloneConfig = let
     inherit (pkgs.stdenv) isLinux isDarwin;
