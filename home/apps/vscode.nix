@@ -15,15 +15,19 @@ in {
     package = pkgs.vscode;
     extensions = with pkgs.vscode-marketplace; [
       adrianwilczynski.alpine-js-intellisense
+      antfu.icons-carbon
       astro-build.astro-vscode
       bradlc.vscode-tailwindcss
       catppuccin.catppuccin-vsc-icons
+      dbaeumer.vscode-eslint
       denoland.vscode-deno
       eamodio.gitlens
       esbenp.prettier-vscode
       github.copilot
       github.vscode-pull-request-github
       gitlab.gitlab-workflow
+      golang.go
+      graphql.vscode-graphql-syntax
       jnoortheen.nix-ide
       kamadorueda.alejandra
       leonardssh.vscord
@@ -37,8 +41,10 @@ in {
       sumneko.lua
       tamasfe.even-better-toml
       tomoki1207.pdf
+      unifiedjs.vscode-mdx
       valentjn.vscode-ltex
       vscodevim.vim
+      webfreak.code-d
     ];
     mutableExtensionsDir = true;
   };
