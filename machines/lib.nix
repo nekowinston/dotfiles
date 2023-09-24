@@ -12,7 +12,6 @@
       nekowinston-nur = import inputs.nekowinston-nur {inherit (prev) pkgs;};
       sway-unwrapped = inputs.swayfx.packages.${prev.system}.default;
     })
-    inputs.nekowinston-nur.overlays.default
     inputs.nix-vscode-extensions.overlays.default
   ];
   hmCommonConfig = {username}: ({
