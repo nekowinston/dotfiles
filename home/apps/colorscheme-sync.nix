@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  lib,
   ...
 }: let
   # TODO: de-duplicate across modules
@@ -16,7 +15,7 @@ in {
       text = let
         queryCommand =
           if pkgs.stdenv.isLinux
-          then "dbus-send --session --print-reply=literal --dest=org.freedesktop.portal.Desktop /org/freedesktop/portal/desktop org.freedesktop.portal.Settings.Read string:'org.freedesktop.appearance' string:'color-scheme' | grep -q 'uint32 1'"
+          then "dbus-send --session --print-reply=literal --reply-timeout=5 --dest=org.freedesktop.portal.Desktop /org/freedesktop/portal/desktop org.freedesktop.portal.Settings.Read string:'org.freedesktop.appearance' string:'color-scheme' | grep -q 'uint32 1'"
           else if pkgs.stdenv.isDarwin
           then "defaults read -g AppleInterfaceStyle &>/dev/null"
           else throw "Unsupported platform";
