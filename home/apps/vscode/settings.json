@@ -144,5 +144,6 @@
   "d.stdlibPath": "auto",
   "d.servedReleaseChannel": "beta",
   "dfmt.braceStyle": "otbs",
-  "d.alwaysShowDubStatusButtons": true
+  "d.alwaysShowDubStatusButtons": true,
+  "window.titleBarStyle": "custom"
 }
