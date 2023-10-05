@@ -1,8 +1,4 @@
-{
-  config,
-  lib,
-  ...
-}: {
+{lib, ...}: {
   # manipulate the global /etc/zshenv for PATH, etc.
   programs.zsh.enable = true;
 
@@ -102,7 +98,7 @@
         ctrl - left  : yabai -m space --focus prev
         ctrl - right : yabai -m space --focus next
         # switch to space
-        ${mapKeymaps "cmd + ctrl - Num : ${config.services.skhd.package}/bin/skhd -k 'ctrl + shift + alt + cmd - Num'"}
+        ${mapKeymaps "cmd + ctrl - Num : yabai -m space --focus Num"}
         # send window to desktop and follow focus
         ${mapKeymaps "cmd + shift - Num : yabai -m window --space Num; yabai -m space --focus Num"}
       '';
