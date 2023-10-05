@@ -23,7 +23,6 @@
 
     neovim = {
       url = "github:nekowinston/neovim.drv";
-      inputs.devenv.follows = "devenv";
       inputs.flake-parts.follows = "flake-parts";
       inputs.flake-utils.follows = "flake-utils";
       inputs.pre-commit-nix.follows = "pre-commit-hooks";
@@ -40,11 +39,6 @@
 
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils.url = "github:numtide/flake-utils";
-    devenv = {
-      url = "github:cachix/devenv";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.pre-commit-hooks.follows = "pre-commit-hooks";
-    };
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
   };
 
