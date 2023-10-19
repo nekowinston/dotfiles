@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
 in {
   programs.imv = {
@@ -6,6 +10,8 @@ in {
   };
   programs.mpv.enable = isLinux;
   programs.zathura.enable = isLinux;
+
+  home.packages = lib.mkIf isLinux [(pkgs.callPackage ../../pkgs/apple-music.nix {})];
 
   services.discord-applemusic-rich-presence.enable = isDarwin;
 
