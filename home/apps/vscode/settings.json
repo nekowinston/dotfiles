@@ -145,5 +145,6 @@
   "d.servedReleaseChannel": "beta",
   "dfmt.braceStyle": "otbs",
   "d.alwaysShowDubStatusButtons": true,
-  "window.titleBarStyle": "custom"
+  "window.titleBarStyle": "custom",
+  "window.commandCenter": false
 }
