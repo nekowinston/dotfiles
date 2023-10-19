@@ -188,7 +188,7 @@ in {
           # rofi instead of drun
           "${mod}+space" = "exec --no-startup-id ${menu} -show drun -dpi $dpi";
           # 1password
-          "${mod}+Shift+space" = "exec ${pkgs._1password-gui}/bin/1password-gui --quick-access";
+          "${mod}+Shift+space" = "exec ${pkgs._1password-gui}/bin/1password --quick-access";
 
           # audio
           "XF86AudioRaiseVolume" = "exec --no-startup-id ${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.0";
