@@ -7,10 +7,7 @@
   inherit (pkgs.stdenv) isDarwin isLinux;
 in {
   home.activation.discordSettings = let
-    themeUrl = flavor: "https://catppuccin.github.io/discord/dist/catppuccin-${flavor}-pink.theme.css";
     css = ''
-      @import url("${themeUrl "mocha"}") (prefers-color-scheme: dark);
-      @import url("${themeUrl "latte"}") (prefers-color-scheme: light);
       :root {
         --font-primary: "IBM Plex Sans", sans-serif;
         --font-headline: "IBM Plex Sans", sans-serif;
