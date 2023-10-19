@@ -31,21 +31,23 @@ in {
     })
   ];
 
-  services.darkman = {
+  services.darkman = let
+    starship = "${config.programs.starship.package}/bin/starship";
+    zsh = "${config.programs.zsh.package}/bin/zsh";
+  in {
     enable = isLinux;
-    config = {
+    settings = {
       inherit lat lng;
       useGeoclue = false;
     };
-    activationScript = let
-      starship = "${config.programs.starship.package}/bin/starship";
-      zsh = "${config.programs.zsh.package}/bin/zsh";
-    in {
-      dark = ''
+    darkModeScripts = {
+      toggle-shell = ''
         ${starship} config palette catppuccin_mocha
         ${zsh} -ic "fast-theme XDG:catppuccin-mocha"
       '';
-      light = ''
+    };
+    lightModeScripts = {
+      toggle-shell = ''
         ${starship} config palette catppuccin_latte
         ${zsh} -ic "fast-theme XDG:catppuccin-latte"
       '';

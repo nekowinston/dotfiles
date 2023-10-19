@@ -17,16 +17,6 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixd.url = "github:nekowinston/nixd";
-    nixd.inputs.nixpkgs.follows = "nixpkgs";
-    nixd.inputs.flake-parts.follows = "flake-parts";
-
-    neovim = {
-      url = "github:nekowinston/neovim.drv";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.pre-commit-nix.follows = "pre-commit-hooks";
-    };
 
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
     nix-index-database.url = "github:Mic92/nix-index-database";
@@ -40,6 +30,7 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils.url = "github:numtide/flake-utils";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
+    pre-commit-hooks.inputs.flake-compat.follows = "";
   };
 
   outputs = {flake-parts, ...} @ inputs: let
