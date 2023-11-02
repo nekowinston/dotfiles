@@ -19,6 +19,7 @@
   };
   home.packages = with pkgs; [
     (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
+    cascadia-code
     victor-mono
     ibm-plex
     xkcd-font
