@@ -6,31 +6,40 @@
 }: let
   inherit (pkgs.stdenv) isDarwin isLinux;
 in {
+  home.packages = with pkgs; [
+    (discord.override {
+      withOpenASAR = true;
+    })
+  ];
   home.activation.discordSettings = let
     css = ''
       :root {
         --font-primary: "IBM Plex Sans", sans-serif;
         --font-headline: "IBM Plex Sans", sans-serif;
         --font-display: "IBM Plex Sans", sans-serif;
-        --font-code: "Berkeley Mono", "Symbols Nerd Font", mono;
+        --font-code: "Cascadia Code", "Symbols Nerd Font", mono;
       }
 
       @media (max-width: 1024px) {
         nav[aria-label="Servers sidebar"] {
           display: none;
         }
-        .container-1-ERn5 {
-          margin: 1.3rem 0 0 0;
+        .platform-osx div[class^="base_"] > div[class^="content_"] > div[class^="sidebar_"],
+        .platform-osx div[class^="base_"] > div[class^="content_"] > main[class^="container_"],
+        .platform-osx div[class^="base_"] > div[class^="content_"] > div[class^="chat_"] {
+          padding-top: 32px !important;
         }
       }
 
       @media (max-width: 768px) {
-        div[class^="base-"] > div[class^="content-"] > div[class^="sidebar-"] {
+        div[class^="base_"] > div[class^="content_"] > div[class^="sidebar_"] {
           display: none;
         }
-        .container-ZMc96U {
-          margin: 1.3rem 0 0 0;
-        }
+      }
+
+      main[class^="chatContent_"] form div[class^="buttons_"],
+      main[class^="chatContent_"] form div[class^="attachWrapper_"] {
+        display: none;
       }
     '';
     json = pkgs.writeTextFile {
@@ -38,14 +47,15 @@ in {
       text =
         lib.generators.toJSON {}
         {
-          SKIP_HOST_UPDATE = true;
+          DANGEROUS_ENABLE_DEVTOOLS_ONLY_ENABLE_IF_YOU_KNOW_WHAT_YOURE_DOING = true;
+          MIN_WIDTH = 0;
+          MIN_HEIGHT = 0;
           openasar = {
             inherit css;
             setup = true;
           };
           trayBalloonShown = false;
-          MIN_WIDTH = 0;
-          MIN_HEIGHT = 0;
+          SKIP_HOST_UPDATE = true;
         };
     };
     path =
@@ -56,6 +66,7 @@ in {
       else throw "unsupported platform";
   in
     lib.hm.dag.entryAfter ["writeBoundary"] ''
-      [ -d "$(dirname "${path}")" ] && cp -f "${json}" "${path}"
+      mkdir -p "$(dirname "${path}")"
+      cp -f "${json}" "${path}"
     '';
 }

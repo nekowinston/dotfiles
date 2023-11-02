@@ -24,7 +24,6 @@
       "alfred"
       "bitwarden"
       "blender"
-      "discord"
       "firefox"
       "iina"
       "imageoptim"

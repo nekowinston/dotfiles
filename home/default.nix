@@ -33,10 +33,6 @@ in {
         watchexec
       ]
       ++ lib.optionals isLinux [
-        (discord.override {
-          withOpenASAR = true;
-          withTTS = true;
-        })
         _1password-gui
         jetbrains.goland
         jetbrains.webstorm
