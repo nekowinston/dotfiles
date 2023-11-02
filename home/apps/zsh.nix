@@ -27,7 +27,7 @@ in {
       };
     };
     bat = let
-      themes = pkgs.fetchFromGitHub {
+      src = pkgs.fetchFromGitHub {
         owner = "catppuccin";
         repo = "bat";
         rev = "ba4d16880d63e656acced2b7d4e034e4a93f74b1";
@@ -36,8 +36,14 @@ in {
     in {
       enable = true;
       themes = {
-        "Catppuccin-latte" = builtins.readFile (themes + /Catppuccin-latte.tmTheme);
-        "Catppuccin-mocha" = builtins.readFile (themes + /Catppuccin-mocha.tmTheme);
+        "catppuccin-latte" = {
+          inherit src;
+          file = "Catppuccin-latte.tmTheme";
+        };
+        "catppuccin-mocha" = {
+          inherit src;
+          file = "Catppuccin-mocha.tmTheme";
+        };
       };
     };
     btop = {
@@ -98,17 +104,22 @@ in {
       enableAutosuggestions = true;
       enableCompletion = true;
 
+      initExtraFirst = ''
+        zvm_config() {
+          ZVM_VI_HIGHLIGHT_BACKGROUND="black"
+          ZVM_VI_HIGHLIGHT_FOREGROUND="white"
+          ZVM_INIT_MODE="sourcing"
+          ZVM_INSERT_MODE_CURSOR="$ZVM_CURSOR_BLINKING_BEAM"
+          ZVM_VI_HIGHLIGHT_EXTRASTYLE=bold,underline
+        }
+      '';
       initExtra = let
         functionsDir = "${config.home.homeDirectory}/${config.programs.zsh.dotDir}/functions";
       in ''
-        for script in "${functionsDir}"/**/*; do
-          source "$script"
-        done
+        for script in "${functionsDir}"/**/*; do source "$script"; done
       '';
       envExtra = ''
         export LESSHISTFILE="-"
-        export ZVM_INIT_MODE="sourcing"
-        export ZVM_CURSOR_BLINKING_BEAM="1"
       '';
 
       dotDir = ".config/zsh";
@@ -130,7 +141,13 @@ in {
       };
       plugins = with pkgs; (zshPlugins [
         {
-          src = zsh-vi-mode;
+          src = zsh-vi-mode.overrideAttrs (old: {
+            src = fetchFromGitHub {
+              inherit (old.src) repo owner;
+              rev = "a3d717831c1864de8eabf20b946d66afc67e6695";
+              hash = "sha256-peoyY+krpK/7dA3TW6PEpauDwZLe+riVWfwpFYnRn1Q=";
+            };
+          });
           file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
         }
         {
@@ -140,8 +157,7 @@ in {
         {
           src = zsh-fast-syntax-highlighting.overrideAttrs (old: {
             src = fetchFromGitHub {
-              owner = "zdharma-continuum";
-              repo = "fast-syntax-highlighting";
+              inherit (old.src) repo owner;
               rev = "cf318e06a9b7c9f2219d78f41b46fa6e06011fd9";
               hash = "sha256-RVX9ZSzjBW3LpFs2W86lKI6vtcvDWP6EPxzeTcRZua4=";
             };
