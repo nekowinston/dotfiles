@@ -1,5 +1,74 @@
+// vim:ft=jsonc
 {
+  "catppuccin.accentColor": "pink",
+  "catppuccin.customUIColors": {
+    "all": {
+      "statusBar.foreground": "accent",
+      "statusBar.noFolderForeground": "accent"
+    }
+  },
+  "catppuccin.boldKeywords": false,
+  "catppuccin.extraBordersEnabled": false,
+  "catppuccin.italicKeywords": true,
+  "debug.onTaskErrors": "debugAnyway",
+  "diffEditor.ignoreTrimWhitespace": false,
+  "diffEditor.hideUnchangedRegions.enabled": true,
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.smoothScrolling": true,
+  "terminal.integrated.smoothScrolling": true,
+  "terminal.integrated.fontSize": 14,
+  "editor.fontFamily": "Berkeley Mono, Symbols Nerd Font, monospace",
+  "editor.fontLigatures": "'calt', 'ss01'",
+  "editor.fontSize": 15,
+  "editor.formatOnSave": true,
+  "editor.guides.bracketPairs": true,
+  "editor.inlayHints.enabled": "onUnlessPressed",
+  "editor.inlayHints.fontSize": 8,
+  "editor.inlayHints.padding": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.lineNumbers": "relative",
+  "editor.minimap.enabled": false,
+  "editor.minimap.renderCharacters": false,
+  "extensions.autoUpdate": false,
+  "extensions.ignoreRecommendations": true,
+  "git.autofetch": true,
+  "git.openRepositoryInParentFolders": "never",
+  "ltex.additionalRules.enablePickyRules": true,
+  "ltex.additionalRules.motherTongue": "de-AT",
+  "markdown.preview.fontFamily": "IBM Plex Sans, sans-serif",
+  "search.useGlobalIgnoreFiles": true,
+  "search.useParentIgnoreFiles": true,
+  "typescript.inlayHints.parameterNames.enabled": "all",
+  "update.mode": "none",
+  "vs-kubernetes": {
+    "vs-kubernetes.crd-code-completion": "enabled"
+  },
+  "window.autoDetectColorScheme": true,
+  "window.commandCenter": false,
+  "window.titleBarStyle": "custom",
+  "workbench.colorTheme": "Catppuccin Mocha",
+  "workbench.iconTheme": "catppuccin-mocha",
+  "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
+  "workbench.preferredLightColorTheme": "Catppuccin Latte",
+  "workbench.productIconTheme": "icons-carbon",
+
+  // telemetry settings
+  "redhat.telemetry.enabled": false,
+  "telemetry.telemetryLevel": "off",
+  "workbench.enableExperiments": false,
+  "workbench.settings.enableNaturalLanguageSearch": false,
+
+  // language-specific settings
+  "d.alwaysShowDubStatusButtons": true,
+  "d.servedReleaseChannel": "beta",
+  "d.stdlibPath": "auto",
+  "gopls": {
+    "ui.semanticTokens": true
+  },
   "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[jsonc]": {
@@ -8,47 +77,30 @@
   "[less]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff"
+  },
+  "rubyLsp.rubyVersionManager": "none",
+  "[ruby]": {
+    "editor.defaultFormatter": "Shopify.ruby-lsp",
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "editor.rulers": [120],
+    "editor.semanticHighlighting.enabled": true
+  },
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "catppuccin.accentColor": "pink",
-  "catppuccin.customUIColors": {
-    "all": {
-      "statusBar.foreground": "accent",
-      "statusBar.noFolderForeground": "accent"
-    }
-  },
-  "debug.onTaskErrors": "debugAnyway",
-  "diffEditor.ignoreTrimWhitespace": false,
-  "editor.cursorSmoothCaretAnimation": "on",
-  "editor.fontFamily": "Berkeley Mono, Symbols Nerd Font, monospace",
-  "editor.fontSize": 15,
-  "editor.formatOnSave": true,
-  "editor.inlayHints.fontFamily": "Victor Mono",
-  "editor.inlayHints.fontSize": 14,
-  "editor.inlayHints.padding": true,
-  "editor.inlineSuggest.enabled": true,
-  "editor.lineNumbers": "relative",
-  "editor.minimap.enabled": false,
-  "extensions.autoUpdate": false,
-  "extensions.ignoreRecommendations": true,
-  "git.autofetch": true,
-  "gopls": {
-    "ui.semanticTokens": true
-  },
-  "ltex.additionalRules.enablePickyRules": true,
-  "ltex.additionalRules.motherTongue": "de-AT",
-  "markdown.preview.fontFamily": "IBM Plex Sans, sans-serif",
-  "redhat.telemetry.enabled": false,
-  "search.useGlobalIgnoreFiles": true,
-  "search.useParentIgnoreFiles": true,
-  "telemetry.telemetryLevel": "off",
-  "terminal.integrated.fontSize": 14,
-  "typescript.inlayHints.parameterNames.enabled": "all",
-  "update.mode": "none",
+
+  // vim mode
   "vim.camelCaseMotion.enable": true,
   "vim.handleKeys": {
     "<C-a>": true,
@@ -68,6 +120,14 @@
     {
       "before": ["r", "h"],
       "commands": ["git.revertSelectedRanges"]
+    },
+    {
+      "before": ["<leader>", "y"],
+      "commands": ["editor.action.clipboardCopyAction"]
+    },
+    {
+      "before": ["<leader>", "p"],
+      "commands": ["editor.action.clipboardPasteAction"]
     }
   ],
   "vim.normalModeKeyBindingsNonRecursive": [
@@ -93,11 +153,11 @@
     },
     {
       "before": ["[", "d"],
-      "commands": ["editor.action.marker.prevInFiles"]
+      "commands": ["editor.action.marker.prev"]
     },
     {
       "before": ["]", "d"],
-      "commands": ["editor.action.marker.nextInFiles"]
+      "commands": ["editor.action.marker.next"]
     },
     {
       "before": ["[", "c"],
@@ -108,43 +168,49 @@
       "commands": ["workbench.action.editor.nextChange"]
     },
     {
-      "after": ["<C-W>", "l"],
-      "before": ["<C-l>"]
-    },
-    {
-      "after": ["<C-W>", "h"],
-      "before": ["<C-h>"]
-    },
-    {
       "before": ["K"],
       "commands": ["editor.action.showHover"]
     },
     {
-      "after": ["<C-W>", "v"],
-      "before": ["<C-W>", "\\"]
+      "before": ["<C-h>"],
+      "commands": ["workbench.action.focusLeftGroup"]
     },
     {
-      "after": ["<C-W>", "s"],
-      "before": ["<C-W>", "-"]
+      "before": ["<C-j>"],
+      "commands": ["workbench.action.focusBelowGroup"]
+    },
+    {
+      "before": ["<C-k>"],
+      "commands": ["workbench.action.focusAboveGroup"]
+    },
+    {
+      "before": ["<C-l>"],
+      "commands": ["workbench.action.focusRightGroup"]
+    },
+    {
+      "before": ["<C-W>", "\\"],
+      "commands": ["workbench.action.splitEditorRight"]
+    },
+    {
+      "before": ["<C-W>", "-"],
+      "commands": ["workbench.action.splitEditorDown"]
     }
   ],
   "vim.replaceWithRegister": true,
   "vim.smartRelativeLine": true,
-  "vs-kubernetes": {
-    "vs-kubernetes.crd-code-completion": "enabled",
-    "vs-kubernetes.minikube-show-information-expiration": "2024-01-29T10:44:10.813Z"
-  },
-  "vscord.app.name": "VSCodium",
-  "vscord.status.idle.check": false,
-  "window.autoDetectColorScheme": true,
-  "workbench.colorTheme": "Catppuccin Mocha",
-  "workbench.iconTheme": "catppuccin-mocha",
-  "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
-  "workbench.preferredLightColorTheme": "Catppuccin Latte",
-  "d.stdlibPath": "auto",
-  "d.servedReleaseChannel": "beta",
-  "dfmt.braceStyle": "otbs",
-  "d.alwaysShowDubStatusButtons": true,
-  "window.titleBarStyle": "custom",
-  "window.commandCenter": false
+
+  // vscord
+  "vscord.status.buttons.button1.git.active.enabled": true,
+  "vscord.status.idle.check": true,
+  "vscord.status.idle.timeout": 180,
+  "vscord.status.image.large.idle.key": "https://cdn.discordapp.com/emojis/936610646181695498.png",
+  "vscord.status.image.large.idle.text": "eepy",
+  "vscord.status.image.large.notInFile.key": "https://cdn.discordapp.com/emojis/743724645018107964.png",
+  "vscord.status.image.large.notInFile.text": "comfy",
+  "vscord.status.image.small.debugging.key": "https://cdn.discordapp.com/emojis/743723396692443206.png",
+  "vscord.status.image.small.debugging.text": "thonking",
+  "vscord.status.image.small.editing.key": "https://cdn.discordapp.com/emojis/886512498772168755.gif",
+  "vscord.status.image.small.editing.text": "hecking",
+  "vscord.status.image.small.viewing.key": "https://cdn.discordapp.com/emojis/903437275881439285.png",
+  "vscord.status.image.small.viewing.text": "looking"
 }
