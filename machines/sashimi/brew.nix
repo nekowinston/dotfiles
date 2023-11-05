@@ -50,10 +50,10 @@
       (skipSha "sizzy")
 
       # drivers
-      "elgato-wave-link"
-      "uhk-agent"
-      (noQuarantine "vial")
+      "homebrew/cask-drivers/elgato-wave-link"
+      "homebrew/cask-drivers/uhk-agent"
+      (noQuarantine "homebrew/cask-drivers/vial")
     ];
-    taps = ["homebrew/cask" "homebrew/cask-drivers"];
+    taps = ["homebrew/cask"];
   };
 }
