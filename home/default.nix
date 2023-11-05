@@ -6,7 +6,7 @@
 }: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
 in {
-  imports = [./apps ./langs ./secrets/sops.nix ./xdg.nix];
+  imports = [./apps ./secrets/sops.nix ./xdg.nix];
 
   home = {
     packages = with pkgs; ([
