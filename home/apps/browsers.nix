@@ -3,13 +3,10 @@
   pkgs,
   ...
 }: let
-  inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
+  inherit (pkgs.stdenv.hostPlatform) isLinux;
 in {
   programs.firefox = {
-    enable = true;
-    # since I'm using firefox from brew on darwin, I need to build a dummy package
-    # to still manage it via home-manager
-    package = pkgs.lib.mkIf isDarwin (pkgs.writeScriptBin "__dummy-firefox" "");
+    enable = isLinux;
     profiles.default = {
       search.default = "DuckDuckGo";
       search.force = true;
