@@ -7,9 +7,7 @@
       "statusBar.noFolderForeground": "accent"
     }
   },
-  "catppuccin.boldKeywords": false,
-  "catppuccin.extraBordersEnabled": false,
-  "catppuccin.italicKeywords": true,
+  "catppuccin.extraBordersEnabled": true,
   "debug.onTaskErrors": "debugAnyway",
   "diffEditor.ignoreTrimWhitespace": false,
   "diffEditor.hideUnchangedRegions.enabled": true,
@@ -17,7 +15,7 @@
   "editor.smoothScrolling": true,
   "terminal.integrated.smoothScrolling": true,
   "terminal.integrated.fontSize": 14,
-  "editor.fontFamily": "Berkeley Mono, Symbols Nerd Font, monospace",
+  "editor.fontFamily": "Cascadia Code, Symbols Nerd Font, monospace",
   "editor.fontLigatures": "'calt', 'ss01'",
   "editor.fontSize": 15,
   "editor.formatOnSave": true,
