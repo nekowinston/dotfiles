@@ -16,7 +16,7 @@ in {
       {
         auto-optimise-store = pkgs.stdenv.isLinux;
         experimental-features = ["auto-allocate-uids" "flakes" "nix-command" "repl-flake"];
-        trusted-users = ["@staff" "@sudo" "@wheel"];
+        trusted-users = ["@sudo" "@wheel" "winston"];
         use-xdg-base-directories = true;
         warn-dirty = false;
       }
