@@ -12,16 +12,19 @@
 in {
   programs.vscode = {
     enable = true;
-    package = pkgs.vscode;
     extensions = with pkgs.vscode-marketplace; [
       adrianwilczynski.alpine-js-intellisense
       antfu.icons-carbon
       astro-build.astro-vscode
       bradlc.vscode-tailwindcss
       catppuccin.catppuccin-vsc-icons
+      charliermarsh.ruff
       dbaeumer.vscode-eslint
       denoland.vscode-deno
+      dhall.dhall-lang
+      dhall.vscode-dhall-lsp-server
       eamodio.gitlens
+      editorconfig.editorconfig
       esbenp.prettier-vscode
       github.copilot
       github.vscode-pull-request-github
@@ -32,16 +35,20 @@ in {
       kamadorueda.alejandra
       leonardssh.vscord
       lunuan.kubernetes-templates
+      mads-hartmann.bash-ide-vscode
       mikestead.dotenv
       mkhl.direnv
+      mkhl.shfmt
       ms-kubernetes-tools.vscode-kubernetes-tools
       pkief.material-icon-theme
       redhat.vscode-yaml
       rust-lang.rust-analyzer
+      serayuzgur.crates
       sumneko.lua
       tamasfe.even-better-toml
       tomoki1207.pdf
       unifiedjs.vscode-mdx
+      usernamehw.errorlens
       valentjn.vscode-ltex
       vscodevim.vim
       webfreak.code-d
