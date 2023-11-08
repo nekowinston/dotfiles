@@ -23,8 +23,7 @@ rebuild *args:
 
 build *args:
   @sudo true
-  @just rebuild build {{args}}
-  @nvd diff /run/current-system result
+  @just rebuild build {{args}} && nvd diff /run/current-system result
 
 home *args:
   nix run ".#homeConfigurations.winston.activationPackage" {{args}}
