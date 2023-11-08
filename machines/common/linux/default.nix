@@ -4,8 +4,8 @@
     ./greeter.nix
     ./input.nix
     ./network.nix
+    ./session.nix
     ./sound.nix
-    ./xsession.nix
   ];
 
   console.colors = [

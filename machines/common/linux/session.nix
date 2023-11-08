@@ -5,7 +5,8 @@
     unzip
     zip
     gnome.file-roller
-    pcmanfm
+    gnome.nautilus
+    gnome.sushi
 
     # thumbnails
     webp-pixbuf-loader
@@ -41,11 +42,18 @@
     };
   };
 
-  # gcr needed for gnome3 pinentry
-  services.dbus.packages = with pkgs; [darkman gcr];
+  services.dbus.packages = with pkgs; [
+    darkman
+    # gcr needed for gnome3 pinentry, managed in Home-Manager
+    gcr
+    gnome.sushi
+  ];
   xdg.portal.enable = true;
   xdg.portal.wlr.enable = true;
-  xdg.portal.extraPortals = with pkgs; [darkman xdg-desktop-portal-gtk];
+  xdg.portal.extraPortals = with pkgs; [
+    darkman
+    xdg-desktop-portal-gtk
+  ];
 
   services = {
     # mounting

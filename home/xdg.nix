@@ -50,7 +50,7 @@ in {
     dataHome = "${homeDirectory}/.local/share";
     mimeApps = {
       enable = isLinux;
-      defaultApplications."inode/directory" = "pcmanfm.desktop";
+      defaultApplications."inode/directory" = "nautilus.desktop";
     };
   };
 }

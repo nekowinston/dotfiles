@@ -96,7 +96,7 @@ in {
           modFocus = "${mod}+Ctrl";
           hyper = "Mod4+Mod1+Shift+Ctrl";
 
-          pcmanfm = "${pkgs.pcmanfm}/bin/pcmanfm";
+          filebrowser = "${pkgs.gnome.nautilus}/bin/nautilus";
           screenshot = "${pkgs.sway-contrib.grimshot}/bin/grimshot copy area";
           playerctl = "${pkgs.playerctl}/bin/playerctl";
           wpctl = pkgs.wireplumber + "/bin/wpctl";
@@ -110,7 +110,7 @@ in {
           "${mod}+Shift+q" = "kill";
           # Start Applications
           "${mod}+Shift+Return" = "exec ${terminal}";
-          "${mod}+e" = "exec --no-startup-id ${pcmanfm}";
+          "${mod}+e" = "exec --no-startup-id ${filebrowser}";
           "${hyper}+p" = "exec --no-startup-id ${screenshot}";
 
           # change focus
