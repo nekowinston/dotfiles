@@ -1,15 +1,31 @@
 {
   config,
   flakePath,
+  pkgs,
   ...
-}: {
+}: let
+  mkSymlink = path: config.lib.file.mkOutOfStoreSymlink "${flakePath}/home/apps/wezterm/${path}";
+in {
   programs.wezterm.enable = true;
-  # disable the default config created by Home-Manager
-  xdg.configFile."wezterm/wezterm.lua".enable = false;
-  # and use my own config instead
-  xdg.configFile."wezterm" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/home/apps/wezterm";
-    recursive = true;
+
+  xdg.configFile = {
+    "wezterm/wezterm.lua".source = mkSymlink "wezterm.lua";
+    "wezterm/config" = {
+      source = mkSymlink "config";
+      recursive = true;
+    };
+    "wezterm/bar".source = pkgs.fetchFromGitHub {
+      owner = "nekowinston";
+      repo = "wezterm-bar";
+      sha256 = "sha256-3acxqJ9HMA5hASWq/sVL9QQjfEw5Xrh2fT9nFuGjzHM=";
+      rev = "e96b81460b3ad11a7461934dcb7889ce5079f97f";
+    };
+    "wezterm/catppuccin".source = pkgs.fetchFromGitHub {
+      owner = "catppuccin";
+      repo = "wezterm";
+      sha256 = "sha256-McSWoZaJeK+oqdK/0vjiRxZGuLBpEB10Zg4+7p5dIGY=";
+      rev = "b1a81bae74d66eaae16457f2d8f151b5bd4fe5da";
+    };
   };
 
   programs.zsh.initExtra = ''
