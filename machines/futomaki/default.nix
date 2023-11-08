@@ -29,7 +29,7 @@
 
   environment.systemPackages = with pkgs; [
     cabextract
-    heroic
+    lutris-free
     mangohud
     nur.repos.nekowinston.discover-overlay
     virt-manager
