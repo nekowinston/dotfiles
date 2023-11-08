@@ -1,6 +1,7 @@
 '$schema' = 'https://starship.rs/config-schema.json'
 
 format = """
+[╭](surface2)\
 $directory\
 $username\
 $hostname\
@@ -58,8 +59,6 @@ $vagrant\
 $vlang\
 $zig\
 \
-$fill \
-\
 (${env_var.incognito}\
 $package\
 $nix_shell\
@@ -72,6 +71,7 @@ $terraform)\
 $line_break\
 \
 $shell\
+[╰](surface2)\
 $character"""
 
 add_newline = true
@@ -83,18 +83,14 @@ success_symbol = '[λ](bold text)'
 error_symbol = '[λ](bold red)'
 vimcmd_symbol = '[](bold cyan)'
 
-[fill]
-style = 'surface2'
-symbol = '┈'
-
 [time]
 format = ' [$time]($style) '
 style = 'fg:subtext0'
 disabled = true
 
 [directory]
-format = '[ $path ]($style)[($read_only )]($read_only_style)'
-style = 'fg:red'
+format = '[$path ]($style)[($read_only)]($read_only_style)'
+style = 'fg:red italic'
 read_only = ' '
 read_only_style = 'fg:red'
 truncate_to_repo = true
@@ -136,14 +132,8 @@ format = '[\[$state($progress_current/$progress_total)\] ]($style)'
 style = 'fg:peach'
 disabled = false
 
-[git_metrics]
-format = '[+$added]($added_style)[/](fg:peach )[-$deleted ]($deleted_style)'
-added_style = 'fg:peach'
-deleted_style = 'fg:peach'
-disabled = false
-
 [git_status]
-format = '[$all_status$ahead_behind ]($style)'
+format = '[$all_status$ahead_behind]($style)'
 style = 'fg:peach'
 ahead = ' '
 behind = ' '
