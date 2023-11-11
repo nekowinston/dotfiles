@@ -5,7 +5,7 @@
   pkgs,
   ...
 }: let
-  inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
+  inherit (pkgs.stdenv.hostPlatform) isLinux;
   inherit (config.xdg) cacheHome configHome dataHome;
   inherit (config.home) homeDirectory;
 in {
@@ -36,11 +36,7 @@ in {
     ];
   };
 
-  # NOTE: workaround for gpgme on Darwin, since GUI apps aren't aware of $GNUPGHOME
-  programs.gpg.homedir =
-    if isDarwin
-    then "${homeDirectory}/.gnupg"
-    else "${configHome}/gnupg";
+  programs.gpg.homedir = "${configHome}/gnupg";
 
   xdg = {
     enable = true;
