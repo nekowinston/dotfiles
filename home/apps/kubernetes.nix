@@ -34,25 +34,25 @@
     kubectl = "kubecolor";
   };
 
-  programs.zsh = {
-    initExtra = ''
-      # kubecolor
-      compdef kubecolor=kubectl
-      # konf
-      source <(konf-go shellwrapper zsh)
-      source <(konf completion zsh)
-      # ignore if konf store hasn't been initialized
-      konf --silent set -
-    '';
-  };
+  # programs.zsh = {
+  #   initExtra = ''
+  #     # kubecolor
+  #     compdef kubecolor=kubectl
+  #     # konf
+  #     source <(konf-go shellwrapper zsh)
+  #     source <(konf completion zsh)
+  #     # ignore if konf store hasn't been initialized
+  #     konf --silent set -
+  #   '';
+  # };
 
-  sops.secrets = let
-    konfStore = "${config.home.homeDirectory}/.kube/konfs/store";
-  in {
-    "konf-ctp".path = "${konfStore}/ctp_ctp.yaml";
-    "konf-work-prod".path = "${konfStore}/work-prod_work-prod.yaml";
-    "konf-work-staging".path = "${konfStore}/work-staging_work-staging.yaml";
-  };
+  # sops.secrets = let
+  #   konfStore = "${config.home.homeDirectory}/.kube/konfs/store";
+  # in {
+  #   "konf-ctp".path = "${konfStore}/ctp_ctp.yaml";
+  #   "konf-work-prod".path = "${konfStore}/work-prod_work-prod.yaml";
+  #   "konf-work-staging".path = "${konfStore}/work-staging_work-staging.yaml";
+  # };
 
   home.sessionVariables = {
     KREW_ROOT = "${config.xdg.dataHome}/krew";
