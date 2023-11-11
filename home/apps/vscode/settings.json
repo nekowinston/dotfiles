@@ -46,6 +46,7 @@
   "window.titleBarStyle": "custom",
   "workbench.colorTheme": "Catppuccin Mocha",
   "workbench.iconTheme": "catppuccin-mocha",
+  "workbench.layoutControl.enabled": false,
   "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
   "workbench.preferredLightColorTheme": "Catppuccin Latte",
   "workbench.productIconTheme": "icons-carbon",
@@ -75,6 +76,9 @@
   "[less]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "nix.enableLanguageServer": true,
+  "nix.formatterPath": "alejandra",
+  "nix.serverPath": "nil",
   "[python]": {
     "editor.defaultFormatter": "charliermarsh.ruff"
   },
