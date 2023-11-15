@@ -25,6 +25,7 @@ c.inactive_pane_hsb = { brightness = 0.90 }
 require("bar.plugin").apply_to_config(c)
 require("catppuccin.plugin").apply_to_config(c, {
   sync = true,
+  sync_flavors = { dark = "frappe" },
 })
 
 return c
