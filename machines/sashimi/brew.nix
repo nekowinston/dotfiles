@@ -24,6 +24,7 @@
       "alfred"
       "bitwarden"
       "blender"
+      "eloston-chromium"
       "iina"
       "imageoptim"
       "jetbrains-toolbox"
@@ -48,9 +49,9 @@
       (skipSha "sizzy")
 
       # drivers
-      "homebrew/cask-drivers/elgato-wave-link"
-      "homebrew/cask-drivers/uhk-agent"
-      (noQuarantine "homebrew/cask-drivers/vial")
+      "elgato-wave-link"
+      "uhk-agent"
+      (noQuarantine "vial")
     ];
     taps = ["homebrew/cask"];
   };
