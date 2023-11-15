@@ -14,6 +14,21 @@
       inherit (plugin) file src;
     })
     plugins);
+  catppuccin-zsh-fsh = pkgs.stdenvNoCC.mkDerivation {
+    name = "catppuccin-zsh-fsh";
+    src = pkgs.fetchFromGitHub {
+      owner = "catppuccin";
+      repo = "zsh-fsh";
+      rev = "7cdab58bddafe0565f84f6eaf2d7dd109bd6fc18";
+      sha256 = "sha256-31lh+LpXGe7BMZBhRWvvbOTkwjOM77FPNaGy6d26hIA=";
+    };
+    phases = ["buildPhase"];
+    buildPhase = ''
+      mkdir -p $out/share/zsh/site-functions/themes
+      ls $src/themes
+      cp $src/themes/* $out/share/zsh/site-functions/themes/
+    '';
+  };
 in {
   programs = {
     atuin = {
@@ -181,6 +196,7 @@ in {
   };
 
   xdg.configFile = {
+    "fsh".source = "${catppuccin-zsh-fsh}/share/zsh/site-functions/themes";
     "lsd" = symlink "home/apps/lsd" {recursive = true;};
     "starship.toml" = symlink "home/apps/starship/config.toml" {};
     "zsh/functions" = symlink "home/apps/zsh/functions" {recursive = true;};
