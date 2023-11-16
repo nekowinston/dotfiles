@@ -34,8 +34,6 @@ in {
       ]
       ++ lib.optionals isLinux [
         _1password-gui
-        jetbrains.goland
-        jetbrains.webstorm
         nekowinston-nur.uhk-agent
       ]);
     sessionVariables = lib.mkIf isDarwin {

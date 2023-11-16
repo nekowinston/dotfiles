@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
-  home.packages = with pkgs; [chroma pandoc w3m];
+{config, ...}: {
   sops.secrets."aerc-accounts".path = "${config.xdg.configHome}/aerc/accounts.conf";
   programs = {
     aerc = {

@@ -44,19 +44,10 @@ switch *args:
   @just build {{args}}
   @gum confirm && just rebuild switch {{args}}
 
-[private]
-gc:
-  nix-collect-garbage -d
-  nix-store --optimise
-
-[macos]
 clean:
   sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations old
-  @just gc
-
-[linux]
-clean:
-  @just gc
+  nix-collect-garbage -d
+  nix store optimise
 
 fetch:
   @nix shell nixpkgs\#onefetch nixpkgs\#scc -c sh -c "onefetch --true-color never --no-bots -d lines-of-code && scc --no-cocomo ."

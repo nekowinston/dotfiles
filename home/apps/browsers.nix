@@ -5,6 +5,11 @@
 }: let
   inherit (pkgs.stdenv.hostPlatform) isLinux;
 in {
+  programs.chromium = {
+    enable = true;
+    package = pkgs.ungoogled-chromium;
+  };
+
   programs.firefox = {
     enable = isLinux;
     profiles.default = {
@@ -151,10 +156,10 @@ in {
     pkgs.nekowinston-nur.sizzy
   ];
   xdg.mimeApps.defaultApplications = {
-    "text/html" = "firefox.desktop";
-    "x-scheme-handler/http" = "firefox.desktop";
-    "x-scheme-handler/https" = "firefox.desktop";
-    "x-scheme-handler/about" = "firefox.desktop";
-    "x-scheme-handler/unknown" = "firefox.desktop";
+    "text/html" = "chromium.desktop";
+    "x-scheme-handler/http" = "chromium.desktop";
+    "x-scheme-handler/https" = "chromium.desktop";
+    "x-scheme-handler/about" = "chromium.desktop";
+    "x-scheme-handler/unknown" = "chromium.desktop";
   };
 }
