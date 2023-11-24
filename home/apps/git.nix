@@ -48,8 +48,11 @@
       ".envrc"
     ];
 
-    # disable the macOS keychain, only use gopass
-    package = pkgs.git.override {osxkeychainSupport = false;};
+    package = pkgs.symlinkJoin {
+      name = "git";
+      paths = [pkgs.git];
+      postBuild = "rm $out/etc/gitconfig";
+    };
 
     extraConfig = {
       credential.helper = "gopass";

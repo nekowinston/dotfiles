@@ -10,8 +10,6 @@
   };
 in {
   home.packages = with pkgs; [
-    gnupg-pkcs11-scd
-    pcsclite
     pinentry
     git-credential-gopass
     gopass
