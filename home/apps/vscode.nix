@@ -13,6 +13,7 @@ in {
   programs.vscode = {
     enable = true;
     extensions = with pkgs.vscode-marketplace; [
+      pkgs.vscode-extensions.valentjn.vscode-ltex
       adrianwilczynski.alpine-js-intellisense
       antfu.icons-carbon
       astro-build.astro-vscode
@@ -49,7 +50,6 @@ in {
       tomoki1207.pdf
       unifiedjs.vscode-mdx
       usernamehw.errorlens
-      valentjn.vscode-ltex
       vscodevim.vim
       webfreak.code-d
     ];

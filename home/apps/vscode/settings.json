@@ -57,6 +57,9 @@
   "workbench.enableExperiments": false,
   "workbench.settings.enableNaturalLanguageSearch": false,
 
+  // natural language
+  "ltex.language": "en-US",
+
   // language-specific settings
   "d.alwaysShowDubStatusButtons": true,
   "d.servedReleaseChannel": "beta",
