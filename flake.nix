@@ -1,48 +1,36 @@
 {
   description = "nekowinston's hm flake";
 
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    darwin.url = "github:lnl7/nix-darwin";
-    darwin.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
-    nur.url = "github:nix-community/nur";
-    caarlos0-nur.url = "github:caarlos0/nur";
-    nekowinston-nur.url = "github:nekowinston/nur";
-    nix-vscode-extensions = {
-      url = "github:nix-community/nix-vscode-extensions";
-      inputs.flake-compat.follows = "";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
-    nix-index-database.url = "github:Mic92/nix-index-database";
-    sops.inputs.nixpkgs-stable.follows = "nixpkgs";
-    sops.inputs.nixpkgs.follows = "nixpkgs";
-    sops.url = "github:Mic92/sops-nix/1c673ba1053ad3e421fe043702237497bda0c621";
-    swayfx.inputs.flake-compat.follows = "";
-    swayfx.inputs.nixpkgs.follows = "nixpkgs";
-    swayfx.url = "github:willpower3309/swayfx";
-
-    flake-parts.url = "github:hercules-ci/flake-parts";
-    flake-utils.url = "github:numtide/flake-utils";
-    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
-    pre-commit-hooks.inputs.flake-compat.follows = "";
-  };
-
-  outputs = {flake-parts, ...} @ inputs: let
-    inherit (import ./machines/lib.nix {inherit inputs;}) mkSystems overlays;
+  outputs = {
+    flake-parts,
+    self,
+    ...
+  } @ inputs: let
+    inherit (import ./machines/lib.nix {inherit inputs overlays;}) mkSystems;
+    overlays = [
+      (final: prev: {
+        nur = import inputs.nur {
+          nurpkgs = prev;
+          pkgs = prev;
+          repoOverrides = {
+            caarlos0 = inputs.caarlos0-nur.packages.${prev.system};
+            nekowinston = inputs.nekowinston-nur.packages.${prev.system};
+          };
+        };
+        nekowinston-nur = import inputs.nekowinston-nur {inherit (prev) pkgs;};
+        sway-unwrapped = inputs.swayfx.packages.${prev.system}.default;
+      })
+      inputs.nix-vscode-extensions.overlays.default
+    ];
   in
-    flake-parts.lib.mkFlake {inherit inputs;}
+    flake-parts.lib.mkFlake {inherit self inputs;}
     {
       flake = mkSystems [
         {
           host = "sashimi";
           system = "aarch64-darwin";
           username = "winston";
+          extraModules = [inputs.nekowinston-nur.darwinModules.default];
         }
         {
           host = "futomaki";
@@ -83,7 +71,7 @@
         };
 
         devShells.default = config.pre-commit.devShell.overrideAttrs (old: {
-          buildInputs = with pkgs; [gum just nix-output-monitor nvd];
+          buildInputs = with pkgs; [alejandra gum just nil nix-output-monitor nvd];
         });
 
         legacyPackages.homeConfigurations = let
@@ -119,5 +107,54 @@
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "pre-commit-hooks.cachix.org-1:Pkk3Panw5AW24TOv6kz3PvLhlH8puAsJTBbOPmBo7Rc="
     ];
+  };
+
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    darwin = {
+      url = "github:lnl7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nur.url = "github:nix-community/nur";
+    caarlos0-nur = {
+      url = "github:caarlos0/nur";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nekowinston-nur.url = "github:nekowinston/nur";
+
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs.flake-compat.follows = "";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+    nix-index-database.url = "github:Mic92/nix-index-database";
+    sops = {
+      url = "github:Mic92/sops-nix/1c673ba1053ad3e421fe043702237497bda0c621";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-stable.follows = "nixpkgs";
+    };
+    swayfx = {
+      url = "github:willpower3309/swayfx";
+      inputs.flake-compat.follows = "";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-utils.url = "github:numtide/flake-utils";
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs.flake-compat.follows = "";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-stable.follows = "nixpkgs";
+    };
   };
 }

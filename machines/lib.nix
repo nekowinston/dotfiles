@@ -1,19 +1,7 @@
-{inputs}: rec {
-  overlays = [
-    (final: prev: {
-      nur = import inputs.nur {
-        nurpkgs = prev;
-        pkgs = prev;
-        repoOverrides = {
-          caarlos0 = inputs.caarlos0-nur.packages.${prev.system};
-          nekowinston = inputs.nekowinston-nur.packages.${prev.system};
-        };
-      };
-      nekowinston-nur = import inputs.nekowinston-nur {inherit (prev) pkgs;};
-      sway-unwrapped = inputs.swayfx.packages.${prev.system}.default;
-    })
-    inputs.nix-vscode-extensions.overlays.default
-  ];
+{
+  inputs,
+  overlays,
+}: rec {
   hmCommonConfig = {username}: ({
     config,
     pkgs,
@@ -33,38 +21,25 @@
       };
     };
   });
+
   mkSystem = {
     host,
     system,
     username,
     extraModules ? [],
   }: let
-    target =
-      if isLinux
-      then "nixosConfigurations"
-      else if isDarwin
-      then "darwinConfigurations"
+    ldTernary = l: d:
+      if pkgs.stdenv.isLinux
+      then l
+      else if pkgs.stdenv.isDarwin
+      then d
       else throw "Unsupported system";
-    builder = with inputs;
-      if isLinux
-      then nixpkgs.lib.nixosSystem
-      else if isDarwin
-      then darwin.lib.darwinSystem
-      else throw "Unsupported system";
-    module =
-      if isLinux
-      then "nixosModules"
-      else if isDarwin
-      then "darwinModules"
-      else throw "Unsupported system";
-    hostPlatform =
-      if isLinux
-      then "linux"
-      else if isDarwin
-      then "darwin"
-      else throw "Unsupported system";
+    target = ldTernary "nixosConfigurations" "darwinConfigurations";
+    builder = with inputs; ldTernary nixpkgs.lib.nixosSystem darwin.lib.darwinSystem;
+    module = ldTernary "nixosModules" "darwinModules";
+    hostPlatform = ldTernary "linux" "darwin";
+
     pkgs = inputs.nixpkgs.legacyPackages.${system};
-    inherit (pkgs.stdenv) isDarwin isLinux;
   in {
     ${target}."${host}" = builder {
       inherit system;
@@ -75,7 +50,7 @@
               mkOption {
                 description = "Main user of this configuration.";
                 type = types.str;
-                default = "${username}";
+                default = username;
               };
           }
           ./common/shared
@@ -83,11 +58,11 @@
           ./${host}
           home-manager.${module}.home-manager
         ]
-        ++ pkgs.lib.optionals isDarwin [nekowinston-nur.darwinModules.default]
         ++ [(hmCommonConfig {inherit username;})]
         ++ extraModules;
       specialArgs = {inherit inputs;};
     };
   };
+
   mkSystems = systems: inputs.nixpkgs.lib.mkMerge (map mkSystem systems);
 }
