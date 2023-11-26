@@ -51,7 +51,7 @@
     package = pkgs.symlinkJoin {
       name = "git";
       paths = [pkgs.git];
-      postBuild = "rm $out/etc/gitconfig";
+      postBuild = "rm $out/etc/gitconfig || true";
     };
 
     extraConfig = {
