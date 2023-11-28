@@ -11,7 +11,7 @@
   keybindingsJSON = config.lib.file.mkOutOfStoreSymlink "${flakePath}/home/apps/vscode/keybindings.json";
 in {
   programs.vscode = {
-    enable = true;
+    enable = config.isGraphical;
     extensions = with pkgs.vscode-marketplace; [
       pkgs.vscode-extensions.valentjn.vscode-ltex
       adrianwilczynski.alpine-js-intellisense

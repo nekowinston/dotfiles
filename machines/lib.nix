@@ -26,6 +26,7 @@
     host,
     system,
     username,
+    isGraphical ? false,
     extraModules ? [],
   }: let
     ldTernary = l: d:
@@ -46,12 +47,12 @@
       modules = with inputs;
         [
           {
-            options.dotfiles.username = with pkgs.lib;
-              mkOption {
-                description = "Main user of this configuration.";
-                type = types.str;
-                default = username;
-              };
+            config.lib.dotfiles = {inherit username;};
+            options.isGraphical = pkgs.lib.mkOption {
+              type = pkgs.lib.types.bool;
+              default = isGraphical;
+              description = "Whether the system is a isGraphical target";
+            };
           }
           ./common/shared
           ./common/${hostPlatform}

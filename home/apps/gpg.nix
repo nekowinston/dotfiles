@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  config,
+  pkgs,
+  ...
+}: let
   inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
   key = "0x0B89BC45007EE9CC";
   mailvelopeConfig = builtins.toJSON {
@@ -97,6 +101,9 @@ in {
     enable = isLinux;
     enableExtraSocket = true;
     enableSshSupport = true;
-    pinentryFlavor = "gnome3";
+    pinentryFlavor =
+      if config.isGraphical
+      then "gnome3"
+      else "curses";
   };
 }

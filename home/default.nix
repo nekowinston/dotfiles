@@ -32,7 +32,7 @@ in {
         wakatime
         watchexec
       ]
-      ++ lib.optionals isLinux [
+      ++ lib.optionals (config.isGraphical && isLinux) [
         _1password-gui
         nekowinston-nur.uhk-agent
       ]);

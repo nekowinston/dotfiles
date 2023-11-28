@@ -21,6 +21,7 @@
       then "/Users/${username}"
       else throw "Unsupported system";
     home.username = username;
+    isGraphical = false;
     targets.genericLinux.enable = isLinux;
     xdg.mime.enable = isLinux;
   };

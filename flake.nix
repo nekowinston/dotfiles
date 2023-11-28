@@ -31,16 +31,19 @@
           system = "aarch64-darwin";
           username = "winston";
           extraModules = [inputs.nekowinston-nur.darwinModules.default];
+          isGraphical = true;
         }
         {
           host = "futomaki";
           system = "x86_64-linux";
           username = "winston";
+          isGraphical = true;
         }
         {
           host = "bento";
           system = "x86_64-linux";
           username = "w";
+          isGraphical = true;
         }
       ];
       imports = [inputs.pre-commit-hooks.flakeModule];

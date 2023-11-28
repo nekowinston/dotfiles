@@ -5,7 +5,6 @@
   pkgs,
   ...
 }: let
-  inherit (pkgs.stdenv.hostPlatform) isLinux;
   fonts = {
     names = ["IBM Plex Sans" "Symbols Nerd Font"];
     size = 12.0;
@@ -21,38 +20,38 @@
   lat = 48.210033;
   lng = 16.363449;
 in {
-  fonts.fontconfig.enable = true;
+  config = lib.mkIf (config.isGraphical && pkgs.stdenv.isLinux) {
+    fonts.fontconfig.enable = true;
 
-  home = lib.mkIf isLinux {
-    packages = with pkgs; [
-      blueberry
-      kooha
-      libnotify
-      pavucontrol
-      sway-contrib.grimshot
-      swaynotificationcenter
-      wl-clipboard
-    ];
-  };
-
-  services = lib.mkIf isLinux {
-    clipman.enable = true;
-    gnome-keyring = {
-      enable = true;
-      components = ["secrets"];
+    home = {
+      packages = with pkgs; [
+        blueberry
+        kooha
+        libnotify
+        pavucontrol
+        sway-contrib.grimshot
+        swaynotificationcenter
+        wl-clipboard
+      ];
     };
-    wlsunset = {
-      enable = true;
-      latitude = toString lat;
-      longitude = toString lng;
-    };
-    udiskie.enable = true;
-  };
 
-  wayland.windowManager.sway = let
-    modifier = "Mod4";
-  in
-    lib.mkIf isLinux {
+    services = {
+      clipman.enable = true;
+      gnome-keyring = {
+        enable = true;
+        components = ["secrets"];
+      };
+      wlsunset = {
+        enable = true;
+        latitude = toString lat;
+        longitude = toString lng;
+      };
+      udiskie.enable = true;
+    };
+
+    wayland.windowManager.sway = let
+      modifier = "Mod4";
+    in {
       enable = true;
       package = null;
       config = rec {
@@ -350,4 +349,5 @@ in {
         xdgAutostart = true;
       };
     };
+  };
 }
