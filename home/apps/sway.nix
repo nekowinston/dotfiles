@@ -1,7 +1,8 @@
 {
   config,
-  lib,
   flakePath,
+  lib,
+  osConfig,
   pkgs,
   ...
 }: let
@@ -20,7 +21,7 @@
   lat = 48.210033;
   lng = 16.363449;
 in {
-  config = lib.mkIf (config.isGraphical && pkgs.stdenv.isLinux) {
+  config = lib.mkIf (config.isGraphical && pkgs.stdenv.isLinux && (osConfig.dotfiles.desktop == "sway")) {
     fonts.fontconfig.enable = true;
 
     home = {

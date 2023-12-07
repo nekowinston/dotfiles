@@ -1,11 +1,12 @@
 {pkgs, ...}: {
   imports = [
     ./boot.nix
+    ./gnome.nix
     ./greeter.nix
     ./input.nix
     ./network.nix
-    ./session.nix
     ./sound.nix
+    ./sway.nix
   ];
 
   console.colors = [
@@ -39,4 +40,10 @@
   environment.systemPackages = [pkgs.xdg-utils];
 
   system.stateVersion = "22.11";
+
+  # enable yubikey u2f support
+  security.pam.u2f = {
+    enable = true;
+    cue = true;
+  };
 }

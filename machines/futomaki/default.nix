@@ -25,7 +25,7 @@
   virtualisation.podman.enable = true;
   virtualisation.libvirtd.enable = true;
 
-  users.users."${config.lib.dotfiles.username}".extraGroups = ["libvirtd" "transmission"];
+  users.users."${config.dotfiles.username}".extraGroups = ["libvirtd" "transmission"];
 
   environment.systemPackages = with pkgs; [
     cabextract

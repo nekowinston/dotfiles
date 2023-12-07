@@ -47,11 +47,26 @@
       modules = with inputs;
         [
           {
-            config.lib.dotfiles = {inherit username;};
-            options.isGraphical = pkgs.lib.mkOption {
-              type = pkgs.lib.types.bool;
-              default = isGraphical;
-              description = "Whether the system is a isGraphical target";
+            options = let
+              inherit (pkgs) lib;
+            in {
+              dotfiles = {
+                username = lib.mkOption {
+                  type = lib.types.str;
+                  default = username;
+                  description = "The username of the user";
+                };
+                desktop = lib.mkOption {
+                  type = lib.types.enum ["gnome" "sway"];
+                  default = "sway";
+                  description = "The desktop environment to use";
+                };
+              };
+              isGraphical = lib.mkOption {
+                type = lib.types.bool;
+                default = isGraphical;
+                description = "Whether the system is a isGraphical target";
+              };
             };
           }
           ./common/shared

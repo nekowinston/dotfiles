@@ -23,12 +23,8 @@ in {
         };
       };
       theme = {
-        name = "Catppuccin-Mocha-Compact-Pink-Dark";
-        package = pkgs.catppuccin-gtk.override {
-          accents = ["pink"];
-          variant = "mocha";
-          size = "compact";
-        };
+        name = "Catppuccin-Compact-Pink";
+        package = pkgs.callPackage ../../pkgs/catppuccin-gtk.nix {};
       };
       gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
       gtk2.extraConfig = ''
