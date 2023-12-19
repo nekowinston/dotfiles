@@ -1,0 +1,14 @@
+{
+  "mkShell": {
+    "prefix": "mkshell",
+    "body": [
+      "{pkgs ? import <nixpkgs> {}}:",
+      "pkgs.mkShell {",
+      "  buildInputs = with pkgs; [",
+      "    $1",
+      "  ];",
+      "}"
+    ],
+    "description": "Nix development shell"
+  }
+}

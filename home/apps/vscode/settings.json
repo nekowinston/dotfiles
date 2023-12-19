@@ -31,6 +31,7 @@
   "extensions.ignoreRecommendations": true,
   "git.autofetch": true,
   "git.openRepositoryInParentFolders": "never",
+  "githubPullRequests.pullBranch": "always",
   "ltex.additionalRules.enablePickyRules": true,
   "ltex.additionalRules.motherTongue": "de-AT",
   "markdown.preview.fontFamily": "IBM Plex Sans, sans-serif",
@@ -39,7 +40,8 @@
   "typescript.inlayHints.parameterNames.enabled": "all",
   "update.mode": "none",
   "vs-kubernetes": {
-    "vs-kubernetes.crd-code-completion": "enabled"
+    "vs-kubernetes.crd-code-completion": "enabled",
+    "vs-kubernetes.minikube-show-information-expiration": "2024-06-09T06:56:22.175Z"
   },
   "window.autoDetectColorScheme": true,
   "window.commandCenter": false,
@@ -79,9 +81,9 @@
   "[less]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "nix.enableLanguageServer": true,
-  "nix.formatterPath": "alejandra",
-  "nix.serverPath": "nil",
+  "[nix]": {
+    "editor.defaultFormatter": "jnoortheen.nix-ide"
+  },
   "[python]": {
     "editor.defaultFormatter": "charliermarsh.ruff"
   },
