@@ -115,7 +115,7 @@
   };
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     darwin = {
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -140,7 +140,7 @@
     };
 
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
-    nix-index-database.url = "github:Mic92/nix-index-database";
+    nix-index-database.url = "github:nix-community/nix-index-database";
     sops = {
       url = "github:Mic92/sops-nix/1c673ba1053ad3e421fe043702237497bda0c621";
       inputs.nixpkgs.follows = "nixpkgs";
