@@ -7,8 +7,8 @@
   extraSpecialArgs = {
     flakePath =
       if pkgs.stdenv.isDarwin
-      then "/Users/${username}/.config/nixpkgs"
-      else "/home/${username}/.config/nixpkgs";
+      then "/Users/${username}/.config/flake"
+      else "/home/${username}/.config/flake";
     inherit inputs;
   };
   hmStandaloneConfig = let
