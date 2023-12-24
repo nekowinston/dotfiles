@@ -17,6 +17,7 @@ in {
       BUNDLE_USER_PLUGIN = "${dataHome}/bundle";
       CARGO_HOME = "${dataHome}/cargo";
       CUDA_CACHE_PATH = "${dataHome}/nv";
+      DENO_INSTALL_ROOT = "${dataHome}/deno";
       DOCKER_CONFIG = "${configHome}/docker";
       GEM_HOME = "${dataHome}/gem";
       GEM_SPEC_CACHE = "${cacheHome}/gem";
@@ -33,6 +34,8 @@ in {
       "$HOME/.local/bin"
       "${dataHome}/krew/bin"
       "${sessionVariables.GOPATH}/bin"
+      "${sessionVariables.CARGO_HOME}/bin"
+      "${sessionVariables.DENO_INSTALL_ROOT}/bin"
     ];
   };
 

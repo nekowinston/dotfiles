@@ -13,6 +13,8 @@ in {
         _1password
         age
         age-plugin-yubikey
+        comma
+        deno
         fd
         ffmpeg
         file
