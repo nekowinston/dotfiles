@@ -11,10 +11,7 @@ export NIX_CONFIG := "
 [private]
 [macos]
 rebuild *args:
-  #!/usr/bin/env -S bash -euo pipefail
-  dir="${TMPDIR:-/tmp}/nix-darwin"
-  ! [[ -x "$dir/sw/bin/darwin-rebuild" ]] && nom build .\#darwinConfigurations.`hostname`.system -o "$dir"
-  "$dir/sw/bin/darwin-rebuild" --flake . {{args}}
+  darwin-rebuild --flake . {{args}}
 
 [private]
 [linux]
@@ -42,7 +39,12 @@ check *args:
 
 switch *args:
   @just build {{args}}
-  @gum confirm && just rebuild switch {{args}}
+  @just confirm-switch {{args}}
+
+[confirm]
+[private]
+confirm-switch *args:
+  @just rebuild switch {{args}}
 
 clean:
   sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations old
@@ -50,4 +52,4 @@ clean:
   nix store optimise
 
 fetch:
-  @nix shell nixpkgs\#onefetch nixpkgs\#scc -c sh -c "onefetch --true-color never --no-bots -d lines-of-code && scc --no-cocomo ."
+  @./scripts/fetch.sh

@@ -74,7 +74,9 @@
         };
 
         devShells.default = config.pre-commit.devShell.overrideAttrs (old: {
-          buildInputs = with pkgs; [alejandra gum just nil nix-output-monitor nvd];
+          buildInputs = with pkgs;
+            [alejandra just nil nix-output-monitor nvd]
+            ++ lib.optionals stdenv.isDarwin [inputs.darwin.packages.${system}.darwin-rebuild];
         });
 
         legacyPackages.homeConfigurations = let
@@ -113,7 +115,7 @@
   };
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     darwin = {
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
