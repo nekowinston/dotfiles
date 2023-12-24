@@ -18,10 +18,10 @@
     yabai = {
       enable = true;
       package = pkgs.yabai.overrideAttrs (prev: {
-        version = "6.0.1";
+        version = "6.0.2";
         src = pkgs.fetchzip {
           inherit (prev.src) url;
-          hash = "sha256-CXkGVoJcGSkooxe7eIhwaM6FkOI45NVw5jdLJAzgFBM=";
+          hash = "sha256-aFM0rtHrHsLEziDWhRwqeCy70dSAOAX4HDpqHqvnoWs=";
         };
       });
       enableScriptingAddition = true;
@@ -33,9 +33,6 @@
         mouse_drop_action = "swap";
         mouse_follows_focus = "off";
         window_animation_duration = "0.0";
-        window_border = "on";
-        window_border_blur = "on";
-        window_border_width = 2;
         window_gap = 5;
         left_padding = 5;
         right_padding = 5;
@@ -44,13 +41,10 @@
         window_origin_display = "default";
         window_placement = "second_child";
         window_shadow = "float";
-        active_window_border_color = "0xfff5c2e7";
-
-        normal_window_border_color = "0xffcba6f7";
       };
       extraConfig = let
         rule = "yabai -m rule --add";
-        ignored = app: builtins.concatStringsSep "\n" (map (e: ''${rule} app="${e}" manage=off sticky=off layer=above border=off'') app);
+        ignored = app: builtins.concatStringsSep "\n" (map (e: ''${rule} app="${e}" manage=off sticky=off layer=above'') app);
         unmanaged = app: builtins.concatStringsSep "\n" (map (e: ''${rule} app="${e}" manage=off'') app);
       in ''
         # auto-inject scripting additions
@@ -63,7 +57,7 @@
         yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
 
         # etc.
-        ${rule} manage=off border=off app="CleanShot"
+        ${rule} manage=off app="CleanShot"
         ${rule} manage=off sticky=on  app="OBS Studio"
       '';
     };
