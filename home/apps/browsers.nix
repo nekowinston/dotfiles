@@ -156,7 +156,7 @@ in {
     };
 
     home.packages = lib.mkIf isLinux [
-      pkgs.nekowinston-nur.sizzy
+      pkgs.nur.repos.nekowinston.sizzy
     ];
 
     xdg.mimeApps.defaultApplications = {

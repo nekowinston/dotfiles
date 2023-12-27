@@ -24,7 +24,6 @@ in {
         imagemagick
         just
         mdcat
-        mosh
         nix-output-monitor
         nur.repos.nekowinston.icat
         nvd
@@ -36,7 +35,7 @@ in {
       ]
       ++ lib.optionals (config.isGraphical && isLinux) [
         _1password-gui
-        nekowinston-nur.uhk-agent
+        nur.repos.nekowinston.uhk-agent
       ]);
     sessionVariables = lib.mkIf isDarwin {
       SSH_AUTH_SOCK = "${config.programs.gpg.homedir}/S.gpg-agent.ssh";

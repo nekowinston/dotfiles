@@ -5,7 +5,9 @@
   lightFlavor ? "latte",
   darkFlavor ? "mocha",
 }: let
-  capitalize = s: (pkgs.lib.toUpper (builtins.substring 0 1 s)) + (builtins.substring 1 (builtins.stringLength s) s);
+  inherit (builtins) substring stringLength;
+  inherit (pkgs) lib;
+  capitalize = s: (lib.toUpper (substring 0 1 s)) + (substring 1 (stringLength s) s);
   darkName = capitalize darkFlavor;
   lightName = capitalize lightFlavor;
 in
