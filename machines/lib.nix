@@ -65,7 +65,7 @@
               isGraphical = lib.mkOption {
                 type = lib.types.bool;
                 default = isGraphical;
-                description = "Whether the system is a isGraphical target";
+                description = "Whether the system is a graphical target";
               };
             };
           }

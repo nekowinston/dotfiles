@@ -4,16 +4,17 @@
   username,
   isNixOS ? true,
 }: rec {
+  inherit (pkgs.stdenv) isLinux isDarwin;
+
   extraSpecialArgs = {
     flakePath =
-      if pkgs.stdenv.isDarwin
+      if isDarwin
       then "/Users/${username}/.config/flake"
       else "/home/${username}/.config/flake";
     inherit inputs;
   };
-  hmStandaloneConfig = let
-    inherit (pkgs.stdenv) isLinux isDarwin;
-  in {
+
+  hmStandaloneConfig = {
     home.homeDirectory =
       if isLinux
       then "/home/${username}"
@@ -25,6 +26,7 @@
     targets.genericLinux.enable = isLinux;
     xdg.mime.enable = isLinux;
   };
+
   modules = with inputs;
     [
       nix-index-database.hmModules.nix-index
