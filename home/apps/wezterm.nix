@@ -14,7 +14,10 @@ in {
     })
 
     (lib.mkIf config.isGraphical {
-      programs.wezterm.enable = true;
+      programs.wezterm = {
+        enable = true;
+        package = pkgs.nur.repos.nekowinston.wezterm-nightly;
+      };
 
       xdg.configFile = {
         "wezterm/wezterm.lua".source = mkSymlink "wezterm.lua";
