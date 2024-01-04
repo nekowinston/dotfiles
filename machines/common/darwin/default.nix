@@ -1,8 +1,4 @@
-{
-  lib,
-  pkgs,
-  ...
-}: {
+{lib, ...}: {
   # manipulate the global /etc/zshenv for PATH, etc.
   programs.zsh.enable = true;
 
@@ -17,13 +13,6 @@
   services = {
     yabai = {
       enable = true;
-      package = pkgs.yabai.overrideAttrs (prev: {
-        version = "6.0.2";
-        src = pkgs.fetchzip {
-          inherit (prev.src) url;
-          hash = "sha256-aFM0rtHrHsLEziDWhRwqeCy70dSAOAX4HDpqHqvnoWs=";
-        };
-      });
       enableScriptingAddition = true;
       logFile = "/var/tmp/yabai.log";
       config = {
