@@ -117,6 +117,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nekowinston-nur.url = "github:nekowinston/nur";
+    catppuccin-vsc = {
+      url = "github:catppuccin/vscode";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nix-vscode-extensions = {
       url = "github:nix-community/nix-vscode-extensions";

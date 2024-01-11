@@ -1,12 +1,13 @@
 {inputs}: [
   inputs.swayfx.overlays.default
   inputs.nix-vscode-extensions.overlays.default
+  inputs.catppuccin-vsc.overlays.default
   (final: prev: {
     yabai = prev.yabai.overrideAttrs (old: rec {
-      version = "6.0.4";
+      version = "6.0.6";
       src = prev.fetchzip {
         url = "https://github.com/koekeishiya/yabai/releases/download/v${version}/yabai-v${version}.tar.gz";
-        hash = "sha256-gxQBZ/7I2TVjoG5a8ea2+W4OwI9pJFbGSbZzcL5JY4Q=";
+        hash = "sha256-G4BbYU4mgV8Jap8a872/YtoXU/hwUhFyLXdcuT1jldI=";
       };
     });
     nur = import inputs.nur {
