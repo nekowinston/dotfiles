@@ -1,8 +1,8 @@
 {inputs}: [
-  inputs.swayfx.overlays.default
   inputs.nix-vscode-extensions.overlays.default
   inputs.catppuccin-vsc.overlays.default
   (final: prev: {
+    sway-unwrapped = inputs.swayfx.packages.${prev.system}.default;
     yabai = prev.yabai.overrideAttrs (old: rec {
       version = "6.0.6";
       src = prev.fetchzip {

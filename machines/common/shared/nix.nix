@@ -12,7 +12,7 @@ in {
   nixpkgs.config.allowUnfree = true;
   nix = {
     gc.automatic = true;
-    package = pkgs.nixVersions.nix_2_19;
+    package = pkgs.nixVersions.nix_2_17;
     settings =
       {
         auto-optimise-store = true;
