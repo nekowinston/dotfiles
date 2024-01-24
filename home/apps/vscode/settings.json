@@ -11,6 +11,7 @@
   "debug.onTaskErrors": "debugAnyway",
   "diffEditor.ignoreTrimWhitespace": false,
   "diffEditor.hideUnchangedRegions.enabled": true,
+  "editor.accessibilitySupport": "off",
   "editor.cursorSmoothCaretAnimation": "on",
   "editor.smoothScrolling": true,
   "terminal.integrated.smoothScrolling": true,
@@ -61,6 +62,11 @@
 
   // natural language
   "ltex.language": "en-US",
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  "svg.preview.mode": "svg",
 
   // language-specific settings
   "d.alwaysShowDubStatusButtons": true,
@@ -70,6 +76,7 @@
     "ui.semanticTokens": true
   },
   "[javascript]": {
+    "editor.snippetSuggestions": "top",
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[json]": {
@@ -100,7 +107,9 @@
     "editor.rulers": [120],
     "editor.semanticHighlighting.enabled": true
   },
+  "rust-analyzer.check.command": "clippy",
   "[typescript]": {
+    "editor.snippetSuggestions": "top",
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[typescriptreact]": {
