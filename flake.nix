@@ -59,11 +59,13 @@
           };
         };
 
-        devShells.default = config.pre-commit.devShell.overrideAttrs (old: {
+        devShells.default = pkgs.mkShell {
+          inherit (config.pre-commit.devShell) shellHook;
+          RULES = "./home/secrets/secrets.nix";
           buildInputs = with pkgs;
-            [alejandra just nil nix-output-monitor nvd]
-            ++ lib.optionals stdenv.isDarwin [inputs.darwin.packages.${system}.darwin-rebuild];
-        });
+            [alejandra just nil nix-output-monitor nvd inputs'.agenix.packages.agenix]
+            ++ lib.optionals stdenv.isDarwin [inputs'.darwin.packages.darwin-rebuild];
+        };
 
         legacyPackages.homeConfigurations = let
           homeLib = import ./home/lib.nix {
@@ -131,10 +133,9 @@
 
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
     nix-index-database.url = "github:nix-community/nix-index-database";
-    sops = {
-      url = "github:Mic92/sops-nix/1c673ba1053ad3e421fe043702237497bda0c621";
+    agenix = {
+      url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nixpkgs-stable.follows = "nixpkgs";
     };
     swayfx = {
       url = "github:willpower3309/swayfx";

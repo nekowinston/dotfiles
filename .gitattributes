@@ -2,6 +2,9 @@
 flake.lock -diff
 lazy-lock.json -diff
 
+# treat age as binary
+*.age -text -diff
+
 # git lfs
 *.png filter=lfs diff=lfs merge=lfs -text
 

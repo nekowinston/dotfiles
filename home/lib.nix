@@ -29,10 +29,10 @@
 
   modules = with inputs;
     [
-      nix-index-database.hmModules.nix-index
-      sops.homeManagerModules.sops
+      agenix.homeManagerModules.age
       caarlos0-nur.homeManagerModules.default
       nekowinston-nur.homeManagerModules.default
+      nix-index-database.hmModules.nix-index
       ./.
     ]
     ++ pkgs.lib.optionals (!isNixOS) [hmStandaloneConfig];

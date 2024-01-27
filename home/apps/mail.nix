@@ -1,5 +1,5 @@
 {config, ...}: {
-  sops.secrets."aerc-accounts".path = "${config.xdg.configHome}/aerc/accounts.conf";
+  age.secrets."aerc-personal.conf".path = "${config.xdg.configHome}/aerc/accounts.conf";
   programs = {
     aerc = {
       enable = true;
@@ -7,7 +7,7 @@
         general = {
           default-save-path = "~/Downloads";
           pgp-provider = "gpg";
-          # sops-nix manages the accounts.conf,
+          # agenix manages the accounts.conf,
           # so the permissions appear unsafe to aerc
           unsafe-accounts-conf = true;
         };

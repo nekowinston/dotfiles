@@ -1,14 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
-  sops.secrets."gitconfig-work".path = "${config.xdg.configHome}/git/gitconfig-work";
+{config, ...}: {
+  age.secrets."gitconfig-work".path = "${config.xdg.configHome}/git/gitconfig-work";
   programs.git.includes = [
     {
       condition = "gitdir:~/Code/work/";
-      path = config.sops.secrets.gitconfig-work.path;
+      path = config.age.secrets."gitconfig-work".path;
     }
   ];
 

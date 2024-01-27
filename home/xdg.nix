@@ -27,7 +27,6 @@ in {
       NPM_CONFIG_USERCONFIG = "${configHome}/npm/npmrc";
       RUSTUP_HOME = "${dataHome}/rustup";
       W3M_DIR = "${dataHome}/w3m";
-      WAKATIME_HOME = "${configHome}/wakatime";
       WINEPREFIX = "${dataHome}/wine";
     };
     sessionPath = [

@@ -6,7 +6,7 @@
 }: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
 in {
-  imports = [./apps ./secrets/sops.nix ./xdg.nix];
+  imports = [./apps ./secrets ./xdg.nix];
 
   home = {
     packages = with pkgs; ([
@@ -29,7 +29,6 @@ in {
         nvd
         ranger
         ripgrep
-        sops
         wakatime
         watchexec
       ]
@@ -51,5 +50,5 @@ in {
     taskwarrior.enable = true;
   };
 
-  sops.secrets."wakatime-cfg".path = "${config.xdg.configHome}/wakatime/.wakatime.cfg";
+  age.secrets."wakatime.cfg".path = "${config.home.homeDirectory}/.wakatime.cfg";
 }
