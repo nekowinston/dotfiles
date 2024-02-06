@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   age.secrets."gitconfig-work".path = "${config.xdg.configHome}/git/gitconfig-work";
   programs.git.includes = [
     {
@@ -6,6 +10,10 @@
       path = config.age.secrets."gitconfig-work".path;
     }
   ];
+
+  # use fsmonitor
+  home.packages = [pkgs.rs-git-fsmonitor pkgs.watchman];
+  programs.git.extraConfig.core.fsmonitor = "rs-git-fsmonitor";
 
   programs.git = {
     enable = true;
