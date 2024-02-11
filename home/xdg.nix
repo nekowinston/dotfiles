@@ -48,7 +48,17 @@ in {
     dataHome = "${homeDirectory}/.local/share";
     mimeApps = {
       enable = isLinux;
-      defaultApplications."inode/directory" = "nautilus.desktop";
+      defaultApplications = {
+        "application/gzip" = "nautilus.desktop";
+        "application/vnd.rar" = "nautilus.desktop";
+        "application/x-7z-compressed" = "nautilus.desktop";
+        "application/x-bzip" = "nautilus.desktop";
+        "application/x-bzip2" = "nautilus.desktop";
+        "application/x-compressed-tar" = "nautilus.desktop";
+        "application/x-tar" = "nautilus.desktop";
+        "application/zip" = "nautilus.desktop";
+        "inode/directory" = "nautilus.desktop";
+      };
     };
   };
 }

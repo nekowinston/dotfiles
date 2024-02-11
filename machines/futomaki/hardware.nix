@@ -34,40 +34,17 @@
 
   hardware.bluetooth.enable = true;
 
-  boot.initrd.luks.devices = {
-    luksroot = {
-      device = "/dev/disk/by-uuid/170cdc3f-2b04-4123-93ea-5e03136f6548";
-      preLVM = true;
-      allowDiscards = true;
-    };
-  };
-
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/894ceea3-0596-4652-89fd-772fbb82474c";
-    fsType = "btrfs";
-    options = ["subvol=root" "compress=zstd"];
+    device = "/dev/disk/by-uuid/018963d2-463f-451d-a54c-dc6f29f24daa";
+    fsType = "ext4";
   };
 
-  fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/894ceea3-0596-4652-89fd-772fbb82474c";
-    fsType = "btrfs";
-    options = ["subvol=home" "compress=zstd"];
-  };
-
-  fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/894ceea3-0596-4652-89fd-772fbb82474c";
-    fsType = "btrfs";
-    options = ["subvol=nix" "compress=zstd" "noatime"];
-  };
+  boot.initrd.luks.devices."luks-b8839f86-af3a-4cb7-a906-108ece087aa0".device = "/dev/disk/by-uuid/b8839f86-af3a-4cb7-a906-108ece087aa0";
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/D3BE-5F94";
+    device = "/dev/disk/by-uuid/1D0D-B170";
     fsType = "vfat";
   };
-
-  swapDevices = [
-    {device = "/dev/disk/by-uuid/72a4ce61-6cb8-4996-9966-83de91a49b6c";}
-  ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

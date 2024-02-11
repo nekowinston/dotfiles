@@ -18,13 +18,17 @@ in {
       iconTheme = {
         name = "Papirus-Dark";
         package = pkgs.catppuccin-papirus-folders.override {
-          flavor = "mocha";
           accent = "pink";
+          flavor = "frappe";
         };
       };
       theme = {
-        name = "Catppuccin-Compact-Pink";
-        package = pkgs.callPackage ../../pkgs/catppuccin-gtk.nix {};
+        name = "Catppuccin-Frappe-Compact-Pink-Dark";
+        package = pkgs.catppuccin-gtk.override {
+          accents = ["pink"];
+          variant = "frappe";
+          size = "compact";
+        };
       };
       gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
       gtk2.extraConfig = ''

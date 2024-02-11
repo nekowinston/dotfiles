@@ -32,6 +32,7 @@ in {
         pavucontrol
         sway-contrib.grimshot
         swaynotificationcenter
+        swayosd
         wl-clipboard
       ];
     };
@@ -78,6 +79,10 @@ in {
             always = true;
           }
           {
+            command = "${pkgs.swayosd}/bin/swayosd-server";
+            always = true;
+          }
+          {
             command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
           }
         ];
@@ -99,7 +104,7 @@ in {
           filebrowser = "${pkgs.gnome.nautilus}/bin/nautilus";
           screenshot = "${pkgs.sway-contrib.grimshot}/bin/grimshot copy area";
           playerctl = "${pkgs.playerctl}/bin/playerctl";
-          wpctl = pkgs.wireplumber + "/bin/wpctl";
+          swayosd = pkgs.swayosd + "/bin/swayosd-client";
         in {
           "${mod}+Shift+b" = "border none";
           "${mod}+b" = "border pixel 2";
@@ -191,9 +196,9 @@ in {
           "${mod}+Shift+space" = "exec ${pkgs._1password-gui}/bin/1password --quick-access";
 
           # audio
-          "XF86AudioRaiseVolume" = "exec --no-startup-id ${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.0";
-          "XF86AudioLowerVolume" = "exec --no-startup-id ${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1.0";
-          "XF86AudioMute" = "exec --no-startup-id ${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle";
+          "XF86AudioRaiseVolume" = "exec ${swayosd} --output-volume 5";
+          "XF86AudioLowerVolume" = "exec ${swayosd} --output-volume -5";
+          "XF86AudioMute" = "exec ${swayosd} --output-volume mute-toggle";
           "XF86AudioNext" = "exec --no-startup-id ${playerctl} next";
           "XF86AudioPrev" = "exec --no-startup-id ${playerctl} previous";
           "XF86AudioPlay" = "exec --no-startup-id ${playerctl} play-pause";

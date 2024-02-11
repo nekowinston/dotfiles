@@ -51,7 +51,12 @@
       enable = true;
       package = pkgs.steam.override {
         extraEnv.MANGOHUD = 1;
-        extraPkgs = p: with p; [corefonts protontricks];
+        extraPkgs = p:
+          with p; [
+            corefonts
+            protontricks
+            gamescope
+          ];
       };
     };
   };

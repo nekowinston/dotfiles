@@ -6,6 +6,7 @@
   ...
 }: let
   mkSymlink = path: config.lib.file.mkOutOfStoreSymlink "${flakePath}/home/apps/wezterm/${path}";
+  inherit (pkgs.stdenv) isDarwin;
 in {
   # use the GUI version & config when we have a gui, else just get terminfo
   config = lib.mkMerge [
@@ -16,7 +17,7 @@ in {
     (lib.mkIf config.isGraphical {
       programs.wezterm = {
         enable = true;
-        package = pkgs.nur.repos.nekowinston.wezterm-nightly;
+        package = lib.mkIf isDarwin pkgs.nur.repos.nekowinston.wezterm-nightly;
       };
 
       xdg.configFile = {

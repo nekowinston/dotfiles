@@ -1,5 +1,7 @@
 local wezterm = require("wezterm")
 local c = wezterm.config_builder()
+local utils = require("config.utils")
+
 require("config.keys").apply(c)
 
 c.font = wezterm.font_with_fallback({
@@ -22,10 +24,14 @@ c.audible_bell = "Disabled"
 c.default_cursor_style = "BlinkingBar"
 c.inactive_pane_hsb = { brightness = 0.90 }
 
-require("bar.plugin").apply_to_config(c)
+-- some annoying bug is causing crashes on sway
+if utils.is_darwin() then
+  require("bar.plugin").apply_to_config(c)
+end
+
 require("catppuccin.plugin").apply_to_config(c, {
-  sync = true,
-  sync_flavors = { dark = "frappe" },
+  sync = false,
+  flavor = "frappe",
 })
 
 return c

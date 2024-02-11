@@ -14,6 +14,16 @@ in {
     home.packages = lib.mkIf isLinux [(pkgs.callPackage ../../pkgs/apple-music.nix {})];
 
     services.discord-applemusic-rich-presence.enable = isDarwin;
+    services.mopidy = lib.mkIf isLinux {
+      enable = true;
+      extensionPackages = with pkgs; [
+        mopidy-bandcamp
+        mopidy-iris
+        mopidy-mpd
+        mopidy-podcast
+      ];
+    };
+    services.mpd-discord-rpc.enable = isLinux;
 
     xdg.mimeApps.defaultApplications = {
       "application/pdf" = "zathura.desktop";

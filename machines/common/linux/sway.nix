@@ -68,6 +68,8 @@
       gvfs.enable = true;
       udisks2.enable = true;
       devmon.enable = true;
+      gnome.sushi.enable = true;
+      gnome.tracker-miners.enable = true;
 
       # thumbnails
       tumbler.enable = true;

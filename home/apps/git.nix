@@ -13,7 +13,6 @@
 
   # use fsmonitor
   home.packages = [pkgs.rs-git-fsmonitor pkgs.watchman];
-  programs.git.extraConfig.core.fsmonitor = "rs-git-fsmonitor";
 
   programs.git = {
     enable = true;
