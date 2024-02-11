@@ -6,7 +6,6 @@
   imports = [./hardware.nix];
 
   networking = {
-    hostName = "futomaki";
     networkmanager.enable = true;
     firewall.enable = true;
   };
@@ -60,4 +59,6 @@
       };
     };
   };
+
+  system.stateVersion = "22.11";
 }

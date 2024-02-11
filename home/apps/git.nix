@@ -53,6 +53,7 @@
     ];
 
     extraConfig = {
+      core.fsmonitor = "rs-git-fsmonitor";
       credential.helper = "gopass";
       init.defaultBranch = "main";
       push.default = "current";

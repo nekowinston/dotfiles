@@ -39,8 +39,6 @@
   programs.zsh.enable = true;
   environment.systemPackages = [pkgs.xdg-utils];
 
-  system.stateVersion = "22.11";
-
   # enable yubikey u2f support
   security.pam.u2f = {
     enable = true;

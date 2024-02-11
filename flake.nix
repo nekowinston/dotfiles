@@ -16,8 +16,8 @@
           host = "sashimi";
           system = "aarch64-darwin";
           username = "winston";
-          extraModules = [inputs.nekowinston-nur.darwinModules.default];
           isGraphical = true;
+          extraModules = [inputs.nekowinston-nur.darwinModules.default];
         }
         {
           host = "futomaki";
@@ -26,10 +26,11 @@
           isGraphical = true;
         }
         {
-          host = "bento";
+          host = "yuba";
           system = "x86_64-linux";
-          username = "w";
-          isGraphical = true;
+          username = "winston";
+          isGraphical = false;
+          extraModules = [inputs.wsl.nixosModules.default];
         }
       ];
       imports = [inputs.pre-commit-hooks.flakeModule];
@@ -110,6 +111,12 @@
     };
     home-manager = {
       url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    wsl = {
+      url = "github:nix-community/nixos-wsl";
+      inputs.flake-compat.follows = "";
+      inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

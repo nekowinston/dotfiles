@@ -68,6 +68,9 @@
                 description = "Whether the system is a graphical target";
               };
             };
+            config = {
+              networking.hostName = host;
+            };
           }
           ./common/shared
           ./common/${hostPlatform}
