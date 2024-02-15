@@ -1,0 +1,112 @@
+{
+    "catppuccin-bat": {
+        "cargoLocks": null,
+        "date": "2022-11-10",
+        "extract": null,
+        "name": "catppuccin-bat",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "ba4d16880d63e656acced2b7d4e034e4a93f74b1",
+            "sha256": "sha256-6WVKQErGdaqb++oaXnY3i6/GuH2FhTgK0v4TN4Y0Wbw=",
+            "type": "git",
+            "url": "https://github.com/catppuccin/bat"
+        },
+        "version": "ba4d16880d63e656acced2b7d4e034e4a93f74b1"
+    },
+    "catppuccin-wezterm": {
+        "cargoLocks": null,
+        "date": "2023-04-12",
+        "extract": null,
+        "name": "catppuccin-wezterm",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "b1a81bae74d66eaae16457f2d8f151b5bd4fe5da",
+            "sha256": "sha256-McSWoZaJeK+oqdK/0vjiRxZGuLBpEB10Zg4+7p5dIGY=",
+            "type": "git",
+            "url": "https://github.com/catppuccin/wezterm"
+        },
+        "version": "b1a81bae74d66eaae16457f2d8f151b5bd4fe5da"
+    },
+    "catppuccin-zsh-fsh": {
+        "cargoLocks": null,
+        "date": "2023-07-11",
+        "extract": null,
+        "name": "catppuccin-zsh-fsh",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "7cdab58bddafe0565f84f6eaf2d7dd109bd6fc18",
+            "sha256": "sha256-31lh+LpXGe7BMZBhRWvvbOTkwjOM77FPNaGy6d26hIA=",
+            "type": "git",
+            "url": "https://github.com/catppuccin/zsh-fsh"
+        },
+        "version": "7cdab58bddafe0565f84f6eaf2d7dd109bd6fc18"
+    },
+    "nekowinston-wezterm-bar": {
+        "cargoLocks": null,
+        "date": "2023-05-10",
+        "extract": null,
+        "name": "nekowinston-wezterm-bar",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "e96b81460b3ad11a7461934dcb7889ce5079f97f",
+            "sha256": "sha256-3acxqJ9HMA5hASWq/sVL9QQjfEw5Xrh2fT9nFuGjzHM=",
+            "type": "git",
+            "url": "https://github.com/nekowinston/wezterm-bar"
+        },
+        "version": "e96b81460b3ad11a7461934dcb7889ce5079f97f"
+    },
+    "yabai": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "yabai",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-0YJN7XRpseXZnVXDcsv/8w8pen0sE52qQmS+xFni6V0=",
+            "type": "url",
+            "url": "https://github.com/koekeishiya/yabai/releases/download/v6.0.12/yabai-v6.0.12.tar.gz"
+        },
+        "version": "v6.0.12"
+    },
+    "zsh-fast-syntax-highlighting": {
+        "cargoLocks": null,
+        "date": "2023-07-05",
+        "extract": null,
+        "name": "zsh-fast-syntax-highlighting",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "cf318e06a9b7c9f2219d78f41b46fa6e06011fd9",
+            "sha256": "sha256-RVX9ZSzjBW3LpFs2W86lKI6vtcvDWP6EPxzeTcRZua4=",
+            "type": "git",
+            "url": "https://github.com/zdharma-continuum/fast-syntax-highlighting"
+        },
+        "version": "cf318e06a9b7c9f2219d78f41b46fa6e06011fd9"
+    }
+}

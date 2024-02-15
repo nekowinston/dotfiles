@@ -1,7 +1,9 @@
 {inputs}: [
   inputs.nix-vscode-extensions.overlays.default
   inputs.catppuccin-vsc.overlays.default
-  (final: prev: {
+  (final: prev: let
+    srcs = prev.callPackages ../_sources/generated.nix {};
+  in {
     starship = prev.starship.overrideAttrs (old: {
       patches = [
         (prev.fetchpatch {
@@ -11,12 +13,8 @@
       ];
     });
     sway-unwrapped = inputs.swayfx.packages.${prev.system}.default;
-    yabai = prev.yabai.overrideAttrs (old: rec {
-      version = "6.0.6";
-      src = prev.fetchzip {
-        url = "https://github.com/koekeishiya/yabai/releases/download/v${version}/yabai-v${version}.tar.gz";
-        hash = "sha256-G4BbYU4mgV8Jap8a872/YtoXU/hwUhFyLXdcuT1jldI=";
-      };
+    yabai = prev.yabai.overrideAttrs (_: {
+      inherit (srcs.yabai) version src;
     });
     nur = import inputs.nur {
       nurpkgs = prev;

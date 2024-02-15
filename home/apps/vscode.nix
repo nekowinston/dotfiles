@@ -16,6 +16,8 @@ in {
     extensions =
       (with pkgs.vscode-extensions; [
         # patches
+        ms-python.python
+        ms-python.vscode-pylance
         ms-vscode-remote.remote-ssh
         sumneko.lua
         # needs a pinned release
@@ -91,6 +93,7 @@ in {
         graphql.vscode-graphql-syntax
         gruntfuggly.todo-tree
         jock.svg
+        leonardssh.vscord
         lunuan.kubernetes-templates
         mikestead.dotenv
         mkhl.direnv

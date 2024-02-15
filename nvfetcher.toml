@@ -1,0 +1,23 @@
+[catppuccin-bat]
+src.git = "https://github.com/catppuccin/bat"
+fetch.git = "https://github.com/catppuccin/bat"
+
+[catppuccin-wezterm]
+src.git = "https://github.com/catppuccin/wezterm"
+fetch.git = "https://github.com/catppuccin/wezterm"
+
+[catppuccin-zsh-fsh]
+src.git = "https://github.com/catppuccin/zsh-fsh"
+fetch.git = "https://github.com/catppuccin/zsh-fsh"
+
+[nekowinston-wezterm-bar]
+src.git = "https://github.com/nekowinston/wezterm-bar"
+fetch.git = "https://github.com/nekowinston/wezterm-bar"
+
+[yabai]
+src.github = "koekeishiya/yabai"
+fetch.url = "https://github.com/koekeishiya/yabai/releases/download/$ver/yabai-$ver.tar.gz"
+
+[zsh-fast-syntax-highlighting]
+src.git = "https://github.com/zdharma-continuum/fast-syntax-highlighting"
+fetch.git = "https://github.com/zdharma-continuum/fast-syntax-highlighting"

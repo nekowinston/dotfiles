@@ -4,18 +4,7 @@
   pkgs,
   ...
 }: let
-  catppuccin-bat = pkgs.fetchFromGitHub {
-    owner = "catppuccin";
-    repo = "bat";
-    rev = "ba4d16880d63e656acced2b7d4e034e4a93f74b1";
-    sha256 = "sha256-6WVKQErGdaqb++oaXnY3i6/GuH2FhTgK0v4TN4Y0Wbw=";
-  };
-  catppuccin-zsh-fsh = pkgs.fetchFromGitHub {
-    owner = "catppuccin";
-    repo = "zsh-fsh";
-    rev = "7cdab58bddafe0565f84f6eaf2d7dd109bd6fc18";
-    sha256 = "sha256-31lh+LpXGe7BMZBhRWvvbOTkwjOM77FPNaGy6d26hIA=";
-  };
+  srcs = pkgs.callPackage ../../_sources/generated.nix {};
   zshPlugins = plugins: (map (plugin: rec {
       name = src.name;
       inherit (plugin) file src;
@@ -37,11 +26,11 @@ in {
       enable = true;
       themes = {
         "Catppuccin-latte" = {
-          src = catppuccin-bat;
+          src = srcs.catppuccin-bat.src;
           file = "Catppuccin-latte.tmTheme";
         };
         "Catppuccin-frappe" = {
-          src = catppuccin-bat;
+          src = srcs.catppuccin-bat.src;
           file = "Catppuccin-frappe.tmTheme";
         };
       };
@@ -167,12 +156,8 @@ in {
           file = "share/zsh-nix-shell/nix-shell.plugin.zsh";
         }
         {
-          src = pkgs.zsh-fast-syntax-highlighting.overrideAttrs (old: {
-            src = pkgs.fetchFromGitHub {
-              inherit (old.src) repo owner;
-              rev = "cf318e06a9b7c9f2219d78f41b46fa6e06011fd9";
-              hash = "sha256-RVX9ZSzjBW3LpFs2W86lKI6vtcvDWP6EPxzeTcRZua4=";
-            };
+          src = pkgs.zsh-fast-syntax-highlighting.overrideAttrs (_: {
+            src = srcs.zsh-fast-syntax-highlighting.src;
           });
           file = "share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh";
         }
@@ -191,5 +176,5 @@ in {
     };
   };
 
-  xdg.configFile."fsh".source = "${catppuccin-zsh-fsh}/themes";
+  xdg.configFile."fsh".source = "${srcs.catppuccin-zsh-fsh.src}/themes";
 }
