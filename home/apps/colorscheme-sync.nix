@@ -4,9 +4,6 @@
   pkgs,
   ...
 }: let
-  # TODO: de-duplicate across modules
-  lat = 48.210033;
-  lng = 16.363449;
   inherit (pkgs.stdenv) isDarwin isLinux;
 in {
   config = lib.mkIf config.isGraphical {
@@ -33,29 +30,24 @@ in {
       })
     ];
 
-    services.darkman = let
-      starship = "${config.programs.starship.package}/bin/starship";
-      zsh = "${config.programs.zsh.package}/bin/zsh";
-    in {
+    services.darkman = {
       enable = isLinux;
       settings = {
-        inherit lat lng;
+        lat = config.location.latitude;
+        lon = config.location.longitude;
         useGeoclue = false;
-      };
-      darkModeScripts = {
-        toggle-shell = ''
-          ${starship} config palette catppuccin_mocha
-          ${zsh} -ic "fast-theme XDG:catppuccin-mocha"
-        '';
-      };
-      lightModeScripts = {
-        toggle-shell = ''
-          ${starship} config palette catppuccin_latte
-          ${zsh} -ic "fast-theme XDG:catppuccin-latte"
-        '';
       };
     };
 
-    programs.zsh.shellAliases.cat = "bat --theme=$(dark-mode-ternary 'Catppuccin-mocha' 'Catppuccin-latte')";
+    programs.zsh = {
+      shellAliases.cat = "bat --theme=$(dark-mode-ternary 'Catppuccin-frappe' 'Catppuccin-latte')";
+      initExtra = ''
+        zadm_sync() {
+          export STARSHIP_CONFIG__PALETTE="catppuccin_$(dark-mode-ternary frappe latte)"
+          fast-theme "XDG:catppuccin-$(dark-mode-ternary frappe latte)" >/dev/null
+        }
+        add-zsh-hook precmd zadm_sync
+      '';
+    };
   };
 }

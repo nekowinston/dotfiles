@@ -16,6 +16,8 @@ in {
     extensions =
       (with pkgs.vscode-extensions; [
         # patches
+        ms-python.python
+        ms-python.vscode-pylance
         ms-vscode-remote.remote-ssh
         sumneko.lua
         # needs a pinned release
@@ -83,6 +85,7 @@ in {
         dhall.vscode-dhall-lsp-server
         editorconfig.editorconfig
         esbenp.prettier-vscode
+        geequlim.godot-tools
         github.copilot
         github.vscode-github-actions
         gitlab.gitlab-workflow
@@ -90,6 +93,7 @@ in {
         graphql.vscode-graphql-syntax
         gruntfuggly.todo-tree
         jock.svg
+        leonardssh.vscord
         lunuan.kubernetes-templates
         mikestead.dotenv
         mkhl.direnv
@@ -106,6 +110,7 @@ in {
         unifiedjs.vscode-mdx
         usernamehw.errorlens
         vscodevim.vim
+        wakatime.vscode-wakatime
       ]);
     mutableExtensionsDir = true;
   };

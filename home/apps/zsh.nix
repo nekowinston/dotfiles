@@ -1,34 +1,15 @@
 {
   config,
-  flakePath,
   lib,
   pkgs,
   ...
 }: let
-  symlink = fileName: {recursive ? false}: {
-    source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/${fileName}";
-    recursive = recursive;
-  };
+  srcs = pkgs.callPackage ../../_sources/generated.nix {};
   zshPlugins = plugins: (map (plugin: rec {
       name = src.name;
       inherit (plugin) file src;
     })
     plugins);
-  catppuccin-zsh-fsh = pkgs.stdenvNoCC.mkDerivation {
-    name = "catppuccin-zsh-fsh";
-    src = pkgs.fetchFromGitHub {
-      owner = "catppuccin";
-      repo = "zsh-fsh";
-      rev = "7cdab58bddafe0565f84f6eaf2d7dd109bd6fc18";
-      sha256 = "sha256-31lh+LpXGe7BMZBhRWvvbOTkwjOM77FPNaGy6d26hIA=";
-    };
-    phases = ["buildPhase"];
-    buildPhase = ''
-      mkdir -p $out/share/zsh/site-functions/themes
-      ls $src/themes
-      cp $src/themes/* $out/share/zsh/site-functions/themes/
-    '';
-  };
 in {
   programs = {
     atuin = {
@@ -41,23 +22,16 @@ in {
         sync_frequency = "5m";
       };
     };
-    bat = let
-      src = pkgs.fetchFromGitHub {
-        owner = "catppuccin";
-        repo = "bat";
-        rev = "ba4d16880d63e656acced2b7d4e034e4a93f74b1";
-        sha256 = "sha256-6WVKQErGdaqb++oaXnY3i6/GuH2FhTgK0v4TN4Y0Wbw=";
-      };
-    in {
+    bat = {
       enable = true;
       themes = {
-        "catppuccin-latte" = {
-          inherit src;
+        "Catppuccin-latte" = {
+          src = srcs.catppuccin-bat.src;
           file = "Catppuccin-latte.tmTheme";
         };
-        "catppuccin-mocha" = {
-          inherit src;
-          file = "Catppuccin-mocha.tmTheme";
+        "Catppuccin-frappe" = {
+          src = srcs.catppuccin-bat.src;
+          file = "Catppuccin-frappe.tmTheme";
         };
       };
     };
@@ -123,7 +97,10 @@ in {
 
     nix-index.enable = true;
 
-    starship.enable = true;
+    starship = {
+      enable = true;
+      settings = builtins.fromTOML (builtins.readFile ./starship/config.toml);
+    };
 
     tealdeer = {
       enable = true;
@@ -155,10 +132,8 @@ in {
           ZVM_VI_HIGHLIGHT_FOREGROUND=white
         }
       '';
-      initExtra = let
-        functionsDir = "${config.home.homeDirectory}/${config.programs.zsh.dotDir}/functions";
-      in ''
-        for script in "${functionsDir}"/**/*; do source "$script"; done
+      initExtra = ''
+        for script in "${./zsh/functions}"/**/*; do source "$script"; done
       '';
       envExtra = ''
         export LESSHISTFILE="-"
@@ -168,52 +143,31 @@ in {
       oh-my-zsh = {
         enable = true;
         plugins =
-          [
-            "colored-man-pages"
-            "colorize"
-            "docker"
-            "docker-compose"
-            "git"
-            "kubectl"
-          ]
-          ++ lib.optionals pkgs.stdenv.isDarwin [
-            "dash"
-            "macos"
-          ];
+          ["colored-man-pages" "colorize" "git"]
+          ++ lib.optionals pkgs.stdenv.isDarwin ["dash" "macos"];
       };
-      plugins = with pkgs; (zshPlugins [
+      plugins = zshPlugins [
         {
-          src = zsh-vi-mode.overrideAttrs (old: {
-            src = fetchFromGitHub {
-              inherit (old.src) repo owner;
-              rev = "a3d717831c1864de8eabf20b946d66afc67e6695";
-              hash = "sha256-peoyY+krpK/7dA3TW6PEpauDwZLe+riVWfwpFYnRn1Q=";
-            };
-          });
+          src = pkgs.zsh-vi-mode;
           file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
         }
         {
-          src = zsh-nix-shell;
+          src = pkgs.zsh-nix-shell;
           file = "share/zsh-nix-shell/nix-shell.plugin.zsh";
         }
         {
-          src = zsh-fast-syntax-highlighting.overrideAttrs (old: {
-            src = fetchFromGitHub {
-              inherit (old.src) repo owner;
-              rev = "cf318e06a9b7c9f2219d78f41b46fa6e06011fd9";
-              hash = "sha256-RVX9ZSzjBW3LpFs2W86lKI6vtcvDWP6EPxzeTcRZua4=";
-            };
+          src = pkgs.zsh-fast-syntax-highlighting.overrideAttrs (_: {
+            src = srcs.zsh-fast-syntax-highlighting.src;
           });
           file = "share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh";
         }
-      ]);
+      ];
       shellAliases = {
         cp = "cp -i";
         mv = "mv -i";
         rm = "rm -i";
         # switch between yubikeys for the same GPG key
         switch_yubikeys = ''gpg-connect-agent "scd serialno" "learn --force" "/bye"'';
-        tree = "lsd --tree";
         # podman
         docker = "podman";
         docker-compose = "podman-compose";
@@ -222,9 +176,5 @@ in {
     };
   };
 
-  xdg.configFile = {
-    "fsh".source = "${catppuccin-zsh-fsh}/share/zsh/site-functions/themes";
-    "starship.toml" = symlink "home/apps/starship/config.toml" {};
-    "zsh/functions" = symlink "home/apps/zsh/functions" {recursive = true;};
-  };
+  xdg.configFile."fsh".source = "${srcs.catppuccin-zsh-fsh.src}/themes";
 }
