@@ -18,8 +18,6 @@
     red = "#f38ba8";
     mauve = "#cba6f7";
   };
-  lat = 48.210033;
-  lng = 16.363449;
 in {
   config = lib.mkIf (config.isGraphical && pkgs.stdenv.isLinux && (osConfig.dotfiles.desktop == "sway")) {
     fonts.fontconfig.enable = true;
@@ -45,8 +43,8 @@ in {
       };
       wlsunset = {
         enable = true;
-        latitude = toString lat;
-        longitude = toString lng;
+        latitude = toString config.location.latitude;
+        longitude = toString config.location.longitude;
       };
       udiskie.enable = true;
     };

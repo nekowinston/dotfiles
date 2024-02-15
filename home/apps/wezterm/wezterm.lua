@@ -23,6 +23,7 @@ c.adjust_window_size_when_changing_font_size = false
 c.audible_bell = "Disabled"
 c.default_cursor_style = "BlinkingBar"
 c.inactive_pane_hsb = { brightness = 0.90 }
+-- c.window_background_opacity = 0.95
 
 -- some annoying bug is causing crashes on sway
 if utils.is_darwin() then
@@ -30,8 +31,8 @@ if utils.is_darwin() then
 end
 
 require("catppuccin.plugin").apply_to_config(c, {
-  sync = false,
-  flavor = "frappe",
+  sync = true,
+  sync_flavors = { dark = "frappe" },
 })
 
 return c

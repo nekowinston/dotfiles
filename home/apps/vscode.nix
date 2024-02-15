@@ -83,6 +83,7 @@ in {
         dhall.vscode-dhall-lsp-server
         editorconfig.editorconfig
         esbenp.prettier-vscode
+        geequlim.godot-tools
         github.copilot
         github.vscode-github-actions
         gitlab.gitlab-workflow
@@ -106,6 +107,7 @@ in {
         unifiedjs.vscode-mdx
         usernamehw.errorlens
         vscodevim.vim
+        wakatime.vscode-wakatime
       ]);
     mutableExtensionsDir = true;
   };

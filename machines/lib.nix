@@ -48,29 +48,35 @@
         [
           {
             options = let
-              inherit (pkgs) lib;
+              inherit (pkgs.lib) mkOption types;
             in {
               dotfiles = {
-                username = lib.mkOption {
-                  type = lib.types.str;
+                username = mkOption {
+                  type = types.str;
                   default = username;
                   description = "The username of the user";
                 };
-                desktop = lib.mkOption {
-                  type = lib.types.enum ["gnome" "sway"];
+                desktop = mkOption {
+                  type = types.enum ["gnome" "sway"];
                   default = "sway";
                   description = "The desktop environment to use";
                 };
               };
-              isGraphical = lib.mkOption {
-                type = lib.types.bool;
+              location = {
+                latitude = mkOption {
+                  type = types.nullOr types.float;
+                };
+                longitude = mkOption {
+                  type = types.nullOr types.float;
+                };
+              };
+              isGraphical = mkOption {
+                type = types.bool;
                 default = isGraphical;
                 description = "Whether the system is a graphical target";
               };
             };
-            config = {
-              networking.hostName = host;
-            };
+            config.networking.hostName = host;
           }
           ./common/shared
           ./common/${hostPlatform}

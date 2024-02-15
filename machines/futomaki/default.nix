@@ -10,8 +10,12 @@
     firewall.enable = true;
   };
 
-  time.timeZone = "Europe/Vienna";
   i18n.defaultLocale = "en_US.UTF-8";
+  location = {
+    latitude = 48.210033;
+    longitude = 16.363449;
+  };
+  time.timeZone = "Europe/Vienna";
 
   services = {
     flatpak.enable = true;

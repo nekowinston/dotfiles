@@ -2,6 +2,14 @@
   inputs.nix-vscode-extensions.overlays.default
   inputs.catppuccin-vsc.overlays.default
   (final: prev: {
+    starship = prev.starship.overrideAttrs (old: {
+      patches = [
+        (prev.fetchpatch {
+          url = "https://github.com/starship/starship/pull/4439.patch";
+          sha256 = "sha256-BKH3elz96Oa424Oz5UIKA2/BOpkym1LTestvccFinnc=";
+        })
+      ];
+    });
     sway-unwrapped = inputs.swayfx.packages.${prev.system}.default;
     yabai = prev.yabai.overrideAttrs (old: rec {
       version = "6.0.6";
