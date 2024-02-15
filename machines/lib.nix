@@ -41,15 +41,14 @@
     hostPlatform = ldTernary "linux" "darwin";
 
     pkgs = inputs.nixpkgs.legacyPackages.${system};
+    inherit (pkgs.lib) mkOption types;
   in {
     ${target}."${host}" = builder {
       inherit system;
       modules = with inputs;
         [
           {
-            options = let
-              inherit (pkgs.lib) mkOption types;
-            in {
+            options = {
               dotfiles = {
                 username = mkOption {
                   type = types.str;
@@ -60,14 +59,6 @@
                   type = types.enum ["gnome" "sway"];
                   default = "sway";
                   description = "The desktop environment to use";
-                };
-              };
-              location = {
-                latitude = mkOption {
-                  type = types.nullOr types.float;
-                };
-                longitude = mkOption {
-                  type = types.nullOr types.float;
                 };
               };
               isGraphical = mkOption {
@@ -82,6 +73,14 @@
           ./common/${hostPlatform}
           ./${host}
           home-manager.${module}.home-manager
+        ]
+        ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [
+          {
+            options.location = {
+              latitude = mkOption {type = types.nullOr types.float;};
+              longitude = mkOption {type = types.nullOr types.float;};
+            };
+          }
         ]
         ++ [(hmCommonConfig {inherit username;})]
         ++ extraModules;
