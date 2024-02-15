@@ -49,6 +49,7 @@
 
         pre-commit = {
           check.enable = true;
+          settings.excludes = ["_sources/"];
           settings.hooks = {
             alejandra.enable = true;
             commitizen.enable = true;
