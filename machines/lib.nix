@@ -74,14 +74,6 @@
           ./${host}
           home-manager.${module}.home-manager
         ]
-        ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [
-          {
-            options.location = {
-              latitude = mkOption {type = types.nullOr types.float;};
-              longitude = mkOption {type = types.nullOr types.float;};
-            };
-          }
-        ]
         ++ [(hmCommonConfig {inherit username;})]
         ++ extraModules;
       specialArgs = {inherit inputs;};
