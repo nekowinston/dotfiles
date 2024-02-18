@@ -9,7 +9,9 @@
   time.timeZone = "Europe/Vienna";
 
   wsl = {
-    defaultUser = "winston";
     enable = true;
+    defaultUser = "winston";
+    startMenuLaunchers = true;
+    useWindowsDriver = true;
   };
 }
