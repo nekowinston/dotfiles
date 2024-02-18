@@ -1,0 +1,32 @@
+@import url("//catppuccin.github.io/discord/dist/catppuccin-frappe-pink.theme.css") (prefers-color-scheme: dark);
+@import url("//catppuccin.github.io/discord/dist/catppuccin-latte-pink.theme.css") (prefers-color-scheme: light);
+@import url(//dablulite.github.io/css-snippets/ConsistentChatbar/import.css);
+
+:root {
+  --font-primary: "IBM Plex Sans", sans-serif;
+  --font-headline: "IBM Plex Sans", sans-serif;
+  --font-display: "IBM Plex Sans", sans-serif;
+  --font-code: "Berkeley Mono", "Symbols Nerd Font", mono;
+}
+
+@media (max-width: 1024px) {
+  nav[aria-label="Servers sidebar"] {
+    display: none;
+  }
+  .platform-osx div[class^="base_"] > div[class^="content_"] > div[class^="sidebar_"],
+  .platform-osx div[class^="base_"] > div[class^="content_"] > main[class^="container_"],
+  .platform-osx div[class^="base_"] > div[class^="content_"] > div[class^="chat_"] {
+    padding-top: 32px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  div[class^="base_"] > div[class^="content_"] > div[class^="sidebar_"] {
+    display: none;
+  }
+}
+
+main[class^="chatContent_"] form div[class^="buttons_"],
+main[class^="chatContent_"] form div[class^="attachWrapper_"] {
+  display: none;
+}
