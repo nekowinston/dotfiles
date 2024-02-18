@@ -5,7 +5,7 @@ local utils = require("config.utils")
 require("config.keys").apply(c)
 
 c.font = wezterm.font_with_fallback({
-  "Cascadia Code",
+  "Berkeley Mono",
   "Symbols Nerd Font",
 })
 c.front_end = "WebGpu"
@@ -23,7 +23,6 @@ c.adjust_window_size_when_changing_font_size = false
 c.audible_bell = "Disabled"
 c.default_cursor_style = "BlinkingBar"
 c.inactive_pane_hsb = { brightness = 0.90 }
--- c.window_background_opacity = 0.95
 
 -- some annoying bug is causing crashes on sway
 if utils.is_darwin() then
