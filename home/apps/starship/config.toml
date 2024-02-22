@@ -76,7 +76,7 @@ $character"""
 
 add_newline = true
 continuation_prompt = '[>](bold subtext0) '
-palette = "catppuccin_frappe"
+palette = "catppuccin_mocha"
 
 [character]
 success_symbol = '[λ](bold text)'

@@ -5,6 +5,8 @@
 }: {
   imports = [./hardware.nix];
 
+  dotfiles.desktop = "gnome";
+
   networking = {
     networkmanager.enable = true;
     firewall.enable = true;

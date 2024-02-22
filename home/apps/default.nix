@@ -5,6 +5,7 @@
     ./discord.nix
     ./fonts.nix
     ./git.nix
+    ./gnome.nix
     ./gpg.nix
     ./gtk.nix
     ./kubernetes.nix
