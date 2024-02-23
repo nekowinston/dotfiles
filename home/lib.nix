@@ -11,7 +11,7 @@
       if isDarwin
       then "/Users/${username}/.config/flake"
       else "/home/${username}/.config/flake";
-    inherit inputs;
+    inherit inputs isNixOS;
   };
 
   hmStandaloneConfig = {
@@ -33,6 +33,7 @@
       caarlos0-nur.homeManagerModules.default
       nekowinston-nur.homeManagerModules.default
       nix-index-database.hmModules.nix-index
+      vscode-server.homeModules.default
     ])
     ++ [
       ({

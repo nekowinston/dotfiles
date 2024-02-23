@@ -3,6 +3,7 @@
   flakePath,
   lib,
   pkgs,
+  isNixOS,
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
@@ -132,4 +133,10 @@ in {
     };
   };
   xdg.mimeApps.defaultApplications."text/plain" = "code.desktop";
+
+  services.vscode-server = {
+    # when using a non-nixOS system, there's no need to patch the server
+    enable = isNixOS;
+    nodejsPackage = pkgs.nodejs_18;
+  };
 }

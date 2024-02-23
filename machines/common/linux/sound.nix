@@ -1,9 +1,9 @@
-{
-  programs.noisetorch.enable = true;
+{config, ...}: {
+  programs.noisetorch.enable = config.isGraphical;
   security.rtkit.enable = true;
   services = {
     pipewire = {
-      enable = true;
+      enable = config.isGraphical;
       pulse.enable = true;
       alsa.enable = true;
     };

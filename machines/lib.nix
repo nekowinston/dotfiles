@@ -45,7 +45,7 @@
   in {
     ${target}."${host}" = builder {
       inherit system;
-      modules = with inputs;
+      modules =
         [
           {
             options = {
@@ -56,7 +56,7 @@
                   description = "The username of the user";
                 };
                 desktop = mkOption {
-                  type = types.enum ["gnome" "sway"];
+                  type = types.nullOr (types.enum ["gnome" "sway"]);
                   default = "sway";
                   description = "The desktop environment to use";
                 };
@@ -67,12 +67,13 @@
                 description = "Whether the system is a graphical target";
               };
             };
+            config.dotfiles.desktop = pkgs.lib.mkIf (!isGraphical) null;
             config.networking.hostName = host;
           }
           ./common/shared
           ./common/${hostPlatform}
           ./${host}
-          home-manager.${module}.home-manager
+          inputs.home-manager.${module}.home-manager
         ]
         ++ [(hmCommonConfig {inherit username;})]
         ++ extraModules;

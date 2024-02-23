@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   services = {
     dnsmasq = {
       enable = true;
@@ -17,7 +22,7 @@
     };
     mullvad-vpn = {
       enable = true;
-      package = pkgs.mullvad-vpn;
+      package = lib.mkIf config.isGraphical pkgs.mullvad-vpn;
     };
     stubby = {
       enable = true;
