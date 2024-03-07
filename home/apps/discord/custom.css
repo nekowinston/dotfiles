@@ -1,5 +1,3 @@
-@import url("//catppuccin.github.io/discord/dist/catppuccin-frappe-pink.theme.css") (prefers-color-scheme: dark);
-@import url("//catppuccin.github.io/discord/dist/catppuccin-latte-pink.theme.css") (prefers-color-scheme: light);
 @import url(//dablulite.github.io/css-snippets/ConsistentChatbar/import.css);
 
 :root {

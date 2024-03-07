@@ -40,11 +40,11 @@ in {
     };
 
     programs.zsh = {
-      shellAliases.cat = "bat --theme=$(dark-mode-ternary 'Catppuccin-frappe' 'Catppuccin-latte')";
+      shellAliases.cat = "bat --theme=\"$(dark-mode-ternary 'Catppuccin Mocha' 'Catppuccin Latte')\"";
       initExtra = ''
         zadm_sync() {
-          export STARSHIP_CONFIG__PALETTE="catppuccin_$(dark-mode-ternary frappe latte)"
-          fast-theme "XDG:catppuccin-$(dark-mode-ternary frappe latte)" >/dev/null
+          export STARSHIP_CONFIG__PALETTE="catppuccin_$(dark-mode-ternary mocha latte)"
+          fast-theme "XDG:catppuccin-$(dark-mode-ternary mocha latte)" >/dev/null
         }
         add-zsh-hook precmd zadm_sync
       '';
