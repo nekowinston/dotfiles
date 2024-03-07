@@ -25,13 +25,21 @@ in {
     bat = {
       enable = true;
       themes = {
-        "Catppuccin-latte" = {
+        "Catppuccin Latte" = {
           src = srcs.catppuccin-bat.src;
-          file = "Catppuccin-latte.tmTheme";
+          file = "themes/Catppuccin Latte.tmTheme";
         };
-        "Catppuccin-frappe" = {
+        "Catppuccin Frappe" = {
           src = srcs.catppuccin-bat.src;
-          file = "Catppuccin-frappe.tmTheme";
+          file = "themes/Catppuccin Frappe.tmTheme";
+        };
+        "Catppuccin Macchiato" = {
+          src = srcs.catppuccin-bat.src;
+          file = "themes/Catppuccin Macchiato.tmTheme";
+        };
+        "Catppuccin Mocha" = {
+          src = srcs.catppuccin-bat.src;
+          file = "themes/Catppuccin Mocha.tmTheme";
         };
       };
     };
