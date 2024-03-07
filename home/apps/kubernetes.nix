@@ -12,7 +12,6 @@
     gojq
     jqp
     konf
-    krew
     kubecolor
     kubeconform
     kubectl
@@ -26,6 +25,16 @@
     pv-migrate
     velero
   ];
+
+  programs.zsh.initExtra = ''
+    # kubecolor
+    compdef kubecolor=kubectl
+    # konf
+    source <(konf-go shellwrapper zsh)
+    source <(konf completion zsh)
+    # ignore if konf store hasn't been initialized
+    konf set - >/dev/null 2>&1
+  '';
 
   home.shellAliases = {
     jq = "gojq";

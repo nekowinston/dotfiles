@@ -151,7 +151,7 @@ in {
       oh-my-zsh = {
         enable = true;
         plugins =
-          ["colored-man-pages" "colorize" "git"]
+          ["colored-man-pages" "colorize" "git" "kubectl"]
           ++ lib.optionals pkgs.stdenv.isDarwin ["dash" "macos"];
       };
       plugins = zshPlugins [
