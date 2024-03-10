@@ -1,5 +1,6 @@
 [catppuccin-bat]
 src.git = "https://github.com/catppuccin/bat"
+src.branch = "feat/add-overrides"
 fetch.git = "https://github.com/catppuccin/bat"
 
 [catppuccin-wezterm]

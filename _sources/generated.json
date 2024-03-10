@@ -1,7 +1,7 @@
 {
     "catppuccin-bat": {
         "cargoLocks": null,
-        "date": "2024-03-02",
+        "date": "2024-03-10",
         "extract": null,
         "name": "catppuccin-bat",
         "passthru": null,
@@ -11,12 +11,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "0ce3d34921ba1b544a4d82aa01352abd553d51ef",
-            "sha256": "sha256-PLbTLj0qhsDj+xm+OML/AQsfRQVPXLYQNEPllgKcEx4=",
+            "rev": "e9d92785fdf1afe0cd72d8d5ccb6902120d23f77",
+            "sha256": "sha256-bWVgDPaFcJK5sCStt1BvB8MTMy7o2uzLYDAKgWqRs3M=",
             "type": "git",
             "url": "https://github.com/catppuccin/bat"
         },
-        "version": "0ce3d34921ba1b544a4d82aa01352abd553d51ef"
+        "version": "e9d92785fdf1afe0cd72d8d5ccb6902120d23f77"
     },
     "catppuccin-wezterm": {
         "cargoLocks": null,

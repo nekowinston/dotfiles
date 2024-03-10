@@ -40,6 +40,16 @@
       crust = "#080808";
     };
   };
+  ctpBat = pkgs.denoPlatform.mkDenoDerivation {
+    inherit (srcs.catppuccin-bat) pname version src;
+    buildPhase = ''
+      deno run -A ./src/main.ts --overrides '${builtins.toJSON overrides}'
+    '';
+    installPhase = ''
+      mkdir -p $out
+      cp ./themes/* $out/
+    '';
+  };
   ctpZshFsh = pkgs.denoPlatform.mkDenoDerivation {
     inherit (srcs.catppuccin-zsh-fsh) pname version src;
     buildPhase = ''
@@ -66,20 +76,20 @@ in {
       enable = true;
       themes = {
         "Catppuccin Latte" = {
-          src = srcs.catppuccin-bat.src;
-          file = "themes/Catppuccin Latte.tmTheme";
+          src = ctpBat;
+          file = "Catppuccin Latte.tmTheme";
         };
         "Catppuccin Frappe" = {
-          src = srcs.catppuccin-bat.src;
-          file = "themes/Catppuccin Frappe.tmTheme";
+          src = ctpBat;
+          file = "Catppuccin Frappe.tmTheme";
         };
         "Catppuccin Macchiato" = {
-          src = srcs.catppuccin-bat.src;
-          file = "themes/Catppuccin Macchiato.tmTheme";
+          src = ctpBat;
+          file = "Catppuccin Macchiato.tmTheme";
         };
         "Catppuccin Mocha" = {
-          src = srcs.catppuccin-bat.src;
-          file = "themes/Catppuccin Mocha.tmTheme";
+          src = ctpBat;
+          file = "Catppuccin Mocha.tmTheme";
         };
       };
     };
