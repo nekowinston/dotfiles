@@ -81,6 +81,7 @@
   "workbench.colorTheme": "Catppuccin Latte",
   "workbench.iconTheme": "material-icon-theme",
   "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
+  "workbench.layoutControl.enabled": false,
   "workbench.preferredLightColorTheme": "Catppuccin Latte",
   "workbench.productIconTheme": "icons-carbon",
 

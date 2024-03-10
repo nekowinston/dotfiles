@@ -14,9 +14,11 @@ in {
       appindicator
       blur-my-shell
       mullvad-indicator
+      native-window-placement
       noannoyance-fork
       pop-shell
       user-themes
+      pkgs.pop-launcher
     ];
 
     dconf.settings = with lib.hm.gvariant; {
@@ -43,7 +45,7 @@ in {
         favorite-apps = ["org.gnome.Nautilus.desktop" "chromium-browser.desktop" "org.wezfurlong.wezterm.desktop"];
       };
       "org/gnome/shell/extensions/user-theme" = {
-        name = "Catppuccin-Frappe-Compact-Pink-Dark";
+        name = "WhiteSur-Light";
       };
 
       # wallpaper

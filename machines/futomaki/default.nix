@@ -5,7 +5,7 @@
 }: {
   imports = [./hardware.nix];
 
-  dotfiles.desktop = "gnome";
+  dotfiles.desktop = "sway";
 
   networking = {
     networkmanager.enable = true;

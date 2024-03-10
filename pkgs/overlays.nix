@@ -1,6 +1,6 @@
 {inputs}: [
-  inputs.nix-vscode-extensions.overlays.default
   inputs.catppuccin-vsc.overlays.default
+  inputs.nix-vscode-extensions.overlays.default
   (final: prev: let
     srcs = prev.callPackages ../_sources/generated.nix {};
   in {
@@ -12,7 +12,9 @@
         })
       ];
     });
-    sway-unwrapped = inputs.swayfx.packages.${prev.system}.default;
+    swayfx-unwrapped = inputs.swayfx.packages.${prev.system}.swayfx-unwrapped.overrideAttrs (old: {
+      buildInputs = (prev.lib.remove prev.wlroots old.buildInputs) ++ [prev.wlroots_0_16];
+    });
     yabai = prev.yabai.overrideAttrs (_: {
       inherit (srcs.yabai) version src;
     });

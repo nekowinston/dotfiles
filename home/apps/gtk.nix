@@ -16,32 +16,12 @@ in {
     gtk = {
       enable = true;
       iconTheme = {
-        name = "Papirus-Dark";
-        package = pkgs.catppuccin-papirus-folders.override {
-          accent = "pink";
-          flavor = "frappe";
-        };
+        name = "WhiteSur";
+        package = pkgs.whitesur-icon-theme;
       };
       theme = {
-        name = "Catppuccin-Frappe-Compact-Pink-Dark";
-        package = pkgs.catppuccin-gtk.override {
-          accents = ["pink"];
-          variant = "frappe";
-          size = "compact";
-        };
-      };
-      gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
-      gtk2.extraConfig = ''
-        gtk-xft-antialias=1
-        gtk-xft-hinting=1
-        gtk-xft-hintstyle="hintslight"
-        gtk-xft-rgba="rgb"
-      '';
-      gtk3.extraConfig = {
-        gtk-xft-antialias = 1;
-        gtk-xft-hinting = 1;
-        gtk-xft-hintstyle = "hintslight";
-        gtk-xft-rgba = "rgb";
+        name = "WhiteSur-Light";
+        package = pkgs.whitesur-gtk-theme;
       };
     };
 
