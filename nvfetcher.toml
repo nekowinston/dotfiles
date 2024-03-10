@@ -8,6 +8,7 @@ fetch.git = "https://github.com/catppuccin/wezterm"
 
 [catppuccin-zsh-fsh]
 src.git = "https://github.com/catppuccin/zsh-fsh"
+src.branch = "build/deno-builder"
 fetch.git = "https://github.com/catppuccin/zsh-fsh"
 
 [nekowinston-wezterm-bar]

@@ -29,16 +29,16 @@
   };
   catppuccin-zsh-fsh = {
     pname = "catppuccin-zsh-fsh";
-    version = "7cdab58bddafe0565f84f6eaf2d7dd109bd6fc18";
+    version = "d2a1ba1d4aa36edfa34ed687bd84ef1e2db481b7";
     src = fetchgit {
       url = "https://github.com/catppuccin/zsh-fsh";
-      rev = "7cdab58bddafe0565f84f6eaf2d7dd109bd6fc18";
+      rev = "d2a1ba1d4aa36edfa34ed687bd84ef1e2db481b7";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-31lh+LpXGe7BMZBhRWvvbOTkwjOM77FPNaGy6d26hIA=";
+      sha256 = "sha256-DYWpivDyhW9ZZD2tqpQgXFz7u947mKOUvvz+RQnVslU=";
     };
-    date = "2023-07-11";
+    date = "2024-03-10";
   };
   nekowinston-wezterm-bar = {
     pname = "nekowinston-wezterm-bar";

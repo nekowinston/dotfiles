@@ -207,6 +207,26 @@
         "type": "github"
       }
     },
+    "nix-deno": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1706786668,
+        "narHash": "sha256-MDbSYWjitdx9Cqyzc0JPLWDvIeX109i4VZPwdkWAyHY=",
+        "owner": "nekowinston",
+        "repo": "nix-deno",
+        "rev": "a5664f47572c365e8ef31d8b3a6c8abfe88648ce",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nekowinston",
+        "repo": "nix-deno",
+        "type": "github"
+      }
+    },
     "nix-index-database": {
       "inputs": {
         "nixpkgs": [
@@ -336,6 +356,7 @@
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "nekowinston-nur": "nekowinston-nur",
+        "nix-deno": "nix-deno",
         "nix-index-database": "nix-index-database",
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixpkgs": "nixpkgs_2",

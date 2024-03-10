@@ -1,5 +1,6 @@
 {inputs}: [
   inputs.catppuccin-vsc.overlays.default
+  inputs.nix-deno.overlays.default
   inputs.nix-vscode-extensions.overlays.default
   (final: prev: let
     srcs = prev.callPackages ../_sources/generated.nix {};
