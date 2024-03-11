@@ -12,7 +12,7 @@
     config = {
       nixpkgs = {
         overlays = overlays;
-        config.permittedInsecurePackages = ["nix-2.17.1"];
+        config.permittedInsecurePackages = [];
       };
       home-manager = {
         backupFileExtension = "backup";
