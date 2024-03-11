@@ -10,7 +10,10 @@
     homeLib = import ../home/lib.nix {inherit inputs username pkgs;};
   in {
     config = {
-      nixpkgs.overlays = overlays;
+      nixpkgs = {
+        overlays = overlays;
+        config.permittedInsecurePackages = ["nix-2.17.1"];
+      };
       home-manager = {
         backupFileExtension = "backup";
         extraSpecialArgs = homeLib.extraSpecialArgs;
