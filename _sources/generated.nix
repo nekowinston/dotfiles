@@ -55,10 +55,10 @@
   };
   yabai = {
     pname = "yabai";
-    version = "v6.0.12";
+    version = "v6.0.15";
     src = fetchurl {
-      url = "https://github.com/koekeishiya/yabai/releases/download/v6.0.12/yabai-v6.0.12.tar.gz";
-      sha256 = "sha256-0YJN7XRpseXZnVXDcsv/8w8pen0sE52qQmS+xFni6V0=";
+      url = "https://github.com/koekeishiya/yabai/releases/download/v6.0.15/yabai-v6.0.15.tar.gz";
+      sha256 = "sha256-8+jAdwF7Yganvv1NsbtMIBWv0rh9JmHuwLWmwiFmDu4=";
     };
   };
   zsh-fast-syntax-highlighting = {

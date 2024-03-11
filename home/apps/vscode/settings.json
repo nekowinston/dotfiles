@@ -284,5 +284,8 @@
     "readme*": "authors, backers*, changelog*, citation*, code_of_conduct*, codeowners, contributing*, contributors, copying*, credits, governance.md, history.md, license*, maintainers, readme*, security.md, sponsors*",
     "release-please-config.json": ".release-please-manifest.json"
   },
-  "material-icon-theme.saturation": 0.2
+  "material-icon-theme.saturation": 0.2,
+  "zenMode.centerLayout": false,
+  "zenMode.fullScreen": false,
+  "zenMode.showTabs": "none"
 }

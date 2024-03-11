@@ -1,9 +1,10 @@
 @import url(//dablulite.github.io/css-snippets/ConsistentChatbar/import.css);
+@import url('https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap');
 
 :root {
-  --font-primary: "IBM Plex Sans", sans-serif;
-  --font-headline: "IBM Plex Sans", sans-serif;
-  --font-display: "IBM Plex Sans", sans-serif;
+  --font-primary: "Play", sans-serif;
+  --font-headline: "Play", sans-serif;
+  --font-display: "Play", sans-serif;
   --font-code: "Berkeley Mono", "Symbols Nerd Font", mono;
 }
 

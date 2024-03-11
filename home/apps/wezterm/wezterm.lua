@@ -17,8 +17,8 @@ c.window_frame = {
   font_size = c.font_size,
 }
 
-c.window_decorations = "RESIZE"
-c.window_padding = { left = 0, right = 0, top = 20, bottom = 0 }
+c.window_decorations = "RESIZE|INTEGRATED_BUTTONS"
+c.window_padding = { left = 0, right = 0, top = 50, bottom = 0 }
 c.adjust_window_size_when_changing_font_size = false
 c.audible_bell = "Disabled"
 c.default_cursor_style = "BlinkingBar"

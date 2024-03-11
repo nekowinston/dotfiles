@@ -84,11 +84,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-0YJN7XRpseXZnVXDcsv/8w8pen0sE52qQmS+xFni6V0=",
+            "sha256": "sha256-8+jAdwF7Yganvv1NsbtMIBWv0rh9JmHuwLWmwiFmDu4=",
             "type": "url",
-            "url": "https://github.com/koekeishiya/yabai/releases/download/v6.0.12/yabai-v6.0.12.tar.gz"
+            "url": "https://github.com/koekeishiya/yabai/releases/download/v6.0.15/yabai-v6.0.15.tar.gz"
         },
-        "version": "v6.0.12"
+        "version": "v6.0.15"
     },
     "zsh-fast-syntax-highlighting": {
         "cargoLocks": null,
