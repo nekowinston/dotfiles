@@ -61,6 +61,12 @@
     '';
   };
 in {
+  home.sessionVariables = {
+    LESS = "-R --use-color";
+    LESSHISTFILE = "-";
+    MANPAGER = "sh -c 'col -bx | bat -l man -p'";
+  };
+
   programs = {
     atuin = {
       enable = true;
@@ -121,6 +127,8 @@ in {
       defaultOptions = ["--height=30%" "--layout=reverse" "--info=inline"];
     };
 
+    less.enable = true;
+
     lsd = {
       enable = true;
       enableAliases = true;
@@ -153,7 +161,7 @@ in {
       };
     };
 
-    nix-index.enable = true;
+    nix-index-database.comma.enable = true;
 
     starship = {
       enable = true;
@@ -193,9 +201,6 @@ in {
       initExtra = ''
         for script in "${./zsh/functions}"/**/*; do source "$script"; done
       '';
-      envExtra = ''
-        export LESSHISTFILE="-"
-      '';
 
       dotDir = ".config/zsh";
       oh-my-zsh = {
@@ -221,6 +226,7 @@ in {
         }
       ];
       shellAliases = {
+        cat = "bat";
         cp = "cp -i";
         mv = "mv -i";
         rm = "rm -i";
