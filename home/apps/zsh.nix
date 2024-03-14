@@ -110,6 +110,17 @@ in {
     direnv.enable = true;
     direnv.nix-direnv.enable = true;
 
+    eza = {
+      enable = true;
+      icons = true;
+      extraOptions = [
+        "--group"
+        "--group-directories-first"
+        "--no-permissions"
+        "--octal-permissions"
+      ];
+    };
+
     fzf = {
       enable = true;
       colors = {
@@ -128,38 +139,6 @@ in {
     };
 
     less.enable = true;
-
-    lsd = {
-      enable = true;
-      enableAliases = true;
-      settings = {
-        classic = false;
-        blocks = ["permission" "user" "group" "size" "date" "name"];
-        date = "+%y.%m.%d %H:%M";
-        dereference = false;
-        ignore-globs = [".git"];
-        color = {
-          when = "auto";
-          theme = "custom";
-        };
-        icons = {
-          when = "auto";
-          theme = "fancy";
-          separator = " ";
-        };
-        header = false;
-        hyperlink = "auto";
-        indicators = true;
-        layout = "grid";
-        permission = "octal";
-        size = "default";
-        sorting = {
-          column = "name";
-          dir-grouping = "first";
-        };
-        symlink-arrow = "󰌷";
-      };
-    };
 
     nix-index-database.comma.enable = true;
 
@@ -227,11 +206,21 @@ in {
       ];
       shellAliases = {
         cat = "bat";
+
+        ls = "eza";
+        ll = "eza -l";
+        la = "eza -a";
+        lt = "eza -T";
+        lla = "eza -la";
+        llt = "eza -lT";
+
         cp = "cp -i";
         mv = "mv -i";
         rm = "rm -i";
+
         # switch between yubikeys for the same GPG key
         switch_yubikeys = ''gpg-connect-agent "scd serialno" "learn --force" "/bye"'';
+
         # podman
         docker = "podman";
         docker-compose = "podman-compose";

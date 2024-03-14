@@ -3,16 +3,16 @@
 {
   catppuccin-bat = {
     pname = "catppuccin-bat";
-    version = "e9d92785fdf1afe0cd72d8d5ccb6902120d23f77";
+    version = "7f5f4f8be7ca2a71712c82e3ce8723674a22bab1";
     src = fetchgit {
       url = "https://github.com/catppuccin/bat";
-      rev = "e9d92785fdf1afe0cd72d8d5ccb6902120d23f77";
+      rev = "7f5f4f8be7ca2a71712c82e3ce8723674a22bab1";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-bWVgDPaFcJK5sCStt1BvB8MTMy7o2uzLYDAKgWqRs3M=";
+      sha256 = "sha256-DkNZqPhs+U/LCMiYp4gFAorElWik5OGWe12dYinqKWc=";
     };
-    date = "2024-03-10";
+    date = "2024-03-12";
   };
   catppuccin-wezterm = {
     pname = "catppuccin-wezterm";

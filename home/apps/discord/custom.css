@@ -1,11 +1,15 @@
 @import url(//dablulite.github.io/css-snippets/ConsistentChatbar/import.css);
-@import url('https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap');
+@import url('//fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
 
 :root {
-  --font-primary: "Play", sans-serif;
-  --font-headline: "Play", sans-serif;
-  --font-display: "Play", sans-serif;
-  --font-code: "Berkeley Mono", "Symbols Nerd Font", mono;
+  --font-primary: "IBM Plex Sans", sans-serif;
+  --font-headline: "IBM Plex Sans", sans-serif;
+  --font-display: "IBM Plex Sans", sans-serif;
+  --font-code: "Berkeley Mono", "IBM Plex Mono", "Symbols Nerd Font", mono;
+}
+
+div[class*="messageContent__"] {
+  font-family: "IBM Plex Serif", serif;
 }
 
 @media (max-width: 1024px) {
