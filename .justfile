@@ -11,7 +11,7 @@ export NIX_CONFIG := "
 [private]
 [macos]
 rebuild *args:
-  darwin-rebuild --flake . {{args}}
+  darwin-rebuild --flake . {{args}} |& nom
 
 [private]
 [linux]
