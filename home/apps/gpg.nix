@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
+{pkgs, ...}: let
   inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
   key = "0x0B89BC45007EE9CC";
   mailvelopeConfig = builtins.toJSON {
@@ -13,13 +9,13 @@
     allowed_extensions = ["jid1-AQqSMBYb0a8ADg@jetpack"];
   };
 in {
-  home.packages = with pkgs; [
-    pinentry
-    git-credential-gopass
-    gopass
-    gopass-jsonapi
-    yubikey-personalization
-  ];
+  home.packages = with pkgs; ([
+      git-credential-gopass
+      gopass
+      gopass-jsonapi
+      yubikey-personalization
+    ]
+    ++ lib.optionals isDarwin [pinentry_mac]);
 
   # two amazing examples of glorious XDG compliance
   home.file = {
@@ -101,9 +97,9 @@ in {
     enable = isLinux;
     enableExtraSocket = true;
     enableSshSupport = true;
-    pinentryFlavor =
-      if config.isGraphical
-      then "gnome3"
-      else "curses";
+    # pinentryPackage =
+    #   if config.isGraphical
+    #   then pkgs.pinentry-gnome3
+    #   else pkgs.pinentry-curses;
   };
 }
