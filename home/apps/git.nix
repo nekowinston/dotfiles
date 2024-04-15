@@ -3,11 +3,14 @@
   pkgs,
   ...
 }: {
-  age.secrets."gitconfig-work".path = "${config.xdg.configHome}/git/gitconfig-work";
   programs.git.includes = [
     {
       condition = "gitdir:~/Code/work/";
       path = config.age.secrets."gitconfig-work".path;
+    }
+    {
+      condition = "gitdir:~/Code/freelance/";
+      path = config.age.secrets."gitconfig-freelance".path;
     }
   ];
 

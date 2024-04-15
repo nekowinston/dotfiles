@@ -39,7 +39,7 @@
     },
     "catppuccin-zsh-fsh": {
         "cargoLocks": null,
-        "date": "2024-03-10",
+        "date": "2024-03-25",
         "extract": null,
         "name": "catppuccin-zsh-fsh",
         "passthru": null,
@@ -49,12 +49,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "d2a1ba1d4aa36edfa34ed687bd84ef1e2db481b7",
-            "sha256": "sha256-DYWpivDyhW9ZZD2tqpQgXFz7u947mKOUvvz+RQnVslU=",
+            "rev": "8af8701de8a00b10c072b7bef4f7b74558a2cd15",
+            "sha256": "sha256-O80XzCAw02/bXkMLgf3v71NLjVI4uCaC1i0eAZstA/0=",
             "type": "git",
             "url": "https://github.com/catppuccin/zsh-fsh"
         },
-        "version": "d2a1ba1d4aa36edfa34ed687bd84ef1e2db481b7"
+        "version": "8af8701de8a00b10c072b7bef4f7b74558a2cd15"
     },
     "nekowinston-wezterm-bar": {
         "cargoLocks": null,
@@ -84,11 +84,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-b+hp+kAnLqsljjwtg7RyWuKXT6D22FvnqEkPqLUZGKs=",
+            "sha256": "sha256-WsbW3Y5HqBv7tCp4iDL/9lE0gF5BRoF6WbIxeLcRJDQ=",
             "type": "url",
-            "url": "https://github.com/koekeishiya/yabai/releases/download/v7.0.3/yabai-v7.0.3.tar.gz"
+            "url": "https://github.com/koekeishiya/yabai/releases/download/v7.1.0/yabai-v7.1.0.tar.gz"
         },
-        "version": "v7.0.3"
+        "version": "v7.1.0"
     },
     "zsh-fast-syntax-highlighting": {
         "cargoLocks": null,

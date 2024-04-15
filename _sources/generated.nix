@@ -29,16 +29,16 @@
   };
   catppuccin-zsh-fsh = {
     pname = "catppuccin-zsh-fsh";
-    version = "d2a1ba1d4aa36edfa34ed687bd84ef1e2db481b7";
+    version = "8af8701de8a00b10c072b7bef4f7b74558a2cd15";
     src = fetchgit {
       url = "https://github.com/catppuccin/zsh-fsh";
-      rev = "d2a1ba1d4aa36edfa34ed687bd84ef1e2db481b7";
+      rev = "8af8701de8a00b10c072b7bef4f7b74558a2cd15";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-DYWpivDyhW9ZZD2tqpQgXFz7u947mKOUvvz+RQnVslU=";
+      sha256 = "sha256-O80XzCAw02/bXkMLgf3v71NLjVI4uCaC1i0eAZstA/0=";
     };
-    date = "2024-03-10";
+    date = "2024-03-25";
   };
   nekowinston-wezterm-bar = {
     pname = "nekowinston-wezterm-bar";
@@ -55,10 +55,10 @@
   };
   yabai = {
     pname = "yabai";
-    version = "v7.0.3";
+    version = "v7.1.0";
     src = fetchurl {
-      url = "https://github.com/koekeishiya/yabai/releases/download/v7.0.3/yabai-v7.0.3.tar.gz";
-      sha256 = "sha256-b+hp+kAnLqsljjwtg7RyWuKXT6D22FvnqEkPqLUZGKs=";
+      url = "https://github.com/koekeishiya/yabai/releases/download/v7.1.0/yabai-v7.1.0.tar.gz";
+      sha256 = "sha256-WsbW3Y5HqBv7tCp4iDL/9lE0gF5BRoF6WbIxeLcRJDQ=";
     };
   };
   zsh-fast-syntax-highlighting = {

@@ -21,7 +21,6 @@ in {
       (skipSha "affinity-publisher")
       "alfred"
       "azure-data-studio"
-      "bitwarden"
       "blender"
       (noQuarantine "easy-move-plus-resize")
       (skipSha "element")
@@ -33,11 +32,8 @@ in {
       "keka"
       "little-snitch"
       "macfuse"
-      "mattermost"
       "mullvad-browser"
       "mullvadvpn"
-      "obs"
-      "postman"
       "rustdesk"
       "signal"
       (skipSha "sizzy")

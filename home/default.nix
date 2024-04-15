@@ -13,6 +13,8 @@ in {
         _1password
         age
         age-plugin-yubikey
+        catppuccin-catwalk
+        catppuccin-whiskers
         deno
         fd
         ffmpeg

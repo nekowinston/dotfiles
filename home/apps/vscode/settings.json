@@ -101,11 +101,12 @@
 
   // language-specific settings
   "d.alwaysShowDubStatusButtons": true,
-  "d.servedReleaseChannel": "beta",
+  "d.servedReleaseChannel": "nightly",
   "d.stdlibPath": "auto",
   "gopls": {
     "ui.semanticTokens": true
   },
+  "tailwindCSS.emmetCompletions": true,
   "[javascript]": {
     "editor.snippetSuggestions": "top",
     "editor.defaultFormatter": "esbenp.prettier-vscode"

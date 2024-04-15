@@ -9,6 +9,7 @@ let
   default = [yubikeys._5ci] ++ (builtins.attrValues homes);
 in {
   "home/secrets/aerc-personal.conf.age".publicKeys = default;
+  "home/secrets/gitconfig-freelance.age".publicKeys = default;
   "home/secrets/gitconfig-work.age".publicKeys = default;
   "home/secrets/wakatime.cfg.age".publicKeys = default;
 }

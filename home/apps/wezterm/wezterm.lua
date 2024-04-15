@@ -14,7 +14,6 @@ c.harfbuzz_features = { "calt=1", "ss01=1" }
 c.command_palette_font_size = c.font_size * 1.1
 c.window_frame = {
   font = wezterm.font("IBM Plex Sans"),
-  font_size = c.font_size,
 }
 
 c.window_decorations = "RESIZE|INTEGRATED_BUTTONS"

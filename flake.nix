@@ -135,6 +135,10 @@
       url = "github:catppuccin/vscode";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    catppuccin-toolbox = {
+      url = "github:catppuccin/toolbox";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     agenix = {
       url = "github:ryantm/agenix";
@@ -155,7 +159,6 @@
     };
     swayfx = {
       url = "github:willpower3309/swayfx";
-      inputs.flake-compat.follows = "";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     vscode-server = {

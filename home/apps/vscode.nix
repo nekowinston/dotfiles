@@ -72,6 +72,8 @@ in {
             ' < package.json | sponge package.json
           '';
         }))
+        ms-vscode-remote.remote-ssh-edit
+        ms-vscode.remote-explorer
         adrianwilczynski.alpine-js-intellisense
         antfu.icons-carbon
         arcanis.vscode-zipfs
@@ -111,6 +113,19 @@ in {
         usernamehw.errorlens
         vscodevim.vim
         wakatime.vscode-wakatime
+        ms-vscode.test-adapter-converter
+        hbenl.vscode-test-explorer
+        webfreak.code-d
+        # (webfreak.code-d.overrideAttrs (prev: {
+        #   nativeBuildInputs = prev.nativeBuildInputs ++ [pkgs.jq pkgs.moreutils];
+        #   postInstall = ''
+        #     cd "$out/$installPrefix"
+        #     jq -e '
+        #       .contributes.configuration.properties."d.dcdClientPath".default =
+        #         "${pkgs.alejandra}/bin/alejandra"
+        #     ' < package.json | sponge package.json
+        #   '';
+        # }))
       ]);
     mutableExtensionsDir = true;
   };
