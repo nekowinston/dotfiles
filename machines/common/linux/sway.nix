@@ -25,6 +25,8 @@
     environment.pathsToLink = ["/share/nautilus-python/extensions"];
     environment.sessionVariables.NAUTILUS_4_EXTENSION_DIR = "${config.system.path}/lib/nautilus/extensions-4";
 
+    programs.hyprland.enable = true;
+
     programs.sway = {
       enable = true;
       package = pkgs.swayfx;
@@ -57,12 +59,15 @@
       # gcr needed for gnome3 pinentry, managed in Home-Manager
       gcr
     ];
-    xdg.portal.enable = true;
-    xdg.portal.wlr.enable = true;
-    xdg.portal.extraPortals = with pkgs; [
-      darkman
-      xdg-desktop-portal-gtk
-    ];
+    xdg.portal = {
+      enable = true;
+      wlr.enable = true;
+      extraPortals = with pkgs; [
+        darkman
+        xdg-desktop-portal-gtk
+      ];
+      xdgOpenUsePortal = true;
+    };
 
     services = {
       # mounting

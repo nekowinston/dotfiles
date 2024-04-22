@@ -12,7 +12,7 @@
           "${pkgs.greetd.tuigreet}/bin/tuigreet"
           "--remember"
           "--remember-user-session"
-          "--sessions=${config.programs.sway.package}/share/wayland-sessions"
+          "--sessions=${config.programs.sway.package}/share/wayland-sessions:${config.programs.hyprland.package}/share/wayland-sessions"
         ];
         user = "greeter";
       };

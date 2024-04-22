@@ -8,6 +8,7 @@
     ./gnome.nix
     ./gpg.nix
     ./gtk.nix
+    ./hyprland.nix
     ./kubernetes.nix
     ./mail.nix
     ./media.nix

@@ -7,7 +7,14 @@
   inherit (pkgs.stdenv) isDarwin isLinux;
 in {
   config = lib.mkIf config.isGraphical {
-    home.packages = [(pkgs.discord.override {withOpenASAR = true;})];
+    home.packages =
+      []
+      ++ (lib.optionals isDarwin [
+        (pkgs.discord.override {withOpenASAR = true;})
+      ])
+      ++ (lib.optionals isLinux [
+        pkgs.vesktop
+      ]);
     home.activation.discordSettings = let
       json = pkgs.writeTextFile {
         name = "discord-settings.json";

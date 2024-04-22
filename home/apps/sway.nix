@@ -1,6 +1,5 @@
 {
   config,
-  flakePath,
   lib,
   osConfig,
   pkgs,
@@ -54,6 +53,7 @@ in {
     in {
       enable = true;
       package = null;
+      checkConfig = false;
       config = rec {
         inherit modifier;
         focus.wrapping = "no";
@@ -91,7 +91,7 @@ in {
         input."type:keyboard".xkb_options = "ctrl:nocaps,compose:ralt";
         output."*" = {
           scale = "2";
-          bg = "${flakePath}/home/wallpapers/dhm_1610.png fill #171320";
+          bg = "${../wallpapers/dhm_1610.png} fill #171320";
         };
         keybindings = let
           mod = modifier;
