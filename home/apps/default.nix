@@ -19,6 +19,7 @@
     ./vscode.nix
     ./waybar.nix
     ./wezterm.nix
+    ./zellij.nix
     ./zsh.nix
   ];
 }
