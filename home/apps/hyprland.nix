@@ -9,14 +9,14 @@
     home = {
       packages = with pkgs; [
         blueberry
+        grimblast
+        hyprpicker
         kooha
         libnotify
         pavucontrol
+        swaybg
         swayosd
         wl-clipboard
-        swaybg
-        hyprpicker
-        grimblast
       ];
     };
 
@@ -81,6 +81,7 @@
           "${mod}, space, exec, rofi -show drun"
           "${modMove}, space, exec, 1password --quick-access"
           "${hyper}, p, exec, grimblast --notify --freeze copy area"
+          "${modMove}, p, exec, hyprpicker -a"
 
           "${modFocus}, h, movefocus, l"
           "${modFocus}, j, movefocus, d"
@@ -134,8 +135,11 @@
         ];
         exec-once = [
           "${pkgs.xorg.xprop}/bin/xprop -root -f _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 2"
+          "${config.programs.waybar.package}/bin/waybar -b hyprland"
         ];
+        plugin.hy3.autotile.enable = true;
       };
+      plugins = [pkgs.hyprlandPlugins.hy3];
     };
   };
 }

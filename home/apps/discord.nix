@@ -13,7 +13,7 @@ in {
         (pkgs.discord.override {withOpenASAR = true;})
       ])
       ++ (lib.optionals isLinux [
-        pkgs.vesktop
+        (pkgs.vesktop.override {withSystemVencord = false;})
       ]);
     home.activation.discordSettings = let
       json = pkgs.writeTextFile {

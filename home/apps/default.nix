@@ -17,6 +17,7 @@
     ./rice.nix
     ./sway.nix
     ./vscode.nix
+    ./waybar.nix
     ./wezterm.nix
     ./zsh.nix
   ];
