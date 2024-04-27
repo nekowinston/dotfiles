@@ -12,11 +12,11 @@ in {
   nixpkgs.config.allowUnfree = true;
   nix = {
     gc.automatic = true;
-    package = pkgs.nixVersions.nix_2_18;
+    package = pkgs.nixVersions.nix_2_22;
     settings =
       {
         auto-optimise-store = true;
-        experimental-features = ["auto-allocate-uids" "flakes" "nix-command" "repl-flake"];
+        experimental-features = ["auto-allocate-uids" "flakes" "nix-command"];
         trusted-users = ["@sudo" "@wheel" "winston"];
         use-xdg-base-directories = true;
         warn-dirty = false;

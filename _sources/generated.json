@@ -1,7 +1,7 @@
 {
     "catppuccin-bat": {
         "cargoLocks": null,
-        "date": "2024-03-12",
+        "date": "2024-04-09",
         "extract": null,
         "name": "catppuccin-bat",
         "passthru": null,
@@ -11,12 +11,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "7f5f4f8be7ca2a71712c82e3ce8723674a22bab1",
-            "sha256": "sha256-DkNZqPhs+U/LCMiYp4gFAorElWik5OGWe12dYinqKWc=",
+            "rev": "b8134f01b0ac176f1cf2a7043a5abf5a1a29457b",
+            "sha256": "sha256-gzf0/Ltw8mGMsEFBTUuN33MSFtUP4xhdxfoZFntaycQ=",
             "type": "git",
             "url": "https://github.com/catppuccin/bat"
         },
-        "version": "7f5f4f8be7ca2a71712c82e3ce8723674a22bab1"
+        "version": "b8134f01b0ac176f1cf2a7043a5abf5a1a29457b"
     },
     "catppuccin-wezterm": {
         "cargoLocks": null,
@@ -39,7 +39,7 @@
     },
     "catppuccin-zsh-fsh": {
         "cargoLocks": null,
-        "date": "2024-03-25",
+        "date": "2024-04-09",
         "extract": null,
         "name": "catppuccin-zsh-fsh",
         "passthru": null,
@@ -49,12 +49,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "8af8701de8a00b10c072b7bef4f7b74558a2cd15",
-            "sha256": "sha256-O80XzCAw02/bXkMLgf3v71NLjVI4uCaC1i0eAZstA/0=",
+            "rev": "dd7baca6e0e943f36d1a6721820346e91f25065f",
+            "sha256": "sha256-qd/+MHmgP+dOnYm6meSu5oCZ/TunCWGHnHqAXm79ERw=",
             "type": "git",
             "url": "https://github.com/catppuccin/zsh-fsh"
         },
-        "version": "8af8701de8a00b10c072b7bef4f7b74558a2cd15"
+        "version": "dd7baca6e0e943f36d1a6721820346e91f25065f"
     },
     "nekowinston-wezterm-bar": {
         "cargoLocks": null,

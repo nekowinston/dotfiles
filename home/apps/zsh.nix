@@ -10,56 +10,6 @@
       inherit (plugin) file src;
     })
     plugins);
-  overrides = {
-    mocha = {
-      rosewater = "#ece3e1";
-      flamingo = "#e1d2d2";
-      pink = "#ddccd8";
-      mauve = "#bbb2c9";
-      red = "#c4a2aa";
-      maroon = "#cbadb1";
-      peach = "#d5beb4";
-      yellow = "#ece3d3";
-      green = "#b9ddb6";
-      teal = "#badad4";
-      sky = "#b8d4db";
-      sapphire = "#a9c0ce";
-      blue = "#aab3c7";
-      lavender = "#bfc1d2";
-      text = "#d3d6e1";
-      subtext1 = "#bec2d2";
-      subtext0 = "#a8adc3";
-      overlay2 = "#9299b4";
-      overlay1 = "#7c84a5";
-      overlay0 = "#686f94";
-      surface2 = "#555a7b";
-      surface1 = "#434664";
-      surface0 = "#30314b";
-      base = "#101010";
-      mantle = "#090909";
-      crust = "#080808";
-    };
-  };
-  ctpBat = pkgs.denoPlatform.mkDenoDerivation {
-    inherit (srcs.catppuccin-bat) pname version src;
-    buildPhase = ''
-      deno run -A ./src/main.ts --overrides '${builtins.toJSON overrides}'
-    '';
-    installPhase = ''
-      mkdir -p $out
-      cp ./themes/* $out/
-    '';
-  };
-  ctpZshFsh = pkgs.denoPlatform.mkDenoDerivation {
-    inherit (srcs.catppuccin-zsh-fsh) pname version src;
-    buildPhase = ''
-      deno run -A ./build.ts --overrides '${builtins.toJSON overrides}'
-    '';
-    installPhase = ''
-      mkdir -p $out
-      cp ./themes/* $out/
-    '';
-  };
 in {
   home.sessionVariables = {
     LESS = "-R --use-color";
@@ -82,19 +32,19 @@ in {
       enable = true;
       themes = {
         "Catppuccin Latte" = {
-          src = ctpBat;
+          src = "${srcs.catppuccin-bat.src}/themes";
           file = "Catppuccin Latte.tmTheme";
         };
         "Catppuccin Frappe" = {
-          src = ctpBat;
+          src = "${srcs.catppuccin-bat.src}/themes";
           file = "Catppuccin Frappe.tmTheme";
         };
         "Catppuccin Macchiato" = {
-          src = ctpBat;
+          src = "${srcs.catppuccin-bat.src}/themes";
           file = "Catppuccin Macchiato.tmTheme";
         };
         "Catppuccin Mocha" = {
-          src = ctpBat;
+          src = "${srcs.catppuccin-bat.src}/themes";
           file = "Catppuccin Mocha.tmTheme";
         };
       };
@@ -229,5 +179,5 @@ in {
     };
   };
 
-  xdg.configFile."fsh".source = "${ctpZshFsh}";
+  xdg.configFile."fsh".source = "${srcs.catppuccin-zsh-fsh.src}/themes";
 }

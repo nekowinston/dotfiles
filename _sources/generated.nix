@@ -3,16 +3,16 @@
 {
   catppuccin-bat = {
     pname = "catppuccin-bat";
-    version = "7f5f4f8be7ca2a71712c82e3ce8723674a22bab1";
+    version = "b8134f01b0ac176f1cf2a7043a5abf5a1a29457b";
     src = fetchgit {
       url = "https://github.com/catppuccin/bat";
-      rev = "7f5f4f8be7ca2a71712c82e3ce8723674a22bab1";
+      rev = "b8134f01b0ac176f1cf2a7043a5abf5a1a29457b";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-DkNZqPhs+U/LCMiYp4gFAorElWik5OGWe12dYinqKWc=";
+      sha256 = "sha256-gzf0/Ltw8mGMsEFBTUuN33MSFtUP4xhdxfoZFntaycQ=";
     };
-    date = "2024-03-12";
+    date = "2024-04-09";
   };
   catppuccin-wezterm = {
     pname = "catppuccin-wezterm";
@@ -29,16 +29,16 @@
   };
   catppuccin-zsh-fsh = {
     pname = "catppuccin-zsh-fsh";
-    version = "8af8701de8a00b10c072b7bef4f7b74558a2cd15";
+    version = "dd7baca6e0e943f36d1a6721820346e91f25065f";
     src = fetchgit {
       url = "https://github.com/catppuccin/zsh-fsh";
-      rev = "8af8701de8a00b10c072b7bef4f7b74558a2cd15";
+      rev = "dd7baca6e0e943f36d1a6721820346e91f25065f";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-O80XzCAw02/bXkMLgf3v71NLjVI4uCaC1i0eAZstA/0=";
+      sha256 = "sha256-qd/+MHmgP+dOnYm6meSu5oCZ/TunCWGHnHqAXm79ERw=";
     };
-    date = "2024-03-25";
+    date = "2024-04-09";
   };
   nekowinston-wezterm-bar = {
     pname = "nekowinston-wezterm-bar";

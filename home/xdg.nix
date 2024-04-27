@@ -2,11 +2,12 @@
 # to make apps use XDG directories
 {
   config,
+  lib,
   pkgs,
   ...
 }: let
-  inherit (pkgs.stdenv.hostPlatform) isLinux;
-  inherit (config.xdg) cacheHome configHome dataHome;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
+  inherit (config.xdg) cacheHome configHome dataHome stateHome;
   inherit (config.home) homeDirectory;
 in {
   home = rec {
@@ -29,13 +30,18 @@ in {
       W3M_DIR = "${dataHome}/w3m";
       WINEPREFIX = "${dataHome}/wine";
     };
-    sessionPath = [
-      "$HOME/.local/bin"
-      "${dataHome}/krew/bin"
-      "${sessionVariables.GOPATH}/bin"
-      "${sessionVariables.CARGO_HOME}/bin"
-      "${sessionVariables.DENO_INSTALL_ROOT}/bin"
-    ];
+    sessionPath =
+      [
+        "$HOME/.local/bin"
+        "${dataHome}/krew/bin"
+        "${sessionVariables.GOPATH}/bin"
+        "${sessionVariables.CARGO_HOME}/bin"
+        "${sessionVariables.DENO_INSTALL_ROOT}/bin"
+      ]
+      ++ (lib.optionals isDarwin [
+        # fix `nix profile` not being in PATH on macOS
+        "${stateHome}/nix/profile/bin"
+      ]);
   };
 
   programs.gpg.homedir = "${configHome}/gnupg";
@@ -46,6 +52,7 @@ in {
     cacheHome = "${homeDirectory}/.cache";
     configHome = "${homeDirectory}/.config";
     dataHome = "${homeDirectory}/.local/share";
+    stateHome = "${homeDirectory}/.local/state";
     mimeApps = {
       enable = isLinux;
       defaultApplications = {

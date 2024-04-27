@@ -8,8 +8,7 @@
 in {
   config = lib.mkIf config.isGraphical {
     home.packages =
-      []
-      ++ (lib.optionals isDarwin [
+      (lib.optionals isDarwin [
         (pkgs.discord.override {withOpenASAR = true;})
       ])
       ++ (lib.optionals isLinux [
