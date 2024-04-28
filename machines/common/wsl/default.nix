@@ -2,16 +2,19 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  inherit (lib) mkForce;
+in {
   services = {
-    kanata.enable = lib.mkForce false;
-    dnsmasq.enable = lib.mkForce false;
-    mullvad-vpn.enable = lib.mkForce false;
-    stubby.enable = lib.mkForce false;
+    kanata.enable = mkForce false;
+    dnsmasq.enable = mkForce false;
+    mullvad-vpn.enable = mkForce false;
+    stubby.enable = mkForce false;
   };
+  virtualisation.podman.enable = mkForce false;
 
   system = {
-    build.installBootLoader = lib.mkForce "${pkgs.coreutils}/bin/true";
+    build.installBootLoader = mkForce "${pkgs.coreutils}/bin/true";
     stateVersion = "23.11";
   };
 }
