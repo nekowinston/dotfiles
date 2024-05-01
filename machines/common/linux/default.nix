@@ -5,6 +5,7 @@
     ./greeter.nix
     ./input.nix
     ./network.nix
+    ./podman.nix
     ./sound.nix
     ./sway.nix
   ];

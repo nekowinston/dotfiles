@@ -14,6 +14,10 @@ in {
   homebrew = {
     enable = true;
     caskArgs.require_sha = true;
+    brews = [
+      "podman"
+      "podman-compose"
+    ];
     casks = [
       "1password"
       (skipSha "affinity-designer")
