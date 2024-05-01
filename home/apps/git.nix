@@ -48,8 +48,7 @@
       "*.swp"
       ".gonvim/"
       ".idea/"
-      "ltex.dictionary*.txt"
-      "ltex.disabledRules.*.txt"
+      "ltex.*.txt"
       # nix-specific
       ".direnv/"
       ".envrc"
