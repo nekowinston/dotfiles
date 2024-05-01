@@ -1,9 +1,6 @@
 on:
   push:
-    paths:
-      - "**.nix"
-      - "**.lock"
-      - ".github/workflows/check.yml"
+    paths: ["**.nix", "**.lock"]
 
 jobs:
   check:
@@ -11,8 +8,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: cachix/install-nix-action@v26
-        with:
-          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: DeterminateSystems/flake-checker-action@v4
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
       - run: nix flake check --show-trace --accept-flake-config
-# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
