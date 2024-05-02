@@ -31,7 +31,6 @@
       enable = true;
       package = pkgs.swayfx;
       extraPackages = with pkgs; [
-        foot
         swaylock-effects
         swayidle
       ];
