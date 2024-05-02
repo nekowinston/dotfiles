@@ -14,6 +14,7 @@ in {
       ++ (lib.optionals isLinux [
         (pkgs.vesktop.override {withSystemVencord = false;})
       ]);
+
     home.activation.discordSettings = let
       json = pkgs.writeTextFile {
         name = "discord-settings.json";
@@ -41,5 +42,10 @@ in {
         mkdir -p "$(dirname "${path}")"
         cp -f "${json}" "${path}"
       '';
+
+    services.arrpc.enable = isLinux;
+
+    services.discord-applemusic-rich-presence.enable = isDarwin;
+    services.mpd-discord-rpc.enable = isLinux;
   };
 }
