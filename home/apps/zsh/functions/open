@@ -1,7 +1,0 @@
-# vim:ft=zsh
-# exit early if we're on macOS
-[[ $(uname) == "Darwin" ]] && return
-
-function open() {
-  nohup xdg-open "$*" > /dev/null 2>&1
-}
