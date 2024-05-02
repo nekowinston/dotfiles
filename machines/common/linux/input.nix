@@ -1,5 +1,6 @@
-{
+{pkgs, ...}: {
   hardware.keyboard.qmk.enable = true;
+  services.udev.packages = [pkgs.uhk-udev-rules];
   services.kanata = {
     enable = true;
     keyboards.keychron-k6 = {

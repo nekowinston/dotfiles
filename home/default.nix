@@ -35,7 +35,7 @@ in {
       ]
       ++ lib.optionals (config.isGraphical && isLinux) [
         _1password-gui
-        nur.repos.nekowinston.uhk-agent
+        uhk-agent
         neovide
       ]);
     sessionVariables = lib.mkIf isDarwin {

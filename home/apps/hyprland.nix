@@ -59,6 +59,7 @@
           "XDG_SESSION_TYPE, wayland"
           "_JAVA_AWT_WM_NONREPARENTING, 1"
         ];
+        xwayland.force_zero_scaling = true;
         general = {
           gaps_in = 2;
           gaps_out = 5;
@@ -134,7 +135,6 @@
           "${pkgs.swaybg}/bin/swaybg -o '*' -m fill -i ${../wallpapers/dhm_1610.png}"
         ];
         exec-once = [
-          "${pkgs.xorg.xprop}/bin/xprop -root -f _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 2"
           "${config.programs.waybar.package}/bin/waybar -b hyprland"
         ];
         plugin.hy3.autotile.enable = true;

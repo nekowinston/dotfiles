@@ -156,7 +156,6 @@ in {
     };
 
     home.packages = lib.mkIf isLinux [
-      pkgs.nur.repos.nekowinston.sizzy
       pkgs.mullvad-browser
     ];
 
