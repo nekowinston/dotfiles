@@ -17,6 +17,7 @@
     ./newsboat.nix
     ./rice.nix
     ./sway.nix
+    ./tmux.nix
     ./vscode.nix
     ./waybar.nix
     ./wezterm.nix
