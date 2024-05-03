@@ -7,9 +7,7 @@
   inherit (pkgs.stdenv) isDarwin isLinux;
 
   vividBuilder = flavor:
-    pkgs.runCommand "vivid-${flavor}" {
-      nativeBuildInputs = [pkgs.vivid];
-    } ''
+    pkgs.runCommand "vivid-${flavor}" {nativeBuildInputs = [pkgs.vivid];} ''
       vivid generate ${pkgs.vivid.src}/themes/catppuccin-${flavor}.yml > $out
     '';
   vividLatte = vividBuilder "latte";
@@ -19,7 +17,10 @@ in {
     home.packages = [
       (pkgs.writeShellApplication {
         name = "dark-mode-ternary";
-        runtimeInputs = lib.optionals isLinux [pkgs.dbus pkgs.gnugrep];
+        runtimeInputs = lib.optionals isLinux [
+          pkgs.dbus
+          pkgs.gnugrep
+        ];
         text = let
           queryCommand =
             if isLinux
@@ -43,8 +44,20 @@ in {
       enable = isLinux;
       settings = {
         lat = config.location.latitude;
-        lon = config.location.longitude;
+        lng = config.location.longitude;
         useGeoclue = false;
+      };
+      lightModeScripts = {
+        gtk-theme = ''
+          ${pkgs.dconf}/bin/dconf write \
+            /org/gnome/desktop/interface/color-scheme "'prefer-light'"
+        '';
+      };
+      darkModeScripts = {
+        gtk-theme = ''
+          ${pkgs.dconf}/bin/dconf write \
+            /org/gnome/desktop/interface/color-scheme "'prefer-dark'"
+        '';
       };
     };
 
