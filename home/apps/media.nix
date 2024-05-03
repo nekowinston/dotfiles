@@ -18,6 +18,7 @@ in {
       extensionPackages = with pkgs; [
         mopidy-bandcamp
         mopidy-iris
+        mopidy-local
         mopidy-mpd
         mopidy-podcast
       ];
