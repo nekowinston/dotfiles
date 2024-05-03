@@ -1,6 +1,6 @@
-{
+{pkgs, ...}: {
   programs.foot = {
-    enable = true;
+    enable = pkgs.stdenv.isLinux;
     settings = {
       main = {
         term = "xterm-256color";
