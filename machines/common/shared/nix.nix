@@ -15,9 +15,19 @@ in {
     package = pkgs.nixVersions.nix_2_22;
     settings =
       {
-        auto-optimise-store = true;
-        experimental-features = ["auto-allocate-uids" "flakes" "nix-command"];
-        trusted-users = ["@sudo" "@wheel" "winston"];
+        # breaks the Nix Store on macOS
+        # https://github.com/NixOS/nix/issues/7273
+        auto-optimise-store = isLinux;
+        experimental-features = [
+          "auto-allocate-uids"
+          "flakes"
+          "nix-command"
+        ];
+        trusted-users = [
+          "@sudo"
+          "@wheel"
+          "winston"
+        ];
         use-xdg-base-directories = true;
         warn-dirty = false;
       }
