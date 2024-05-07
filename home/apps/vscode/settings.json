@@ -1,5 +1,50 @@
 // vim:ft=jsonc
 {
+  "diffEditor.hideUnchangedRegions.enabled": true,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "editor.accessibilitySupport": "off",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.formatOnSave": true,
+  "editor.guides.bracketPairs": true,
+  "editor.inlayHints.enabled": "onUnlessPressed",
+  "editor.inlayHints.padding": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.lineNumbers": "relative",
+  "editor.minimap.enabled": false,
+  "editor.minimap.renderCharacters": false,
+  "editor.smoothScrolling": true,
+  "git.autofetch": true,
+  "git.openRepositoryInParentFolders": "never",
+  "githubPullRequests.pullBranch": "always",
+  "search.useGlobalIgnoreFiles": true,
+  "search.useParentIgnoreFiles": true,
+  "terminal.integrated.smoothScrolling": true,
+
+  // fonts
+  "editor.fontSize": 15,
+  "editor.inlayHints.fontSize": 8,
+  "terminal.integrated.fontSize": 14,
+  "editor.fontFamily": "Berkeley Mono, Symbols Nerd Font, monospace",
+  // Use these with Cascadia Code for cursive
+  // "editor.fontLigatures": "'calt', 'ss01'",
+  "markdown.preview.fontFamily": "IBM Plex Sans, sans-serif",
+
+  // disable updates
+  "update.mode": "none",
+  "extensions.autoUpdate": false,
+  "extensions.autoCheckUpdates": false,
+
+  // appearance settings
+  "window.autoDetectColorScheme": true,
+  "window.commandCenter": false,
+  "window.titleBarStyle": "custom",
+  "workbench.colorTheme": "Catppuccin Latte",
+  "workbench.iconTheme": "catppuccin-latte",
+  "workbench.layoutControl.enabled": false,
+  "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
+  "workbench.preferredLightColorTheme": "Catppuccin Latte",
+  "workbench.productIconTheme": "icons-carbon",
+  // ext
   "catppuccin.accentColor": "pink",
   "catppuccin.customUIColors": {
     "all": {
@@ -8,51 +53,41 @@
     }
   },
   "catppuccin.extraBordersEnabled": true,
-  "debug.onTaskErrors": "debugAnyway",
-  "diffEditor.ignoreTrimWhitespace": false,
-  "diffEditor.hideUnchangedRegions.enabled": true,
-  "editor.accessibilitySupport": "off",
-  "editor.cursorSmoothCaretAnimation": "on",
-  "editor.smoothScrolling": true,
-  "terminal.integrated.smoothScrolling": true,
-  "terminal.integrated.fontSize": 14,
-  "editor.fontFamily": "Berkeley Mono, Symbols Nerd Font, monospace",
-  // "editor.fontFamily": "Cascadia Code, Symbols Nerd Font, monospace",
-  // "editor.fontLigatures": "'calt', 'ss01'",
-  "editor.fontSize": 15,
-  "editor.formatOnSave": true,
-  "editor.guides.bracketPairs": true,
-  "editor.inlayHints.enabled": "onUnlessPressed",
-  "editor.inlayHints.fontSize": 8,
-  "editor.inlayHints.padding": true,
-  "editor.inlineSuggest.enabled": true,
-  "editor.lineNumbers": "relative",
-  "editor.minimap.enabled": false,
-  "editor.minimap.renderCharacters": false,
-  "extensions.autoUpdate": false,
-  "extensions.ignoreRecommendations": true,
-  "git.autofetch": true,
-  "git.openRepositoryInParentFolders": "never",
-  "githubPullRequests.pullBranch": "always",
-  "ltex.additionalRules.enablePickyRules": true,
-  "ltex.additionalRules.motherTongue": "de-AT",
-  "markdown.preview.fontFamily": "IBM Plex Sans, sans-serif",
-  "search.useGlobalIgnoreFiles": true,
-  "search.useParentIgnoreFiles": true,
-  "typescript.inlayHints.parameterNames.enabled": "all",
-  "update.mode": "none",
-  "vs-kubernetes": {
-    "vs-kubernetes.crd-code-completion": "enabled",
-    "vs-kubernetes.minikube-show-information-expiration": "2024-06-09T06:56:22.175Z"
+
+  "zenMode.centerLayout": false,
+  "zenMode.fullScreen": false,
+  "zenMode.showTabs": "none",
+
+  // nesting
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": true,
+  "explorer.fileNesting.patterns": {
+    "*.c": "$(capture).h",
+    "*.cc": "$(capture).hpp, $(capture).h, $(capture).hxx",
+    "*.cjs": "$(capture).cjs.map, $(capture).*.cjs, $(capture)_*.cjs",
+    "*.component.ts": "$(capture).component.html, $(capture).component.spec.ts, $(capture).component.css, $(capture).component.scss, $(capture).component.sass, $(capture).component.less",
+    "*.cpp": "$(capture).hpp, $(capture).h, $(capture).hxx",
+    "*.cs": "$(capture).*.cs",
+    "*.css": "$(capture).css.map, $(capture).*.css",
+    "*.js": "$(capture).js.map, $(capture).*.js, $(capture)_*.js",
+    "*.jsx": "$(capture).js, $(capture).*.jsx, $(capture)_*.js, $(capture)_*.jsx, $(capture).less, $(capture).module.less",
+    "*.mjs": "$(capture).mjs.map, $(capture).*.mjs, $(capture)_*.mjs",
+    "*.ts": "$(capture).js, $(capture).d.ts.map, $(capture).*.ts, $(capture)_*.js, $(capture)_*.ts",
+    "*.tsx": "$(capture).ts, $(capture).*.tsx, $(capture)_*.ts, $(capture)_*.tsx, $(capture).less, $(capture).module.less, $(capture).scss, $(capture).module.scss",
+    ".env": "*.env, .env.*, .envrc, env.d.ts",
+    "cargo.toml": ".clippy.toml, .rustfmt.toml, cargo.lock, clippy.toml, cross.toml, rust-toolchain.toml, rustfmt.toml",
+    "default.nix": "shell.nix",
+    "deno.json": "deno.lock",
+    "flake.nix": "flake.lock",
+    "package.json": "package-lock.json, pnpm-lock.yaml, yarn.lock, yarn.config.cjs, .yarn*, .pnp.*, .eslint*, .prettier*",
+    "readme*": "authors, backers*, changelog*, citation*, code_of_conduct*, codeowners, contributing*, contributors, copying*, credits, governance.md, history.md, license*, maintainers, readme*, security.md, sponsors*",
+    "release-please-config.json": ".release-please-manifest.json"
   },
-  "window.autoDetectColorScheme": true,
-  "window.commandCenter": false,
-  "window.titleBarStyle": "custom",
-  "workbench.colorTheme": "Catppuccin Mocha",
-  "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
-  "workbench.layoutControl.enabled": false,
-  "workbench.preferredLightColorTheme": "Catppuccin Latte",
-  "workbench.productIconTheme": "icons-carbon",
+
+  "remote.SSH.useLocalServer": false,
+  "remote.SSH.remotePlatform": {
+    "local-nixos": "linux"
+  },
 
   // telemetry settings
   "redhat.telemetry.enabled": false,
@@ -61,6 +96,8 @@
   "workbench.settings.enableNaturalLanguageSearch": false,
 
   // natural language
+  "ltex.additionalRules.enablePickyRules": true,
+  "ltex.additionalRules.motherTongue": "de-AT",
   "ltex.language": "en-US",
   "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -109,6 +146,7 @@
     "editor.semanticHighlighting.enabled": true
   },
   "rust-analyzer.check.command": "clippy",
+  "typescript.inlayHints.parameterNames.enabled": "all",
   "[typescript]": {
     "editor.snippetSuggestions": "top",
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -217,52 +255,6 @@
   "vim.smartRelativeLine": true,
 
   // vscord
-  "vscord.status.buttons.button1.git.active.enabled": true,
-  "vscord.status.idle.check": true,
-  "vscord.status.idle.timeout": 180,
-  "vscord.status.image.large.idle.key": "https://cdn.discordapp.com/emojis/936610646181695498.png",
-  "vscord.status.image.large.idle.text": "eepy",
-  "vscord.status.image.large.notInFile.key": "https://cdn.discordapp.com/emojis/743724645018107964.png",
-  "vscord.status.image.large.notInFile.text": "comfy",
-  "vscord.status.image.small.debugging.key": "https://cdn.discordapp.com/emojis/743723396692443206.png",
-  "vscord.status.image.small.debugging.text": "thonking",
-  "vscord.status.image.small.editing.key": "https://cdn.discordapp.com/emojis/886512498772168755.gif",
-  "vscord.status.image.small.editing.text": "hecking",
-  "vscord.status.image.small.viewing.key": "https://cdn.discordapp.com/emojis/903437275881439285.png",
-  "vscord.status.image.small.viewing.text": "looking",
-  "explorer.fileNesting.enabled": true,
-  "explorer.fileNesting.expand": true,
-  "explorer.fileNesting.patterns": {
-    "*.c": "$(capture).h",
-    "*.cc": "$(capture).hpp, $(capture).h, $(capture).hxx",
-    "*.cjs": "$(capture).cjs.map, $(capture).*.cjs, $(capture)_*.cjs",
-    "*.component.ts": "$(capture).component.html, $(capture).component.spec.ts, $(capture).component.css, $(capture).component.scss, $(capture).component.sass, $(capture).component.less",
-    "*.cpp": "$(capture).hpp, $(capture).h, $(capture).hxx",
-    "*.cs": "$(capture).*.cs",
-    "*.css": "$(capture).css.map, $(capture).*.css",
-    "*.js": "$(capture).js.map, $(capture).*.js, $(capture)_*.js",
-    "*.jsx": "$(capture).js, $(capture).*.jsx, $(capture)_*.js, $(capture)_*.jsx, $(capture).less, $(capture).module.less",
-    "*.mjs": "$(capture).mjs.map, $(capture).*.mjs, $(capture)_*.mjs",
-    "*.ts": "$(capture).js, $(capture).d.ts.map, $(capture).*.ts, $(capture)_*.js, $(capture)_*.ts",
-    "*.tsx": "$(capture).ts, $(capture).*.tsx, $(capture)_*.ts, $(capture)_*.tsx, $(capture).less, $(capture).module.less, $(capture).scss, $(capture).module.scss",
-    ".env": "*.env, .env.*, .envrc, env.d.ts",
-    "cargo.toml": ".clippy.toml, .rustfmt.toml, cargo.lock, clippy.toml, cross.toml, rust-toolchain.toml, rustfmt.toml",
-    "default.nix": "shell.nix",
-    "deno.json": "deno.lock",
-    "flake.nix": "flake.lock",
-    "package.json": "package-lock.json, pnpm-lock.yaml, yarn.lock, yarn.config.cjs, .yarn*, .pnp.*, .eslint*, .prettier*",
-    "readme*": "authors, backers*, changelog*, citation*, code_of_conduct*, codeowners, contributing*, contributors, copying*, credits, governance.md, history.md, license*, maintainers, readme*, security.md, sponsors*",
-    "release-please-config.json": ".release-please-manifest.json"
-  },
-  "material-icon-theme.saturation": 0.2,
-  "zenMode.centerLayout": false,
-  "zenMode.fullScreen": false,
-  "zenMode.showTabs": "none",
-  "workbench.iconTheme": "catppuccin-mocha",
-  "remote.SSH.useLocalServer": false,
-  "remote.SSH.remotePlatform": {
-    "local-nixos": "linux"
-  },
   "vscord.app.whitelist": ["505490445468696576"],
   "vscord.app.whitelistEnabled": true,
   "vscord.ignore.workspaces": [
@@ -276,5 +268,24 @@
     "/Users/winston/Code/work": "Working",
     "/home/winston/Code/freelance": "Freelancing",
     "/home/winston/Code/work": "Working"
+  },
+  "vscord.status.buttons.button1.git.active.enabled": true,
+  "vscord.status.idle.check": true,
+  "vscord.status.idle.timeout": 180,
+  "vscord.status.image.large.idle.key": "https://cdn.discordapp.com/emojis/936610646181695498.png",
+  "vscord.status.image.large.idle.text": "eepy",
+  "vscord.status.image.large.notInFile.key": "https://cdn.discordapp.com/emojis/743724645018107964.png",
+  "vscord.status.image.large.notInFile.text": "comfy",
+  "vscord.status.image.small.debugging.key": "https://cdn.discordapp.com/emojis/743723396692443206.png",
+  "vscord.status.image.small.debugging.text": "thonking",
+  "vscord.status.image.small.editing.key": "https://cdn.discordapp.com/emojis/886512498772168755.gif",
+  "vscord.status.image.small.editing.text": "hecking",
+  "vscord.status.image.small.viewing.key": "https://cdn.discordapp.com/emojis/903437275881439285.png",
+  "vscord.status.image.small.viewing.text": "looking",
+
+  // annoying impurity
+  "vs-kubernetes": {
+    "vs-kubernetes.crd-code-completion": "enabled",
+    "vs-kubernetes.minikube-show-information-expiration": "2024-06-09T06:56:22.175Z"
   }
 }
