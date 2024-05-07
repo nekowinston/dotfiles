@@ -1,4 +1,5 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   inherit (pkgs.tmuxPlugins) mkTmuxPlugin;
 
   menus = mkTmuxPlugin {
@@ -21,7 +22,8 @@
       sha256 = "sha256-c5EGBrKcrqHWTKpCEhxYfxPeERFrbTuDfcQhsUAbic4=";
     };
   };
-in {
+in
+{
   programs.tmux = {
     enable = true;
     sensibleOnTop = true;

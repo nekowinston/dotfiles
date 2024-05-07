@@ -7,15 +7,16 @@
   symlinkJoin,
   writeScriptBin,
   # command line arguments which are always set e.g "--disable-gpu"
-  commandLineArgs ? [],
-}: let
+  commandLineArgs ? [ ],
+}:
+let
   name = "apple-music-via-google-chrome";
 
   meta = {
     description = "Open Apple Music in Google Chrome app mode";
     homepage = google-chrome.meta.homepage or null;
     license = lib.licenses.unfree;
-    maintainers = [lib.maintainers.roberth];
+    maintainers = [ lib.maintainers.roberth ];
     platforms = google-chrome.meta.platforms or lib.platforms.all;
   };
 
@@ -30,7 +31,7 @@
     };
     desktopName = "Apple Music via Google Chrome";
     genericName = "Music streaming service";
-    categories = ["AudioVideo"];
+    categories = [ "AudioVideo" ];
     startupNotify = true;
   };
 
@@ -44,7 +45,10 @@
       "$@"
   '';
 in
-  symlinkJoin {
-    inherit name meta;
-    paths = [script desktopItem];
-  }
+symlinkJoin {
+  inherit name meta;
+  paths = [
+    script
+    desktopItem
+  ];
+}

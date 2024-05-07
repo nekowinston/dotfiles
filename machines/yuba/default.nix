@@ -1,5 +1,5 @@
 {
-  imports = [../common/wsl];
+  imports = [ ../common/wsl ];
 
   i18n.defaultLocale = "en_US.UTF-8";
   location = {

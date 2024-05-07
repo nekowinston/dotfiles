@@ -3,9 +3,11 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   themeDir = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}";
-in {
+in
+{
   config = lib.mkIf (config.isGraphical && pkgs.stdenv.isLinux) {
     home.pointerCursor = {
       name = "macOS-Monterey";

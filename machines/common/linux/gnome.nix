@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   config = lib.mkIf (config.dotfiles.desktop == "gnome") {
     services.xserver = {
       enable = true;
@@ -11,7 +12,7 @@
       desktopManager.gnome.enable = true;
     };
 
-    environment.systemPackages = with pkgs; [gnomeExtensions.appindicator];
+    environment.systemPackages = with pkgs; [ gnomeExtensions.appindicator ];
 
     hardware.pulseaudio.enable = false;
 

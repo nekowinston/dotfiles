@@ -1,55 +1,59 @@
-{
-  inputs,
-  overlays,
-}: rec {
-  hmCommonConfig = {username}: ({
-    config,
-    pkgs,
-    ...
-  }: let
-    homeLib = import ../home/lib.nix {inherit inputs username pkgs;};
-  in {
-    config = {
-      nixpkgs = {
-        overlays = overlays;
-        config.permittedInsecurePackages = [];
-      };
-      home-manager = {
-        backupFileExtension = "backup";
-        extraSpecialArgs = homeLib.extraSpecialArgs;
-        sharedModules = homeLib.modules;
-        useGlobalPkgs = true;
-        useUserPackages = true;
-        users.${username}.imports = [../home];
-      };
-    };
-  });
+{ inputs, overlays }:
+rec {
+  hmCommonConfig =
+    { username }:
+    (
+      { config, pkgs, ... }:
+      let
+        homeLib = import ../home/lib.nix { inherit inputs username pkgs; };
+      in
+      {
+        config = {
+          nixpkgs = {
+            overlays = overlays;
+            config.permittedInsecurePackages = [ ];
+          };
+          home-manager = {
+            backupFileExtension = "backup";
+            extraSpecialArgs = homeLib.extraSpecialArgs;
+            sharedModules = homeLib.modules;
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            users.${username}.imports = [ ../home ];
+          };
+        };
+      }
+    );
 
-  mkSystem = {
-    host,
-    system,
-    username,
-    isGraphical ? false,
-    extraModules ? [],
-  }: let
-    ldTernary = l: d:
-      if pkgs.stdenv.isLinux
-      then l
-      else if pkgs.stdenv.isDarwin
-      then d
-      else throw "Unsupported system";
-    target = ldTernary "nixosConfigurations" "darwinConfigurations";
-    builder = with inputs; ldTernary nixpkgs.lib.nixosSystem darwin.lib.darwinSystem;
-    module = ldTernary "nixosModules" "darwinModules";
-    hostPlatform = ldTernary "linux" "darwin";
+  mkSystem =
+    {
+      host,
+      system,
+      username,
+      isGraphical ? false,
+      extraModules ? [ ],
+    }:
+    let
+      ldTernary =
+        l: d:
+        if pkgs.stdenv.isLinux then
+          l
+        else if pkgs.stdenv.isDarwin then
+          d
+        else
+          throw "Unsupported system";
+      target = ldTernary "nixosConfigurations" "darwinConfigurations";
+      builder = with inputs; ldTernary nixpkgs.lib.nixosSystem darwin.lib.darwinSystem;
+      module = ldTernary "nixosModules" "darwinModules";
+      hostPlatform = ldTernary "linux" "darwin";
 
-    pkgs = inputs.nixpkgs.legacyPackages.${system};
-    inherit (pkgs.lib) mkOption types;
-  in {
-    ${target}."${host}" = builder {
-      inherit system;
-      modules =
-        [
+      pkgs = inputs.nixpkgs.legacyPackages.${system};
+      inherit (pkgs.lib) mkOption types;
+    in
+    {
+      ${target}."${host}" = builder {
+        inherit system;
+        modules = [
           {
             options = {
               dotfiles = {
@@ -59,7 +63,12 @@
                   description = "The username of the user";
                 };
                 desktop = mkOption {
-                  type = types.nullOr (types.enum ["gnome" "sway"]);
+                  type = types.nullOr (
+                    types.enum [
+                      "gnome"
+                      "sway"
+                    ]
+                  );
                   default = "sway";
                   description = "The desktop environment to use";
                 };
@@ -77,12 +86,12 @@
           ./common/${hostPlatform}
           ./${host}
           inputs.home-manager.${module}.home-manager
-        ]
-        ++ [(hmCommonConfig {inherit username;})]
-        ++ extraModules;
-      specialArgs = {inherit inputs;};
+        ] ++ [ (hmCommonConfig { inherit username; }) ] ++ extraModules;
+        specialArgs = {
+          inherit inputs;
+        };
+      };
     };
-  };
 
   mkSystems = systems: inputs.nixpkgs.lib.mkMerge (map mkSystem systems);
 }

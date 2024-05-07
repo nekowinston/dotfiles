@@ -3,9 +3,11 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (pkgs.stdenv) isLinux;
-in {
+in
+{
   config = lib.mkIf config.isGraphical {
     programs.chromium = {
       enable = isLinux;
@@ -155,9 +157,7 @@ in {
       };
     };
 
-    home.packages = lib.mkIf isLinux [
-      pkgs.mullvad-browser
-    ];
+    home.packages = lib.mkIf isLinux [ pkgs.mullvad-browser ];
 
     xdg.mimeApps.defaultApplications = {
       "text/html" = "chromium.desktop";

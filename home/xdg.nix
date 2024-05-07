@@ -5,11 +5,18 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
-  inherit (config.xdg) cacheHome configHome dataHome stateHome;
+  inherit (config.xdg)
+    cacheHome
+    configHome
+    dataHome
+    stateHome
+    ;
   inherit (config.home) homeDirectory;
-in {
+in
+{
   home = rec {
     sessionVariables = {
       AZURE_CONFIG_DIR = "${configHome}/azure";

@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   commonSettings = {
     layer = "top";
     position = "top";
@@ -12,7 +13,7 @@
     spacing = 2;
     margin = "2";
 
-    modules-center = ["hyprland/window"];
+    modules-center = [ "hyprland/window" ];
     modules-right = [
       "tray"
       "idle_inhibitor"
@@ -112,34 +113,33 @@
       padding: 0 10px;
     }
   '';
-in {
+in
+{
   config = lib.mkIf (config.isGraphical && pkgs.stdenv.isLinux) {
     programs.waybar = {
       enable = true;
 
       settings = {
-        hyprland =
-          commonSettings
-          // {
-            modules-left = ["hyprland/workspaces"];
-            "hyprland/workspaces" = {
-              format = "{icon}";
-              on-click = "activate";
-              format-icons = {
-                "1" = "Ⅰ";
-                "2" = "Ⅱ";
-                "3" = "Ⅲ";
-                "4" = "Ⅳ";
-                "5" = "Ⅴ";
-                "6" = "Ⅵ";
-                "7" = "Ⅶ";
-                "8" = "Ⅷ";
-                "9" = "Ⅸ";
-                "10" = "Ⅹ";
-              };
-              persistent-workspaces."*" = 10;
+        hyprland = commonSettings // {
+          modules-left = [ "hyprland/workspaces" ];
+          "hyprland/workspaces" = {
+            format = "{icon}";
+            on-click = "activate";
+            format-icons = {
+              "1" = "Ⅰ";
+              "2" = "Ⅱ";
+              "3" = "Ⅲ";
+              "4" = "Ⅳ";
+              "5" = "Ⅴ";
+              "6" = "Ⅵ";
+              "7" = "Ⅶ";
+              "8" = "Ⅷ";
+              "9" = "Ⅸ";
+              "10" = "Ⅹ";
             };
+            persistent-workspaces."*" = 10;
           };
+        };
       };
     };
     xdg.configFile = {

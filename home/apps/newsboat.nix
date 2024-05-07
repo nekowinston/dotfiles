@@ -1,13 +1,12 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   inherit (pkgs.stdenv.hostPlatform) isLinux;
-in {
+in
+{
   programs.newsboat = rec {
     enable = true;
     autoReload = true;
-    browser =
-      if isLinux
-      then "${pkgs.xdg-utils}/bin/xdg-open"
-      else "open";
+    browser = if isLinux then "${pkgs.xdg-utils}/bin/xdg-open" else "open";
     extraConfig = ''
       urls-source "freshrss"
       freshrss-url "https://freshrss.winston.sh/api/greader.php"

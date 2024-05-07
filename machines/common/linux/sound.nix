@@ -1,4 +1,5 @@
-{config, ...}: {
+{ config, ... }:
+{
   programs.noisetorch.enable = config.isGraphical;
   security.rtkit.enable = true;
   services = {

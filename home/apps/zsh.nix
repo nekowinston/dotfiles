@@ -3,26 +3,29 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (pkgs.stdenv) isLinux;
-  srcs = pkgs.callPackage ../../_sources/generated.nix {};
-  zshPlugins = plugins: (map (plugin: rec {
+  srcs = pkgs.callPackage ../../_sources/generated.nix { };
+  zshPlugins =
+    plugins:
+    (map (plugin: rec {
       name = src.name;
       inherit (plugin) file src;
-    })
-    plugins);
-in {
+    }) plugins);
+in
+{
   home.sessionVariables = {
     LESS = "-R --use-color";
     LESSHISTFILE = "-";
     MANPAGER = "sh -c 'col -bx | bat -l man -p'";
   };
-  home.packages = [pkgs.onefetch];
+  home.packages = [ pkgs.onefetch ];
 
   programs = {
     atuin = {
       enable = true;
-      flags = ["--disable-up-arrow"];
+      flags = [ "--disable-up-arrow" ];
       settings = {
         inline_height = 30;
         style = "compact";
@@ -87,7 +90,11 @@ in {
         prompt = "#cba6f7";
         spinner = "#f5e0dc";
       };
-      defaultOptions = ["--height=30%" "--layout=reverse" "--info=inline"];
+      defaultOptions = [
+        "--height=30%"
+        "--layout=reverse"
+        "--info=inline"
+      ];
     };
 
     less.enable = true;
@@ -161,8 +168,16 @@ in {
       oh-my-zsh = {
         enable = true;
         plugins =
-          ["colored-man-pages" "colorize" "git" "kubectl"]
-          ++ lib.optionals pkgs.stdenv.isDarwin ["dash" "macos"];
+          [
+            "colored-man-pages"
+            "colorize"
+            "git"
+            "kubectl"
+          ]
+          ++ lib.optionals pkgs.stdenv.isDarwin [
+            "dash"
+            "macos"
+          ];
       };
       plugins = zshPlugins [
         {

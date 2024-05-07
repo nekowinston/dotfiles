@@ -5,13 +5,15 @@
   pkgs,
   isNixOS,
   ...
-}: let
+}:
+let
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
 
   settingsJSON = config.lib.file.mkOutOfStoreSymlink "${flakePath}/home/apps/vscode/settings.json";
   keybindingsJSON = config.lib.file.mkOutOfStoreSymlink "${flakePath}/home/apps/vscode/keybindings.json";
   snippetsDir = config.lib.file.mkOutOfStoreSymlink "${flakePath}/home/apps/vscode/snippets";
-in {
+in
+{
   programs.vscode = {
     enable = config.isGraphical;
     extensions =
@@ -36,24 +38,11 @@ in {
         # some default config patching to make these work without needing devShells all the time.
         # other extensions like Go/Rust are only really used with devShells,
         # nix & shell are universal enough for me to want them everywhere.
-        (jnoortheen.nix-ide.overrideAttrs (prev: {
-          nativeBuildInputs = prev.nativeBuildInputs ++ [pkgs.jq pkgs.moreutils];
-          postInstall = ''
-            cd "$out/$installPrefix"
-            jq -e '
-              .contributes.configuration.properties."nix.formatterPath".default =
-                "${pkgs.alejandra}/bin/alejandra" |
-              .contributes.configuration.properties."nix.enableLanguageServer".default =
-                "true" |
-              .contributes.configuration.properties."nix.serverPath".default =
-                "${pkgs.nil}/bin/nil" |
-              .contributes.configuration.properties."nix.serverSettings".default.nil.formatting.command[0] =
-                "${pkgs.alejandra}/bin/alejandra"
-            ' < package.json | sponge package.json
-          '';
-        }))
         (mads-hartmann.bash-ide-vscode.overrideAttrs (prev: {
-          nativeBuildInputs = prev.nativeBuildInputs ++ [pkgs.jq pkgs.moreutils];
+          nativeBuildInputs = prev.nativeBuildInputs ++ [
+            pkgs.jq
+            pkgs.moreutils
+          ];
           postInstall = ''
             cd "$out/$installPrefix"
             jq -e '
@@ -63,7 +52,10 @@ in {
           '';
         }))
         (mkhl.shfmt.overrideAttrs (prev: {
-          nativeBuildInputs = prev.nativeBuildInputs ++ [pkgs.jq pkgs.moreutils];
+          nativeBuildInputs = prev.nativeBuildInputs ++ [
+            pkgs.jq
+            pkgs.moreutils
+          ];
           postInstall = ''
             cd "$out/$installPrefix"
             jq -e '
@@ -72,8 +64,6 @@ in {
             ' < package.json | sponge package.json
           '';
         }))
-        ms-vscode-remote.remote-ssh-edit
-        ms-vscode.remote-explorer
         adrianwilczynski.alpine-js-intellisense
         antfu.icons-carbon
         arcanis.vscode-zipfs
@@ -95,13 +85,18 @@ in {
         golang.go
         graphql.vscode-graphql-syntax
         gruntfuggly.todo-tree
+        hbenl.vscode-test-explorer
+        jnoortheen.nix-ide
         jock.svg
         leonardssh.vscord
         lunuan.kubernetes-templates
         mikestead.dotenv
         mkhl.direnv
         ms-kubernetes-tools.vscode-kubernetes-tools
+        ms-vscode-remote.remote-ssh-edit
         ms-vscode.live-server
+        ms-vscode.remote-explorer
+        ms-vscode.test-adapter-converter
         oscarotero.vento-syntax
         redhat.vscode-yaml
         ryanluker.vscode-coverage-gutters
@@ -113,19 +108,7 @@ in {
         usernamehw.errorlens
         vscodevim.vim
         wakatime.vscode-wakatime
-        ms-vscode.test-adapter-converter
-        hbenl.vscode-test-explorer
         webfreak.code-d
-        # (webfreak.code-d.overrideAttrs (prev: {
-        #   nativeBuildInputs = prev.nativeBuildInputs ++ [pkgs.jq pkgs.moreutils];
-        #   postInstall = ''
-        #     cd "$out/$installPrefix"
-        #     jq -e '
-        #       .contributes.configuration.properties."d.dcdClientPath".default =
-        #         "${pkgs.alejandra}/bin/alejandra"
-        #     ' < package.json | sponge package.json
-        #   '';
-        # }))
       ]);
     mutableExtensionsDir = true;
   };

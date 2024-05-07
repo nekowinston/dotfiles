@@ -3,15 +3,17 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (pkgs.stdenv.hostPlatform) isLinux;
-in {
+in
+{
   config = lib.mkIf config.isGraphical {
     programs.imv.enable = isLinux;
     programs.mpv.enable = isLinux;
     programs.zathura.enable = isLinux;
 
-    home.packages = lib.mkIf isLinux [(pkgs.callPackage ../../pkgs/apple-music.nix {})];
+    home.packages = lib.mkIf isLinux [ (pkgs.callPackage ../../pkgs/apple-music.nix { }) ];
 
     services.mopidy = lib.mkIf isLinux {
       enable = true;

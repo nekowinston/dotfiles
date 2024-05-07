@@ -6,8 +6,9 @@ let
   };
   yubikeys._5ci = "age1yubikey1qfkn095xth4ukxjye98ew4ul6xdkyz7sek0hd67yfjs5z6tv7q9jgnfchls";
 
-  default = [yubikeys._5ci] ++ (builtins.attrValues homes);
-in {
+  default = [ yubikeys._5ci ] ++ (builtins.attrValues homes);
+in
+{
   "home/secrets/aerc-personal.conf.age".publicKeys = default;
   "home/secrets/gitconfig-freelance.age".publicKeys = default;
   "home/secrets/gitconfig-work.age".publicKeys = default;

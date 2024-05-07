@@ -1,8 +1,5 @@
+{ config, pkgs, ... }:
 {
-  config,
-  pkgs,
-  ...
-}: {
   programs.git.includes = [
     {
       condition = "gitdir:~/Code/work/";
@@ -15,7 +12,10 @@
   ];
 
   # use fsmonitor
-  home.packages = [pkgs.rs-git-fsmonitor pkgs.watchman];
+  home.packages = [
+    pkgs.rs-git-fsmonitor
+    pkgs.watchman
+  ];
 
   programs.git = {
     enable = true;

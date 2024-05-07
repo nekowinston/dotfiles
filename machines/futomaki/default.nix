@@ -1,9 +1,6 @@
+{ config, pkgs, ... }:
 {
-  config,
-  pkgs,
-  ...
-}: {
-  imports = [./hardware.nix];
+  imports = [ ./hardware.nix ];
 
   dotfiles.desktop = "sway";
 
@@ -30,7 +27,10 @@
   virtualisation.podman.enable = true;
   virtualisation.libvirtd.enable = true;
 
-  users.users."${config.dotfiles.username}".extraGroups = ["libvirtd" "transmission"];
+  users.users."${config.dotfiles.username}".extraGroups = [
+    "libvirtd"
+    "transmission"
+  ];
 
   environment.systemPackages = with pkgs; [
     cabextract
@@ -56,8 +56,8 @@
       enable = true;
       package = pkgs.steam.override {
         extraEnv.MANGOHUD = 1;
-        extraPkgs = p:
-          with p; [
+        extraPkgs =
+          p: with p; [
             corefonts
             protontricks
             gamescope

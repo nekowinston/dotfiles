@@ -1,23 +1,20 @@
 {
   description = "nekowinston's hm flake";
 
-  outputs = {
-    flake-parts,
-    self,
-    ...
-  } @ inputs: let
-    inherit (import ./machines/lib.nix {inherit inputs overlays;}) mkSystems;
-    overlays = import ./pkgs/overlays.nix {inherit inputs;};
-  in
-    flake-parts.lib.mkFlake {inherit self inputs;}
-    {
+  outputs =
+    { flake-parts, self, ... }@inputs:
+    let
+      inherit (import ./machines/lib.nix { inherit inputs overlays; }) mkSystems;
+      overlays = import ./pkgs/overlays.nix { inherit inputs; };
+    in
+    flake-parts.lib.mkFlake { inherit self inputs; } {
       flake = mkSystems [
         {
           host = "sashimi";
           system = "aarch64-darwin";
           username = "winston";
           isGraphical = true;
-          extraModules = [inputs.nekowinston-nur.darwinModules.default];
+          extraModules = [ inputs.nekowinston-nur.darwinModules.default ];
         }
         {
           host = "futomaki";
@@ -30,61 +27,79 @@
           system = "x86_64-linux";
           username = "winston";
           isGraphical = false;
-          extraModules = [inputs.wsl.nixosModules.default];
+          extraModules = [ inputs.wsl.nixosModules.default ];
         }
       ];
-      imports = [inputs.pre-commit-hooks.flakeModule];
-      perSystem = {
-        config,
-        self',
-        inputs',
-        pkgs,
-        system,
-        ...
-      }: {
-        _module.args.pkgs = import inputs.nixpkgs {
-          inherit overlays system;
-          config.allowUnfree = true;
-        };
-
-        pre-commit = {
-          check.enable = true;
-          settings.excludes = ["_sources/"];
-          settings.hooks = {
-            alejandra.enable = true;
-            commitizen.enable = true;
-            editorconfig-checker.enable = true;
-            luacheck.enable = true;
-            nil.enable = true;
-            shellcheck.enable = true;
-            stylua.enable = true;
+      imports = [ inputs.pre-commit-hooks.flakeModule ];
+      perSystem =
+        {
+          config,
+          self',
+          inputs',
+          pkgs,
+          lib,
+          system,
+          ...
+        }:
+        {
+          _module.args.pkgs = import inputs.nixpkgs {
+            inherit overlays system;
+            config.allowUnfree = true;
           };
-        };
 
-        devShells.default = pkgs.mkShell {
-          inherit (config.pre-commit.devShell) shellHook;
-          RULES = "./home/secrets/secrets.nix";
-          buildInputs = with pkgs;
-            [alejandra just nil nix-output-monitor nvd inputs'.agenix.packages.agenix]
-            ++ lib.optionals stdenv.isDarwin [inputs'.darwin.packages.darwin-rebuild];
-        };
-
-        legacyPackages.homeConfigurations = let
-          homeLib = import ./home/lib.nix {
-            inherit inputs pkgs username;
-            isNixOS = false;
+          pre-commit = {
+            check.enable = true;
+            settings.excludes = [ "_sources/" ];
+            settings.hooks = {
+              commitizen.enable = true;
+              editorconfig-checker.enable = true;
+              luacheck.enable = true;
+              nil.enable = true;
+              nixfmt.enable = true;
+              nixfmt.package = pkgs.nixfmt-rfc-style;
+              shellcheck.enable = true;
+              stylua.enable = true;
+            };
           };
-          username = "winston";
-        in {
-          ${username} = inputs.home-manager.lib.homeManagerConfiguration {
-            inherit pkgs;
-            inherit (homeLib) extraSpecialArgs modules;
-          };
-        };
 
-        formatter = pkgs.alejandra;
-      };
-      systems = ["aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux"];
+          devShells.default = pkgs.mkShell {
+            inherit (config.pre-commit.devShell) shellHook;
+            RULES = "./home/secrets/secrets.nix";
+            buildInputs =
+              (with pkgs; [
+                just
+                nix-output-monitor
+                nixd
+                nvd
+                self'.formatter
+              ])
+              ++ [ inputs'.agenix.packages.agenix ]
+              ++ lib.optionals pkgs.stdenv.isDarwin [ inputs'.darwin.packages.darwin-rebuild ];
+          };
+
+          legacyPackages.homeConfigurations =
+            let
+              homeLib = import ./home/lib.nix {
+                inherit inputs pkgs username;
+                isNixOS = false;
+              };
+              username = "winston";
+            in
+            {
+              ${username} = inputs.home-manager.lib.homeManagerConfiguration {
+                inherit pkgs;
+                inherit (homeLib) extraSpecialArgs modules;
+              };
+            };
+
+          formatter = pkgs.nixfmt-rfc-style;
+        };
+      systems = [
+        "aarch64-darwin"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "x86_64-linux"
+      ];
     };
 
   nixConfig = {

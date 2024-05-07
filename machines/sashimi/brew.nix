@@ -1,4 +1,5 @@
-{config, ...}: let
+{ config, ... }:
+let
   noQuarantine = name: {
     inherit name;
     args.no_quarantine = true;
@@ -7,9 +8,10 @@
     inherit name;
     args.require_sha = false;
   };
-in {
+in
+{
   # make brew available in PATH
-  environment.systemPath = [config.homebrew.brewPrefix];
+  environment.systemPath = [ config.homebrew.brewPrefix ];
 
   homebrew = {
     enable = true;
@@ -50,6 +52,6 @@ in {
       autoUpdate = true;
       upgrade = true;
     };
-    taps = ["homebrew/cask"];
+    taps = [ "homebrew/cask" ];
   };
 }

@@ -40,7 +40,10 @@
           keyFile = builtins.toString ../certs/local.key;
         };
         http.routers.traefik = {
-          entryPoints = ["http" "https"];
+          entryPoints = [
+            "http"
+            "https"
+          ];
           rule = "Host(`traefik.this.test`)";
           tls = true;
           service = "api@internal";

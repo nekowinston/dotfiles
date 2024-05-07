@@ -1,5 +1,5 @@
 {
-  imports = [./brew.nix];
+  imports = [ ./brew.nix ];
 
   nix.settings.extra-platforms = [
     "aarch64-darwin"

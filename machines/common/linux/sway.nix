@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   config = lib.mkIf (config.dotfiles.desktop == "sway") {
     environment.systemPackages = with pkgs; [
       # file management
@@ -22,7 +23,7 @@
     ];
     programs.dconf.enable = true;
 
-    environment.pathsToLink = ["/share/nautilus-python/extensions"];
+    environment.pathsToLink = [ "/share/nautilus-python/extensions" ];
     environment.sessionVariables.NAUTILUS_4_EXTENSION_DIR = "${config.system.path}/lib/nautilus/extensions-4";
 
     programs.hyprland.enable = true;

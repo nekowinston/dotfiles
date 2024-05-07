@@ -1,10 +1,8 @@
-{
-  lib,
-  pkgs,
-  ...
-}: let
+{ lib, pkgs, ... }:
+let
   inherit (lib) mkForce;
-in {
+in
+{
   services = {
     kanata.enable = mkForce false;
     dnsmasq.enable = mkForce false;

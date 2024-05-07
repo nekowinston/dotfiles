@@ -1,4 +1,5 @@
-{config, ...}: {
+{ config, ... }:
+{
   age.secrets."aerc-personal.conf".path = "${config.xdg.configHome}/aerc/accounts.conf";
   programs = {
     aerc = {
