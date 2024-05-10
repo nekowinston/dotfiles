@@ -38,8 +38,8 @@
   "window.autoDetectColorScheme": true,
   "window.commandCenter": false,
   "window.titleBarStyle": "custom",
-  "workbench.colorTheme": "Catppuccin Latte",
-  "workbench.iconTheme": "catppuccin-latte",
+  "workbench.colorTheme": "Catppuccin Mocha",
+  "workbench.iconTheme": "catppuccin-mocha",
   "workbench.layoutControl.enabled": false,
   "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
   "workbench.preferredLightColorTheme": "Catppuccin Latte",
@@ -75,13 +75,17 @@
     "*.ts": "$(capture).js, $(capture).d.ts.map, $(capture).*.ts, $(capture)_*.js, $(capture)_*.ts",
     "*.tsx": "$(capture).ts, $(capture).*.tsx, $(capture)_*.ts, $(capture)_*.tsx, $(capture).less, $(capture).module.less, $(capture).scss, $(capture).module.scss",
     ".env": "*.env, .env.*, .envrc, env.d.ts",
+    "*": "$(capture).license",
     "cargo.toml": ".clippy.toml, .rustfmt.toml, cargo.lock, clippy.toml, cross.toml, rust-toolchain.toml, rustfmt.toml",
     "default.nix": "shell.nix",
     "deno.json": "deno.lock",
     "flake.nix": "flake.lock",
-    "package.json": "package-lock.json, pnpm-lock.yaml, yarn.lock, yarn.config.cjs, .yarn*, .pnp.*, .eslint*, .prettier*",
+    "package.json": "package-lock.json, pnpm-lock.yaml, yarn.lock, yarn.config.cjs, .yarn*, jsconfig.json, tsconfig.json, *config.js, *.config.cjs, *.config.mjs, .pnp.*, .eslint*, .prettier*, .npmrc",
     "readme*": "authors, backers*, changelog*, citation*, code_of_conduct*, codeowners, contributing*, contributors, copying*, credits, governance.md, history.md, license*, maintainers, readme*, security.md, sponsors*",
     "release-please-config.json": ".release-please-manifest.json"
+  },
+  "files.associations": {
+    "dep5": "debian-copyright"
   },
 
   "remote.SSH.useLocalServer": false,

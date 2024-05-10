@@ -21,7 +21,12 @@ in
         # patches
         ms-python.python
         ms-python.vscode-pylance
+        # locked to the latest release
+        ms-kubernetes-tools.vscode-kubernetes-tools
         ms-vscode-remote.remote-ssh
+        ms-vscode.hexeditor
+        ms-vscode.live-server
+        ms-vscode.test-adapter-converter
         sumneko.lua
         # needs a pinned release
         github.vscode-pull-request-github
@@ -92,11 +97,6 @@ in
         lunuan.kubernetes-templates
         mikestead.dotenv
         mkhl.direnv
-        ms-kubernetes-tools.vscode-kubernetes-tools
-        ms-vscode-remote.remote-ssh-edit
-        ms-vscode.live-server
-        ms-vscode.remote-explorer
-        ms-vscode.test-adapter-converter
         oscarotero.vento-syntax
         redhat.vscode-yaml
         ryanluker.vscode-coverage-gutters
