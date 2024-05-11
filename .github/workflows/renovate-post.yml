@@ -1,0 +1,27 @@
+jobs:
+  render_dhall_changes:
+    if: "${{github.actor == 'renovate[bot]'}}"
+    name: Render Dhall changes
+    permissions:
+      contents: write
+    "runs-on": "ubuntu-latest"
+    steps:
+    - uses: "actions/checkout@v4"
+    - uses: "DeterminateSystems/nix-installer-action@v11"
+    - run: |
+        #!/usr/bin/env bash
+        set -euo pipefail
+
+        for file in .github/workflows/*.dhall; do
+          nix shell nixpkgs#dhall-yaml -c dhall-to-yaml-ng --file "$file" >"${file%.dhall}.yml"
+        done
+    - uses: "EndBug/add-and-commit@v9.1.4"
+      with:
+        author_email: "<29139614+renovate[bot]@users.noreply.github.com>"
+        author_name: "renovate[bot]"
+        message: Render Dhall changes
+name: "renovate-post"
+'on':
+  push:
+    branches:
+    - "renovate/*"
