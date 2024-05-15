@@ -14,7 +14,7 @@ let check =
       , steps =
         [ GithubActions.Step::{ uses = Some "actions/checkout@v4" }
         , GithubActions.Step::{
-          , uses = Some "DeterminateSystems/flake-checker-action@v5"
+          , uses = Some "DeterminateSystems/flake-checker-action@v7"
           }
         , GithubActions.Step::{
           , uses = Some "DeterminateSystems/nix-installer-action@v11"
