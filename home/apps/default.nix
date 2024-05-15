@@ -1,6 +1,7 @@
 {
   imports = [
     ./browsers.nix
+    ./cli.nix
     ./colorscheme-sync.nix
     ./discord.nix
     ./fonts.nix
@@ -15,6 +16,7 @@
     ./media.nix
     ./neovim.nix
     ./newsboat.nix
+    ./nu.nix
     ./rice.nix
     ./sway.nix
     ./tmux.nix

@@ -4,6 +4,8 @@ local utils = require("config.utils")
 
 require("config.keys").apply(c)
 
+c.default_prog = { "nu" }
+
 c.font = wezterm.font_with_fallback({
   "Berkeley Mono",
   "Symbols Nerd Font",
@@ -28,8 +30,6 @@ if utils.is_darwin() then
   require("bar.plugin").apply_to_config(c)
 end
 
-require("catppuccin.plugin").apply_to_config(c, {
-  sync = true,
-})
+require("catppuccin.plugin").apply_to_config(c, { sync = true })
 
 return c

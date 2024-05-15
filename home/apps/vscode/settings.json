@@ -291,5 +291,17 @@
   "vs-kubernetes": {
     "vs-kubernetes.crd-code-completion": "enabled",
     "vs-kubernetes.minikube-show-information-expiration": "2024-06-09T06:56:22.175Z"
+  },
+  "editor.tokenColorCustomizations": {
+    "[Catppuccin Mocha]": {
+      "textMateRules": [
+        {
+          "scope": "storage.type.dhall",
+          "settings": {
+            "foreground": "#FF0000"
+          }
+        }
+      ]
+    }
   }
 }

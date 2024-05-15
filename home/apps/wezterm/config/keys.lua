@@ -4,6 +4,10 @@ local act = wezterm.action
 
 local shortcuts = {}
 
+---@param key string
+---@param mods string|string[]
+---@param action wezterm.Action
+---@return nil
 local map = function(key, mods, action)
   if type(mods) == "string" then
     table.insert(shortcuts, { key = key, mods = mods, action = action })
@@ -127,12 +131,12 @@ M.apply = function(c)
     {
       event = { Down = { streak = 1, button = { WheelUp = 1 } } },
       mods = "NONE",
-      action = wezterm.action.ScrollByLine(5),
+      action = act.ScrollByLine(5),
     },
     {
       event = { Down = { streak = 1, button = { WheelDown = 1 } } },
       mods = "NONE",
-      action = wezterm.action.ScrollByLine(-5),
+      action = act.ScrollByLine(-5),
     },
   }
 end

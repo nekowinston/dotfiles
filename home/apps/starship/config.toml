@@ -1,7 +1,7 @@
 '$schema' = 'https://starship.rs/config-schema.json'
 
 format = """
-[╭](surface2)\
+[┌](surface2)\
 $directory\
 $username\
 $hostname\
@@ -71,8 +71,7 @@ $terraform)\
 $line_break\
 \
 $shell\
-[╰](surface2)\
-$character"""
+[└](surface2)"""
 
 add_newline = true
 continuation_prompt = '[>](bold subtext0) '
