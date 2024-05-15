@@ -1,9 +1,13 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:best-practices", "schedule:weekly", ":automergeAll"],
-  "github-actions": {
-    "enabled": false
-  },
+  "extends": [
+    "config:recommended",
+    "docker:pinDigests",
+    "helpers:pinGitHubActionDigestsToSemver",
+    ":pinDevDependencies",
+    "schedule:weekly",
+    ":automergeAll"
+  ],
   "nix": {
     "enabled": true
   },
