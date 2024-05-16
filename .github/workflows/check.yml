@@ -1,16 +1,14 @@
+env:
+  NIX_CONFIG: "accept-flake-config = true"
 jobs:
   check:
     "runs-on": "ubuntu-latest"
     steps:
-    - uses: "actions/checkout@v4"
+    - uses: "actions/checkout@v4.1.5"
     - uses: "DeterminateSystems/flake-checker-action@v7"
     - uses: "DeterminateSystems/nix-installer-action@v11"
     - uses: "DeterminateSystems/magic-nix-cache-action@v6"
-    - env:
-        NIX_CONFIG: |
-          accept-flake-config = true
-          extra-experimental-features = flakes nix-command
-      run: "nix flake check --show-trace"
+    - run: "nix flake check --show-trace"
 name: check
 'on':
   push:

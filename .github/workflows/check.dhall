@@ -2,11 +2,7 @@ let GithubActions =
       https://github.com/regadas/github-actions-dhall/raw/master/package.dhall
         sha256:9c1ae46a1d56f1c22dbc9006cbb3e569806e75d02fded38fa102935b34980395
 
-let NIX_CONFIG =
-      ''
-      accept-flake-config = true
-      extra-experimental-features = flakes nix-command
-      ''
+let NIX_CONFIG = "accept-flake-config = true"
 
 let check =
       GithubActions.Job::{
@@ -22,10 +18,7 @@ let check =
         , GithubActions.Step::{
           , uses = Some "DeterminateSystems/magic-nix-cache-action@v6"
           }
-        , GithubActions.Step::{
-          , env = Some (toMap { NIX_CONFIG })
-          , run = Some "nix flake check --show-trace"
-          }
+        , GithubActions.Step::{ run = Some "nix flake check --show-trace" }
         ]
       }
 
@@ -34,5 +27,6 @@ in  GithubActions.Workflow::{
     , on = GithubActions.On::{
       , push = Some GithubActions.Push::{ paths = Some [ "**.nix", "**.lock" ] }
       }
+    , env = Some (toMap { NIX_CONFIG })
     , jobs = toMap { check }
     }
