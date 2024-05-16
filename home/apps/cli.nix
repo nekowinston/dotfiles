@@ -8,7 +8,14 @@ in
     sessionVariables = {
       LESS = "-R --use-color";
       LESSHISTFILE = "-";
-      MANPAGER = "sh -c 'col -bx | bat -l man -p'";
+    };
+    shellAliases = {
+      # switch between yubikeys for the same GPG key
+      switch_yubikeys = ''gpg-connect-agent "scd serialno" "learn --force" "/bye"'';
+
+      # podman
+      docker = "podman";
+      docker-compose = "podman-compose";
     };
   };
 

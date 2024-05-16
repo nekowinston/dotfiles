@@ -1,6 +1,15 @@
-{ lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   plugins = "${pkgs.nu_scripts}/share/nu_scripts";
+
+  shellAliases = lib.concatStringsSep "\n" (
+    lib.mapAttrsToList (k: v: "alias ${k} = ${v}") config.home.shellAliases
+  );
 
   mkCompletions =
     completions:
@@ -49,6 +58,7 @@ in
       ''
         source ${plugins}/aliases/git/git-aliases.nu
       ''
+      + shellAliases
       + mkCompletions completions;
   };
 

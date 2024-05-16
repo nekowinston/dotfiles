@@ -88,6 +88,9 @@ in
         file = "share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh";
       }
     ];
+    sessionVariables = {
+      MANPAGER = "sh -c 'col -bx | bat -l man -p'";
+    };
     shellAliases = {
       cat = "bat";
 
@@ -101,13 +104,6 @@ in
       cp = "cp -i";
       mv = "mv -i";
       rm = "rm -i";
-
-      # switch between yubikeys for the same GPG key
-      switch_yubikeys = ''gpg-connect-agent "scd serialno" "learn --force" "/bye"'';
-
-      # podman
-      docker = "podman";
-      docker-compose = "podman-compose";
     };
     history.path = "${config.xdg.configHome}/zsh/history";
   };
