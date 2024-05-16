@@ -26,21 +26,6 @@ export def main [] {
         ]
       }
     }
-    # replaced by Atuin.sh
-    # {
-    #   name: history_menu
-    #   modifier: control
-    #   keycode: char_r
-    #   mode: [vi_insert, vi_normal]
-    #   event: { send: menu name: history_menu }
-    # }
-    {
-      name: help_menu
-      modifier: none
-      keycode: f1
-      mode: [vi_insert, vi_normal]
-      event: { send: menu name: help_menu }
-    }
     {
       name: completion_previous_menu
       modifier: shift
@@ -179,10 +164,10 @@ export def main [] {
       keycode: end
       mode: [vi_normal, vi_insert]
       event: {
-          until: [
-              { send: historyhintcomplete }
-              { edit: movetolineend }
-          ]
+        until: [
+          { send: historyhintcomplete }
+          { edit: movetolineend }
+        ]
       }
     }
     {
@@ -191,10 +176,10 @@ export def main [] {
       keycode: char_e
       mode: [vi_normal, vi_insert]
       event: {
-          until: [
-              { send: historyhintcomplete }
-              { edit: movetolineend }
-          ]
+        until: [
+          { send: historyhintcomplete }
+          { edit: movetolineend }
+        ]
       }
     }
     {

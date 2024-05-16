@@ -46,6 +46,11 @@ let
       filename = "yarn-v4";
     }
   ];
+
+  command-not-found = pkgs.writeShellScript "command-not-found" ''
+    source ${config.programs.nix-index.package}/etc/profile.d/command-not-found.sh
+    command_not_found_handle "$@"
+  '';
 in
 {
   home.packages = [ pkgs.carapace ];
@@ -56,6 +61,12 @@ in
 
     extraConfig =
       ''
+        $env.config = ($env.config? | default {})
+        $env.config.hooks = ($env.config.hooks? | default {})
+        $env.config.hooks.command_not_found = {
+          |cmd_name| (try { ${command-not-found} $cmd_name })
+        }
+
         source ${plugins}/aliases/git/git-aliases.nu
       ''
       + shellAliases

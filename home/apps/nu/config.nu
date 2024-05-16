@@ -14,14 +14,11 @@ $env.config = {
   show_banner: false
 
   ls: {
-    # use the LS_COLORS environment variable to colorize output
     use_ls_colors: true
-    # enable or disable clickable links. Your terminal has to support links.
     clickable_links: true
   }
 
   rm: {
-    # always act as if -t was given. Can be overridden with -p
     always_trash: false
   }
 
@@ -35,31 +32,20 @@ $env.config = {
     # a left right padding of each column in a table
     padding: { left: 1, right: 1 }
     trim: {
-      # `wrapping` or `truncating`
-      methodology: truncating
-      # A strategy used by the 'wrapping' methodology
-      wrapping_try_keep_words: true
-      # A suffix used by the 'truncating' methodology
+      methodology: truncating # `wrapping` or `truncating`
       truncating_suffix: "…"
     }
     # show header text on separator/border line
     header_on_separator: false
-
     # limit data rows from top and bottom after reaching a set point
     # abbreviated_row_count: 10
   }
 
-  error_style: "fancy" # "fancy" or "plain" for screen reader-friendly error messages
+  error_style: fancy
 
-  # datetime_format determines what a datetime rendered in the shell would look like.
-  # Behavior without this configuration point will be to "humanize" the datetime display,
-  # showing something like "a day ago."
   datetime_format: {
-    # shows up in displays of variables or other datetime's outside of tables
-    # normal: '%a, %d %b %Y %H:%M:%S %z'
-
-    # generally shows up in tabular outputs such as ls. commenting this out will change it to the default human readable datetime format
-    table: '%Y-%m-%d %I:%M:%S%p'
+    normal: "%Y-%m-%d %I:%M:%S%p"
+    table: "%Y-%m-%d %I:%M:%S%p"
   }
 
   explore: {
@@ -80,31 +66,20 @@ $env.config = {
   }
 
   history: {
-    # Session has to be reloaded for this to take effect
     max_size: 100_000
-    # Enable to share history between multiple sessions, else you have to close the session to write history to file
     sync_on_enter: true
-    # "sqlite" or "plaintext"
     file_format: "plaintext"
-    # only available with sqlite file_format. true enables history isolation, false disables it. true will allow the history to be isolated to the current session using up/down arrows. false will allow the history to be shared across all sessions.
     isolation: false
   }
 
   completions: {
-    # set to true to enable case-sensitive completions
     case_sensitive: false
-    # set this to false to prevent auto-selecting completions when only one remains
     quick: true
-    # set this to false to prevent partial filling of the prompt
     partial: true
-    # prefix or fuzzy
     algorithm: "prefix"
     external: {
-      # set to false to prevent nushell looking into $env.PATH to find more suggestions, `false` recommended for WSL users as this look up may be very slow
       enable: true
-      # setting it lower can improve completion performance at the cost of omitting some options
-      max_results: 100
-      # check 'carapace_completer' above as an example
+      max_results: 50
       completer: $carapace_completer
     }
     use_ls_colors: true # set this to true to enable file/path/directory completions using LS_COLORS
@@ -171,10 +146,10 @@ $env.config = {
       marker: "| "
       type: {
         layout: columnar
-        columns: 4
+        columns: 1
         # Optional value. If missing all the screen width is used to calculate column width
-        col_width: 20
-        col_padding: 2
+        # col_width: 20
+        # col_padding: 2
       }
       style: {
         text: green
@@ -215,38 +190,6 @@ $env.config = {
         description_text: yellow
         match_text: { attr: u }
         selected_match_text: { attr: ur }
-      }
-    }
-    {
-      name: history_menu
-      only_buffer_difference: true
-      marker: "? "
-      type: {
-        layout: list
-        page_size: 10
-      }
-      style: {
-        text: green
-        selected_text: green_reverse
-        description_text: yellow
-      }
-    }
-    {
-      name: help_menu
-      only_buffer_difference: true
-      marker: "? "
-      type: {
-        layout: description
-        columns: 4
-        col_width: 20     # Optional value. If missing all the screen width is used to calculate column width
-        col_padding: 2
-        selection_rows: 4
-        description_rows: 10
-      }
-      style: {
-        text: green
-        selected_text: green_reverse
-        description_text: yellow
       }
     }
   ]
