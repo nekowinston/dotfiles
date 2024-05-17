@@ -1,10 +1,6 @@
 use ($nu.default-config-dir | path join 'config/keybindings.nu')
 use ($nu.default-config-dir | path join 'catppuccin.nu')
 
-let carapace_completer = {|spans|
-  carapace $spans.0 nushell ...$spans | from json
-}
-
 $env.PROMPT_INDICATOR = {|| "λ " }
 $env.PROMPT_INDICATOR_VI_INSERT = {|| "λ " }
 $env.PROMPT_INDICATOR_VI_NORMAL = {|| "$ " }
@@ -77,12 +73,7 @@ $env.config = {
     quick: true
     partial: true
     algorithm: "prefix"
-    external: {
-      enable: true
-      max_results: 50
-      completer: $carapace_completer
-    }
-    use_ls_colors: true # set this to true to enable file/path/directory completions using LS_COLORS
+    use_ls_colors: true
   }
 
   filesize: {

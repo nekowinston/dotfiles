@@ -53,7 +53,7 @@ let
   '';
 in
 {
-  home.packages = [ pkgs.carapace ];
+  programs.carapace.enable = true;
   programs.nushell = {
     enable = true;
 
