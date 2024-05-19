@@ -7,13 +7,12 @@
 let
   inherit (pkgs.stdenv) isDarwin isLinux;
 
-  vividBuilder =
-    flavor:
-    pkgs.runCommand "vivid-${flavor}" { nativeBuildInputs = [ pkgs.vivid ]; } ''
-      vivid generate catppuccin-${flavor} > $out
-    '';
-  vividLatte = vividBuilder "latte";
-  vividMocha = vividBuilder "mocha";
+  vividCatppuccin = pkgs.runCommand "vivid-catppuccin" { nativeBuildInputs = [ pkgs.vivid ]; } ''
+    mkdir -p $out
+    for flavor in mocha macchiato frappe latte; do
+      vivid generate "catppuccin-''${flavor}" > "$out/''${flavor}"
+    done
+  '';
 in
 {
   config = lib.mkIf config.isGraphical {
@@ -69,48 +68,32 @@ in
 
     programs.zsh.initExtra = ''
       zadm_sync() {
-        BAT_THEME="Catppuccin $(dark-mode-ternary Mocha Latte)"
-        LS_COLORS="$(cat $(dark-mode-ternary ${vividMocha} ${vividLatte}))"
-        STARSHIP_CONFIG__PALETTE="catppuccin_$(dark-mode-ternary mocha latte)"
+        local flavor="$(dark-mode-ternary mocha latte)"
+
+        BAT_THEME="Catppuccin ''${flavor^}"
+        LS_COLORS="$(cat "${vividCatppuccin}/''${flavor}")"
+        STARSHIP_CONFIG__PALETTE="catppuccin_''${flavor}"
 
         export BAT_THEME LS_COLORS STARSHIP_CONFIG__PALETTE
 
-        fast-theme "XDG:catppuccin-$(dark-mode-ternary mocha latte)" >/dev/null
+        fast-theme "XDG:catppuccin-''${flavor}" >/dev/null
       }
       add-zsh-hook precmd zadm_sync
     '';
     programs.nushell.extraConfig = ''
-      def dark-mode-ternary [dark: string, light: string] {
-        let system = (uname | get operating-system);
-
-        if ($system == "Darwin") {
-          if ((defaults read -g AppleInterfaceStyle e> /dev/null =) == "Dark") {
-            $dark
-          } else {
-            $light
-          }
-        } else if ($system == "Linux") {
-          if ((dbus-send --session --print-reply=literal --reply-timeout=5 --dest=org.freedesktop.portal.Desktop /org/freedesktop/portal/desktop org.freedesktop.portal.Settings.Read string:'org.freedesktop.appearance' string:'color-scheme' e> /dev/null | str contains "uint32 1")) {
-            $dark
-          } else {
-            $light
-          }
-        } else {
-          $light
-        }
-      }
-
       $env.config = ($env.config? | default {})
       $env.config.hooks = ($env.config.hooks? | default {})
       $env.config.hooks.pre_prompt = (
-          $env.config.hooks.pre_prompt?
-          | default []
-          | append [
-            { $env.config.color_config = (catppuccin (dark-mode-ternary mocha latte)) }
-            { $env.BAT_THEME = $"Catppuccin (dark-mode-ternary Mocha Latte)" }
-            { $env.STARSHIP_CONFIG__PALETTE = $"catppuccin_(dark-mode-ternary mocha latte)" }
-            { $env.LS_COLORS = (cat (dark-mode-ternary ${vividMocha} ${vividLatte})) }
-          ]
+        $env.config.hooks.pre_prompt?
+        | default []
+        | append {||
+          let flavor = dark-mode-ternary "mocha" "latte"
+
+          $env.config.color_config = (catppuccin $flavor)
+          $env.BAT_THEME = "Catppuccin " + ($flavor | str capitalize)
+          $env.STARSHIP_CONFIG__PALETTE = "catppuccin_" + $flavor
+          $env.LS_COLORS = (cat $"${vividCatppuccin}/($flavor)")
+        }
       )
     '';
   };
