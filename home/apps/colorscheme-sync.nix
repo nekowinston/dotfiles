@@ -54,14 +54,12 @@ in
       };
       lightModeScripts = {
         gtk-theme = ''
-          ${pkgs.dconf}/bin/dconf write \
-            /org/gnome/desktop/interface/color-scheme "'prefer-light'"
+          ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/color-scheme "'prefer-light'"
         '';
       };
       darkModeScripts = {
         gtk-theme = ''
-          ${pkgs.dconf}/bin/dconf write \
-            /org/gnome/desktop/interface/color-scheme "'prefer-dark'"
+          ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/color-scheme "'prefer-dark'"
         '';
       };
     };
@@ -70,11 +68,9 @@ in
       zadm_sync() {
         local flavor="$(dark-mode-ternary mocha latte)"
 
-        BAT_THEME="Catppuccin ''${flavor^}"
-        LS_COLORS="$(cat "${vividCatppuccin}/''${flavor}")"
-        STARSHIP_CONFIG__PALETTE="catppuccin_''${flavor}"
-
-        export BAT_THEME LS_COLORS STARSHIP_CONFIG__PALETTE
+        export BAT_THEME="Catppuccin ''${(C)flavor}"
+        export LS_COLORS="$(cat "${vividCatppuccin}/''${flavor}")"
+        export STARSHIP_CONFIG__PALETTE="catppuccin_''${flavor}"
 
         fast-theme "XDG:catppuccin-''${flavor}" >/dev/null
       }
