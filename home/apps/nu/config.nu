@@ -1,10 +1,11 @@
 use ($nu.default-config-dir | path join 'config/keybindings.nu')
 use ($nu.default-config-dir | path join 'catppuccin.nu')
 
-$env.PROMPT_INDICATOR = {|| "λ " }
-$env.PROMPT_INDICATOR_VI_INSERT = {|| "λ " }
-$env.PROMPT_INDICATOR_VI_NORMAL = {|| "$ " }
-$env.PROMPT_MULTILINE_INDICATOR = {|| "::: " }
+# use prompt indicators from starship
+$env.PROMPT_INDICATOR = ""
+$env.PROMPT_INDICATOR_VI_INSERT = ""
+$env.PROMPT_INDICATOR_VI_NORMAL = ""
+$env.PROMPT_MULTILINE_INDICATOR = ""
 
 $env.config = {
   show_banner: false

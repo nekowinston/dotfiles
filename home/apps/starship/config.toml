@@ -71,7 +71,8 @@ $terraform)\
 $line_break\
 \
 $shell\
-[└](surface2)"""
+[└](surface2)\
+$character"""
 
 add_newline = true
 continuation_prompt = '[>](bold subtext0) '

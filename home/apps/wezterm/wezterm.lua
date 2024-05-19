@@ -4,8 +4,6 @@ local utils = require("config.utils")
 
 require("config.keys").apply(c)
 
-c.default_prog = { "nu" }
-
 c.font = wezterm.font_with_fallback({
   "Berkeley Mono",
   "Symbols Nerd Font",
