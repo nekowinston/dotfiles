@@ -10,7 +10,7 @@ let
   vividBuilder =
     flavor:
     pkgs.runCommand "vivid-${flavor}" { nativeBuildInputs = [ pkgs.vivid ]; } ''
-      vivid generate ${pkgs.vivid.src}/themes/catppuccin-${flavor}.yml > $out
+      vivid generate catppuccin-${flavor} > $out
     '';
   vividLatte = vividBuilder "latte";
   vividMocha = vividBuilder "mocha";
