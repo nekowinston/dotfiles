@@ -62,7 +62,7 @@
             };
           };
 
-          devShells.default = pkgs.mkShell {
+          devShells.default = pkgs.mkShellNoCC {
             inherit (config.pre-commit.devShell) shellHook;
             RULES = "./home/secrets/secrets.nix";
             buildInputs =
