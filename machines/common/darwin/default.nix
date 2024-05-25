@@ -76,8 +76,14 @@
             "iStat Menus"
           ]}
 
+          # os rules
           ${rule} --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
           ${rule} --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
+          ${rule} --add label="Orion" app="^Orion$" title="^(General|Appearance|Tabs|Browsing|Sync|Passwords|Privacy|Search|Websites|Advanced|Plus)$" manage=off
+
+          # dev rules
+          ${rule} --add label="Dash" app="^Dash$" title="^(General|Downloads|Docsets|Web Search|Integration|Snippets)$" manage=off
+          ${rule} --add label="JetBrains IDE Settings" app="^(CLion|GoLand|PhpStorm|IntelliJ IDEA|PyCharm|RubyMine|RustRover|WebStorm)$" title="^(Settings|Run\/Debug Configurations|Remote Development|Welcome.+|Keyboard Shortcut|Rename|Clear Read-Only Status)$" manage=off
         '';
     };
     skhd = {
