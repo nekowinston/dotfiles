@@ -18,7 +18,6 @@ Here's what you can find:
 - **Firefox** with privacy-centered settings, though I don't use it heavily anymore.
 - My **GPG** & **[Sops.nix](https://github.com/Mic92/sops-nix)** settings
 - Other random bits of config tools I've collected over the years
-- The **[Catppuccin](https://github.com/catppuccin)** theme, wherever possible
 - macOS:
   - **[Yabai](https://github.com/koekeishiya/yabai)** as my WM
 - Linux:

@@ -24,7 +24,7 @@ in
           recursive = true;
         };
         "wezterm/bar".source = srcs.nekowinston-wezterm-bar.src;
-        "wezterm/catppuccin".source = srcs.catppuccin-wezterm.src;
+        "wezterm/milspec".source = srcs.milspec.src + "/extras/wezterm";
       };
     })
   ];

@@ -107,6 +107,4 @@ in
     };
     history.path = "${config.xdg.configHome}/zsh/history";
   };
-
-  xdg.configFile."fsh".source = "${srcs.catppuccin-zsh-fsh.src}/themes";
 }

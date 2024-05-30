@@ -7,10 +7,12 @@
 let
   inherit (pkgs.stdenv) isDarwin isLinux;
 
-  vividCatppuccin = pkgs.runCommand "vivid-catppuccin" { nativeBuildInputs = [ pkgs.vivid ]; } ''
+  milspec = (pkgs.callPackage ../../_sources/generated.nix { }).milspec;
+
+  vividMilspec = pkgs.runCommand "vivid-catppuccin" { nativeBuildInputs = [ pkgs.vivid ]; } ''
     mkdir -p $out
-    for flavor in mocha macchiato frappe latte; do
-      vivid generate "catppuccin-''${flavor}" > "$out/''${flavor}"
+    for variant in dark light; do
+      vivid generate "${milspec.src}/extras/vivid/milspec-''${variant}.yml" > "$out/''${variant}"
     done
   '';
 in
@@ -64,31 +66,40 @@ in
       };
     };
 
+    xdg.configFile."fsh".source = "${milspec.src}/extras/zsh-fast-syntax-highlighting";
     programs.zsh.initExtra = ''
       zadm_sync() {
         local flavor="$(dark-mode-ternary mocha latte)"
+        local variant="$(dark-mode-ternary dark light)"
 
         export BAT_THEME="Catppuccin ''${(C)flavor}"
-        export LS_COLORS="$(cat "${vividCatppuccin}/''${flavor}")"
-        export STARSHIP_CONFIG__PALETTE="catppuccin_''${flavor}"
+        export LS_COLORS="$(cat "${vividMilspec}/''${variant}")"
+        export STARSHIP_CONFIG__PALETTE="milspec_''${variant}"
 
-        fast-theme "XDG:catppuccin-''${flavor}" >/dev/null
+        fast-theme "XDG:milspec-''${variant}" >/dev/null
       }
       add-zsh-hook precmd zadm_sync
     '';
+
     programs.nushell.extraConfig = ''
+      use ${milspec.src}/extras/nu/milspec.nu
+
       $env.config = ($env.config? | default {})
+
+      $env.config.color_config = (milspec -R dark)
+
       $env.config.hooks = ($env.config.hooks? | default {})
       $env.config.hooks.pre_prompt = (
         $env.config.hooks.pre_prompt?
         | default []
         | append {||
           let flavor = dark-mode-ternary "mocha" "latte"
+          let variant = dark-mode-ternary "dark" "light"
 
-          $env.config.color_config = (catppuccin $flavor)
+          $env.config.color_config = (milspec -R $variant)
           $env.BAT_THEME = "Catppuccin " + ($flavor | str capitalize)
-          $env.STARSHIP_CONFIG__PALETTE = "catppuccin_" + $flavor
-          $env.LS_COLORS = (cat $"${vividCatppuccin}/($flavor)")
+          $env.STARSHIP_CONFIG__PALETTE = "milspec_" + $variant
+          $env.LS_COLORS = (cat $"${vividMilspec}/($variant)")
         }
       )
     '';

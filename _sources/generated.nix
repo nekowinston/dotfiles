@@ -4,51 +4,35 @@
   catppuccin-bat = {
     pname = "catppuccin-bat";
     version = "d714cc1d358ea51bfc02550dabab693f70cccea0";
-    src = fetchgit {
-      url = "https://github.com/catppuccin/bat";
+    src = fetchFromGitHub {
+      owner = "catppuccin";
+      repo = "bat";
       rev = "d714cc1d358ea51bfc02550dabab693f70cccea0";
       fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
       sha256 = "sha256-Q5B4NDrfCIK3UAMs94vdXnR42k4AXCqZz6sRn8bzmf4=";
     };
     date = "2024-04-25";
   };
-  catppuccin-wezterm = {
-    pname = "catppuccin-wezterm";
-    version = "b1a81bae74d66eaae16457f2d8f151b5bd4fe5da";
-    src = fetchgit {
-      url = "https://github.com/catppuccin/wezterm";
-      rev = "b1a81bae74d66eaae16457f2d8f151b5bd4fe5da";
+  milspec = {
+    pname = "milspec";
+    version = "89b7d29dad6708c04821cbf8ba8c80294f8d1733";
+    src = fetchFromGitHub {
+      owner = "nekowinston";
+      repo = "milspec.nvim";
+      rev = "89b7d29dad6708c04821cbf8ba8c80294f8d1733";
       fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "sha256-McSWoZaJeK+oqdK/0vjiRxZGuLBpEB10Zg4+7p5dIGY=";
+      sha256 = "sha256-GWto6Y+2ZJXgTbOApQrhzsBT9sPENhgqoD6SSxykAVE=";
     };
-    date = "2023-04-12";
-  };
-  catppuccin-zsh-fsh = {
-    pname = "catppuccin-zsh-fsh";
-    version = "dd7baca6e0e943f36d1a6721820346e91f25065f";
-    src = fetchgit {
-      url = "https://github.com/catppuccin/zsh-fsh";
-      rev = "dd7baca6e0e943f36d1a6721820346e91f25065f";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "sha256-qd/+MHmgP+dOnYm6meSu5oCZ/TunCWGHnHqAXm79ERw=";
-    };
-    date = "2024-04-09";
+    date = "2024-05-30";
   };
   nekowinston-wezterm-bar = {
     pname = "nekowinston-wezterm-bar";
     version = "e96b81460b3ad11a7461934dcb7889ce5079f97f";
-    src = fetchgit {
-      url = "https://github.com/nekowinston/wezterm-bar";
+    src = fetchFromGitHub {
+      owner = "nekowinston";
+      repo = "wezterm-bar";
       rev = "e96b81460b3ad11a7461934dcb7889ce5079f97f";
       fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
       sha256 = "sha256-3acxqJ9HMA5hASWq/sVL9QQjfEw5Xrh2fT9nFuGjzHM=";
     };
     date = "2023-05-10";
@@ -64,12 +48,11 @@
   zsh-fast-syntax-highlighting = {
     pname = "zsh-fast-syntax-highlighting";
     version = "cf318e06a9b7c9f2219d78f41b46fa6e06011fd9";
-    src = fetchgit {
-      url = "https://github.com/zdharma-continuum/fast-syntax-highlighting";
+    src = fetchFromGitHub {
+      owner = "zdharma-continuum";
+      repo = "fast-syntax-highlighting";
       rev = "cf318e06a9b7c9f2219d78f41b46fa6e06011fd9";
       fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
       sha256 = "sha256-RVX9ZSzjBW3LpFs2W86lKI6vtcvDWP6EPxzeTcRZua4=";
     };
     date = "2023-07-05";

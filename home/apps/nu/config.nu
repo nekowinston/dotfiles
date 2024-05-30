@@ -1,5 +1,4 @@
 use ($nu.default-config-dir | path join 'config/keybindings.nu')
-use ($nu.default-config-dir | path join 'catppuccin.nu')
 
 # use prompt indicators from starship
 $env.PROMPT_INDICATOR = ""
@@ -15,27 +14,20 @@ $env.config = {
     clickable_links: true
   }
 
-  rm: {
-    always_trash: false
-  }
+  rm: { always_trash: false }
 
   table: {
-    # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none, other
-    mode: thin
-    # "always" show indexes, "never" show indexes, "auto" = show indexes when a table has "index" column
+    mode: psql
     index_mode: auto
-    # show 'empty list' and 'empty record' placeholders for command output
     show_empty: true
-    # a left right padding of each column in a table
     padding: { left: 1, right: 1 }
     trim: {
-      methodology: truncating # `wrapping` or `truncating`
+      methodology: truncating
       truncating_suffix: "…"
     }
-    # show header text on separator/border line
-    header_on_separator: false
+    header_on_separator: true
     # limit data rows from top and bottom after reaching a set point
-    # abbreviated_row_count: 10
+    # abbreviated_row_count: 100
   }
 
   error_style: fancy
@@ -91,7 +83,6 @@ $env.config = {
     vi_normal: inherit
   }
 
-  color_config: (catppuccin "mocha")
   use_grid_icons: true
   # always, never, number_of_rows, auto
   footer_mode: 20

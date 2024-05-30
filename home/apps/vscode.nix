@@ -90,7 +90,6 @@ in
         astro-build.astro-vscode
         bashmish.es6-string-css
         bradlc.vscode-tailwindcss
-        catppuccin.catppuccin-vsc-icons
         charliermarsh.ruff
         dbaeumer.vscode-eslint
         denoland.vscode-deno

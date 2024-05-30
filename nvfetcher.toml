@@ -1,18 +1,14 @@
 [catppuccin-bat]
 src.git = "https://github.com/catppuccin/bat"
-fetch.git = "https://github.com/catppuccin/bat"
+fetch.github = "catppuccin/bat"
 
-[catppuccin-wezterm]
-src.git = "https://github.com/catppuccin/wezterm"
-fetch.git = "https://github.com/catppuccin/wezterm"
-
-[catppuccin-zsh-fsh]
-src.git = "https://github.com/catppuccin/zsh-fsh"
-fetch.git = "https://github.com/catppuccin/zsh-fsh"
+[milspec]
+src.git = "https://github.com/nekowinston/milspec.nvim"
+fetch.github = "nekowinston/milspec.nvim"
 
 [nekowinston-wezterm-bar]
 src.git = "https://github.com/nekowinston/wezterm-bar"
-fetch.git = "https://github.com/nekowinston/wezterm-bar"
+fetch.github = "nekowinston/wezterm-bar"
 
 [yabai]
 src.github = "koekeishiya/yabai"
@@ -20,4 +16,4 @@ fetch.url = "https://github.com/koekeishiya/yabai/releases/download/$ver/yabai-$
 
 [zsh-fast-syntax-highlighting]
 src.git = "https://github.com/zdharma-continuum/fast-syntax-highlighting"
-fetch.git = "https://github.com/zdharma-continuum/fast-syntax-highlighting"
+fetch.github = "zdharma-continuum/fast-syntax-highlighting"

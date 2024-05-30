@@ -1,7 +1,5 @@
 { inputs }:
 [
-  inputs.catppuccin-toolbox.overlays.default
-  inputs.catppuccin-vsc.overlays.default
   inputs.nix-vscode-extensions.overlays.default
   (
     final: prev:

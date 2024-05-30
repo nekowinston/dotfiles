@@ -50,46 +50,6 @@
         "type": "github"
       }
     },
-    "catppuccin-toolbox": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1715991036,
-        "narHash": "sha256-ZVT4ttJ9gR/u2rlIrsGXX48pBFoemQfzvdDe4oHwzgs=",
-        "owner": "catppuccin",
-        "repo": "toolbox",
-        "rev": "145f7b68bd4be34daccd17cb5ddd9f6d7187c1ee",
-        "type": "github"
-      },
-      "original": {
-        "owner": "catppuccin",
-        "repo": "toolbox",
-        "type": "github"
-      }
-    },
-    "catppuccin-vsc": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1715401925,
-        "narHash": "sha256-EGZGHCv4OFqzFc9oP82LCKMWfMGsmadOOZ0DZHYSdns=",
-        "owner": "catppuccin",
-        "repo": "vscode",
-        "rev": "f0a6271f62ebb868f32c7ad4ecb31104c26f987a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "catppuccin",
-        "repo": "vscode",
-        "type": "github"
-      }
-    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -368,8 +328,6 @@
       "inputs": {
         "agenix": "agenix",
         "caarlos0-nur": "caarlos0-nur",
-        "catppuccin-toolbox": "catppuccin-toolbox",
-        "catppuccin-vsc": "catppuccin-vsc",
         "darwin": "darwin",
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",

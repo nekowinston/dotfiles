@@ -145,14 +145,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nekowinston-nur.url = "github:nekowinston/nur";
-    catppuccin-vsc = {
-      url = "github:catppuccin/vscode";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    catppuccin-toolbox = {
-      url = "github:catppuccin/toolbox";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     agenix = {
       url = "github:ryantm/agenix";

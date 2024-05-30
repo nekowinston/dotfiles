@@ -24,9 +24,9 @@
   "editor.fontSize": 15,
   "editor.inlayHints.fontSize": 8,
   "terminal.integrated.fontSize": 14,
-  "editor.fontFamily": "Berkeley Mono, Symbols Nerd Font, monospace",
+  "editor.fontFamily": "Cascadia Code, Symbols Nerd Font, monospace",
   // Use these with Cascadia Code for cursive
-  // "editor.fontLigatures": "'calt', 'ss01'",
+  "editor.fontLigatures": "'calt', 'ss01'",
   "markdown.preview.fontFamily": "IBM Plex Sans, sans-serif",
 
   // disable updates
@@ -39,7 +39,6 @@
   "window.commandCenter": false,
   "window.titleBarStyle": "custom",
   "workbench.colorTheme": "Catppuccin Mocha",
-  "workbench.iconTheme": "catppuccin-mocha",
   "workbench.layoutControl.enabled": false,
   "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
   "workbench.preferredLightColorTheme": "Catppuccin Latte",

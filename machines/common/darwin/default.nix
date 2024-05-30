@@ -12,6 +12,8 @@
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
 
+  nix.linux-builder.enable = true;
+
   services = {
     yabai = {
       enable = true;
