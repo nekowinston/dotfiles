@@ -10,7 +10,7 @@ let pluginDir = $env.HOME | path join ".config/sketchybar/plugins"
   padding_right=5
   margin=5
   corner_radius=10
-  border_width=2
+  border_width=0
   hidden=off
   topmost=off
   y_offset=2)
@@ -61,12 +61,6 @@ for $el in ["Ⅰ" "Ⅱ" "Ⅲ" "Ⅳ" "Ⅴ" "Ⅵ" "Ⅶ" "Ⅷ" "Ⅸ" "Ⅹ"] --numbe
 sketchybar -m --add event music_changed com.apple.Music.playerInfo
 
 (sketchybar
-  --add item window_title left
-  --set window_title
-  $"script=($pluginDir)/window_title.nu"
-  label.y_offset=-1
-  icon.y_offset=-1
-  --subscribe window_title front_app_switched
   --add item music left
   --set music
   $"script=($pluginDir)/music.nu"
@@ -83,7 +77,7 @@ sketchybar -m --add event music_changed com.apple.Music.playerInfo
   --add alias "Little Snitch Agent" right
   icon.padding_left=0
   icon.padding_right=0
-  --add alias "Control Centre,Battery" right
+  --add alias "Control Center,Battery" right
   icon.padding_left=0
   icon.padding_right=0
   --add alias "Mullvad VPN" right

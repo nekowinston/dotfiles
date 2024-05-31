@@ -1,6 +1,6 @@
 #!/usr/bin/env nu
 
-let icon = match ($env | get -i INFO) {
+let icon = match ($env.INFO?) {
   # IDEs
   "CLion" | "GoLand" | "PhpStorm" | "PyCharm" | RustRover | "WebStorm" | "Xcode" => " ",
   "Neovide" => " ",
@@ -53,6 +53,6 @@ let icon = match ($env | get -i INFO) {
 }
 
 (sketchybar
-  --set $env.NAME $"label=($env | get -i INFO | default '')" $"icon=($icon)"
+  --set $env.NAME $"label=($env.INFO? | default '')" $"icon=($icon)"
   icon.font="Symbols Nerd Font:2048-em:18.0"
   label.font="Berkeley Mono:Bold:16.0" y_offset="3")

@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   imports = [ ./options.nix ];
   # manipulate the global /etc/zshenv for PATH, etc.
@@ -26,7 +31,7 @@
       config = {
         layout = "bsp";
 
-        window_gap = 5;
+        window_gap = 7;
         left_padding = 5;
         right_padding = 5;
         top_padding = 5;
@@ -42,6 +47,8 @@
         mouse_drop_action = "swap";
         mouse_follows_focus = "off";
         focus_follows_mouse = "off";
+
+        external_bar = "all:32:0";
       };
       extraConfig =
         let
@@ -140,5 +147,13 @@
           cmd + shift - tab : yabai -m window --scratchpad main
         '';
     };
+  };
+
+  environment.systemPackages = [ pkgs.jankyborders ];
+  launchd.user.agents.jankyborders.serviceConfig = {
+    ProgramArguments = [ "${pkgs.jankyborders}/bin/borders" ];
+    KeepAlive = true;
+    RunAtLoad = true;
+    EnvironmentVariables.PATH = "${pkgs.jankyborders}/bin:${config.environment.systemPath}";
   };
 }

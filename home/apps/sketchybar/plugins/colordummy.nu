@@ -86,32 +86,27 @@ def color [name: string, alpha: float = 1.0] {
 (sketchybar
   --bar
   $"color=(color bg)"
-  border_color=(color rose)
   --default
-  $"icon.color=(color rose)"
-  $"label.color=(color rose)"
+  $"icon.color=(color fg)"
+  $"label.color=(color fg)"
   --set /space/
-  $"icon.color=(color violet 0.5)"
-  $"icon.highlight_color=(color rose)"
-  --set window_title
-  $"icon.color=(color rose)"
-  $"label.color=(color gray)"
+  $"icon.color=(color gray 0.5)"
+  $"icon.highlight_color=(color blue)"
   --set music
-  $"icon.color=(color rose)"
-  $"label.color=(color rose)"
+  $"icon.color=(color violet)"
+  $"label.color=(color violet)"
   --set "Mullvad VPN"
   $"alias.color=(color orange)"
   --set "Control Centre,Battery"
   $"alias.color=(color gold)"
-  --set "Little Snitch Agent"
-  $"alias.color=(color green)"
-  --set "iStat Menus Status"
-  $"alias.color=(color blue)"
   --set clock
   $"icon.color=(color violet)"
   $"label.color=(color violet)")
 
-# set the yabai colors as well
-# yabai -m config active_window_border_color "$(color pink)"
-# yabai -m config normal_window_border_color "$(color surface0)"
-# yabai -m config insert_feedback_color "$(color red)"
+# set the jankyborders colors as well
+if ((which borders).type? == "external") {
+  (borders
+    $"active_color=(colors rose)"
+    $"inactive_color=(colors gray)"
+    width=5.0)
+}
