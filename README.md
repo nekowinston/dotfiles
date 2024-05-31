@@ -16,7 +16,7 @@ Here's what you can find:
 - **[WezTerm](https://wezfurlong.org/wezterm/)** as my terminal, with tmux-like keybindings
 - **[Starship](https://starship.rs)** as my prompt
 - **Firefox** with privacy-centered settings, though I don't use it heavily anymore.
-- My **GPG** & **[Sops.nix](https://github.com/Mic92/sops-nix)** settings
+- My **GPG** & **[Agenix](https://github.com/ryantm/agenix)** settings
 - Other random bits of config tools I've collected over the years
 - macOS:
   - **[Yabai](https://github.com/koekeishiya/yabai)** as my WM
