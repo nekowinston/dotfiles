@@ -15,6 +15,10 @@
   nix.linux-builder.enable = true;
 
   services = {
+    sketchybar = {
+      enable = true;
+      extraPackages = with pkgs; [ nushell ];
+    };
     yabai = {
       enable = true;
       enableScriptingAddition = true;

@@ -1,95 +1,94 @@
-#!/usr/bin/env bash
+#!/usr/bin/env nu
 # vim:fileencoding=utf-8:foldmethod=marker
-PLUGIN_DIR="$HOME"/.config/sketchybar/plugins
+let pluginDir = $env.HOME | path join ".config/sketchybar/plugins"
 
 ## bar appearance {{{
-sketchybar --bar \
-  height=32 \
-  position=top \
-  padding_left=5 \
-  padding_right=5 \
-  margin=5 \
-  corner_radius=10 \
-  border_width=2 \
-  hidden=off \
-  topmost=off \
-  y_offset=2
+(sketchybar --bar
+  height=32
+  position=top
+  padding_left=5
+  padding_right=5
+  margin=5
+  corner_radius=10
+  border_width=2
+  hidden=off
+  topmost=off
+  y_offset=2)
 
-# colors are managed separately in the colordummy,
-# which listens to theme_changed events,
-# to swap between Catppuccin Mocha and Latte
+# colors are managed separately in the colordummy.
+# listens to theme_changed events, to swap between dark and light mode
 sketchybar -m --add event theme_changed AppleInterfaceThemeChangedNotification
-sketchybar -m --add event music_changed com.apple.Music.playerInfo
-sketchybar \
-  --add item colordummy center \
-  --set colordummy \
-  drawing=off \
-  script="$PLUGIN_DIR/colordummy.sh" \
+(sketchybar
+  --add item colordummy center
+  --set colordummy
+  drawing=off
+  $"script=($pluginDir)/colordummy.nu"
   --subscribe colordummy theme_changed
+)
 
 ##### Changing Defaults #####
-sketchybar --default \
-  updates=when_shown \
-  drawing=on \
-  icon.font="Symbols Nerd Font:2048-em:18.0" \
-  label.font="SF Pro:Regular:16.0" \
-  label.padding_left=2 \
-  label.padding_right=2 \
-  icon.padding_left=2 \
+(sketchybar --default
+  updates=when_shown
+  drawing=on
+  icon.font="Symbols Nerd Font:2048-em:18.0"
+  label.font="SF Pro:Regular:16.0"
+  label.padding_left=2
+  label.padding_right=2
+  icon.padding_left=2
   icon.padding_right=2
+)
 # }}}
 
 ## left side of the bar {{{
 # spaces for yabai wm
-SPACE_ICONS=(
-  "Ⅰ"
-  "Ⅱ"
-  "Ⅲ"
-  "Ⅳ"
-  "Ⅴ"
-  "Ⅵ"
-  "Ⅶ"
-  "Ⅷ"
-  "Ⅸ"
-  "Ⅹ"
-)
-for i in "${!SPACE_ICONS[@]}"; do
-  sketchybar \
-    --add space "space.$i" left \
-    --set "space.$i" associated_space=$((i + 1)) \
-    icon="${SPACE_ICONS[i]}" \
-    icon.padding_left=8 \
-    icon.padding_right=8 \
-    background.padding_left=1 \
-    background.padding_right=1 \
-    background.height=32 \
-    label.drawing=off \
-    script="$PLUGIN_DIR/space.sh" \
-    click_script="yabai -m space --focus $((i + 1))"
-done
+for $el in ["Ⅰ" "Ⅱ" "Ⅲ" "Ⅳ" "Ⅴ" "Ⅵ" "Ⅶ" "Ⅷ" "Ⅸ" "Ⅹ"] --numbered {
+  let i = $el.index + 1
 
-sketchybar \
-  --add item music left \
-  --set music \
-  script="$PLUGIN_DIR/music.sh" \
-  label.y_offset=-1 \
-  --subscribe music music_changed \
-  --add item clock right \
-  --set clock \
-  script="$PLUGIN_DIR/clock.sh" \
-  update_freq=10 \
-  background.padding_right=4 \
-  --add alias "iStat Menus Status" right \
-  icon.padding_left=0 \
-  icon.padding_right=0 \
-  --add alias "Little Snitch Agent" right \
-  icon.padding_left=0 \
-  icon.padding_right=0 \
-  --add alias "Control Centre,Battery" right \
-  icon.padding_left=0 \
-  icon.padding_right=0 \
-  --add alias "Mullvad VPN" right \
-  icon.padding_left=0 \
+  (sketchybar
+    --add space $"space.($i)" left
+    --set $"space.($i)" $"associated_space=($i)"
+    $"icon=($el.item)"
+    icon.padding_left=8
+    icon.padding_right=8
+    background.padding_left=1
+    background.padding_right=1
+    background.height=32
+    label.drawing=off
+    $"script=($pluginDir)/space.nu"
+    $"click_script=yabai -m space --focus ($i)")
+}
+
+sketchybar -m --add event music_changed com.apple.Music.playerInfo
+
+(sketchybar
+  --add item window_title left
+  --set window_title
+  $"script=($pluginDir)/window_title.nu"
+  label.y_offset=-1
+  icon.y_offset=-1
+  --subscribe window_title front_app_switched
+  --add item music left
+  --set music
+  $"script=($pluginDir)/music.nu"
+  label.y_offset=-1
+  --subscribe music music_changed
+  --add item clock right
+  --set clock
+  $"script=($pluginDir)/clock.nu"
+  update_freq=10
+  background.padding_right=4
+  --add alias "iStat Menus Status" right
+  icon.padding_left=0
   icon.padding_right=0
+  --add alias "Little Snitch Agent" right
+  icon.padding_left=0
+  icon.padding_right=0
+  --add alias "Control Centre,Battery" right
+  icon.padding_left=0
+  icon.padding_right=0
+  --add alias "Mullvad VPN" right
+  icon.padding_left=0
+  icon.padding_right=0
+)
 
 sketchybar --update
