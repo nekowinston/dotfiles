@@ -85,28 +85,28 @@ def color [name: string, alpha: float = 1.0] {
 
 (sketchybar
   --bar
-  $"color=(color bg)"
+    $"color=(color bg)"
   --default
-  $"icon.color=(color fg)"
-  $"label.color=(color fg)"
+    $"icon.color=(color fg)"
+    $"label.color=(color fg)"
   --set /space/
-  $"icon.color=(color gray 0.5)"
-  $"icon.highlight_color=(color blue)"
+    $"icon.color=(color gray 0.5)"
+    $"icon.highlight_color=(color blue)"
   --set music
-  $"icon.color=(color violet)"
-  $"label.color=(color violet)"
+    $"icon.color=(color violet)"
+    $"label.color=(color violet)"
   --set "Mullvad VPN"
-  $"alias.color=(color orange)"
-  --set "Control Centre,Battery"
-  $"alias.color=(color gold)"
+    $"alias.color=(color orange)"
+  --set "Control Center,Battery"
+    $"alias.color=(color gold)"
   --set clock
-  $"icon.color=(color violet)"
-  $"label.color=(color violet)")
+    $"icon.color=(color violet)"
+    $"label.color=(color violet)")
 
 # set the jankyborders colors as well
-if ((which borders).type? == "external") {
+if ((which borders).type?.0? == "external") {
   (borders
-    $"active_color=(colors rose)"
-    $"inactive_color=(colors gray)"
+    $"active_color=(color blue)"
+    $"inactive_color=(color gray)"
     width=5.0)
 }

@@ -22,7 +22,10 @@
   services = {
     sketchybar = {
       enable = true;
-      extraPackages = with pkgs; [ nushell ];
+      extraPackages = with pkgs; [
+        jankyborders
+        nushell
+      ];
     };
     yabai = {
       enable = true;
