@@ -45,7 +45,7 @@ in
 
         onefetch_in_git_dir() {
           if [[ -d '.git' ]]; then
-            ${pkgs.onefetch}/bin/onefetch --no-merges --no-bots --no-color-palette --text-colors 1 1 3 4 4
+            ${pkgs.onefetch}/bin/onefetch --no-merges --no-bots --no-color-palette --true-color=never --text-colors 1 1 3 4 4
           fi
         }
 
