@@ -8,6 +8,8 @@ $env.PROMPT_INDICATOR_VI_INSERT = ""
 $env.PROMPT_INDICATOR_VI_NORMAL = ""
 $env.PROMPT_MULTILINE_INDICATOR = ""
 
+let in_supported_termprogram = ($env.TERM_PROGRAM? == "WezTerm") or ($env.TERM? == "xterm-kitty");
+
 $env.config = {
   show_banner: false
 
@@ -98,11 +100,11 @@ $env.config = {
   # emacs, vi
   edit_mode: vi
   # enables terminal shell integration. Off by default, as some terminals have issues with this.
-  shell_integration: ($env.TERM_PROGRAM == "WezTerm")
+  shell_integration: $in_supported_termprogram,
   # true or false to enable or disable right prompt to be rendered on last line of the prompt.
   render_right_prompt_on_last_line: false
   # enables keyboard enhancement protocol implemented by kitty console, only if your terminal support this.
-  use_kitty_protocol: ($env.TERM_PROGRAM == "WezTerm")
+  use_kitty_protocol: $in_supported_termprogram,
   # true enables highlighting of external commands in the repl resolved by which.
   highlight_resolved_externals: false
   # the maximum number of times nushell allows recursion before stopping it
@@ -167,7 +169,7 @@ $env.config = {
         #      str join
         #      str trim
         #      str split
-        correct_cursor_pos: false
+        correct_cursor_pos: true
       }
       style: {
         text: green

@@ -129,18 +129,12 @@ in
   home.file = lib.mkIf isDarwin {
     "Library/Application Support/Code/User/keybindings.json".source = keybindingsJSON;
     "Library/Application Support/Code/User/settings.json".source = settingsJSON;
-    "Library/Application Support/Code/User/snippets" = {
-      source = snippetsDir;
-      recursive = true;
-    };
+    "Library/Application Support/Code/User/snippets".source = snippetsDir;
   };
   xdg.configFile = lib.mkIf isLinux {
     "Code/User/keybindings.json".source = keybindingsJSON;
     "Code/User/settings.json".source = settingsJSON;
-    "Code/User/snippets" = {
-      source = snippetsDir;
-      recursive = true;
-    };
+    "Code/User/snippets".source = snippetsDir;
   };
   xdg.mimeApps.defaultApplications."text/plain" = "code.desktop";
 

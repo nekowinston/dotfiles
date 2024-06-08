@@ -28,10 +28,7 @@ in
     };
 
     xdg = {
-      configFile."gtk-4.0/assets" = {
-        source = "${themeDir}/gtk-4.0/assets";
-        recursive = true;
-      };
+      configFile."gtk-4.0/assets".source = "${themeDir}/gtk-4.0/assets";
       configFile."gtk-4.0/gtk.css".source = "${themeDir}/gtk-4.0/gtk.css";
       configFile."gtk-4.0/gtk-dark.css".source = "${themeDir}/gtk-4.0/gtk-dark.css";
     };

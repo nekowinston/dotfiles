@@ -19,10 +19,7 @@ in
 
       xdg.configFile = {
         "wezterm/wezterm.lua".source = mkSymlink "wezterm.lua";
-        "wezterm/config" = {
-          source = mkSymlink "config";
-          recursive = true;
-        };
+        "wezterm/config".source = mkSymlink "config";
         "wezterm/bar".source = srcs.nekowinston-wezterm-bar.src;
         "wezterm/milspec".source = srcs.milspec.src + "/extras/wezterm";
       };

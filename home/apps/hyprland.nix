@@ -80,7 +80,7 @@
               dwindle.preserve_split = true;
               windowrulev2 = [ "suppressevent maximize, class:.*" ];
               bind = [
-                "${modMove}, return, exec, foot"
+                "${modMove}, return, exec, kitty"
                 "${modMove}, q, killactive,"
                 "${modMove}, m, exit,"
                 "${modMove}, d, togglefloating,"

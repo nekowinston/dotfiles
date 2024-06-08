@@ -15,15 +15,15 @@
   };
   milspec = {
     pname = "milspec";
-    version = "89b7d29dad6708c04821cbf8ba8c80294f8d1733";
+    version = "3988464c4514e441b4f81599507bdf2815b2f9e2";
     src = fetchFromGitHub {
       owner = "nekowinston";
       repo = "milspec.nvim";
-      rev = "89b7d29dad6708c04821cbf8ba8c80294f8d1733";
+      rev = "3988464c4514e441b4f81599507bdf2815b2f9e2";
       fetchSubmodules = false;
-      sha256 = "sha256-GWto6Y+2ZJXgTbOApQrhzsBT9sPENhgqoD6SSxykAVE=";
+      sha256 = "sha256-2U8yqLqTnal0CAZOD8bWrv/bprl7Tusg1H5gnasbfVY=";
     };
-    date = "2024-05-30";
+    date = "2024-06-08";
   };
   nekowinston-wezterm-bar = {
     pname = "nekowinston-wezterm-bar";

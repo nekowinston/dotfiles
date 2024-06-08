@@ -76,8 +76,5 @@ in
       + mkCompletions completions;
   };
 
-  xdg.configFile."nushell/config" = {
-    source = ./nu/config;
-    recursive = true;
-  };
+  xdg.configFile."nushell/config".source = ./nu/config;
 }

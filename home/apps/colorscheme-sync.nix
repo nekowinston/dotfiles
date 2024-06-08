@@ -29,7 +29,7 @@ in
           let
             queryCommand =
               if isLinux then
-                "dbus-send --session --print-reply=literal --reply-timeout=5 --dest=org.freedesktop.portal.Desktop /org/freedesktop/portal/desktop org.freedesktop.portal.Settings.Read string:'org.freedesktop.appearance' string:'color-scheme' | grep -q 'uint32 1'"
+                "dbus-send --session --print-reply=literal --reply-timeout=5 --dest=org.freedesktop.portal.Desktop /org/freedesktop/portal/desktop org.freedesktop.portal.Settings.Read string:'org.freedesktop.appearance' string:'color-scheme' 2>/dev/null | grep -q 'uint32 1'"
               else if isDarwin then
                 "defaults read -g AppleInterfaceStyle &>/dev/null"
               else
@@ -66,7 +66,7 @@ in
       };
     };
 
-    xdg.configFile."fsh".source = "${milspec.src}/extras/zsh-fast-syntax-highlighting";
+    xdg.configFile.fsh.source = "${milspec.src}/extras/zsh-fast-syntax-highlighting";
     programs.zsh.initExtra = ''
       zadm_sync() {
         local flavor="$(dark-mode-ternary mocha latte)"

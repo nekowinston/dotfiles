@@ -5,12 +5,12 @@
     ./colorscheme-sync.nix
     ./discord.nix
     ./fonts.nix
-    ./foot.nix
     ./git.nix
     ./gnome.nix
     ./gpg.nix
     ./gtk.nix
     ./hyprland.nix
+    ./kitty.nix
     ./kubernetes.nix
     ./mail.nix
     ./media.nix
