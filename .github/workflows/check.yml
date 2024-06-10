@@ -5,7 +5,7 @@ jobs:
     "runs-on": "ubuntu-latest"
     steps:
     - uses: "actions/checkout@v4.1.6"
-    - uses: "DeterminateSystems/flake-checker-action@v7"
+    - uses: "DeterminateSystems/flake-checker-action@v8"
     - uses: "DeterminateSystems/nix-installer-action@v11"
     - uses: "DeterminateSystems/magic-nix-cache-action@v6"
     - run: "nix flake check --show-trace"
