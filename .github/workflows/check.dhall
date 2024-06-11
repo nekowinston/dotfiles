@@ -16,7 +16,7 @@ let check =
           , uses = Some "DeterminateSystems/nix-installer-action@v11"
           }
         , GithubActions.Step::{
-          , uses = Some "DeterminateSystems/magic-nix-cache-action@v6"
+          , uses = Some "DeterminateSystems/magic-nix-cache-action@v7"
           }
         , GithubActions.Step::{ run = Some "nix flake check --show-trace" }
         ]
