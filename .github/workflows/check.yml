@@ -4,7 +4,7 @@ jobs:
   check:
     "runs-on": "ubuntu-latest"
     steps:
-    - uses: "actions/checkout@v4.1.6"
+    - uses: "actions/checkout@v4.1.7"
     - uses: "DeterminateSystems/flake-checker-action@v8"
     - uses: "DeterminateSystems/nix-installer-action@v11"
     - uses: "DeterminateSystems/magic-nix-cache-action@v7"

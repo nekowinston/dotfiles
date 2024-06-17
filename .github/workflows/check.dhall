@@ -8,7 +8,7 @@ let check =
       GithubActions.Job::{
       , runs-on = GithubActions.RunsOn.Type.ubuntu-latest
       , steps =
-        [ GithubActions.Step::{ uses = Some "actions/checkout@v4.1.6" }
+        [ GithubActions.Step::{ uses = Some "actions/checkout@v4.1.7" }
         , GithubActions.Step::{
           , uses = Some "DeterminateSystems/flake-checker-action@v8"
           }
