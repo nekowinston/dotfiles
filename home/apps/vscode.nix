@@ -89,8 +89,10 @@ in
         arcanis.vscode-zipfs
         astro-build.astro-vscode
         bashmish.es6-string-css
+        biomejs.biome
         bradlc.vscode-tailwindcss
         charliermarsh.ruff
+        dawidd6.debian-vscode
         dbaeumer.vscode-eslint
         denoland.vscode-deno
         dhall.dhall-lang
@@ -100,6 +102,8 @@ in
         geequlim.godot-tools
         github.copilot
         github.vscode-github-actions
+        haskell.haskell
+        justusadam.language-haskell
         gitlab.gitlab-workflow
         golang.go
         graphql.vscode-graphql-syntax

@@ -38,20 +38,10 @@
   "window.autoDetectColorScheme": true,
   "window.commandCenter": false,
   "window.titleBarStyle": "custom",
-  "workbench.colorTheme": "Catppuccin Mocha",
+  "workbench.iconTheme": "bearded-icons",
   "workbench.layoutControl.enabled": false,
-  "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
-  "workbench.preferredLightColorTheme": "Catppuccin Latte",
   "workbench.productIconTheme": "icons-carbon",
-  // ext
-  "catppuccin.accentColor": "pink",
-  "catppuccin.customUIColors": {
-    "all": {
-      "statusBar.foreground": "accent",
-      "statusBar.noFolderForeground": "accent"
-    }
-  },
-  "catppuccin.extraBordersEnabled": true,
+  "workbench.tree.indent": 20,
 
   "zenMode.centerLayout": false,
   "zenMode.fullScreen": false,
@@ -86,6 +76,7 @@
   "files.associations": {
     "dep5": "debian-copyright"
   },
+  "files.autoSave": "afterDelay",
 
   "remote.SSH.useLocalServer": false,
   "remote.SSH.remotePlatform": {
@@ -290,17 +281,5 @@
   "vs-kubernetes": {
     "vs-kubernetes.crd-code-completion": "enabled",
     "vs-kubernetes.minikube-show-information-expiration": "2024-06-09T06:56:22.175Z"
-  },
-  "editor.tokenColorCustomizations": {
-    "[Catppuccin Mocha]": {
-      "textMateRules": [
-        {
-          "scope": "storage.type.dhall",
-          "settings": {
-            "foreground": "#FF0000"
-          }
-        }
-      ]
-    }
   }
 }
