@@ -1,32 +1,51 @@
 #!/usr/bin/env nu
 # vim:fileencoding=utf-8:foldmethod=marker
-let pluginDir = $env.HOME | path join ".config/sketchybar/plugins"
+let pluginDir = $env.XDG_CONFIG_HOME?
+  | default $"($env.HOME)/.config"
+  | path join "sketchybar/plugins"
 
-## bar appearance {{{
-(sketchybar --bar
-  height=32
-  position=top
-  padding_left=5
-  padding_right=5
-  margin=5
-  corner_radius=10
-  border_width=0
-  hidden=off
-  topmost=off
-  y_offset=2)
+let spacesCmd = ["Ⅰ" "Ⅱ" "Ⅲ" "Ⅳ" "Ⅴ" "Ⅵ" "Ⅶ" "Ⅷ" "Ⅸ" "Ⅹ"]
+  | enumerate
+  | reduce --fold [] {|it, acc|
+      let i = $it.index + 1
+      $acc | append [
+        "--add" "space" $"space.($i)" "left"
+        "--set" $"space.($i)"
+        $"associated_space=($i)"
+        $"icon=($it.item)"
+        "icon.padding_left=8"
+        "icon.padding_right=8"
+        "background.padding_left=1"
+        "background.padding_right=1"
+        "background.height=32"
+        "label.drawing=off"
+        $"script=($pluginDir)/space.nu"
+        $"click_script=yabai -m space --focus ($i)"
+      ]
+    }
 
-# colors are managed separately in the colordummy.
-# listens to theme_changed events, to swap between dark and light mode
-sketchybar -m --add event theme_changed AppleInterfaceThemeChangedNotification
 (sketchybar
+  --bar
+    height=32
+    position=top
+    padding_left=5
+    padding_right=5
+    margin=5
+    corner_radius=10
+    border_width=0
+    hidden=off
+    topmost=off
+    y_offset=2
+
+  --add event theme_changed AppleInterfaceThemeChangedNotification
   --add item colordummy center
   --set colordummy
     drawing=off
     $"script=($pluginDir)/colordummy.nu"
-  --subscribe colordummy theme_changed)
+  --subscribe colordummy theme_changed
 
-##### Changing Defaults #####
-(sketchybar
+  ...$spacesCmd
+
   --default
     updates=when_shown
     drawing=on
@@ -35,36 +54,23 @@ sketchybar -m --add event theme_changed AppleInterfaceThemeChangedNotification
     label.padding_left=2
     label.padding_right=2
     icon.padding_left=2
-    icon.padding_right=2)
-# }}}
+    icon.padding_right=2
 
-## left side of the bar {{{
-# spaces for yabai wm
-for $el in ["Ⅰ" "Ⅱ" "Ⅲ" "Ⅳ" "Ⅴ" "Ⅵ" "Ⅶ" "Ⅷ" "Ⅸ" "Ⅹ"] --numbered {
-  let i = $el.index + 1
-
-  (sketchybar
-    --add space $"space.($i)" left
-    --set $"space.($i)" $"associated_space=($i)"
-      $"icon=($el.item)"
-      icon.padding_left=8
-      icon.padding_right=8
-      background.padding_left=1
-      background.padding_right=1
-      background.height=32
-      label.drawing=off
-      $"script=($pluginDir)/space.nu"
-      $"click_script=yabai -m space --focus ($i)")
-}
-
-sketchybar -m --add event music_changed com.apple.Music.playerInfo
-
-(sketchybar
+  --add event music_changed
+    com.apple.Music.playerInfo
   --add item music left
   --set music
     $"script=($pluginDir)/music.nu"
-    label.y_offset=-1
+    update_freq=5
   --subscribe music music_changed
+  --add slider music_progress left 100
+  --set music_progress
+    slider.background.height=2
+    slider.background.corner_radius=10
+    y_offset=-10
+    $"script=($pluginDir)/music_jump.nu"
+  --subscribe music_progress mouse.clicked
+
   --add item clock right
   --set clock
     $"script=($pluginDir)/clock.nu"

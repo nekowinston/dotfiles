@@ -90,11 +90,14 @@ def color [name: string, alpha: float = 1.0] {
     $"icon.color=(color fg)"
     $"label.color=(color fg)"
   --set /space/
-    $"icon.color=(color gray 0.5)"
+    $"icon.color=(color bgGray)"
     $"icon.highlight_color=(color blue)"
   --set music
-    $"icon.color=(color violet)"
-    $"label.color=(color violet)"
+    $"icon.color=(color fgGray)"
+    $"label.color=(color fgGray)"
+  --set music_progress
+    $"slider.highlight_color=(color blue)"
+    $"slider.background.color=(color bgGray)"
   --set "Mullvad VPN"
     $"alias.color=(color orange)"
   --set "Control Center,Battery"
