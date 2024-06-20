@@ -10,10 +10,12 @@ in
 {
   programs.kitty = {
     enable = true;
+
     font = {
       name = "Berkeley Mono";
       size = 14;
     };
+
     settings = {
       placement_strategy = "top-left";
       inactive_text_alpha = "0.8";
@@ -32,6 +34,8 @@ in
       tab_bar_min_tabs = "1";
 
       tab_title_template = "{index}: {title}{sup.num_windows if num_windows > 1 else ''}{activity_symbol}{bell_symbol}";
+
+      macos_option_as_alt = "yes";
     };
 
     keybindings = {
@@ -79,6 +83,7 @@ in
 
       "alt+enter" = "toggle_fullscreen";
     };
+
     extraConfig = ''
       include themes.conf
     '';
