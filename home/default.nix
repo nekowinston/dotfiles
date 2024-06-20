@@ -53,7 +53,7 @@ in
   };
 
   home.mac-wallpaper = ./wallpapers/dhm_1610.png;
-  xdg.configFile.sketchybar.source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/home/apps/sketchybar";
+  xdg.configFile.sketchybar.source = lib.mkIf isDarwin ./apps/sketchybar;
 
   programs = {
     home-manager.enable = true;
