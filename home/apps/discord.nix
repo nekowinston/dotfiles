@@ -9,9 +9,7 @@ let
 in
 {
   config = lib.mkIf config.isGraphical {
-    home.packages =
-      (lib.optionals isDarwin [ (pkgs.discord.override { withOpenASAR = true; }) ])
-      ++ (lib.optionals isLinux [ (pkgs.vesktop.override { withSystemVencord = false; }) ]);
+    home.packages = [ (pkgs.discord.override { withOpenASAR = true; }) ];
 
     home.activation.discordSettings =
       let
@@ -42,18 +40,5 @@ in
         mkdir -p "$(dirname "${path}")"
         cp -f "${json}" "${path}"
       '';
-
-    services.arrpc.enable = isLinux;
-    launchd.agents.arrpc = {
-      enable = isDarwin;
-      config = {
-        ProgramArguments = [ "${pkgs.arrpc}/bin/arrpc" ];
-        KeepAlive = true;
-        RunAtLoad = true;
-      };
-    };
-
-    services.discord-applemusic-rich-presence.enable = isDarwin;
-    services.mpd-discord-rpc.enable = isLinux;
   };
 }
