@@ -3,7 +3,8 @@
   age.secrets."aerc-personal.conf".path = "${config.xdg.configHome}/aerc/accounts.conf";
   programs = {
     aerc = {
-      enable = true;
+      # FIXME: https://github.com/NixOS/nixpkgs/issues/326307
+      enable = false;
       extraConfig = {
         general = {
           default-save-path = "~/Downloads";

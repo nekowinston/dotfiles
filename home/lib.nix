@@ -30,7 +30,6 @@ rec {
   modules =
     (with inputs; [
       agenix.homeManagerModules.age
-      caarlos0-nur.homeManagerModules.default
       nekowinston-nur.homeManagerModules.default
       nix-index-database.hmModules.nix-index
       vscode-server.homeModules.default

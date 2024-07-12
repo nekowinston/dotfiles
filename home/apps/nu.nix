@@ -7,9 +7,6 @@
 let
   nu_scripts = "${pkgs.nu_scripts}/share/nu_scripts";
 
-  # milspec = (pkgs.callPackage ../../_sources/generated.nix { }).milspec;
-  milspec.src = /Users/winston/Code/neovim/milspec;
-
   shellAliases = lib.concatStringsSep "\n" (
     lib.mapAttrsToList (k: v: "alias ${k} = ${v}") config.home.shellAliases
   );

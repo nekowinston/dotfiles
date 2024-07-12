@@ -140,10 +140,6 @@
     };
 
     nur.url = "github:nix-community/nur";
-    caarlos0-nur = {
-      url = "github:caarlos0/nur";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nekowinston-nur.url = "github:nekowinston/nur";
 
     agenix = {

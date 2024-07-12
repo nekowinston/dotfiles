@@ -38,6 +38,7 @@ in
           nvd
           ranger
           ripgrep
+          sd
           watchexec
         ]
         ++ lib.optionals (config.isGraphical && isLinux) [
@@ -50,9 +51,16 @@ in
       SSH_AUTH_SOCK = "${config.programs.gpg.homedir}/S.gpg-agent.ssh";
     };
     stateVersion = "23.05";
+
+    # respected by `fd` & `rg`, makes it so that iCloud files are ignored by those utils
+    # this speeds up the search processes and files aren't downloaded while searching $HOME
+    file."Library/.ignore".text = lib.optionalString isDarwin ''
+      Mobile Documents/
+    '';
+
+    mac-wallpaper = ./wallpapers/dhm_1610.png;
   };
 
-  home.mac-wallpaper = ./wallpapers/dhm_1610.png;
   xdg.configFile.sketchybar.source = lib.mkIf isDarwin ./apps/sketchybar;
 
   programs = {

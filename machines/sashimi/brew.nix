@@ -23,7 +23,6 @@ in
       (skipSha "affinity-photo")
       (skipSha "affinity-publisher")
       "alfred"
-      "azure-data-studio"
       "blender"
       (noQuarantine "easy-move-plus-resize")
       (skipSha "element")
@@ -37,6 +36,7 @@ in
       "macfuse"
       "mullvad-browser"
       "mullvadvpn"
+      "orion"
       "rustdesk"
       "signal"
       (skipSha "sizzy")

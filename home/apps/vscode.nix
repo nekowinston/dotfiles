@@ -16,6 +16,16 @@ in
 {
   programs.vscode = {
     enable = config.isGraphical;
+
+    # pulling from different package sets:
+    # - pkgs.vscode-extensions:
+    #   pinned releases from inputs.nixpkgs.
+    #
+    # - pkgs.vscode-marketplace-release:
+    #   pinned releases from inputs.nix-vscode-extensions
+    #
+    # - pkgs.vscode-marketplace:
+    #   rolling/nightly releases from inputs.nix-vscode-extensions
     extensions =
       (with pkgs.vscode-extensions; [
         # patches
