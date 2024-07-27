@@ -14,7 +14,6 @@ in
   nixpkgs.config.allowUnfree = true;
   nix = {
     gc.automatic = true;
-    package = pkgs.nixVersions.latest;
     settings = {
       # breaks the Nix Store on macOS
       # https://github.com/NixOS/nix/issues/7273
