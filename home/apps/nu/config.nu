@@ -1,5 +1,3 @@
-# vim:ft=nu
-
 use ($nu.default-config-dir | path join 'config/keybindings.nu')
 
 # use prompt indicators from starship

@@ -13,44 +13,44 @@ if (pgrep -x Music | is-empty) {
 
 let appleScript = '
 tell application "Music"
-	-- set to a fixed string
-	if player state is playing then
-		set _state to "playing"
-	else
-		set _state to "paused"
-	end if
+  -- set to a fixed string
+  if player state is playing then
+    set _state to "playing"
+  else
+    set _state to "paused"
+  end if
 
-	set _albumArtist to ""
-	set _trackArtist to ""
-	set _name to ""
-	set _duration to ""
-	set _progress to "0,0"
+  set _albumArtist to ""
+  set _trackArtist to ""
+  set _name to ""
+  set _duration to ""
+  set _progress to "0,0"
 
-	-- allow this to fail when Music hasnt played a track yet
-	try
-		set _albumArtist to album artist of current track
-		set _trackArtist to artist of current track
-		set _name to name of current track
-		set _duration to duration of current track
-	end try
+  -- allow this to fail when Music hasnt played a track yet
+  try
+    set _albumArtist to album artist of current track
+    set _trackArtist to artist of current track
+    set _name to name of current track
+    set _duration to duration of current track
+  end try
 
-	if _albumArtist is "" or _albumArtist is "Various Artists" then
-		set _artist to _trackArtist
-	else
-		set _artist to _albumArtist
-	end if
+  if _albumArtist is "" or _albumArtist is "Various Artists" then
+    set _artist to _trackArtist
+  else
+    set _artist to _albumArtist
+  end if
 
-	-- wrap the progress in a try to handle division by zero
-	try
-		set _progress to player position / _duration
-	end try
+  -- wrap the progress in a try to handle division by zero
+  try
+    set _progress to player position / _duration
+  end try
 
 
-	set songData to {_state, _artist, _name, _progress}
+  set songData to {_state, _artist, _name, _progress}
 
-	set output to ""
-	repeat with _item in songData
-		set output to output & _item & "\n"
+  set output to ""
+  repeat with _item in songData
+    set output to output & _item & "\n"
   end repeat
 end tell'
 
