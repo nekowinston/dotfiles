@@ -61,7 +61,7 @@ in
     mac-wallpaper = ./wallpapers/dhm_1610.png;
   };
 
-  xdg.configFile.sketchybar.source = lib.mkIf isDarwin ./apps/sketchybar;
+  xdg.configFile = lib.mkIf isDarwin { sketchybar.source = ./apps/sketchybar; };
 
   programs = {
     home-manager.enable = true;
