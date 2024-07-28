@@ -11,10 +11,10 @@
       p7zip
       unzip
       zip
-      gnome.file-roller
-      gnome.nautilus
-      gnome.nautilus-python
-      gnome.sushi
+      file-roller
+      nautilus
+      nautilus-python
+      sushi
       nautilus-open-any-terminal
 
       # thumbnails

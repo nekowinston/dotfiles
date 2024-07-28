@@ -105,7 +105,7 @@ in
                   modFocus = "${mod}+Ctrl";
                   hyper = "Mod4+Mod1+Shift+Ctrl";
 
-                  filebrowser = "${pkgs.gnome.nautilus}/bin/nautilus";
+                  filebrowser = "${pkgs.nautilus}/bin/nautilus";
                   screenshot = "${pkgs.sway-contrib.grimshot}/bin/grimshot copy area";
                   playerctl = "${pkgs.playerctl}/bin/playerctl";
                   swayosd = pkgs.swayosd + "/bin/swayosd-client";
