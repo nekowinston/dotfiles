@@ -1,5 +1,3 @@
-use ($nu.default-config-dir | path join 'config/keybindings.nu')
-
 # use prompt indicators from starship
 $env.PROMPT_INDICATOR = ""
 $env.PROMPT_INDICATOR_VI_INSERT = ""
@@ -191,7 +189,7 @@ $env.config = {
   # true or false to enable or disable right prompt to be rendered on last line of the prompt.
   render_right_prompt_on_last_line: false
   # enables keyboard enhancement protocol implemented by kitty console, only if your terminal support this.
-  use_kitty_protocol: $in_supported_termprogram,
+  use_kitty_protocol: (($env.TERM_PROGRAM? == "WezTerm") or ($env.TERM? == "xterm-kitty"))
   # true enables highlighting of external commands in the repl resolved by which.
   highlight_resolved_externals: false
   # the maximum number of times nushell allows recursion before stopping it
@@ -200,7 +198,7 @@ $env.config = {
   hooks: {
     env_change: {
       PWD: [
-        {if (".git" | path exists) {
+        {if ((".git" | path exists) and not (which onefetch | is-empty)) {
           onefetch --no-merges --no-bots --no-color-palette --true-color=never --text-colors 1 1 3 4 4
         }}
       ]
@@ -210,6 +208,4 @@ $env.config = {
     # return an error message when a command is not found
     command_not_found: { null }
   }
-
-  keybindings: (keybindings)
 }

@@ -64,18 +64,18 @@ in
 
     extraConfig =
       ''
-        $env.config = ($env.config? | default {})
-        $env.config.hooks = ($env.config.hooks? | default {})
+        $env.config = $env.config? | default {}
+        $env.config.hooks = $env.config.hooks? | default {}
         $env.config.hooks.command_not_found = {|cmd_name|
           try { ${command-not-found} $cmd_name }
         }
 
         source ${nu_scripts}/aliases/git/git-aliases.nu
+        source ${./nu/keybindings.nu}
       ''
-      + shellAliases
-      + "\n"
-      + mkCompletions completions;
+      + lib.concatStringsSep "\n" [
+        shellAliases
+        (mkCompletions completions)
+      ];
   };
-
-  xdg.configFile."nushell/config".source = ./nu/config;
 }
