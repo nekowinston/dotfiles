@@ -27,9 +27,12 @@ in
       CUDA_CACHE_PATH = "${dataHome}/nv";
       DENO_INSTALL_ROOT = "${dataHome}/deno";
       DOCKER_CONFIG = "${configHome}/docker";
+      ELM_HOME = "${dataHome}/elm";
       GEM_HOME = "${dataHome}/gem";
       GEM_SPEC_CACHE = "${cacheHome}/gem";
       GOPATH = "${dataHome}/go";
+      GRADLE_USER_HOME = "${dataHome}/gradle";
+      HISTFILE = "${stateHome}/bash/history";
       IPYTHONDIR = "${configHome}/ipython";
       NODE_REPL_HISTORY = "${dataHome}/node_repl_history";
       NPM_CONFIG_USERCONFIG = "${configHome}/npm/npmrc";
