@@ -13,7 +13,7 @@ let check =
           , uses = Some "DeterminateSystems/flake-checker-action@v8"
           }
         , GithubActions.Step::{
-          , uses = Some "DeterminateSystems/nix-installer-action@v12"
+          , uses = Some "DeterminateSystems/nix-installer-action@v13"
           }
         , GithubActions.Step::{
           , uses = Some "DeterminateSystems/magic-nix-cache-action@v7"
