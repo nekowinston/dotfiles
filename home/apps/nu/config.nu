@@ -6,7 +6,63 @@ $env.PROMPT_INDICATOR_VI_INSERT = ""
 $env.PROMPT_INDICATOR_VI_NORMAL = ""
 $env.PROMPT_MULTILINE_INDICATOR = ""
 
-let in_supported_termprogram = ($env.TERM_PROGRAM? == "WezTerm") or ($env.TERM? == "xterm-kitty");
+let carapace_completer = {|spans: list<string>|
+  if (which carapace | is-empty) { return }
+
+  ^carapace $spans.0 nushell ...$spans
+  | from json
+  | if ($in | default [] | where value == $"($spans | last)ERR" | is-empty) { $in } else { null }
+}
+
+let nix_completer = {|spans: list<string>|
+  if (which nix | is-empty) { return }
+
+  let current_arg = $spans | length| $in - 1
+  with-env { NIX_GET_COMPLETIONS: $current_arg } { $spans| skip 1| ^nix ...$in }
+  | lines
+  | skip 1
+  | parse "{value}\t{description}"
+}
+
+let pwsh_completer = {|spans: list<string>|
+  if (which pwsh | is-empty) { return }
+
+  let token = $spans | str join " " | str replace -r "pwsh -(c|Command) " ""
+  let cursorColumn = $token | str length
+
+  ^pwsh -c $"[System.Management.Automation.CommandCompletion]::CompleteInput\(\"($token)\", ($cursorColumn), $null).CompletionMatches | Select-Object CompletionText,ToolTip | ConvertTo-Json"
+  | from json | default [] | each {|el| {
+    value: $el.CompletionText,
+    description: $el.ToolTip
+  }}
+}
+
+let zoxide_completer = {|spans|
+  if (which zoxide | is-empty ) { return }
+
+  $spans | skip 1 | zoxide query -l ...$in | lines | where {|x| $x != $env.PWD}
+}
+
+let external_completer = {|spans|
+  let expanded_alias = scope aliases
+  | where name == $spans.0
+  | get -i 0.expansion
+
+  let spans = if $expanded_alias != null {
+    $spans
+    | skip 1
+    | prepend ($expanded_alias | split row ' ' | take 1)
+  } else {
+    $spans
+  }
+
+  match $spans.0 {
+    nix => $nix_completer
+    pwsh => $pwsh_completer
+    __zoxide_z | __zoxide_zi => $zoxide_completer
+    _ => $carapace_completer
+  } | do $in $spans
+}
 
 $env.config = {
   show_banner: false
@@ -40,20 +96,20 @@ $env.config = {
   }
 
   explore: {
-    status_bar_background: { fg: "#1D1F21", bg: "#C4C9C6" },
-    command_bar_text: { fg: "#C4C9C6" },
-    highlight: { fg: "black", bg: "yellow" },
+    status_bar_background: { fg: "#1D1F21", bg: "#C4C9C6" }
+    command_bar_text: { fg: "#C4C9C6" }
+    highlight: { fg: "black", bg: "yellow" }
     status: {
-      error: { fg: "white", bg: "red" },
+      error: { fg: "white", bg: "red" }
       warn: {}
       info: {}
-    },
+    }
     table: {
-      split_line: { fg: "#404040" },
-      selected_cell: { bg: light_blue },
-      selected_row: {},
-      selected_column: {},
-    },
+      split_line: { fg: "#404040" }
+      selected_cell: { bg: light_blue }
+      selected_row: {}
+      selected_column: {}
+    }
   }
 
   history: {
@@ -69,6 +125,11 @@ $env.config = {
     partial: true
     algorithm: "prefix"
     use_ls_colors: true
+    external: {
+      enable: true
+      max_results: 100
+      completer: $external_completer
+    }
   }
 
   filesize: {
@@ -100,20 +161,20 @@ $env.config = {
   # enables terminal shell integration. Off by default, as some terminals have issues with this.
   shell_integration: {
     # osc2 abbreviates the path if in the home_dir, sets the tab/window title, shows the running command in the tab/window title
-    osc2: $in_supported_termprogram
+    osc2: true
     # osc7 is a way to communicate the path to the terminal, this is helpful for spawning new tabs in the same directory
-    osc7: $in_supported_termprogram
+    osc7: true
     # osc8 is also implemented as the deprecated setting ls.show_clickable_links, it shows clickable links in ls output if your terminal supports it. show_clickable_links is deprecated in favor of osc8
-    osc8: $in_supported_termprogram
+    osc8: true
     # osc9_9 is from ConEmu and is starting to get wider support. It's similar to osc7 in that it communicates the path to the terminal
-    osc9_9: false
+    osc9_9: true
     # osc133 is several escapes invented by Final Term which include the supported ones below.
     # 133;A - Mark prompt start
     # 133;B - Mark prompt end
     # 133;C - Mark pre-execution
     # 133;D;exit - Mark execution finished with exit code
     # This is used to enable terminals to know where the prompt is, the command is, where the command finishes, and where the output of the command is
-    osc133: $in_supported_termprogram
+    osc133: true
     # osc633 is closely related to osc133 but only exists in visual studio code (vscode) and supports their shell integration features
     # 633;A - Mark prompt start
     # 633;B - Mark prompt end
@@ -122,7 +183,7 @@ $env.config = {
     # 633;E - NOT IMPLEMENTED - Explicitly set the command line with an optional nonce
     # 633;P;Cwd=<path> - Mark the current working directory and communicate it to the terminal
     # and also helps with the run recent menu in vscode
-    osc633: ($env.TERM_PROGRAM? == "vscode")
+    osc633: true
     # reset_application_mode is escape \x1b[?1l and was added to help ssh work better
     reset_application_mode: true
   }
@@ -150,61 +211,5 @@ $env.config = {
     command_not_found: { null }
   }
 
-  menus: [
-    # Configuration for default nushell menus
-    # Note the lack of source parameter
-    {
-      name: completion_menu
-      only_buffer_difference: false
-      marker: "| "
-      type: {
-        layout: columnar
-        columns: 1
-        # Optional value. If missing all the screen width is used to calculate column width
-        # col_width: 20
-        # col_padding: 2
-      }
-      style: {
-        text: green
-        selected_text: { attr: r }
-        description_text: yellow
-        match_text: { attr: u }
-        selected_match_text: { attr: ur }
-      }
-    }
-    {
-      name: ide_completion_menu
-      only_buffer_difference: false
-      marker: "| "
-      type: {
-        layout: ide
-        min_completion_width: 0,
-        max_completion_width: 50,
-        max_completion_height: 10, # will be limited by the available lines in the terminal
-        padding: 0,
-        border: true,
-        cursor_offset: 0,
-        description_mode: "prefer_right"
-        min_description_width: 0
-        max_description_width: 50
-        max_description_height: 10
-        description_offset: 1
-        # If true, the cursor pos will be corrected, so the suggestions match up with the typed text
-        #
-        # C:\> str
-        #      str join
-        #      str trim
-        #      str split
-        correct_cursor_pos: true
-      }
-      style: {
-        text: green
-        selected_text: { attr: r }
-        description_text: yellow
-        match_text: { attr: u }
-        selected_match_text: { attr: ur }
-      }
-    }
-  ]
   keybindings: (keybindings)
 }

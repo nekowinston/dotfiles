@@ -31,7 +31,6 @@ let
     "git"
     "just"
     "man"
-    "nix"
     "npm"
     "pnpm"
     "poetry"
@@ -53,7 +52,11 @@ let
   '';
 in
 {
-  programs.carapace.enable = true;
+  programs.carapace = {
+    enable = true;
+    enableNushellIntegration = false;
+  };
+
   programs.nushell = {
     enable = true;
 
@@ -63,13 +66,14 @@ in
       ''
         $env.config = ($env.config? | default {})
         $env.config.hooks = ($env.config.hooks? | default {})
-        $env.config.hooks.command_not_found = {
-          |cmd_name| (try { ${command-not-found} $cmd_name })
+        $env.config.hooks.command_not_found = {|cmd_name|
+          try { ${command-not-found} $cmd_name }
         }
 
         source ${nu_scripts}/aliases/git/git-aliases.nu
       ''
       + shellAliases
+      + "\n"
       + mkCompletions completions;
   };
 
