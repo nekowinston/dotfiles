@@ -7,24 +7,26 @@
 let
   nu_scripts = "${pkgs.nu_scripts}/share/nu_scripts";
 
-  shellAliases = lib.concatStringsSep "\n" (
-    lib.mapAttrsToList (k: v: "alias ${k} = ${v}") config.home.shellAliases
+  aliases = mkAliases (
+    (config.home.shellAliases or { })
+    // {
+      clipcopy = "clipboard copy";
+      clippaste = "clipboard paste";
+    }
   );
+
+  mkAliases =
+    aliases: lib.concatStringsSep "\n" (lib.mapAttrsToList (k: v: "alias ${k} = ${v}") aliases);
 
   mkCompletions =
     completions:
     lib.concatStringsSep "\n" (
       builtins.map (
-        el:
-        let
-          name = el.name or el;
-          filename = el.filename or el;
-        in
-        "source ${nu_scripts}/custom-completions/${name}/${filename}-completions.nu"
+        el: "source ${nu_scripts}/custom-completions/${el.name or el}/${el.filename or el}-completions.nu"
       ) completions
     );
 
-  completions = [
+  completions = mkCompletions [
     "cargo"
     "composer"
     "gh"
@@ -46,6 +48,12 @@ let
     }
   ];
 
+  mkPlugins =
+    plugins:
+    lib.concatStringsSep "\n" (builtins.map (plugin: "plugin add ${lib.getExe plugin}") plugins);
+
+  plugins = mkPlugins (with pkgs.nushellPlugins; [ clipboard ]);
+
   command-not-found = pkgs.writeShellScript "command-not-found" ''
     source ${config.programs.nix-index.package}/etc/profile.d/command-not-found.sh
     command_not_found_handle "$@"
@@ -54,6 +62,7 @@ in
 {
   programs.carapace = {
     enable = true;
+    # prefer my own completer
     enableNushellIntegration = false;
   };
 
@@ -74,8 +83,9 @@ in
         source ${./nu/keybindings.nu}
       ''
       + lib.concatStringsSep "\n" [
-        shellAliases
-        (mkCompletions completions)
+        completions
+        plugins
+        aliases
       ];
   };
 }

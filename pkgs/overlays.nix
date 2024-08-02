@@ -8,6 +8,9 @@
     in
     {
       inherit (inputs.swayfx.packages.${prev.system}) swayfx-unwrapped;
+      nushellPlugins = (prev.nushellPlugins or { }) // {
+        clipboard = prev.callPackage ./nu_plugin_clipboard.nix { };
+      };
       starship = prev.starship.overrideAttrs (old: {
         patches = [
           (prev.fetchpatch {
