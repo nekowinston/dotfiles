@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   imports = [ ./brew.nix ];
 
@@ -9,5 +10,15 @@
   location = {
     latitude = 48.210033;
     longitude = 16.363449;
+  };
+
+  environment = {
+    systemPackages = with pkgs; [
+      podman
+      podman-compose
+      podman-tui
+      qemu
+    ];
+    pathsToLink = [ "/share/qemu" ];
   };
 }

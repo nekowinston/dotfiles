@@ -16,7 +16,7 @@ in
   homebrew = {
     enable = true;
     caskArgs.require_sha = true;
-    brews = [ "podman" ];
+    brews = [ ];
     casks = [
       "1password"
       (skipSha "affinity-designer")
@@ -49,6 +49,5 @@ in
       autoUpdate = true;
       upgrade = true;
     };
-    taps = [ "homebrew/cask" ];
   };
 }
