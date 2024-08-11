@@ -34,9 +34,9 @@
 
   environment.systemPackages = with pkgs; [
     cabextract
+    discover-overlay
     lutris-free
     mangohud
-    nur.repos.nekowinston.discover-overlay
     virt-manager
     wineWowPackages.staging
     winetricks

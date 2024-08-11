@@ -11,7 +11,7 @@ in
   config = lib.mkIf (config.isGraphical && pkgs.stdenv.isLinux) {
     home.pointerCursor = {
       name = "macOS-Monterey";
-      package = pkgs.nur.repos.nekowinston.apple-cursor;
+      package = pkgs.apple-cursor;
       size = 24;
     };
 

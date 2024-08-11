@@ -2,6 +2,7 @@
 {
   imports = [
     ./boot.nix
+    ./cosmic.nix
     ./gnome.nix
     ./greeter.nix
     ./input.nix

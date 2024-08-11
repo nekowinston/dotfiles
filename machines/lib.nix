@@ -54,34 +54,38 @@ rec {
       ${target}."${host}" = builder {
         inherit system;
         modules = [
-          {
-            options = {
-              dotfiles = {
-                username = mkOption {
-                  type = types.str;
-                  default = username;
-                  description = "The username of the user";
+          (
+            { config, ... }:
+            {
+              options = {
+                dotfiles = {
+                  username = mkOption {
+                    type = types.str;
+                    default = username;
+                    description = "The username of the user";
+                  };
+                  desktop = mkOption {
+                    type = types.nullOr (
+                      types.enum [
+                        "cosmic"
+                        "gnome"
+                        "hyprland"
+                        "sway"
+                      ]
+                    );
+                    default = if (pkgs.stdenv.isLinux && config.dotfiles.isGraphical) then "sway" else null;
+                    description = "The desktop environment to use";
+                  };
                 };
-                desktop = mkOption {
-                  type = types.nullOr (
-                    types.enum [
-                      "gnome"
-                      "sway"
-                    ]
-                  );
-                  default = "sway";
-                  description = "The desktop environment to use";
+                isGraphical = mkOption {
+                  type = types.bool;
+                  default = isGraphical;
+                  description = "Whether the system is a graphical target";
                 };
               };
-              isGraphical = mkOption {
-                type = types.bool;
-                default = isGraphical;
-                description = "Whether the system is a graphical target";
-              };
-            };
-            config.dotfiles.desktop = pkgs.lib.mkIf (!isGraphical) null;
-            config.networking.hostName = host;
-          }
+              config.networking.hostName = host;
+            }
+          )
           ./common/shared
           ./common/${hostPlatform}
           ./${host}
