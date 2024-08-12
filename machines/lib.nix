@@ -43,51 +43,60 @@ rec {
         else
           throw "Unsupported system";
       target = ldTernary "nixosConfigurations" "darwinConfigurations";
-      builder = with inputs; ldTernary nixpkgs.lib.nixosSystem darwin.lib.darwinSystem;
+      builder = ldTernary inputs.nixpkgs.lib.nixosSystem inputs.darwin.lib.darwinSystem;
       module = ldTernary "nixosModules" "darwinModules";
       hostPlatform = ldTernary "linux" "darwin";
 
+      linuxModules = [ inputs.nixos-cosmic.nixosModules.default ];
+      darwinModules = [ inputs.nekowinston-nur.darwinModules.default ];
+
       pkgs = inputs.nixpkgs.legacyPackages.${system};
+      inherit (pkgs) lib;
       inherit (pkgs.lib) mkOption types;
     in
     {
       ${target}."${host}" = builder {
         inherit system;
-        modules = [
-          {
-            options = {
-              dotfiles = {
-                username = mkOption {
-                  type = types.str;
-                  default = username;
-                  description = "The username of the user";
+        modules =
+          [
+            {
+              options = {
+                dotfiles = {
+                  username = mkOption {
+                    type = types.str;
+                    default = username;
+                    description = "The username of the user";
+                  };
+                  desktop = mkOption {
+                    type = types.nullOr (
+                      types.enum [
+                        "cosmic"
+                        "gnome"
+                        "hyprland"
+                        "sway"
+                      ]
+                    );
+                    default = if (pkgs.stdenv.isLinux && isGraphical) then "sway" else null;
+                    description = "The desktop environment to use";
+                  };
                 };
-                desktop = mkOption {
-                  type = types.nullOr (
-                    types.enum [
-                      "cosmic"
-                      "gnome"
-                      "hyprland"
-                      "sway"
-                    ]
-                  );
-                  default = if (pkgs.stdenv.isLinux && isGraphical) then "sway" else null;
-                  description = "The desktop environment to use";
+                isGraphical = mkOption {
+                  type = types.bool;
+                  default = isGraphical;
+                  description = "Whether the system is a graphical target";
                 };
               };
-              isGraphical = mkOption {
-                type = types.bool;
-                default = isGraphical;
-                description = "Whether the system is a graphical target";
-              };
-            };
-            config.networking.hostName = host;
-          }
-          ./common/shared
-          ./common/${hostPlatform}
-          ./${host}
-          inputs.home-manager.${module}.home-manager
-        ] ++ [ (hmCommonConfig { inherit username; }) ] ++ extraModules;
+              config.networking.hostName = host;
+            }
+            ./common/shared
+            ./common/${hostPlatform}
+            ./${host}
+            inputs.home-manager.${module}.home-manager
+            (hmCommonConfig { inherit username; })
+          ]
+          ++ lib.optionals pkgs.stdenv.isLinux linuxModules
+          ++ lib.optionals pkgs.stdenv.isDarwin darwinModules
+          ++ extraModules;
         specialArgs = {
           inherit inputs;
         };

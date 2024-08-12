@@ -14,14 +14,12 @@
           system = "aarch64-darwin";
           username = "winston";
           isGraphical = true;
-          extraModules = [ inputs.nekowinston-nur.darwinModules.default ];
         }
         {
           host = "futomaki";
           system = "x86_64-linux";
           username = "winston";
           isGraphical = true;
-          extraModules = [ inputs.nixos-cosmic.nixosModules.default ];
         }
         {
           host = "yuba";
