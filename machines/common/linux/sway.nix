@@ -26,8 +26,6 @@
     environment.pathsToLink = [ "/share/nautilus-python/extensions" ];
     environment.sessionVariables.NAUTILUS_4_EXTENSION_DIR = "${config.system.path}/lib/nautilus/extensions-4";
 
-    programs.hyprland.enable = true;
-
     programs.sway = {
       enable = true;
       package = pkgs.swayfx;
@@ -56,16 +54,17 @@
     services.dbus.packages = with pkgs; [
       darkman
       nautilus-open-any-terminal
-      # gcr needed for gnome3 pinentry, managed in Home-Manager
-      gcr
     ];
     xdg.portal = {
       enable = true;
-      wlr.enable = true;
+      config.sway = {
+        "org.freedesktop.impl.portal.Settings" = [ "darkman" ];
+      };
       extraPortals = with pkgs; [
         darkman
         xdg-desktop-portal-gtk
       ];
+      wlr.enable = true;
       xdgOpenUsePortal = true;
     };
 

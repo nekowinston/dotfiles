@@ -5,6 +5,7 @@
     ./cosmic.nix
     ./gnome.nix
     ./greeter.nix
+    ./hyprland.nix
     ./input.nix
     ./network.nix
     ./podman.nix

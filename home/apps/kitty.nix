@@ -68,7 +68,7 @@ in
       "ctrl+s>m" = "detach_window ask";
 
       # show index for easier switching, show number of panes
-      "ctrl+s>c" = "new_tab";
+      "ctrl+s>c" = "launch --type=tab --cwd=current";
       "ctrl+s>n" = "next_tab";
       "ctrl+s>p" = "previous_tab";
       "ctrl+s>1" = "goto_tab 1";
@@ -80,6 +80,18 @@ in
       "ctrl+s>7" = "goto_tab 7";
       "ctrl+s>8" = "goto_tab 8";
       "ctrl+s>9" = "goto_tab 9";
+      "ctrl+s>0" = "goto_tab -1";
+
+      "super+1" = "goto_tab 1";
+      "super+2" = "goto_tab 2";
+      "super+3" = "goto_tab 3";
+      "super+4" = "goto_tab 4";
+      "super+5" = "goto_tab 5";
+      "super+6" = "goto_tab 6";
+      "super+7" = "goto_tab 7";
+      "super+8" = "goto_tab 8";
+      "super+9" = "goto_tab 9";
+      "super+0" = "goto_tab -1";
 
       "alt+enter" = "toggle_fullscreen";
     };

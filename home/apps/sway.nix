@@ -88,8 +88,9 @@ in
             { command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"; }
           ];
           workspaceAutoBackAndForth = true;
-          terminal = "${config.programs.wezterm.package}/bin/wezterm";
-          menu = "${config.programs.rofi.package}/bin/rofi";
+          # TODO: change this back to wezterm whenever it works on sway
+          terminal = lib.getExe config.programs.kitty.package;
+          menu = lib.getExe config.programs.rofi.package;
           defaultWorkspace = "workspace number 1";
           input."type:keyboard".xkb_options = "ctrl:nocaps,compose:ralt";
           output."*" = {
@@ -103,9 +104,9 @@ in
               modFocus = "${mod}+Ctrl";
               hyper = "Mod4+Mod1+Shift+Ctrl";
 
-              filebrowser = "${pkgs.nautilus}/bin/nautilus";
-              screenshot = "${pkgs.sway-contrib.grimshot}/bin/grimshot copy area";
-              playerctl = "${pkgs.playerctl}/bin/playerctl";
+              filebrowser = lib.getExe pkgs.nautilus;
+              screenshot = "${lib.getExe pkgs.sway-contrib.grimshot} copy area";
+              playerctl = lib.getExe pkgs.playerctl;
               swayosd = pkgs.swayosd + "/bin/swayosd-client";
             in
             {

@@ -52,7 +52,7 @@ in
       settings = {
         lat = config.location.latitude;
         lng = config.location.longitude;
-        useGeoclue = false;
+        usegeoclue = false;
       };
       lightModeScripts = {
         gtk-theme = ''

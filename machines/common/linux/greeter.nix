@@ -4,18 +4,42 @@
   pkgs,
   ...
 }:
+let
+  condition = (
+    builtins.elem config.dotfiles.desktop [
+      "hyprland"
+      "sway"
+    ]
+  );
+in
 {
-  config = lib.mkIf (config.dotfiles.desktop == "sway") {
-    services.greetd = {
+  config = lib.mkIf condition {
+    programs.regreet = {
       enable = true;
-      settings.default_session = {
-        command = lib.concatStringsSep " " [
-          "${pkgs.greetd.tuigreet}/bin/tuigreet"
-          "--remember"
-          "--remember-user-session"
-          "--sessions=${config.programs.sway.package}/share/wayland-sessions:${config.programs.hyprland.package}/share/wayland-sessions"
-        ];
-        user = "greeter";
+      settings = {
+        background = {
+          path = ../../../home/wallpapers/dhm_1610.png;
+          fit = "Cover";
+        };
+        GTK = {
+          cursor_theme_name = "macOS-Monterey";
+          font_name = "IBM Plex Sans 16";
+          icon_theme_name = "WhiteSur";
+          theme_name = "WhiteSur-Dark";
+        };
+      };
+      font.name = "IBM Plex Sans";
+      cursorTheme = {
+        name = "macOS-Monterey";
+        package = pkgs.apple-cursor;
+      };
+      iconTheme = {
+        name = "WhiteSur-Dark";
+        package = pkgs.whitesur-icon-theme;
+      };
+      theme = {
+        name = "WhiteSur-Dark";
+        package = pkgs.whitesur-gtk-theme;
       };
     };
 
