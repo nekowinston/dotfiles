@@ -54,38 +54,35 @@ rec {
       ${target}."${host}" = builder {
         inherit system;
         modules = [
-          (
-            { config, ... }:
-            {
-              options = {
-                dotfiles = {
-                  username = mkOption {
-                    type = types.str;
-                    default = username;
-                    description = "The username of the user";
-                  };
-                  desktop = mkOption {
-                    type = types.nullOr (
-                      types.enum [
-                        "cosmic"
-                        "gnome"
-                        "hyprland"
-                        "sway"
-                      ]
-                    );
-                    default = if (pkgs.stdenv.isLinux && config.dotfiles.isGraphical) then "sway" else null;
-                    description = "The desktop environment to use";
-                  };
+          {
+            options = {
+              dotfiles = {
+                username = mkOption {
+                  type = types.str;
+                  default = username;
+                  description = "The username of the user";
                 };
-                isGraphical = mkOption {
-                  type = types.bool;
-                  default = isGraphical;
-                  description = "Whether the system is a graphical target";
+                desktop = mkOption {
+                  type = types.nullOr (
+                    types.enum [
+                      "cosmic"
+                      "gnome"
+                      "hyprland"
+                      "sway"
+                    ]
+                  );
+                  default = if (pkgs.stdenv.isLinux && isGraphical) then "sway" else null;
+                  description = "The desktop environment to use";
                 };
               };
-              config.networking.hostName = host;
-            }
-          )
+              isGraphical = mkOption {
+                type = types.bool;
+                default = isGraphical;
+                description = "Whether the system is a graphical target";
+              };
+            };
+            config.networking.hostName = host;
+          }
           ./common/shared
           ./common/${hostPlatform}
           ./${host}
