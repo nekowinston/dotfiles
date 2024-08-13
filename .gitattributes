@@ -10,3 +10,5 @@ lazy-lock.json -diff
 
 # git crypt
 home/secrets/fonts/* filter=git-crypt diff=git-crypt
+
+*.nu linguist-language=nushell
