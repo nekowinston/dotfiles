@@ -54,9 +54,10 @@ in
 
     # respected by `fd` & `rg`, makes it so that iCloud files are ignored by those utils
     # this speeds up the search processes and files aren't downloaded while searching $HOME
-    file."Library/.ignore".text = lib.optionalString isDarwin ''
-      Mobile Documents/
-    '';
+    file."Library/.ignore" = {
+      enable = isDarwin;
+      text = "Mobile Documents/";
+    };
 
     mac-wallpaper = ./wallpapers/dhm_1610.png;
   };
