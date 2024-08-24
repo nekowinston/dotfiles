@@ -3,15 +3,15 @@
 {
   catppuccin-bat = {
     pname = "catppuccin-bat";
-    version = "d714cc1d358ea51bfc02550dabab693f70cccea0";
+    version = "d3feec47b16a8e99eabb34cdfbaa115541d374fc";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "bat";
-      rev = "d714cc1d358ea51bfc02550dabab693f70cccea0";
+      rev = "d3feec47b16a8e99eabb34cdfbaa115541d374fc";
       fetchSubmodules = false;
-      sha256 = "sha256-Q5B4NDrfCIK3UAMs94vdXnR42k4AXCqZz6sRn8bzmf4=";
+      sha256 = "sha256-s0CHTihXlBMCKmbBBb8dUhfgOOQu9PBCQ+uviy7o47w=";
     };
-    date = "2024-04-25";
+    date = "2024-08-05";
   };
   milspec = {
     pname = "milspec";
@@ -39,10 +39,10 @@
   };
   yabai = {
     pname = "yabai";
-    version = "v7.1.1";
+    version = "v7.1.2";
     src = fetchurl {
-      url = "https://github.com/koekeishiya/yabai/releases/download/v7.1.1/yabai-v7.1.1.tar.gz";
-      sha256 = "sha256-uqxP7hO4cyZRoA9acOHWMVPmEGQhZcIRGmLar3H+xE8=";
+      url = "https://github.com/koekeishiya/yabai/releases/download/v7.1.2/yabai-v7.1.2.tar.gz";
+      sha256 = "sha256-RIYo5Ilqbfs4kqYKSrztYLAqgvlPXqaEenVnMJvTWDk=";
     };
   };
   zsh-fast-syntax-highlighting = {

@@ -23,7 +23,7 @@ in
           _1password
           age
           age-plugin-yubikey
-          deno
+          attic-client
           fd
           ffmpeg
           file
@@ -33,6 +33,7 @@ in
           imagemagick
           just
           mdcat
+          minio-client
           nix-output-monitor
           nur.repos.nekowinston.icat
           nvd
@@ -47,19 +48,17 @@ in
           neovide
         ]
       );
-    sessionVariables = lib.mkIf isDarwin {
-      SSH_AUTH_SOCK = "${config.programs.gpg.homedir}/S.gpg-agent.ssh";
-    };
+    sessionVariables.SSH_AUTH_SOCK = lib.optionalString isDarwin "${config.programs.gpg.homedir}/S.gpg-agent.ssh";
     stateVersion = "23.05";
 
     # respected by `fd` & `rg`, makes it so that iCloud files are ignored by those utils
     # this speeds up the search processes and files aren't downloaded while searching $HOME
     file."Library/.ignore" = {
       enable = isDarwin;
-      text = "Mobile Documents/";
+      text = ''
+        Mobile Documents/
+      '';
     };
-
-    mac-wallpaper = ./wallpapers/dhm_1610.png;
   };
 
   xdg.configFile = lib.mkIf isDarwin { sketchybar.source = ./apps/sketchybar; };
@@ -67,7 +66,10 @@ in
   programs = {
     home-manager.enable = true;
     man.enable = true;
-    taskwarrior.enable = true;
+    taskwarrior = {
+      enable = true;
+      package = pkgs.taskwarrior3;
+    };
   };
 
   age.secrets."wakatime.cfg".path = "${config.home.sessionVariables.WAKATIME_HOME}/.wakatime.cfg";
