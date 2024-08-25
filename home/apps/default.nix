@@ -11,7 +11,6 @@
     ./gtk.nix
     ./hyprland.nix
     ./kitty.nix
-    ./kubernetes.nix
     ./mail.nix
     ./media.nix
     ./neovim.nix

@@ -12,7 +12,14 @@
   system.stateVersion = 4;
 
   security.pam.enableSudoTouchIdAuth = true;
-  system.defaults.alf.stealthenabled = 1;
+  system.defaults = {
+    alf.stealthenabled = 1;
+    NSGlobalDomain = {
+      ApplePressAndHoldEnabled = false;
+      AppleInterfaceStyleSwitchesAutomatically = true;
+      KeyRepeat = 2;
+    };
+  };
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;

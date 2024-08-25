@@ -1,6 +1,5 @@
 {
   config,
-  flakePath,
   lib,
   pkgs,
   ...
@@ -11,6 +10,7 @@ in
 {
   imports = [
     ./apps
+    ./langs
     ./secrets
     ./xdg.nix
   ];

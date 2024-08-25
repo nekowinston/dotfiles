@@ -34,6 +34,7 @@ in
       GRADLE_USER_HOME = "${dataHome}/gradle";
       HISTFILE = "${stateHome}/bash/history";
       IPYTHONDIR = "${configHome}/ipython";
+      MC_CONFIG_DIR = "${configHome}/mc";
       NODE_REPL_HISTORY = "${dataHome}/node_repl_history";
       NPM_CONFIG_USERCONFIG = "${configHome}/npm/npmrc";
       RUSTUP_HOME = "${dataHome}/rustup";
