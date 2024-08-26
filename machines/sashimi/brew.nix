@@ -36,6 +36,7 @@ in
       "macfuse"
       "mullvad-browser"
       "mullvadvpn"
+      "orbstack"
       "orion"
       "rustdesk"
       "signal"

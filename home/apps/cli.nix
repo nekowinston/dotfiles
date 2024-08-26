@@ -1,6 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   srcs = pkgs.callPackage ../../_sources/generated.nix { };
+  inherit (pkgs.stdenv) isLinux;
 in
 {
   home = {
@@ -14,8 +15,8 @@ in
       switch_yubikeys = ''gpg-connect-agent "scd serialno" "learn --force" "/bye"'';
 
       # podman
-      docker = "podman";
-      docker-compose = "podman-compose";
+      docker = lib.mkIf isLinux "podman";
+      docker-compose = lib.mkIf isLinux "podman-compose";
     };
   };
 
