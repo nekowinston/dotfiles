@@ -71,7 +71,7 @@ in
 
     configFile.source = ./nu/config.nu;
 
-    extraConfig =
+    extraConfig = # nu
       ''
         $env.config = $env.config? | default {}
         $env.config.hooks = $env.config.hooks? | default {}
@@ -81,11 +81,25 @@ in
 
         source ${nu_scripts}/aliases/git/git-aliases.nu
         source ${./nu/keybindings.nu}
+
+        ${lib.concatStringsSep "\n" [
+          completions
+          plugins
+          aliases
+        ]}
+      '';
+    extraEnv = # nu
       ''
-      + lib.concatStringsSep "\n" [
-        completions
-        plugins
-        aliases
-      ];
+        $env.ENV_CONVERSIONS = {
+          "PATH": {
+            from_string: { |s| $s | split row (char esep) | path expand --no-symlink }
+            to_string: { |v| $v | path expand --no-symlink | str join (char esep) }
+          }
+          "Path": {
+            from_string: { |s| $s | split row (char esep) | path expand --no-symlink }
+            to_string: { |v| $v | path expand --no-symlink | str join (char esep) }
+          }
+        }
+      '';
   };
 }
