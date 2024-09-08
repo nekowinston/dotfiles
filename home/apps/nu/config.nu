@@ -165,7 +165,7 @@ $env.config = {
     # osc8 is also implemented as the deprecated setting ls.show_clickable_links, it shows clickable links in ls output if your terminal supports it. show_clickable_links is deprecated in favor of osc8
     osc8: true
     # osc9_9 is from ConEmu and is starting to get wider support. It's similar to osc7 in that it communicates the path to the terminal
-    osc9_9: true
+    osc9_9: ($env.TERM != "xterm-kitty")
     # osc133 is several escapes invented by Final Term which include the supported ones below.
     # 133;A - Mark prompt start
     # 133;B - Mark prompt end
