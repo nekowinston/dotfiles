@@ -74,6 +74,7 @@ rec {
                         "gnome"
                         "hyprland"
                         "sway"
+                        "swayfx"
                       ]
                     );
                     default = if (pkgs.stdenv.isLinux && isGraphical) then "sway" else null;

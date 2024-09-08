@@ -5,44 +5,28 @@
   ...
 }:
 let
+  inherit (config.dotfiles) desktop;
   condition = (
-    builtins.elem config.dotfiles.desktop [
+    builtins.elem desktop [
       "hyprland"
       "sway"
+      "swayfx"
     ]
   );
+  binary =
+    {
+      swayfx = "sway";
+      sway = "sway";
+      hyprland = "hypr";
+    }
+    .${desktop} or (throw "greetd: desktop not supported");
 in
 {
   config = lib.mkIf condition {
-    programs.regreet = {
+    services.greetd = {
       enable = true;
-      settings = {
-        background = {
-          path = ../../../home/wallpapers/dhm_1610.png;
-          fit = "Cover";
-        };
-        GTK = {
-          cursor_theme_name = "macOS-Monterey";
-          font_name = "IBM Plex Sans 16";
-          icon_theme_name = "WhiteSur";
-          theme_name = "WhiteSur-Dark";
-        };
-      };
-      font.name = "IBM Plex Sans";
-      cursorTheme = {
-        name = "macOS-Monterey";
-        package = pkgs.apple-cursor;
-      };
-      iconTheme = {
-        name = "WhiteSur-Dark";
-        package = pkgs.whitesur-icon-theme;
-      };
-      theme = {
-        name = "WhiteSur-Dark";
-        package = pkgs.whitesur-gtk-theme;
-      };
+      settings.default_session.command = "${lib.getExe pkgs.greetd.tuigreet} --cmd '${pkgs.dbus}/bin/dbus-run-session ${binary}'";
     };
-
     services.gnome.gnome-keyring.enable = true;
     security.pam.services.greetd = {
       enableGnomeKeyring = true;

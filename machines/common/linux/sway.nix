@@ -4,8 +4,17 @@
   pkgs,
   ...
 }:
+let
+  condition = (
+    builtins.elem config.dotfiles.desktop [
+      "hyprland"
+      "sway"
+      "swayfx"
+    ]
+  );
+in
 {
-  config = lib.mkIf (config.dotfiles.desktop == "sway") {
+  config = lib.mkIf condition {
     environment.systemPackages = with pkgs; [
       # file management
       p7zip
@@ -28,7 +37,7 @@
 
     programs.sway = {
       enable = true;
-      package = pkgs.swayfx;
+      package = lib.mkIf (config.dotfiles.desktop == "swayfx") pkgs.swayfx;
       extraPackages = with pkgs; [
         swaylock-effects
         swayidle
@@ -61,8 +70,8 @@
         "org.freedesktop.impl.portal.Settings" = [ "darkman" ];
       };
       extraPortals = with pkgs; [
-        darkman
         xdg-desktop-portal-gtk
+        darkman
       ];
       wlr.enable = true;
       xdgOpenUsePortal = true;
