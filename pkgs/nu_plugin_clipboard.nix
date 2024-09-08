@@ -15,8 +15,8 @@ rustPlatform.buildRustPackage {
   src = fetchFromGitHub {
     owner = "FMotalleb";
     repo = "nu_plugin_clipboard";
-    sha256 = "sha256-Uo9dd9D32Q1eBVPFG9dYBvsWvBcpuu6QuaVqs7bdZfM=";
-    rev = "494018928fb72e5b19c4eb83f0390645fc839651";
+    sha256 = "sha256-N9UZJwM5aSWmFZaDAPUV7ZtgvuAPrbwrMKom3u4ok1E=";
+    rev = "9db14a6b7ae1f080036ca8d9abf4c5fbf81dbeaa";
   };
 
   buildInputs = lib.optionals stdenv.isDarwin [
@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage {
     IOKit
   ];
 
-  cargoHash = "sha256-wGKqQwPjBjrqJEmfe8L6Wz2tRYJsZ4PiY7AmRvxxABQ=";
+  cargoHash = "sha256-3WlmVH97kK5pJZSJiEvNTY/8X0Zhik4YIVtbReTriac=";
 
   meta = with lib; {
     description = "A nushell plugin to copy text into clipboard or get text from it.";

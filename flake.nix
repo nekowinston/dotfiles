@@ -54,8 +54,7 @@
               editorconfig-checker.enable = true;
               luacheck.enable = true;
               nil.enable = true;
-              nixfmt.enable = true;
-              nixfmt.package = self'.formatter;
+              nixfmt-rfc-style.enable = true;
               shellcheck.enable = true;
               stylua.enable = true;
             };
