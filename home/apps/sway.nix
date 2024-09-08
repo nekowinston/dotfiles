@@ -90,8 +90,7 @@ in
           {
             command = ''
               swayidle -w \
-                timeout 180 'swaylock -f' \
-                timeout 360 'swaymsg "output * dpms off"' \
+                timeout 300 'swaymsg "output * dpms off"' \
                 resume 'swaymsg "output * dpms on"' \
                 before-sleep 'swaylock -f'
             '';
@@ -217,7 +216,7 @@ in
         };
         modes = {
           "power: (l)ock, (e)xit, (r)eboot, (s)uspend, (h)ibernate, (S)hut off" = {
-            l = "exec --no-startup-id swaylock --color 000000, mode \"default\"";
+            l = "exec --no-startup-id swaylock, mode \"default\"";
             e = "exec --no-startup-id swaymsg exit, mode \"default\"";
             r = "exec --no-startup-id systemctl reboot, mode \"default\"";
             s = "exec --no-startup-id systemctl suspend, mode \"default\"";
