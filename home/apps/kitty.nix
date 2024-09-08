@@ -36,6 +36,8 @@ in
       tab_title_template = "{index}: {title}{sup.num_windows if num_windows > 1 else ''}{activity_symbol}{bell_symbol}";
 
       macos_option_as_alt = "yes";
+
+      shell = lib.mkIf config.programs.nushell.enable "zsh -c 'nu'";
     };
 
     keybindings = {
@@ -105,10 +107,10 @@ in
 
   services.darkman = lib.mkIf config.services.darkman.enable {
     lightModeScripts.kitty-theme = ''
-      ${config.programs.kitty.package}/bin/kitty +kitten themes --config-file-name=themes.conf "milspec-light"
+      ${config.programs.kitty.package}/bin/kitten themes --reload-in=all --config-file-name=themes.conf "milspec-light"
     '';
     darkModeScripts.kitty-theme = ''
-      ${config.programs.kitty.package}/bin/kitty +kitten themes --config-file-name=themes.conf "milspec-dark"
+      ${config.programs.kitty.package}/bin/kitten themes --reload-in=all --config-file-name=themes.conf "milspec-dark"
     '';
   };
 }
