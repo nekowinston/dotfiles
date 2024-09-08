@@ -50,6 +50,3 @@ clean:
   sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations old
   nix-collect-garbage -d
   nix store optimise
-
-fetch:
-  @./scripts/fetch.sh

@@ -1,26 +1,11 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended",
-    "docker:pinDigests",
-    ":pinDevDependencies",
+    "config:best-practices",
     "schedule:weekly",
     ":automergeAll"
   ],
   "nix": {
     "enabled": true
-  },
-  "customManagers": [
-    {
-      "customType": "regex",
-      "fileMatch": [
-        "(^|/)(workflow-templates|\\.(?:github|gitea|forgejo)/(?:workflows|actions))/.+\\.dhall$",
-        "(^|/)action\\.dhall$"
-      ],
-      "matchStrings": [
-        "GithubActions\\.Step::{[\\s,]*uses\\s?=\\s?Some\\s?\"(?<depName>.+)@(?<currentValue>.+)\""
-      ],
-      "datasourceTemplate": "github-tags"
-    }
-  ]
+  }
 }
