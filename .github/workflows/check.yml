@@ -14,10 +14,10 @@ jobs:
     runs-on: "ubuntu-latest"
 
     steps:
-    - uses: "actions/checkout@v4.1.7"
+    - uses: "actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332" # v4.1.7
 
-    - uses: "DeterminateSystems/flake-checker-action@v8"
-    - uses: "DeterminateSystems/nix-installer-action@v13"
-    - uses: "DeterminateSystems/magic-nix-cache-action@v7"
+    - uses: "DeterminateSystems/flake-checker-action@ae43dea95bc73541287cfd10e2dee994d1877291" # v8
+    - uses: "DeterminateSystems/nix-installer-action@ab6bcb2d5af0e904d04aea750e2089e9dc4cbfdd" # v13
+    - uses: "DeterminateSystems/magic-nix-cache-action@b46e247b898aa56e6d2d2e728dc6df6c84fdb738" # v7
 
     - run: nix flake check --show-trace
