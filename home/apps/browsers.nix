@@ -15,16 +15,16 @@ in
     };
 
     programs.firefox = {
-      enable = false;
+      enable = true;
       profiles.default = {
         search.default = "DuckDuckGo";
         search.force = true;
         extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-          bitwarden
           clearurls
           darkreader
           decentraleyes
-          i-dont-care-about-cookies
+          istilldontcareaboutcookies
+          kagi-search
           languagetool
           mailvelope
           multi-account-containers
@@ -34,6 +34,7 @@ in
           ublock-origin
           vimium
         ];
+        # Note: last updated 2024-09-10
         settings = {
           "app.normandy.api_url" = "";
           "app.normandy.enabled" = false;
@@ -47,9 +48,11 @@ in
           "browser.crashReports.unsubmittedCheck.autoSubmit2" = false;
           "browser.crashReports.unsubmittedCheck.enabled" = false;
           "browser.disableResetPrompt" = true;
+          "browser.fixup.alternate.enabled" = false;
           "browser.formfill.enable" = false;
           "browser.newtab.preload" = false;
           "browser.newtabpage.activity-stream.section.highlights.includePocket" = false;
+          "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
           "browser.newtabpage.enabled" = false;
           "browser.newtabpage.enhanced" = false;
           "browser.newtabpage.introShown" = true;
@@ -83,6 +86,8 @@ in
           "device.sensors.orientation.enabled" = false;
           "device.sensors.proximity.enabled" = false;
           "dom.battery.enabled" = false;
+          "dom.event.clipboardevents.enabled" = false;
+          "dom.private-attribution.submission.enabled" = false;
           "dom.security.https_only_mode" = true;
           "dom.security.https_only_mode_ever_enabled" = true;
           "dom.webaudio.enabled" = false;
@@ -90,22 +95,14 @@ in
           "experiments.enabled" = false;
           "experiments.manifest.uri" = "";
           "experiments.supported" = false;
-          "extensions.CanvasBlocker@kkapsner.de.whiteList" = "";
-          "extensions.ClearURLs@kevinr.whiteList" = "";
-          "extensions.Decentraleyes@ThomasRientjes.whiteList" = "";
-          "extensions.FirefoxMulti-AccountContainers@mozilla.whiteList" = "";
-          "extensions.TemporaryContainers@stoically.whiteList" = "";
-          "extensions.autoDisableScopes" = 14;
           "extensions.getAddons.cache.enabled" = false;
           "extensions.getAddons.showPane" = false;
           "extensions.pocket.enabled" = false;
           "extensions.shield-recipe-client.api_url" = "";
           "extensions.shield-recipe-client.enabled" = false;
           "extensions.webservice.discoverURL" = "";
-          "media.autoplay.default" = 1;
-          "media.autoplay.enabled" = false;
+          "media.autoplay.default" = 2;
           "media.navigator.enabled" = false;
-          "media.peerconnection.enabled" = false;
           "media.video_stats.enabled" = false;
           "network.IDN_show_punycode" = true;
           "network.allow-experiments" = false;
@@ -118,6 +115,7 @@ in
           "network.predictor.enable-prefetch" = false;
           "network.predictor.enabled" = false;
           "network.prefetch-next" = false;
+          "network.trr.mode" = 5;
           "pdfjs.enableScripting" = false;
           "privacy.donottrackheader.enabled" = true;
           "privacy.donottrackheader.value" = 1;
@@ -145,7 +143,6 @@ in
           "toolkit.telemetry.unified" = false;
           "toolkit.telemetry.unifiedIsOptIn" = false;
           "toolkit.telemetry.updatePing.enabled" = false;
-          "webgl.disabled" = true;
           "webgl.renderer-string-override" = " ";
           "webgl.vendor-string-override" = " ";
 
