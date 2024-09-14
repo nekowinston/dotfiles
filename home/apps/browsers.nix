@@ -6,6 +6,8 @@
 }:
 let
   inherit (pkgs.stdenv) isLinux;
+
+  defaultBrowser = "firefox.desktop";
 in
 {
   config = lib.mkIf config.isGraphical {
@@ -156,12 +158,12 @@ in
 
     home.packages = lib.mkIf isLinux [ pkgs.mullvad-browser ];
 
-    xdg.mimeApps.defaultApplications = {
-      "text/html" = "chromium.desktop";
-      "x-scheme-handler/http" = "chromium.desktop";
-      "x-scheme-handler/https" = "chromium.desktop";
-      "x-scheme-handler/about" = "chromium.desktop";
-      "x-scheme-handler/unknown" = "chromium.desktop";
-    };
+    xdg.mimeApps.defaultApplications = lib.genAttrs [
+      "text/html"
+      "x-scheme-handler/http"
+      "x-scheme-handler/https"
+      "x-scheme-handler/about"
+      "x-scheme-handler/unknown"
+    ] (_: defaultBrowser);
   };
 }
