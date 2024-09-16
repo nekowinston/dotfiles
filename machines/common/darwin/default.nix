@@ -46,7 +46,7 @@
         right_padding = 5;
         top_padding = 5;
         bottom_padding = 5;
-        window_animation_duration = "0.3";
+        window_animation_duration = "0.0";
 
         window_origin_display = "cursor";
         window_placement = "second_child";
