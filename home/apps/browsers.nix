@@ -15,7 +15,7 @@ in
     };
 
     programs.firefox = {
-      enable = true;
+      enable = isLinux;
       profiles.default = {
         search.default = "DuckDuckGo";
         search.force = true;
