@@ -57,7 +57,7 @@ in
       ]);
   };
 
-  programs.gpg.homedir = "${configHome}/gnupg";
+  programs.gpg.homedir = lib.mkIf isLinux "${configHome}/gnupg";
 
   xdg = {
     enable = true;
