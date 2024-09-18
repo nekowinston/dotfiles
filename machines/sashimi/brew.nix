@@ -19,13 +19,12 @@ in
     brews = [ ];
     casks = [
       "1password"
-      (skipSha "affinity-designer")
-      (skipSha "affinity-photo")
-      (skipSha "affinity-publisher")
+      "affinity-designer"
+      "affinity-photo"
+      "affinity-publisher"
       "alfred"
       "blender"
-      (noQuarantine "easy-move-plus-resize")
-      (skipSha "element")
+      "element"
       "elgato-wave-link"
       "eloston-chromium"
       "iina"

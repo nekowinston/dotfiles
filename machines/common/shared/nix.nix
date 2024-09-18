@@ -11,7 +11,13 @@ let
   flakeInputs = filterAttrs (name: value: (value ? outputs) && (name != "self")) inputs;
 in
 {
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs = {
+    config.allowUnfree = true;
+
+    # prefer my own registry & path pinning for *all* inputs
+    flake.setNixPath = false;
+    flake.setFlakeRegistry = false;
+  };
   nix = {
     gc.automatic = true;
     settings = {
