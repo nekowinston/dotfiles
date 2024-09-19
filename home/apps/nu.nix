@@ -90,6 +90,7 @@ in
       '';
     extraEnv = # nu
       ''
+        $env.MANPAGER = "bat -l man -p"
         $env.ENV_CONVERSIONS = {
           "PATH": {
             from_string: { |s| $s | split row (char esep) | path expand --no-symlink }
