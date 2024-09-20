@@ -2,7 +2,10 @@
 {
   imports = [ ./hardware.nix ];
 
-  dotfiles.desktop = "sway";
+  dotfiles = {
+    desktop = "sway";
+    gaming.enable = true;
+  };
 
   networking = {
     networkmanager.enable = true;
@@ -17,54 +20,31 @@
   time.timeZone = "Europe/Vienna";
 
   services = {
-    flatpak.enable = true;
     openssh.enable = true;
     pcscd.enable = true;
-    transmission.enable = true;
-    transmission.openFirewall = true;
   };
 
-  virtualisation.podman.enable = true;
-  virtualisation.libvirtd.enable = true;
+  virtualisation = {
+    libvirtd.enable = true;
+    podman.enable = true;
+  };
 
   users.users."${config.dotfiles.username}".extraGroups = [
     "libvirtd"
-    "transmission"
   ];
 
   environment.systemPackages = with pkgs; [
-    cabextract
-    discover-overlay
-    lutris-free
-    mangohud
+    (pkgs.wrapOBS {
+      plugins = with pkgs.obs-studio-plugins; [
+        obs-backgroundremoval
+        obs-composite-blur
+        obs-pipewire-audio-capture
+        wlrobs
+      ];
+    })
     virt-manager
-    wineWowPackages.staging
-    winetricks
+    virtiofsd
   ];
-
-  programs = {
-    gamemode = {
-      enable = true;
-      settings = {
-        custom = {
-          start = "${pkgs.libnotify}/bin/notify-send 'GameMode started'";
-          end = "${pkgs.libnotify}/bin/notify-send 'GameMode ended'";
-        };
-      };
-    };
-    steam = {
-      enable = true;
-      package = pkgs.steam.override {
-        extraEnv.MANGOHUD = 1;
-        extraPkgs =
-          p: with p; [
-            corefonts
-            protontricks
-            gamescope
-          ];
-      };
-    };
-  };
 
   system.stateVersion = "22.11";
 }

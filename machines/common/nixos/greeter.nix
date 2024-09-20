@@ -15,9 +15,9 @@ let
   );
   binary =
     {
-      swayfx = "sway";
+      hyprland = "Hyprland";
       sway = "sway";
-      hyprland = "hypr";
+      swayfx = "sway";
     }
     .${desktop} or (throw "greetd: desktop not supported");
 in
@@ -25,7 +25,7 @@ in
   config = lib.mkIf condition {
     services.greetd = {
       enable = true;
-      settings.default_session.command = "${lib.getExe pkgs.greetd.tuigreet} --cmd '${pkgs.dbus}/bin/dbus-run-session ${binary}'";
+      settings.default_session.command = "${lib.getExe pkgs.greetd.tuigreet} --remember --cmd ${binary}";
     };
     services.gnome.gnome-keyring.enable = true;
     security.pam.services.greetd = {

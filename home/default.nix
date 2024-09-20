@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  osConfig,
   pkgs,
   ...
 }:
@@ -43,9 +44,10 @@ in
           watchexec
         ]
         ++ lib.optionals (config.isGraphical && isLinux) [
-          _1password-gui
-          uhk-agent
+          (_1password-gui.override { polkitPolicyOwners = [ osConfig.dotfiles.username ]; })
           neovide
+          nextcloud-client
+          uhk-agent
         ]
       );
     sessionVariables.SSH_AUTH_SOCK = lib.optionalString isDarwin "${config.programs.gpg.homedir}/S.gpg-agent.ssh";

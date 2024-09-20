@@ -26,7 +26,7 @@
           system = "x86_64-linux";
           username = "winston";
           isGraphical = false;
-          extraModules = [ inputs.wsl.nixosModules.default ];
+          extraModules = [ inputs.nixos-wsl.nixosModules.default ];
         }
       ];
       imports = [ inputs.pre-commit-hooks.flakeModule ];
@@ -65,9 +65,6 @@
             RULES = "./home/secrets/secrets.nix";
             buildInputs =
               (with pkgs; [
-                dhall
-                dhall-lsp-server
-                dhall-yaml
                 just
                 nix-output-monitor
                 nixd
@@ -132,7 +129,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    wsl = {
+    nixos-wsl = {
       url = "github:nix-community/nixos-wsl";
       inputs.flake-compat.follows = "";
       inputs.flake-utils.follows = "flake-utils";

@@ -6,6 +6,7 @@
 }:
 rec {
   inherit (pkgs.stdenv) isLinux isDarwin;
+  inherit (pkgs.lib) mkDefault mkOption types;
 
   extraSpecialArgs = {
     flakePath =
@@ -21,10 +22,10 @@ rec {
         "/Users/${username}"
       else
         throw "Unsupported system";
-    home.username = username;
-    isGraphical = false;
-    targets.genericLinux.enable = isLinux;
-    xdg.mime.enable = isLinux;
+    home.username = mkDefault username;
+    isGraphical = mkDefault false;
+    targets.genericLinux.enable = mkDefault isLinux;
+    xdg.mime.enable = mkDefault isLinux;
   };
 
   modules =
@@ -36,10 +37,7 @@ rec {
     ])
     ++ [
       (
-        { osConfig, lib, ... }:
-        let
-          inherit (lib) mkOption types;
-        in
+        { osConfig, ... }:
         {
           options = {
             isGraphical = mkOption {

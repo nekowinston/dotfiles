@@ -37,23 +37,24 @@ in
 
     programs.sway = {
       enable = true;
-      package = lib.mkIf (config.dotfiles.desktop == "swayfx") pkgs.swayfx;
+      package = if (config.dotfiles.desktop == "swayfx") then pkgs.swayfx else pkgs.sway;
       extraPackages = with pkgs; [
         swaylock-effects
         swayidle
       ];
-      extraSessionCommands = ''
-        # session
-        export XDG_SESSION_TYPE=wayland
-        export XDG_SESSION_DESKTOP=sway
-        export XDG_CURRENT_DESKTOP=sway
-        # wayland
-        export NIXOS_OZONE_WL=1
-        export MOZ_ENABLE_WAYLAND=1
-        export QT_QPA_PLATFORM=wayland
-        export SDL_VIDEODRIVER=wayland
-        export _JAVA_AWT_WM_NONREPARENTING=1
-      '';
+      extraSessionCommands = # bash
+        ''
+          # session
+          export XDG_SESSION_TYPE=wayland
+          export XDG_SESSION_DESKTOP=sway
+          export XDG_CURRENT_DESKTOP=sway
+          # wayland
+          export NIXOS_OZONE_WL=1
+          export MOZ_ENABLE_WAYLAND=1
+          export QT_QPA_PLATFORM=wayland
+          export SDL_VIDEODRIVER=wayland
+          export _JAVA_AWT_WM_NONREPARENTING=1
+        '';
       wrapperFeatures = {
         base = true;
         gtk = true;

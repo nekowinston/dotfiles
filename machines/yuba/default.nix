@@ -1,5 +1,5 @@
 {
-  imports = [ ../common/wsl ];
+  dotfiles.wsl.enable = true;
 
   i18n.defaultLocale = "en_US.UTF-8";
   location = {
@@ -8,10 +8,5 @@
   };
   time.timeZone = "Europe/Vienna";
 
-  wsl = {
-    enable = true;
-    defaultUser = "winston";
-    startMenuLaunchers = true;
-    useWindowsDriver = true;
-  };
+  system.stateVersion = "23.11";
 }

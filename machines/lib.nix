@@ -3,7 +3,7 @@ rec {
   hmCommonConfig =
     { username }:
     (
-      { config, pkgs, ... }:
+      { pkgs, ... }:
       let
         homeLib = import ../home/lib.nix { inherit inputs username pkgs; };
       in
@@ -34,6 +34,9 @@ rec {
       extraModules ? [ ],
     }:
     let
+      pkgs = inputs.nixpkgs.legacyPackages.${system};
+      inherit (pkgs) lib;
+
       ldTernary =
         l: d:
         if pkgs.stdenv.isLinux then
@@ -42,17 +45,16 @@ rec {
           d
         else
           throw "Unsupported system";
-      target = ldTernary "nixosConfigurations" "darwinConfigurations";
       builder = ldTernary inputs.nixpkgs.lib.nixosSystem inputs.darwin.lib.darwinSystem;
+      hostPlatform = ldTernary "nixos" "darwin";
       module = ldTernary "nixosModules" "darwinModules";
-      hostPlatform = ldTernary "linux" "darwin";
+      target = ldTernary "nixosConfigurations" "darwinConfigurations";
 
-      linuxModules = [ inputs.nixos-cosmic.nixosModules.default ];
       darwinModules = [ inputs.nekowinston-nur.darwinModules.default ];
-
-      pkgs = inputs.nixpkgs.legacyPackages.${system};
-      inherit (pkgs) lib;
-      inherit (pkgs.lib) mkOption types;
+      linuxModules = [
+        inputs.nixos-cosmic.nixosModules.default
+        inputs.nixos-wsl.nixosModules.default
+      ];
     in
     {
       ${target}."${host}" = builder {
@@ -60,43 +62,25 @@ rec {
         modules =
           [
             {
-              options = {
+              config = {
                 dotfiles = {
-                  username = mkOption {
-                    type = types.str;
-                    default = username;
-                    description = "The username of the user";
-                  };
-                  desktop = mkOption {
-                    type = types.nullOr (
-                      types.enum [
-                        "cosmic"
-                        "gnome"
-                        "hyprland"
-                        "sway"
-                        "swayfx"
-                      ]
-                    );
-                    default = if (pkgs.stdenv.isLinux && isGraphical) then "sway" else null;
-                    description = "The desktop environment to use";
-                  };
+                  username = lib.mkDefault username;
+                  desktop = if (pkgs.stdenv.isLinux && isGraphical) then "sway" else null;
                 };
-                isGraphical = mkOption {
-                  type = types.bool;
-                  default = isGraphical;
-                  description = "Whether the system is a graphical target";
-                };
+                isGraphical = lib.mkDefault isGraphical;
+                networking.hostName = lib.mkDefault host;
               };
-              config.networking.hostName = host;
             }
+            ../modules/shared
+            ../modules/${hostPlatform}
             ./common/shared
             ./common/${hostPlatform}
             ./${host}
             inputs.home-manager.${module}.home-manager
             (hmCommonConfig { inherit username; })
           ]
-          ++ lib.optionals pkgs.stdenv.isLinux linuxModules
           ++ lib.optionals pkgs.stdenv.isDarwin darwinModules
+          ++ lib.optionals pkgs.stdenv.isLinux linuxModules
           ++ extraModules;
         specialArgs = {
           inherit inputs;

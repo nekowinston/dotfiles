@@ -404,7 +404,7 @@
         "nur": "nur",
         "pre-commit-hooks": "pre-commit-hooks",
         "vscode-server": "vscode-server",
-        "wsl": "wsl"
+        "nixos-wsl": "nixos-wsl"
       }
     },
     "rust-overlay": {
@@ -488,7 +488,7 @@
         "type": "github"
       }
     },
-    "wsl": {
+    "nixos-wsl": {
       "inputs": {
         "flake-compat": [],
         "flake-utils": [

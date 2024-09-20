@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   lib,
   ...
@@ -66,6 +65,7 @@
             builtins.concatStringsSep "\n" (map (app: ''yabai -m rule --add app="${app}" ${options}'') apps);
           unmanaged = apps: mkRules apps "manage=off";
         in
+        # bash
         ''
           # auto-inject scripting additions
           yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
@@ -119,6 +119,7 @@
               )
             );
         in
+        # bash
         ''
           #!/usr/bin/env sh
           # focus window
@@ -157,11 +158,9 @@
     };
   };
 
-  environment.systemPackages = [ pkgs.jankyborders ];
   launchd.user.agents.jankyborders.serviceConfig = {
-    ProgramArguments = [ "${pkgs.jankyborders}/bin/borders" ];
+    ProgramArguments = [ (lib.getExe pkgs.jankyborders) ];
     KeepAlive = true;
     RunAtLoad = true;
-    EnvironmentVariables.PATH = "${pkgs.jankyborders}/bin:${config.environment.systemPath}";
   };
 }
