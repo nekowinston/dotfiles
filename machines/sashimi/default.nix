@@ -11,21 +11,24 @@
     longitude = 16.363449;
   };
 
-  nix.buildMachines = [
-    {
-      hostName = "orb";
-      sshUser = "nixos";
-      supportedFeatures = [
-        "nixos-test"
-        "benchmark"
-        "big-parallel"
-        "kvm"
-        "gccarch-armv8-a"
-      ];
-      systems = [
-        "aarch64-linux"
-        "x86_64-linux"
-      ];
-    }
-  ];
+  nix = {
+    distributedBuilds = true;
+    buildMachines = [
+      {
+        hostName = "orb";
+        sshUser = "nixos";
+        supportedFeatures = [
+          "nixos-test"
+          "benchmark"
+          "big-parallel"
+          "kvm"
+          "gccarch-armv8-a"
+        ];
+        systems = [
+          "aarch64-linux"
+          "x86_64-linux"
+        ];
+      }
+    ];
+  };
 }
