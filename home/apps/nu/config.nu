@@ -35,13 +35,13 @@ let pwsh_completer = {|spans: list<string>|
   }}
 }
 
-let zoxide_completer = {|spans|
+let zoxide_completer = {|spans: list<string>|
   if (which zoxide | is-empty ) { return }
 
   $spans | skip 1 | zoxide query -l ...$in | lines | where {|x| $x != $env.PWD}
 }
 
-let external_completer = {|spans|
+let external_completer = {|spans: list<string>|
   let expanded_alias = scope aliases
   | where name == $spans.0
   | get -i 0.expansion
@@ -62,6 +62,17 @@ let external_completer = {|spans|
   } | do $in $spans
 }
 
+def cat [...filepaths: path] {
+  for filepath in $filepaths {
+    let extension = $filepath | path parse | get extension
+
+    match $extension {
+      md => (^mdcat --columns 80 --paginate $filepath)
+      _ => (^bat $filepath)
+    }
+  }
+}
+
 $env.config = {
   show_banner: false
 
@@ -73,12 +84,12 @@ $env.config = {
   rm: { always_trash: false }
 
   table: {
-    mode: psql
-    index_mode: auto
+    mode: "psql"
+    index_mode: "auto"
     show_empty: true
     padding: { left: 1, right: 1 }
     trim: {
-      methodology: truncating
+      methodology: "wrapping"
       truncating_suffix: "…"
     }
     header_on_separator: true
@@ -86,7 +97,7 @@ $env.config = {
     # abbreviated_row_count: 100
   }
 
-  error_style: fancy
+  error_style: "fancy"
 
   datetime_format: {
     normal: "%Y-%m-%d %I:%M:%S%p"
@@ -104,7 +115,7 @@ $env.config = {
     }
     table: {
       split_line: { fg: "#404040" }
-      selected_cell: { bg: light_blue }
+      selected_cell: { bg: "light_blue" }
       selected_row: {}
       selected_column: {}
     }
@@ -137,25 +148,22 @@ $env.config = {
 
   cursor_shape: {
     # block, underscore, line, blink_block, blink_underscore, blink_line, inherit to skip setting cursor shape (line is the default)
-    emacs: inherit
+    emacs: "inherit"
     # block, underscore, line, blink_block, blink_underscore, blink_line, inherit to skip setting cursor shape (block is the default)
-    vi_insert: inherit
+    vi_insert: "inherit"
     # block, underscore, line, blink_block, blink_underscore, blink_line, inherit to skip setting cursor shape (underscore is the default)
-    vi_normal: inherit
+    vi_normal: "inherit"
   }
 
-  use_grid_icons: true
   # always, never, number_of_rows, auto
   footer_mode: 20
   # the precision for displaying floats in tables
   float_precision: 2
-  # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
-  # buffer_editor: ""
   use_ansi_coloring: true
   # enable bracketed paste, currently useless on windows
   bracketed_paste: true
   # emacs, vi
-  edit_mode: vi
+  edit_mode: "vi"
   # enables terminal shell integration. Off by default, as some terminals have issues with this.
   shell_integration: {
     # osc2 abbreviates the path if in the home_dir, sets the tab/window title, shows the running command in the tab/window title
@@ -200,6 +208,8 @@ $env.config = {
       PWD: [
         {if ((".git" | path exists) and not (which onefetch | is-empty)) {
           onefetch --no-merges --no-bots --no-color-palette --true-color=never --text-colors 1 1 3 4 4
+          | complete
+          | get stdout
         }}
       ]
     }

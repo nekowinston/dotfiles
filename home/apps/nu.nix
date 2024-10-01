@@ -52,7 +52,13 @@ let
     plugins:
     lib.concatStringsSep "\n" (builtins.map (plugin: "plugin add ${lib.getExe plugin}") plugins);
 
-  plugins = mkPlugins (with pkgs.nushellPlugins; [ clipboard ]);
+  plugins = mkPlugins (
+    with pkgs.nushellPlugins;
+    [
+      clipboard
+      query
+    ]
+  );
 
   command-not-found = pkgs.writeShellScript "command-not-found" ''
     source ${config.programs.nix-index.package}/etc/profile.d/command-not-found.sh

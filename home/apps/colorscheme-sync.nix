@@ -35,6 +35,7 @@ in
               else
                 throw "Unsupported platform";
           in
+          # bash
           ''
             [[ -z "''${1-}" ]] && [[ -z "''${2-}" ]] && echo "Usage: $0 <dark> <light>" && exit 1
 
@@ -55,53 +56,55 @@ in
         usegeoclue = false;
       };
       lightModeScripts = {
-        gtk-theme = ''
-          ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/color-scheme "'prefer-light'"
-        '';
+        gtk-theme = # bash
+          ''
+            ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/color-scheme "'prefer-light'"
+          '';
       };
       darkModeScripts = {
-        gtk-theme = ''
-          ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/color-scheme "'prefer-dark'"
-        '';
+        gtk-theme = # bash
+          ''
+            ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/color-scheme "'prefer-dark'"
+          '';
       };
     };
 
     xdg.configFile.fsh.source = "${milspec.src}/extras/zsh-fast-syntax-highlighting";
-    programs.zsh.initExtra = ''
-      zadm_sync() {
-        local flavor="$(dark-mode-ternary mocha latte)"
-        local variant="$(dark-mode-ternary dark light)"
+    programs.zsh.initExtra = # bash
+      ''
+        zadm_sync() {
+          local flavor="$(dark-mode-ternary mocha latte)"
+          local variant="$(dark-mode-ternary dark light)"
 
-        export BAT_THEME="Catppuccin ''${(C)flavor}"
-        export LS_COLORS="$(cat "${vividMilspec}/''${variant}")"
-        export STARSHIP_CONFIG__PALETTE="milspec_''${variant}"
+          export BAT_THEME="Catppuccin ''${(C)flavor}"
+          export LS_COLORS="$(cat "${vividMilspec}/''${variant}")"
+          export STARSHIP_CONFIG__PALETTE="milspec_''${variant}"
 
-        fast-theme "XDG:milspec-''${variant}" >/dev/null
-      }
-      add-zsh-hook precmd zadm_sync
-    '';
-
-    programs.nushell.extraConfig = ''
-      use ${milspec.src}/extras/nu/milspec.nu
-
-      $env.config = ($env.config? | default {})
-
-      $env.config.color_config = (milspec -R dark)
-
-      $env.config.hooks = ($env.config.hooks? | default {})
-      $env.config.hooks.pre_prompt = (
-        $env.config.hooks.pre_prompt?
-        | default []
-        | append {||
-          let flavor = dark-mode-ternary "mocha" "latte"
-          let variant = dark-mode-ternary "dark" "light"
-
-          $env.config.color_config = (milspec -R $variant)
-          $env.BAT_THEME = "Catppuccin " + ($flavor | str capitalize)
-          $env.STARSHIP_CONFIG__PALETTE = "milspec_" + $variant
-          $env.LS_COLORS = (cat $"${vividMilspec}/($variant)")
+          fast-theme "XDG:milspec-''${variant}" >/dev/null
         }
-      )
-    '';
+        add-zsh-hook precmd zadm_sync
+      '';
+
+    programs.nushell.extraConfig = # nu
+      ''
+        $env.config = ($env.config? | default {})
+        $env.config.hooks = ($env.config.hooks? | default {})
+        $env.config.hooks.pre_prompt = (
+          $env.config.hooks.pre_prompt?
+          | default []
+          | append {||
+            let flavor = dark-mode-ternary "mocha" "latte"
+            let variant = dark-mode-ternary "dark" "light"
+
+            use ${milspec.src}/extras/nu/milspec.nu
+            $env.config = $env.config? | default {}
+            $env.config.color_config = (milspec -R $variant)
+
+            $env.BAT_THEME = $"Catppuccin ($flavor | str capitalize)"
+            $env.LS_COLORS = (^cat $"${vividMilspec}/($variant)")
+            $env.STARSHIP_CONFIG__PALETTE = "milspec_" + $variant
+          }
+        )
+      '';
   };
 }
