@@ -24,6 +24,7 @@ in
         extensions = with pkgs.nur.repos.rycee.firefox-addons; [
           clearurls
           darkreader
+          dearrow
           decentraleyes
           istilldontcareaboutcookies
           kagi-search
@@ -32,6 +33,7 @@ in
           multi-account-containers
           onepassword-password-manager
           refined-github
+          sponsorblock
           temporary-containers
           ublock-origin
           vimium
