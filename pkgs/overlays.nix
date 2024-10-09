@@ -13,7 +13,7 @@
       starship = prev.starship.overrideAttrs (old: {
         patches = [
           (final.fetchpatch {
-            url = "https://github.com/starship/starship/pull/4439.patch";
+            url = "https://github.com/starship/starship/commit/c397d4b5a0ece337b23529d1906fb622c1342794.patch";
             sha256 = "sha256-BKH3elz96Oa424Oz5UIKA2/BOpkym1LTestvccFinnc=";
           })
         ];

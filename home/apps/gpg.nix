@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
   key = "0x0B89BC45007EE9CC";
@@ -24,7 +29,7 @@ in
     );
 
   # two amazing examples of glorious XDG compliance
-  home.file = {
+  home.file = lib.mkIf config.isGraphical {
     "Library/Application Support/Mozilla/NativeMessagingHosts/gpgmejson.json" = {
       enable = isDarwin;
       text = mailvelopeConfig;
