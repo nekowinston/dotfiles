@@ -28,6 +28,12 @@
           isGraphical = false;
           extraModules = [ inputs.nixos-wsl.nixosModules.default ];
         }
+        {
+          host = "engawa";
+          system = "aarch64-linux";
+          username = "winston";
+          isGraphical = false;
+        }
       ];
       imports = [ inputs.pre-commit-hooks.flakeModule ];
       perSystem =
