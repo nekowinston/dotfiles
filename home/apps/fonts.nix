@@ -16,15 +16,25 @@
               "${config.xdg.dataHome}/fonts";
           fontPath = ../secrets/fonts;
         in
-        lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-          mkdir -p "${fontDirectory}"
-          install -Dm644 ${fontPath}/* "${fontDirectory}"
-        '';
+        lib.hm.dag.entryAfter [ "writeBoundary" ]
+          # bash
+          ''
+            mkdir -p "${fontDirectory}"
+            install -Dm644 ${fontPath}/* "${fontDirectory}"
+          '';
     };
     home.packages = with pkgs; [
-      (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
-      cascadia-code
-      victor-mono
+      (nerdfonts.override {
+        fonts = [
+          "CascadiaCode"
+          "IBMPlexMono"
+          "IntelOneMono"
+          "JetBrainsMono"
+          "Monaspace"
+          "NerdFontsSymbolsOnly"
+          "VictorMono"
+        ];
+      })
       ibm-plex
       xkcd-font
     ];

@@ -2,14 +2,9 @@ local wezterm = require("wezterm")
 local c = wezterm.config_builder()
 
 require("config.keys").apply(c)
+require("config.font-switcher").apply(c)
+require("config.zen-mode")
 
-c.font = wezterm.font_with_fallback({
-  "Berkeley Mono",
-  -- "Cascadia Code",
-  -- "IBM Plex Mono",
-  -- "Comic Code Ligatures",
-  "Symbols Nerd Font",
-})
 c.front_end = "WebGpu"
 c.font_size = 13
 c.harfbuzz_features = { "calt=1", "ss01=1" }
@@ -30,29 +25,5 @@ c.inactive_pane_hsb = { brightness = 0.90 }
 
 require("bar.plugin").apply_to_config(c)
 require("milspec.plugin").apply_to_config(c, { sync = true })
-
--- folke/zen-mode.nvim
-wezterm.on("user-var-changed", function(window, pane, name, value)
-  local overrides = window:get_config_overrides() or {}
-  if name == "ZEN_MODE" then
-    local incremental = value:find("+")
-    local number_value = tonumber(value)
-    if incremental ~= nil then
-      while number_value > 0 do
-        window:perform_action(wezterm.action.IncreaseFontSize, pane)
-        number_value = number_value - 1
-      end
-      overrides.enable_tab_bar = false
-    elseif number_value < 0 then
-      window:perform_action(wezterm.action.ResetFontSize, pane)
-      overrides.font_size = nil
-      overrides.enable_tab_bar = true
-    else
-      overrides.font_size = number_value
-      overrides.enable_tab_bar = false
-    end
-  end
-  window:set_config_overrides(overrides)
-end)
 
 return c

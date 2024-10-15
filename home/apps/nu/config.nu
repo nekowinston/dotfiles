@@ -55,9 +55,9 @@ let external_completer = {|spans: list<string>|
   }
 
   match $spans.0 {
-    nix => $nix_completer
-    pwsh => $pwsh_completer
-    __zoxide_z | __zoxide_zi => $zoxide_completer
+    "nix" => $nix_completer
+    "pwsh" => $pwsh_completer
+    "__zoxide_z" | "__zoxide_zi" => $zoxide_completer
     _ => $carapace_completer
   } | do $in $spans
 }
@@ -67,7 +67,8 @@ def cat [...filepaths: path] {
     let extension = $filepath | path parse | get extension
 
     match $extension {
-      md => (^mdcat --columns 80 --paginate $filepath)
+      "md" => (^mdcat --columns 80 --paginate $filepath)
+      "gif" | "ico" | "jpeg" | "jpg" | "png" => (^imcat $filepath)
       _ => (^bat $filepath)
     }
   }
@@ -102,6 +103,11 @@ $env.config = {
   datetime_format: {
     normal: "%Y-%m-%d %I:%M:%S%p"
     table: "%Y-%m-%d %I:%M:%S%p"
+  }
+
+  display_errors: {
+    exit_code: false
+    termination_signal: true
   }
 
   explore: {
