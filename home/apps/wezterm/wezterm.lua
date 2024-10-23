@@ -1,5 +1,6 @@
 local wezterm = require("wezterm")
 local c = wezterm.config_builder()
+local utils = require("config.utils")
 
 require("config.keys").apply(c)
 require("config.font-switcher").apply(c)
@@ -16,8 +17,14 @@ c.macos_window_background_blur = 20
 
 c.default_prog = { "/etc/profiles/per-user/winston/bin/nu", "-l" }
 
-c.window_decorations = "RESIZE|INTEGRATED_BUTTONS"
-c.window_padding = { left = 0, right = 0, top = 50, bottom = 0 }
+if utils.is_darwin() then
+  c.window_decorations = "RESIZE|INTEGRATED_BUTTONS"
+  c.window_padding = { left = 0, right = 0, top = 50, bottom = 0 }
+else
+  c.window_decorations = "NONE"
+  c.window_padding = { left = 0, right = 0, top = 0, bottom = 0 }
+end
+
 c.adjust_window_size_when_changing_font_size = false
 c.audible_bell = "Disabled"
 c.default_cursor_style = "BlinkingBar"

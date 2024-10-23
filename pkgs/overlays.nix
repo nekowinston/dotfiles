@@ -4,9 +4,17 @@
   (
     final: prev:
     let
+      inherit (final.stdenv) system;
       srcs = final.callPackages ../_sources/generated.nix { };
     in
     {
+      nur = import inputs.nur {
+        nurpkgs = final;
+        pkgs = final;
+        repoOverrides = {
+          nekowinston = inputs.nekowinston-nur.packages.${system};
+        };
+      };
       nushellPlugins = (prev.nushellPlugins or { }) // {
         clipboard = final.callPackage ./nu_plugin_clipboard.nix { };
       };
@@ -18,16 +26,10 @@
           })
         ];
       });
+      wezterm-nightly = inputs.wezterm.packages.${system}.default;
       yabai = prev.yabai.overrideAttrs (_: {
         inherit (srcs.yabai) version src;
       });
-      nur = import inputs.nur {
-        nurpkgs = final;
-        pkgs = final;
-        repoOverrides = {
-          nekowinston = inputs.nekowinston-nur.packages.${final.stdenv.system};
-        };
-      };
     }
   )
 ]

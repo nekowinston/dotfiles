@@ -104,7 +104,7 @@ in
         ];
         workspaceAutoBackAndForth = true;
         # TODO: change this back to wezterm whenever it works on sway
-        terminal = lib.getExe config.programs.kitty.package;
+        terminal = lib.getExe config.programs.wezterm.package;
         menu = lib.getExe config.programs.rofi.package;
         defaultWorkspace = "workspace number 1";
         input."type:keyboard".xkb_options = "ctrl:nocaps,compose:ralt";

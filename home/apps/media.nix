@@ -22,6 +22,7 @@ in
         mopidy-iris
         mopidy-local
         mopidy-mpd
+        mopidy-mpris
         mopidy-podcast
       ];
     };

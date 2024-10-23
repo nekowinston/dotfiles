@@ -11,6 +11,8 @@ let
       corefonts
       gamescope
       mangohud
+      wineWowPackages.staging
+      winetricks
     ];
 in
 {

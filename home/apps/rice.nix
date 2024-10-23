@@ -36,6 +36,21 @@ in
             done_cmd = "notify-send 'Timer Finished'";
           }
           {
+            block = "cpu";
+            interval = 1;
+          }
+          {
+            block = "memory";
+            format = "$icon $mem_used_percents.eng(w:2)";
+            interval = 1;
+          }
+          {
+            block = "temperature";
+            format = " $icon $max";
+            interval = 10;
+            chip = "*-isa-*";
+          }
+          {
             block = "time";
             interval = 60;
             format = " $timestamp.datetime(f:'%d/%m %R') ";

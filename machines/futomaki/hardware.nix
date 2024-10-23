@@ -20,6 +20,7 @@
     kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = [
       "kvm-amd"
+      "nct6775"
       "v4l2loopback"
     ];
     kernelParams = [
