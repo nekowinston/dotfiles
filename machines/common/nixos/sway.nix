@@ -7,7 +7,6 @@
 let
   condition = (
     builtins.elem config.dotfiles.desktop [
-      "hyprland"
       "sway"
       "swayfx"
     ]

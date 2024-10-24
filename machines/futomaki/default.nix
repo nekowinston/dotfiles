@@ -3,7 +3,7 @@
   imports = [ ./hardware.nix ];
 
   dotfiles = {
-    desktop = "sway";
+    desktop = "cosmic";
     gaming.enable = true;
   };
 

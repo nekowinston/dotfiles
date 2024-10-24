@@ -24,6 +24,15 @@ in
       (lutris.override { extraPkgs = gamePkgs; })
     ];
 
+    # enable 32bit support for Steam
+    hardware = {
+      graphics = {
+        enable = true;
+        enable32Bit = true;
+      };
+      pulseaudio.support32Bit = true;
+    };
+
     programs = {
       gamemode = {
         enable = true;

@@ -63,10 +63,7 @@ rec {
           [
             {
               config = {
-                dotfiles = {
-                  username = lib.mkDefault username;
-                  desktop = if (pkgs.stdenv.isLinux && isGraphical) then "sway" else null;
-                };
+                dotfiles.username = lib.mkDefault username;
                 isGraphical = lib.mkDefault isGraphical;
                 networking.hostName = lib.mkDefault host;
               };

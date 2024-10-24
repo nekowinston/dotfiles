@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   osConfig,
   pkgs,
@@ -16,9 +15,14 @@ let
     mauve = "#cba6f7";
   };
   isSwayFx = osConfig.dotfiles.desktop == "swayfx";
+  isWindowManager = builtins.elem osConfig.dotfiles.desktop [
+    "hyprland"
+    "sway"
+    "swayfx"
+  ];
 in
 {
-  config = lib.mkIf config.isGraphical {
+  config = lib.mkIf isWindowManager {
     programs.i3status-rust = lib.mkIf isLinux {
       enable = true;
       bars.top = {
