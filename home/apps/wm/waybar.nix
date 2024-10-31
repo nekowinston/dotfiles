@@ -80,7 +80,7 @@ let
       window#waybar {
         background-color: @base;
         border: 2px solid @crust;
-        border-radius: 5px;
+        ${lib.optionalString isSwayFx "border-radius: 5px;"}
       }
 
       #workspaces button:first-child {
@@ -125,10 +125,7 @@ let
     '';
 
   swayConfig = {
-    modules-left = [
-      "sway/workspaces"
-      "mpris"
-    ];
+    modules-left = [ "sway/workspaces" ];
     modules-center = [ "sway/window" ];
     "sway/workspaces" = {
       format = "{icon}";
@@ -136,10 +133,7 @@ let
     };
   };
   hyprlandConfig = {
-    modules-left = [
-      "hyprland/workspaces"
-      "mpris"
-    ];
+    modules-left = [ "hyprland/workspaces" ];
     modules-center = [ "hyprland/window" ];
     "hyprland/workspaces" = {
       format = "{icon}";
@@ -172,6 +166,9 @@ in
       enable = true;
       settings.main = lib.recursiveUpdate commonSettings wmSpecific;
     };
+    wayland.windowManager.sway.config.bars = [
+      { command = lib.getExe config.programs.waybar.package; }
+    ];
     xdg.configFile = {
       "waybar/style-dark.css".text = darkColors + style;
       "waybar/style-light.css".text = lightColors + style;

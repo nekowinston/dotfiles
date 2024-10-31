@@ -157,5 +157,4 @@ in
         ln -sf ${lightCss} ~/.local/share/rofi/themes/custom.rasi
       '';
   };
-  xdg.dataFile."rofi/themes/custom.rasi".source = darkCss;
 }

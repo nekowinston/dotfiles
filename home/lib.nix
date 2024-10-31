@@ -4,15 +4,9 @@
   username,
   isNixOS ? true,
 }:
-rec {
+let
   inherit (pkgs.stdenv) isLinux isDarwin;
-  inherit (pkgs.lib) mkDefault mkOption types;
-
-  extraSpecialArgs = {
-    flakePath =
-      if isDarwin then "/Users/${username}/.config/flake" else "/home/${username}/.config/flake";
-    inherit inputs isNixOS;
-  };
+  inherit (pkgs.lib) mkDefault;
 
   hmStandaloneConfig = {
     home.homeDirectory =
@@ -27,6 +21,15 @@ rec {
     targets.genericLinux.enable = mkDefault isLinux;
     xdg.mime.enable = mkDefault isLinux;
   };
+in
+{
+  extraSpecialArgs = {
+    flakePath =
+      if isDarwin then "/Users/${username}/.config/flake" else "/home/${username}/.config/flake";
+    inherit inputs isNixOS;
+  };
+
+  inherit hmStandaloneConfig;
 
   modules =
     (with inputs; [

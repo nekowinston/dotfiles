@@ -2,13 +2,14 @@
 {
   imports = [
     ./hyprland.nix
-    ./i3-status-rust.nix
+    # ./i3-status-rust.nix
     ./rofi.nix
     ./services.nix
     ./sway.nix
     ./swaylock.nix
     ./swaync.nix
     ./swayosd.nix
+    ./swaywsr.nix
     ./waybar.nix
   ];
 

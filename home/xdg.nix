@@ -14,10 +14,10 @@ let
     dataHome
     stateHome
     ;
-  inherit (config.home) homeDirectory;
+  inherit (config.home) homeDirectory sessionVariables;
 in
 {
-  home = rec {
+  home = {
     sessionVariables = {
       AZURE_CONFIG_DIR = "${configHome}/azure";
       BUNDLE_USER_CACHE = "${cacheHome}/bundle";

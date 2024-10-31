@@ -1,9 +1,10 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 let
   inherit (pkgs.stdenv.hostPlatform) isLinux;
+  cfg = config.programs.newsboat;
 in
 {
-  programs.newsboat = rec {
+  programs.newsboat = {
     enable = true;
     autoReload = true;
     browser = if isLinux then "${pkgs.xdg-utils}/bin/xdg-open" else "open";
@@ -22,7 +23,7 @@ in
       bind-key j down article
       bind-key k up article
 
-      macro m set browser "mpv %u &"; open-in-browser-noninteractively; set browser "${browser}"
+      macro m set browser "mpv %u &"; open-in-browser-noninteractively; set browser "${cfg.browser}"
 
       unbind-key C feedlist
       confirm-exit no

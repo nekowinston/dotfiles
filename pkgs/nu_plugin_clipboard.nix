@@ -9,7 +9,7 @@ let
   inherit (darwin.apple_sdk.frameworks) AppKit IOKit;
   version = "0.99.0";
 in
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage {
   name = "nu_plugin_clipboard";
   inherit version;
 

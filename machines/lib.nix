@@ -1,5 +1,5 @@
 { inputs, overlays }:
-rec {
+let
   hmCommonConfig =
     { username }:
     (
@@ -84,6 +84,7 @@ rec {
         };
       };
     };
-
+in
+{
   mkSystems = systems: inputs.nixpkgs.lib.mkMerge (map mkSystem systems);
 }

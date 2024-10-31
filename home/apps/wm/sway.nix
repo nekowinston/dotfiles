@@ -33,39 +33,10 @@ let
   filebrowser = "${lib.getExe pkgs.nautilus} -w";
   playerctl = lib.getExe pkgs.playerctl;
   screenshot = "${lib.getExe pkgs.sway-contrib.grimshot} copy area";
-  swayosd-client = "${pkgs.swayosd}/bin/swayosd-client";
-  swayosd-server = "${pkgs.swayosd}/bin/swayosd-server";
+  swayosd-client = "${config.services.swayosd.package}/bin/swayosd-client";
+  swayosd-server = "${config.services.swayosd.package}/bin/swayosd-server";
 
-  tomlFormat = pkgs.formats.toml { };
-  swaywsrConfig = tomlFormat.generate "config.toml" {
-    icons = {
-      "1Password" = "";
-      "chrome-music.apple.com__browse-Default" = "󰝚";
-      "org.gnome.Nautilus" = "󰉋";
-      "org.wezfurlong.wezterm" = "";
-      chromium-browser = "";
-      discord = "󰙯";
-      firefox = "";
-      foot = "";
-      kitty = "";
-      neovide = "";
-      obsidian = "";
-      steam = "󰓓";
-    };
-    aliases = {
-      "com.obsproject.Studio" = "OBS";
-      "org.gnome.Nautilus" = "Files";
-      "org.wezfurlong.wezterm" = "WezTerm";
-      "chrome-music.apple.com__browse-Default" = "Music";
-      chromium-browser = "Chromium";
-      discord = "Discord";
-      firefox = "Firefox";
-      neovide = "Neovide";
-      obsidian = "Obsidian";
-      steam = "Steam";
-    };
-    general.seperator = "|";
-  };
+  cfg = config.wayland.windowManager.sway.config;
 in
 {
   config = lib.mkIf isWindowManager {
@@ -73,7 +44,7 @@ in
       enable = true;
       package = null;
       checkConfig = false;
-      config = rec {
+      config = {
         modifier = mod;
         focus.wrapping = "no";
         focus.mouseWarping = "container";
@@ -90,7 +61,6 @@ in
           }
           { command = swayosd-server; }
           { command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"; }
-          { command = "${lib.getExe pkgs.swaywsr} -r"; }
         ];
         workspaceAutoBackAndForth = true;
         # TODO: change this back to wezterm whenever it works on sway
@@ -111,7 +81,7 @@ in
           # kill focused window
           "${mod}+Shift+q" = "kill";
           # Start Applications
-          "${mod}+Shift+Return" = "exec ${terminal}";
+          "${mod}+Shift+Return" = "exec ${cfg.terminal}";
           "${mod}+e" = "exec ${filebrowser}";
           "${hyper}+p" = "exec ${screenshot}";
 
@@ -188,7 +158,7 @@ in
           "${modMove}+9" = "move container to workspace number 9;  workspace number 9";
           "${modMove}+0" = "move container to workspace number 10; workspace number 10";
           # rofi instead of drun
-          "${mod}+space" = "exec ${menu}";
+          "${mod}+space" = "exec ${cfg.menu}";
           # 1password
           "${mod}+Shift+space" = "exec ${lib.getExe pkgs._1password-gui} --quick-access";
 
@@ -266,11 +236,6 @@ in
           inner = 5;
           outer = 2;
         };
-        bars = [
-          {
-            command = lib.getExe config.programs.waybar.package;
-          }
-        ];
       };
 
       extraConfig =
@@ -373,7 +338,5 @@ in
         ];
       };
     };
-
-    xdg.configFile."swaywsr/config.toml".source = swaywsrConfig;
   };
 }
