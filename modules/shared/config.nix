@@ -3,14 +3,14 @@
   ...
 }:
 let
-  inherit (lib) types;
+  inherit (lib) types mkOption mkEnableOption;
 in
 {
   options = {
-    dotfiles = lib.mkOption {
+    dotfiles = mkOption {
       type = types.submodule {
         options = {
-          desktop = lib.mkOption {
+          desktop = mkOption {
             description = "The desktop environment to use";
             type = types.nullOr (
               types.enum [
@@ -22,14 +22,14 @@ in
               ]
             );
           };
-          username = lib.mkOption {
+          username = mkOption {
             description = "The username of the user";
             type = types.str;
           };
         };
       };
     };
-    isGraphical = lib.mkEnableOption "" // {
+    isGraphical = mkEnableOption "" // {
       description = "Whether the system is a graphical target";
     };
   };

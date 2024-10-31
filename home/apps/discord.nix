@@ -6,16 +6,19 @@
 }:
 let
   inherit (pkgs.stdenv) isDarwin isLinux;
+  inherit (config.fonts.fontconfig) defaultFonts;
+  fontSans = builtins.head defaultFonts.sansSerif;
+  fontMono = builtins.head defaultFonts.monospace;
 
   css = # css
     ''
       @import url('//fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
 
       :root {
-        --font-primary: "IBM Plex Sans", sans-serif;
-        --font-headline: "IBM Plex Sans", sans-serif;
-        --font-display: "IBM Plex Sans", sans-serif;
-        --font-code: "Berkeley Mono", "IBM Plex Mono", "Symbols Nerd Font", mono;
+        --font-primary: "${fontSans}", sans-serif;
+        --font-headline: "${fontSans}", sans-serif;
+        --font-display: "${fontSans}", sans-serif;
+        --font-code: "${fontMono}", mono;
       }
 
       @media (max-width: 1024px) {

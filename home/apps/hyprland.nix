@@ -9,12 +9,12 @@
   config = lib.mkIf (osConfig.dotfiles.desktop == "hyprland") {
     home = {
       packages = with pkgs; [
-        blueberry
         grimblast
         hyprpicker
         kooha
         libnotify
-        pavucontrol
+        overskride
+        pwvucontrol
         swaybg
         swayosd
         wl-clipboard

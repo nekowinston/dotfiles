@@ -16,15 +16,9 @@ in
   config = lib.mkIf condition {
     environment.systemPackages = with pkgs; [
       # file management
-      p7zip
-      unzip
-      zip
-      file-roller
       nautilus
       nautilus-python
-      sushi
       nautilus-open-any-terminal
-
       # thumbnails
       webp-pixbuf-loader
       ffmpegthumbnailer
@@ -32,15 +26,12 @@ in
     programs.dconf.enable = true;
 
     environment.pathsToLink = [ "/share/nautilus-python/extensions" ];
-    environment.sessionVariables.NAUTILUS_4_EXTENSION_DIR = "${config.system.path}/lib/nautilus/extensions-4";
+    environment.sessionVariables.NAUTILUS_4_EXTENSION_DIR = "/var/run/current-system/sw/lib/nautilus/extensions-4";
 
+    programs.file-roller.enable = true;
     programs.sway = {
       enable = true;
       package = if (config.dotfiles.desktop == "swayfx") then pkgs.swayfx else pkgs.sway;
-      extraPackages = with pkgs; [
-        swaylock-effects
-        swayidle
-      ];
       extraSessionCommands = # bash
         ''
           # session
@@ -82,9 +73,10 @@ in
       gvfs.enable = true;
       udisks2.enable = true;
       devmon.enable = true;
+      # previews
       gnome.sushi.enable = true;
+      # search metadata
       gnome.tracker-miners.enable = true;
-
       # thumbnails
       tumbler.enable = true;
     };

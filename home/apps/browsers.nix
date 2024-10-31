@@ -7,7 +7,7 @@
 let
   inherit (pkgs.stdenv) isLinux;
 
-  defaultBrowser = "firefox.desktop";
+  defaultBrowser = "chromium.desktop";
 in
 {
   config = lib.mkIf config.isGraphical {
@@ -17,7 +17,7 @@ in
     };
 
     programs.firefox = {
-      enable = isLinux;
+      enable = false;
       profiles.default = {
         search.default = "DuckDuckGo";
         search.force = true;
@@ -157,8 +157,6 @@ in
         };
       };
     };
-
-    home.packages = lib.mkIf isLinux [ pkgs.mullvad-browser ];
 
     xdg.mimeApps.defaultApplications = lib.genAttrs [
       "text/html"

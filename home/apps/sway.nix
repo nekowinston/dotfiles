@@ -15,9 +15,11 @@ let
   );
   isSwayFx = osConfig.dotfiles.desktop == "swayfx";
 
+  inherit (config.fonts.fontconfig) defaultFonts;
+  fontSans = builtins.head defaultFonts.sansSerif;
   fonts = {
     names = [
-      "IBM Plex Sans"
+      fontSans
       "Symbols Nerd Font"
     ];
     size = 12.0;
@@ -36,22 +38,51 @@ let
   modFocus = "${mod}+Ctrl";
   hyper = "Mod4+Mod1+Shift+Ctrl";
 
-  filebrowser = lib.getExe pkgs.nautilus;
+  filebrowser = "${lib.getExe pkgs.nautilus} -w";
   playerctl = lib.getExe pkgs.playerctl;
   screenshot = "${lib.getExe pkgs.sway-contrib.grimshot} copy area";
   swayosd-client = "${pkgs.swayosd}/bin/swayosd-client";
   swayosd-server = "${pkgs.swayosd}/bin/swayosd-server";
+
+  tomlFormat = pkgs.formats.toml { };
+  swaywsrConfig = tomlFormat.generate "config.toml" {
+    icons = {
+      "1Password" = "";
+      "chrome-music.apple.com__browse-Default" = "󰝚";
+      "org.gnome.Nautilus" = "󰉋";
+      "org.wezfurlong.wezterm" = "";
+      chromium-browser = "";
+      discord = "󰙯";
+      firefox = "";
+      foot = "";
+      kitty = "";
+      neovide = "";
+      obsidian = "";
+      steam = "󰓓";
+    };
+    aliases = {
+      "com.obsproject.Studio" = "OBS";
+      "org.gnome.Nautilus" = "Files";
+      "org.wezfurlong.wezterm" = "WezTerm";
+      "chrome-music.apple.com__browse-Default" = "Music";
+      chromium-browser = "Chromium";
+      discord = "Discord";
+      firefox = "Firefox";
+      neovide = "Neovide";
+      obsidian = "Obsidian";
+      steam = "Steam";
+    };
+    general.seperator = "|";
+  };
 in
 {
   config = lib.mkIf condition {
-    fonts.fontconfig.enable = true;
-
     home = {
       packages = with pkgs; [
-        blueberry
         kooha
         libnotify
-        pavucontrol
+        overskride
+        pwvucontrol
         sway-contrib.grimshot
         swaynotificationcenter
         swayosd
@@ -82,30 +113,24 @@ in
         focus.wrapping = "no";
         focus.mouseWarping = "container";
         startup = [
-          {
-            command = "${lib.getExe pkgs.autotiling} -l2";
-            always = true;
-          }
+          { command = "${lib.getExe pkgs.autotiling} -l2"; }
           { command = "1password --silent"; }
           {
             command = ''
-              swayidle -w \
+              ${lib.getExe pkgs.swayidle} -w \
                 timeout 300 'swaymsg "output * dpms off"' \
                 resume 'swaymsg "output * dpms on"' \
-                before-sleep 'swaylock -f'
+                before-sleep '${lib.getExe config.programs.swaylock.package} -f'
             '';
-            always = true;
           }
-          {
-            command = swayosd-server;
-            always = true;
-          }
+          { command = swayosd-server; }
           { command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"; }
+          { command = "${lib.getExe pkgs.swaywsr} -r"; }
         ];
         workspaceAutoBackAndForth = true;
         # TODO: change this back to wezterm whenever it works on sway
-        terminal = lib.getExe config.programs.wezterm.package;
-        menu = lib.getExe config.programs.rofi.package;
+        terminal = lib.getExe config.programs.kitty.package;
+        menu = "${lib.getExe config.programs.rofi.package} -show drun -dpi $dpi";
         defaultWorkspace = "workspace number 1";
         input."type:keyboard".xkb_options = "ctrl:nocaps,compose:ralt";
         output."*" = {
@@ -122,8 +147,8 @@ in
           "${mod}+Shift+q" = "kill";
           # Start Applications
           "${mod}+Shift+Return" = "exec ${terminal}";
-          "${mod}+e" = "exec --no-startup-id ${filebrowser}";
-          "${hyper}+p" = "exec --no-startup-id ${screenshot}";
+          "${mod}+e" = "exec ${filebrowser}";
+          "${hyper}+p" = "exec ${screenshot}";
 
           # change focus
           "${modFocus}+h" = "focus left";
@@ -173,32 +198,32 @@ in
           # Show the next scratchpad window or hide the focused scratchpad window.
           # If there are multiple scratchpad windows, this command cycles through them.
           "${mod}+Tab" = "scratchpad show";
-          "${mod}+m" = "[class=\"discord\"] scratchpad show";
+          "${mod}+m" = "[app_id=\"discord\"] scratchpad show";
 
           # switch to workspace
-          "${modFocus}+1" = "workspace 1";
-          "${modFocus}+2" = "workspace 2";
-          "${modFocus}+3" = "workspace 3";
-          "${modFocus}+4" = "workspace 4";
-          "${modFocus}+5" = "workspace 5";
-          "${modFocus}+6" = "workspace 6";
-          "${modFocus}+7" = "workspace 7";
-          "${modFocus}+8" = "workspace 8";
-          "${modFocus}+9" = "workspace 9";
-          "${modFocus}+0" = "workspace 10";
+          "${modFocus}+1" = "workspace number 1";
+          "${modFocus}+2" = "workspace number 2";
+          "${modFocus}+3" = "workspace number 3";
+          "${modFocus}+4" = "workspace number 4";
+          "${modFocus}+5" = "workspace number 5";
+          "${modFocus}+6" = "workspace number 6";
+          "${modFocus}+7" = "workspace number 7";
+          "${modFocus}+8" = "workspace number 8";
+          "${modFocus}+9" = "workspace number 9";
+          "${modFocus}+0" = "workspace number 10";
           # Move to workspace with focused container
-          "${modMove}+1" = "move container to workspace 1;  workspace 1";
-          "${modMove}+2" = "move container to workspace 2;  workspace 2";
-          "${modMove}+3" = "move container to workspace 3;  workspace 3";
-          "${modMove}+4" = "move container to workspace 4;  workspace 4";
-          "${modMove}+5" = "move container to workspace 5;  workspace 5";
-          "${modMove}+6" = "move container to workspace 6;  workspace 6";
-          "${modMove}+7" = "move container to workspace 7;  workspace 7";
-          "${modMove}+8" = "move container to workspace 8;  workspace 8";
-          "${modMove}+9" = "move container to workspace 9;  workspace 9";
-          "${modMove}+0" = "move container to workspace 10; workspace 10";
+          "${modMove}+1" = "move container to workspace number 1;  workspace number 1";
+          "${modMove}+2" = "move container to workspace number 2;  workspace number 2";
+          "${modMove}+3" = "move container to workspace number 3;  workspace number 3";
+          "${modMove}+4" = "move container to workspace number 4;  workspace number 4";
+          "${modMove}+5" = "move container to workspace number 5;  workspace number 5";
+          "${modMove}+6" = "move container to workspace number 6;  workspace number 6";
+          "${modMove}+7" = "move container to workspace number 7;  workspace number 7";
+          "${modMove}+8" = "move container to workspace number 8;  workspace number 8";
+          "${modMove}+9" = "move container to workspace number 9;  workspace number 9";
+          "${modMove}+0" = "move container to workspace number 10; workspace number 10";
           # rofi instead of drun
-          "${mod}+space" = "exec --no-startup-id ${menu} -show drun -dpi $dpi";
+          "${mod}+space" = "exec ${menu}";
           # 1password
           "${mod}+Shift+space" = "exec ${lib.getExe pkgs._1password-gui} --quick-access";
 
@@ -271,10 +296,13 @@ in
           outer = 2;
         };
         bars = [
+          # {
+          #   inherit fonts;
+          #   position = "top";
+          #   statusCommand = "${lib.getExe config.programs.i3status-rust.package} ~/.config/i3status-rust/config-top.toml";
+          # }
           {
-            inherit fonts;
-            position = "top";
-            statusCommand = "${lib.getExe config.programs.i3status-rust.package} ~/.config/i3status-rust/config-top.toml";
+            command = lib.getExe config.programs.waybar.package;
           }
         ];
       };
@@ -295,18 +323,22 @@ in
           # general WM role settings
           for_window [title="splash"] floating enable
           for_window [urgent=latest] focus
+          for_window [window_role="dialog"] floating enable
           for_window [window_role="pop-up"] floating enable
           for_window [window_role="task_dialog"] floating enable
+          for_window [window_type="dialog"] floating enable
 
           # apps
-          for_window [class="Pavucontrol"] floating enable
+          for_window [app_id="org.pulseaudio.pavucontrol"] floating enable
+          for_window [app_id="org.gnome.NautilusPreviewer"] floating enable
           for_window [class="Yad" title="Authentication"] floating enable
+          for_window [app_id="jetbrains*" title="Welcome*"] floating enable
           for_window [class="jetbrains*" title="Welcome*"] floating enable
           for_window [title="File Transfer*"] floating enable
           for_window [title="Steam Guard*"] floating enable
 
           # keep apps in scratchpad
-          for_window [class="discord"] move scratchpad sticky
+          for_window [app_id="discord"] move scratchpad sticky
 
           # fullscreen apps inhibit idle
           for_window [class=".*"] inhibit_idle fullscreen
@@ -362,7 +394,20 @@ in
       systemd = {
         enable = true;
         xdgAutostart = true;
+        variables = [
+          "DISPLAY"
+          "WAYLAND_DISPLAY"
+          "SWAYSOCK"
+          "XDG_CURRENT_DESKTOP"
+          "XDG_SESSION_TYPE"
+          "NIXOS_OZONE_WL"
+          "XCURSOR_THEME"
+          "XCURSOR_SIZE"
+          "PATH"
+        ];
       };
     };
+
+    xdg.configFile."swaywsr/config.toml".source = swaywsrConfig;
   };
 }

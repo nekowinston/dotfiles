@@ -108,11 +108,12 @@ in
 
     services.darkman = lib.mkIf config.services.darkman.enable {
       lightModeScripts.kitty-theme = ''
-        ${config.programs.kitty.package}/bin/kitten themes --reload-in=all --config-file-name=themes.conf "milspec-light"
-        ${config.programs.kitty.package}/bin/kitten themes --reload-in=all --config-file-name=themes.conf "milspec-light"
+        ${config.programs.kitty.package}/bin/kitten themes --config-file-name=themes.conf "milspec-light"
+        ${pkgs.psmisc}/bin/killall -sUSR1 .kitty-wrapped
       '';
       darkModeScripts.kitty-theme = ''
-        ${config.programs.kitty.package}/bin/kitten themes --reload-in=all --config-file-name=themes.conf "milspec-dark"
+        ${config.programs.kitty.package}/bin/kitten themes --config-file-name=themes.conf "milspec-dark"
+        ${pkgs.psmisc}/bin/killall -sUSR1 .kitty-wrapped
       '';
     };
   };

@@ -1,36 +1,56 @@
 {
   config,
   lib,
+  osConfig,
   pkgs,
   ...
 }:
 let
-  themeDir = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}";
+  isWindowManager = builtins.elem osConfig.dotfiles.desktop [
+    "hyprland"
+    "sway"
+    "swayfx"
+  ];
+  theme = {
+    dark = "Yaru-dark";
+    light = "Yaru";
+  };
+  dconfWrite = "${pkgs.dconf}/bin/dconf write";
+  inherit (config.fonts.fontconfig) defaultFonts;
 in
 {
   config = lib.mkIf (config.isGraphical && pkgs.stdenv.isLinux) {
     home.pointerCursor = {
-      name = "macOS-Monterey";
-      package = pkgs.apple-cursor;
-      size = 24;
+      name = theme.light;
+      package = pkgs.yaru-theme;
+      gtk.enable = true;
     };
 
     gtk = {
       enable = true;
-      iconTheme = {
-        name = "WhiteSur";
-        package = pkgs.whitesur-icon-theme;
-      };
-      theme = {
-        name = "WhiteSur-Light";
-        package = pkgs.whitesur-gtk-theme;
-      };
+      font.name = builtins.head defaultFonts.sansSerif;
+      iconTheme.name = theme.dark;
+      theme.name = theme.dark;
     };
 
-    xdg = {
-      configFile."gtk-4.0/assets".source = "${themeDir}/gtk-4.0/assets";
-      configFile."gtk-4.0/gtk.css".source = "${themeDir}/gtk-4.0/gtk.css";
-      configFile."gtk-4.0/gtk-dark.css".source = "${themeDir}/gtk-4.0/gtk-dark.css";
+    qt = {
+      enable = true;
+      platformTheme.name = "gtk3";
+    };
+
+    services.darkman = lib.mkIf isWindowManager {
+      lightModeScripts.gtk-theme = # bash
+        ''
+          ${dconfWrite} /org/gnome/desktop/interface/color-scheme "'prefer-light'"
+          ${dconfWrite} /org/gnome/desktop/interface/gtk-theme "'${theme.light}'"
+          ${dconfWrite} /org/gnome/desktop/interface/icon-theme "'${theme.light}'"
+        '';
+      darkModeScripts.gtk-theme = # bash
+        ''
+          ${dconfWrite} /org/gnome/desktop/interface/color-scheme "'prefer-dark'"
+          ${dconfWrite} /org/gnome/desktop/interface/gtk-theme "'${theme.dark}'"
+          ${dconfWrite} /org/gnome/desktop/interface/icon-theme "'${theme.dark}'"
+        '';
     };
   };
 }

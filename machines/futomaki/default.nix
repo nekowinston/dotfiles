@@ -3,7 +3,7 @@
   imports = [ ./hardware.nix ];
 
   dotfiles = {
-    desktop = "cosmic";
+    desktop = "sway";
     gaming.enable = true;
   };
 
@@ -20,6 +20,7 @@
   time.timeZone = "Europe/Vienna";
 
   services = {
+    mullvad-vpn.enable = true;
     openssh.enable = true;
     pcscd.enable = true;
   };
@@ -36,9 +37,14 @@
   environment.systemPackages = with pkgs; [
     (pkgs.wrapOBS {
       plugins = with pkgs.obs-studio-plugins; [
+        input-overlay
         obs-backgroundremoval
         obs-composite-blur
+        obs-gstreamer
+        obs-move-transition
         obs-pipewire-audio-capture
+        obs-vaapi
+        obs-vkcapture
         wlrobs
       ];
     })

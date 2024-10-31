@@ -68,17 +68,17 @@ in
     stateHome = "${homeDirectory}/.local/state";
     mimeApps = {
       enable = isLinux;
-      defaultApplications = {
-        "application/gzip" = "nautilus.desktop";
-        "application/vnd.rar" = "nautilus.desktop";
-        "application/x-7z-compressed" = "nautilus.desktop";
-        "application/x-bzip" = "nautilus.desktop";
-        "application/x-bzip2" = "nautilus.desktop";
-        "application/x-compressed-tar" = "nautilus.desktop";
-        "application/x-tar" = "nautilus.desktop";
-        "application/zip" = "nautilus.desktop";
-        "inode/directory" = "nautilus.desktop";
-      };
+      defaultApplications = lib.genAttrs [
+        "inode/directory"
+        "application/gzip"
+        "application/vnd.rar"
+        "application/x-7z-compressed"
+        "application/x-bzip"
+        "application/x-bzip2"
+        "application/x-compressed-tar"
+        "application/x-tar"
+        "application/zip"
+      ] (_: "nautilus.desktop;org.gnome.Nautilus.desktop");
     };
   };
 }

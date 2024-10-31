@@ -63,8 +63,8 @@ rec {
           [
             {
               config = {
-                dotfiles.username = lib.mkDefault username;
-                isGraphical = lib.mkDefault isGraphical;
+                dotfiles.username = username;
+                isGraphical = isGraphical;
                 networking.hostName = lib.mkDefault host;
               };
             }

@@ -3,7 +3,7 @@
   flakePath,
   lib,
   pkgs,
-  isNixOS,
+  osConfig,
   ...
 }:
 let
@@ -16,6 +16,7 @@ in
 {
   programs.vscode = {
     enable = config.isGraphical;
+    package = pkgs.vscodium;
 
     # pulling from different package sets:
     # - pkgs.vscode-extensions:
@@ -105,12 +106,9 @@ in
         dawidd6.debian-vscode
         dbaeumer.vscode-eslint
         denoland.vscode-deno
-        dhall.dhall-lang
-        dhall.vscode-dhall-lsp-server
         editorconfig.editorconfig
         esbenp.prettier-vscode
         geequlim.godot-tools
-        github.copilot
         github.vscode-github-actions
         haskell.haskell
         justusadam.language-haskell
@@ -134,8 +132,6 @@ in
         unifiedjs.vscode-mdx
         usernamehw.errorlens
         vscodevim.vim
-        wakatime.vscode-wakatime
-        webfreak.code-d
       ]);
     mutableExtensionsDir = true;
   };
@@ -152,9 +148,6 @@ in
   };
   xdg.mimeApps.defaultApplications."text/plain" = "code.desktop";
 
-  services.vscode-server = {
-    # when using a non-nixOS system, there's no need to patch the server
-    enable = isNixOS;
-    nodejsPackage = pkgs.nodejs_18;
-  };
+  # enable VSCode server to allow editing on Windows, when running in WSL
+  services.vscode-server.enable = osConfig.dotfiles.wsl.enable;
 }

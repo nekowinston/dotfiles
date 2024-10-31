@@ -92,8 +92,6 @@ in
       MANPAGER = "sh -c 'col -bx | bat -l man -p'";
     };
     shellAliases = {
-      cat = "bat";
-
       ls = "eza";
       ll = "eza -l";
       la = "eza -a";

@@ -4,25 +4,33 @@
   pkgs,
   ...
 }:
+let
+  inherit (pkgs.stdenv) isLinux;
+  fontDirectory =
+    if pkgs.stdenv.isDarwin then
+      "${config.home.homeDirectory}/Library/Fonts"
+    else
+      "${config.xdg.dataHome}/fonts";
+  fontPath = ../secrets/fonts;
+in
 {
   config = lib.mkIf config.isGraphical {
-    home.activation = {
-      installCustomFonts =
-        let
-          fontDirectory =
-            if pkgs.stdenv.isDarwin then
-              "${config.home.homeDirectory}/Library/Fonts"
-            else
-              "${config.xdg.dataHome}/fonts";
-          fontPath = ../secrets/fonts;
-        in
-        lib.hm.dag.entryAfter [ "writeBoundary" ]
-          # bash
-          ''
-            mkdir -p "${fontDirectory}"
-            install -Dm644 ${fontPath}/* "${fontDirectory}"
-          '';
+    fonts.fontconfig = {
+      enable = isLinux;
+      defaultFonts = {
+        sansSerif = [ "IBM Plex Sans" ];
+        serif = [ "IBM Plex Serif" ];
+        monospace = [ "MonaspiceXe Nerd Font Mono" ];
+        emoji = [ "Twitter Color Emoji" ];
+      };
     };
+    home.activation.installCustomFonts =
+      lib.hm.dag.entryAfter [ "writeBoundary" ]
+        # bash
+        ''
+          mkdir -p "${fontDirectory}"
+          install -Dm644 ${fontPath}/* "${fontDirectory}"
+        '';
     home.packages = with pkgs; [
       (nerdfonts.override {
         fonts = [
@@ -36,6 +44,7 @@
         ];
       })
       ibm-plex
+      twitter-color-emoji
       xkcd-font
     ];
   };

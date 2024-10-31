@@ -62,18 +62,6 @@ let external_completer = {|spans: list<string>|
   } | do $in $spans
 }
 
-def cat [...filepaths: path] {
-  for filepath in $filepaths {
-    let extension = $filepath | path parse | get extension
-
-    match $extension {
-      "md" => (^mdcat --columns 80 --paginate $filepath)
-      "gif" | "ico" | "jpeg" | "jpg" | "png" => (^imcat $filepath)
-      _ => (^bat $filepath)
-    }
-  }
-}
-
 $env.config = {
   show_banner: false
 

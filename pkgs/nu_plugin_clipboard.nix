@@ -2,23 +2,22 @@
   darwin,
   fetchFromGitHub,
   rustPlatform,
-  nushell,
   lib,
   stdenv,
 }:
 let
   inherit (darwin.apple_sdk.frameworks) AppKit IOKit;
-  inherit (nushell) version;
+  version = "0.99.0";
 in
-rustPlatform.buildRustPackage {
+rustPlatform.buildRustPackage rec {
   name = "nu_plugin_clipboard";
   inherit version;
 
   src = fetchFromGitHub {
     owner = "FMotalleb";
     repo = "nu_plugin_clipboard";
-    sha256 = "sha256-/Oc57JaRlKZppJ9ZEKbSHb/8kg1XqziIQhpBB2uBT7c=";
-    rev = version;
+    sha256 = "sha256-YSUnr/uGBAuoD2TcK2PSCGt62Yu7lV9Hu28GeM9RIUc=";
+    rev = "b5b0ab6e2d781dbc3a87ba69b678a9fda7d38500";
   };
 
   buildInputs = lib.optionals stdenv.isDarwin [
@@ -26,7 +25,7 @@ rustPlatform.buildRustPackage {
     IOKit
   ];
 
-  cargoHash = "sha256-8hf8RV1LGgDW6hfOPi8aAauvZbl8p1DXrITWH35nlpk=";
+  cargoHash = "sha256-r0ToGl62RRnWN6S2pCS+/+I5EgzfnbUhXdiCXEEUHYY=";
 
   meta = with lib; {
     description = "A nushell plugin to copy text into clipboard or get text from it.";

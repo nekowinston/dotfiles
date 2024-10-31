@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  osConfig,
   pkgs,
   ...
 }:
@@ -21,7 +20,6 @@ in
       with pkgs;
       (
         [
-          _1password
           age
           age-plugin-yubikey
           attic-client
@@ -44,7 +42,6 @@ in
           watchexec
         ]
         ++ lib.optionals (config.isGraphical && isLinux) [
-          (_1password-gui.override { polkitPolicyOwners = [ osConfig.dotfiles.username ]; })
           neovide
           nextcloud-client
           uhk-agent

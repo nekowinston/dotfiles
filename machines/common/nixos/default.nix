@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   imports = [
     ./boot.nix
@@ -39,8 +39,15 @@
     "94e2d5"
   ];
 
-  programs.nix-ld.enable = true;
-  programs.zsh.enable = true;
+  programs = {
+    _1password.enable = true;
+    _1password-gui = {
+      enable = config.isGraphical;
+      polkitPolicyOwners = [ config.dotfiles.username ];
+    };
+    nix-ld.enable = true;
+    zsh.enable = true;
+  };
   environment.systemPackages = [ pkgs.xdg-utils ];
 
   # enable yubikey u2f support

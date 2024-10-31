@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   osConfig,
   pkgs,
@@ -20,6 +21,9 @@ let
     "sway"
     "swayfx"
   ];
+
+  inherit (config.fonts.fontconfig) defaultFonts;
+  fontSans = builtins.head defaultFonts.sansSerif;
 in
 {
   config = lib.mkIf isWindowManager {
@@ -99,7 +103,7 @@ in
     programs.rofi = lib.mkIf isLinux {
       enable = true;
       package = pkgs.rofi-wayland;
-      font = "IBM Plex Sans 14";
+      font = "${fontSans} 14";
       extraConfig.icon-theme = "Papirus-Dark";
       terminal = "wezterm";
       theme = ./rofi/theme.rasi;
@@ -111,7 +115,7 @@ in
       settings =
         {
           ignore-empty-password = false;
-          font = "IBM Plex Sans";
+          font = fontSans;
 
           indicator-radius = "100";
           indicator-thickness = "10";

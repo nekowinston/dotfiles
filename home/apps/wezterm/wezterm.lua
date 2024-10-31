@@ -2,22 +2,30 @@ local wezterm = require("wezterm")
 local c = wezterm.config_builder()
 local utils = require("config.utils")
 
+require("config.font-switcher").apply(c, {
+  fonts = {
+    { font = "BerkeleyMono Nerd Font" },
+    { font = "BlexMono Nerd Font" },
+    { font = "CaskaydiaMonoNF Nerd Font" },
+    { font = "ComicCodeLigatures Nerd Font" },
+    { font = "IntoneMono Nerd Font" },
+    { font = "JetBrainsMono Nerd Font" },
+    { font = "MonaspiceAr Nerd Font" },
+    { font = "MonaspiceKr Nerd Font" },
+    { font = "MonaspiceNe Nerd Font" },
+    { font = "MonaspiceRn Nerd Font" },
+    { font = "MonaspiceXe Nerd Font" },
+  },
+})
 require("config.keys").apply(c)
-require("config.font-switcher").apply(c)
 require("config.zen-mode")
 
 c.front_end = "WebGpu"
-c.font_size = 13
-c.harfbuzz_features = { "calt=1", "ss01=1" }
-c.command_palette_font_size = c.font_size * 1.1
-c.window_frame = { font = wezterm.font("IBM Plex Sans") }
-
-c.window_background_opacity = 0.95
-c.macos_window_background_blur = 20
-
 c.default_prog = { "/etc/profiles/per-user/winston/bin/nu", "-l" }
 
 if utils.is_darwin() then
+  c.macos_window_background_blur = 20
+  c.window_background_opacity = 0.95
   c.window_decorations = "RESIZE|INTEGRATED_BUTTONS"
   c.window_padding = { left = 0, right = 0, top = 50, bottom = 0 }
 else

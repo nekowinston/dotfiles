@@ -1,10 +1,17 @@
 {
   config,
   lib,
+  osConfig,
   pkgs,
   ...
 }:
 let
+  isHyprland = osConfig.dotfiles.desktop == "swayfx";
+  isSway = builtins.elem osConfig.dotfiles.desktop [
+    "sway"
+    "swayfx"
+  ];
+
   commonSettings = {
     layer = "top";
     position = "top";
@@ -13,7 +20,6 @@ let
     spacing = 2;
     margin = "2";
 
-    modules-center = [ "hyprland/window" ];
     modules-right = [
       "tray"
       "idle_inhibitor"
@@ -38,7 +44,7 @@ let
         ""
         ""
       ];
-      on-click = "pavucontrol";
+      on-click = "pwvucontrol";
     };
   };
 
@@ -62,10 +68,13 @@ let
       @define-color surface0 #ccd0da;
       @define-color surface2 #acb0be;
     '';
+
+  inherit (config.fonts.fontconfig) defaultFonts;
+  fontSans = builtins.head defaultFonts.sansSerif;
   style = # css
     ''
       * {
-        font-family: Symbols Nerd Font, IBM Plex Sans;
+        font-family: Symbols Nerd Font, ${fontSans};
         font-size: 16px;
         color: @text;
       }
@@ -123,26 +132,44 @@ in
       enable = true;
 
       settings = {
-        hyprland = commonSettings // {
-          modules-left = [ "hyprland/workspaces" ];
-          "hyprland/workspaces" = {
-            format = "{icon}";
-            on-click = "activate";
-            format-icons = {
-              "1" = "Ⅰ";
-              "2" = "Ⅱ";
-              "3" = "Ⅲ";
-              "4" = "Ⅳ";
-              "5" = "Ⅴ";
-              "6" = "Ⅵ";
-              "7" = "Ⅶ";
-              "8" = "Ⅷ";
-              "9" = "Ⅸ";
-              "10" = "Ⅹ";
+        sway = lib.mkIf isSway (
+          lib.recursiveUpdate commonSettings {
+            modules-left = [
+              "sway/workspaces"
+              "mpris"
+            ];
+            modules-center = [ "sway/window" ];
+            "sway/workspaces" = {
+              format = "{icon}";
+              on-click = "activate";
             };
-            persistent-workspaces."*" = 10;
-          };
-        };
+          }
+        );
+        hyprland = lib.mkIf isHyprland (
+          lib.recursiveUpdate commonSettings {
+            modules-left = [
+              "hyprland/workspaces"
+              "mpris"
+            ];
+            modules-center = [ "hyprland/window" ];
+            "hyprland/workspaces" = {
+              format = "{icon}";
+              on-click = "activate";
+              format-icons = {
+                "1" = "Ⅰ";
+                "2" = "Ⅱ";
+                "3" = "Ⅲ";
+                "4" = "Ⅳ";
+                "5" = "Ⅴ";
+                "6" = "Ⅵ";
+                "7" = "Ⅶ";
+                "8" = "Ⅷ";
+                "9" = "Ⅸ";
+                "10" = "Ⅹ";
+              };
+            };
+          }
+        );
       };
     };
     xdg.configFile = {

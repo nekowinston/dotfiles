@@ -34,31 +34,8 @@ rec {
       nekowinston-nur.homeManagerModules.default
       nix-index-database.hmModules.nix-index
       vscode-server.homeModules.default
+      ../modules/hm
     ])
-    ++ [
-      (
-        { osConfig, ... }:
-        {
-          options = {
-            isGraphical = mkOption {
-              default = osConfig.isGraphical;
-              description = "Whether the system is a graphical target";
-              type = types.bool;
-            };
-            location = {
-              latitude = mkOption {
-                default = osConfig.location.latitude;
-                type = types.nullOr types.float;
-              };
-              longitude = mkOption {
-                default = osConfig.location.longitude;
-                type = types.nullOr types.float;
-              };
-            };
-          };
-        }
-      )
-    ]
     ++ pkgs.lib.optionals (!isNixOS) [ hmStandaloneConfig ]
     ++ [ ./. ];
 }

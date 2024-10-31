@@ -26,7 +26,6 @@
       kubepug
       kubeseal
       minikube
-      minio-client
       popeye
       pv-migrate
       velero

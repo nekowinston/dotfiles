@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  osConfig,
   pkgs,
   ...
 }:
@@ -16,11 +15,6 @@ let
       vivid generate "${milspec.src}/extras/vivid/milspec-''${variant}.yml" > "$out/''${variant}"
     done
   '';
-  isWindowManager = builtins.elem osConfig.dotfiles.desktop [
-    "hyprland"
-    "sway"
-    "swayfx"
-  ];
 in
 {
   config = lib.mkIf config.isGraphical {
@@ -60,22 +54,6 @@ in
         lat = config.location.latitude;
         lng = config.location.longitude;
         usegeoclue = false;
-      };
-      lightModeScripts = {
-        gtk-theme =
-          lib.optionalString isWindowManager
-            # bash
-            ''
-              ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/color-scheme "'prefer-light'"
-            '';
-      };
-      darkModeScripts = {
-        gtk-theme =
-          lib.optionalString isWindowManager
-            # bash
-            ''
-              ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/color-scheme "'prefer-dark'"
-            '';
       };
     };
 
