@@ -12,6 +12,7 @@ in
         options = {
           desktop = mkOption {
             description = "The desktop environment to use";
+            default = null;
             type = types.nullOr (
               types.enum [
                 "cosmic"
