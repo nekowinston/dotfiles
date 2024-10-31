@@ -29,8 +29,14 @@ in
     gtk = {
       enable = true;
       font.name = builtins.head defaultFonts.sansSerif;
-      iconTheme.name = theme.dark;
-      theme.name = theme.dark;
+      iconTheme = {
+        name = theme.dark;
+        package = pkgs.yaru-theme;
+      };
+      theme = {
+        name = theme.dark;
+        package = pkgs.yaru-theme;
+      };
     };
 
     qt = {

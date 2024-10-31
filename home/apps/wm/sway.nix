@@ -6,9 +6,8 @@
   ...
 }:
 let
-  condition = (
+  isWindowManager = (
     builtins.elem osConfig.dotfiles.desktop [
-      "hyprland"
       "sway"
       "swayfx"
     ]
@@ -17,13 +16,6 @@ let
 
   inherit (config.fonts.fontconfig) defaultFonts;
   fontSans = builtins.head defaultFonts.sansSerif;
-  fonts = {
-    names = [
-      fontSans
-      "Symbols Nerd Font"
-    ];
-    size = 12.0;
-  };
   ctp = {
     base = "#1e1e2e";
     crust = "#11111b";
@@ -76,34 +68,7 @@ let
   };
 in
 {
-  config = lib.mkIf condition {
-    home = {
-      packages = with pkgs; [
-        kooha
-        libnotify
-        overskride
-        pwvucontrol
-        sway-contrib.grimshot
-        swaynotificationcenter
-        swayosd
-        wl-clipboard
-      ];
-    };
-
-    services = {
-      clipman.enable = true;
-      gnome-keyring = {
-        enable = true;
-        components = [ "secrets" ];
-      };
-      wlsunset = {
-        enable = true;
-        latitude = toString config.location.latitude;
-        longitude = toString config.location.longitude;
-      };
-      udiskie.enable = true;
-    };
-
+  config = lib.mkIf isWindowManager {
     wayland.windowManager.sway = {
       enable = true;
       package = null;
@@ -135,7 +100,7 @@ in
         input."type:keyboard".xkb_options = "ctrl:nocaps,compose:ralt";
         output."*" = {
           scale = "2";
-          bg = "${../wallpapers/dhm_1610.png} fill #171320";
+          bg = "${../../wallpapers/dhm_1610.png} fill #171320";
         };
         keybindings = {
           "${mod}+Shift+b" = "border none";
@@ -260,7 +225,13 @@ in
             R = "resize set 50 ppt 50 ppt";
           };
         };
-        inherit fonts;
+        fonts = {
+          names = [
+            fontSans
+            "Symbols Nerd Font"
+          ];
+          size = 12.0;
+        };
         colors = rec {
           focused = {
             background = ctp.base;
@@ -296,11 +267,6 @@ in
           outer = 2;
         };
         bars = [
-          # {
-          #   inherit fonts;
-          #   position = "top";
-          #   statusCommand = "${lib.getExe config.programs.i3status-rust.package} ~/.config/i3status-rust/config-top.toml";
-          # }
           {
             command = lib.getExe config.programs.waybar.package;
           }

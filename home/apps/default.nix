@@ -1,5 +1,6 @@
 {
   imports = [
+    ./wm
     ./browsers.nix
     ./cli.nix
     ./colorscheme-sync.nix
@@ -9,18 +10,14 @@
     ./gnome.nix
     ./gpg.nix
     ./gtk.nix
-    ./hyprland.nix
     ./kitty.nix
     ./mail.nix
     ./media.nix
     ./neovim.nix
     ./newsboat.nix
     ./nu.nix
-    ./rice.nix
-    ./sway.nix
     ./tmux.nix
     ./vscode.nix
-    ./waybar.nix
     ./wezterm.nix
     ./zellij.nix
     ./zsh.nix

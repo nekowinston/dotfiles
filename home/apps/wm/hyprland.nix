@@ -9,30 +9,8 @@
   config = lib.mkIf (osConfig.dotfiles.desktop == "hyprland") {
     home = {
       packages = with pkgs; [
-        grimblast
-        hyprpicker
-        kooha
-        libnotify
-        overskride
-        pwvucontrol
         swaybg
-        swayosd
-        wl-clipboard
       ];
-    };
-
-    services = {
-      clipman.enable = true;
-      gnome-keyring = {
-        enable = true;
-        components = [ "secrets" ];
-      };
-      wlsunset = {
-        enable = true;
-        latitude = toString config.location.latitude;
-        longitude = toString config.location.longitude;
-      };
-      udiskie.enable = true;
     };
 
     wayland.windowManager.hyprland =
@@ -53,7 +31,6 @@
             "MOZ_ENABLE_WAYLAND, 1"
             "NIXOS_OZONE_WL, 1"
             "QT_QPA_PLATFORM, wayland"
-            "QT_QPA_PLATFORMTHEME, qt5ct"
             "SDL_VIDEODRIVER, wayland"
             "GDK_SCALE, 2"
             "XCURSOR_SIZE, 24"
@@ -135,7 +112,7 @@
           ];
           exec = [
             "${pkgs.swayosd}/bin/swayosd-server"
-            "${pkgs.swaybg}/bin/swaybg -o '*' -m fill -i ${../wallpapers/dhm_1610.png}"
+            "${pkgs.swaybg}/bin/swaybg -o '*' -m fill -i ${../../wallpapers/dhm_1610.png}"
           ];
           exec-once = [ "${config.programs.waybar.package}/bin/waybar -b hyprland" ];
           plugin.hy3.autotile.enable = true;

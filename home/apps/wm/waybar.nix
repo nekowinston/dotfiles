@@ -2,15 +2,12 @@
   config,
   lib,
   osConfig,
-  pkgs,
   ...
 }:
 let
-  isHyprland = osConfig.dotfiles.desktop == "swayfx";
-  isSway = builtins.elem osConfig.dotfiles.desktop [
-    "sway"
-    "swayfx"
-  ];
+  isHyprland = config.wayland.windowManager.hyprland.enable;
+  isSway = config.wayland.windowManager.sway.enable;
+  isSwayFx = osConfig.dotfiles.desktop == "swayfx";
 
   commonSettings = {
     layer = "top";
@@ -18,13 +15,14 @@ let
 
     height = 32;
     spacing = 2;
-    margin = "2";
+    margin = lib.mkIf isSwayFx "2";
 
     modules-right = [
       "tray"
       "idle_inhibitor"
       "pulseaudio"
       "clock"
+      (lib.mkIf config.services.swaync.enable "custom/swaync")
     ];
 
     idle_inhibitor = {
@@ -125,52 +123,54 @@ let
         padding: 0 10px;
       }
     '';
+
+  swayConfig = {
+    modules-left = [
+      "sway/workspaces"
+      "mpris"
+    ];
+    modules-center = [ "sway/window" ];
+    "sway/workspaces" = {
+      format = "{icon}";
+      on-click = "activate";
+    };
+  };
+  hyprlandConfig = {
+    modules-left = [
+      "hyprland/workspaces"
+      "mpris"
+    ];
+    modules-center = [ "hyprland/window" ];
+    "hyprland/workspaces" = {
+      format = "{icon}";
+      on-click = "activate";
+      format-icons = {
+        "1" = "Ⅰ";
+        "2" = "Ⅱ";
+        "3" = "Ⅲ";
+        "4" = "Ⅳ";
+        "5" = "Ⅴ";
+        "6" = "Ⅵ";
+        "7" = "Ⅶ";
+        "8" = "Ⅷ";
+        "9" = "Ⅸ";
+        "10" = "Ⅹ";
+      };
+    };
+  };
+  wmSpecific =
+    if isSway then
+      swayConfig
+    else if isHyprland then
+      hyprlandConfig
+    else
+      throw "variable wm-specific not resolved";
 in
 {
-  config = lib.mkIf (config.isGraphical && pkgs.stdenv.isLinux) {
+  config = lib.mkIf (isHyprland || isSway) {
     programs.waybar = {
       enable = true;
-
-      settings = {
-        sway = lib.mkIf isSway (
-          lib.recursiveUpdate commonSettings {
-            modules-left = [
-              "sway/workspaces"
-              "mpris"
-            ];
-            modules-center = [ "sway/window" ];
-            "sway/workspaces" = {
-              format = "{icon}";
-              on-click = "activate";
-            };
-          }
-        );
-        hyprland = lib.mkIf isHyprland (
-          lib.recursiveUpdate commonSettings {
-            modules-left = [
-              "hyprland/workspaces"
-              "mpris"
-            ];
-            modules-center = [ "hyprland/window" ];
-            "hyprland/workspaces" = {
-              format = "{icon}";
-              on-click = "activate";
-              format-icons = {
-                "1" = "Ⅰ";
-                "2" = "Ⅱ";
-                "3" = "Ⅲ";
-                "4" = "Ⅳ";
-                "5" = "Ⅴ";
-                "6" = "Ⅵ";
-                "7" = "Ⅶ";
-                "8" = "Ⅷ";
-                "9" = "Ⅸ";
-                "10" = "Ⅹ";
-              };
-            };
-          }
-        );
-      };
+      settings.main = lib.recursiveUpdate commonSettings wmSpecific;
     };
     xdg.configFile = {
       "waybar/style-dark.css".text = darkColors + style;
