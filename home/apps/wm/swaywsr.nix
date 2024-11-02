@@ -14,7 +14,8 @@ let
   swaywsrConfig = tomlFormat.generate "config.toml" {
     icons = {
       "1Password" = "";
-      "chrome-music.apple.com__browse-Default" = "󰝚";
+      "chrome-music.apple.com__browse-Default" = "";
+      "org.gnome.Fractal" = "";
       "org.gnome.Nautilus" = "󰉋";
       "org.wezfurlong.wezterm" = icons.term;
       chromium-browser = "";
@@ -29,6 +30,7 @@ let
     };
     aliases = {
       "com.obsproject.Studio" = "OBS";
+      "org.gnome.Fractal" = "Fractal";
       "org.gnome.Nautilus" = "Files";
       "org.wezfurlong.wezterm" = "WezTerm";
       "chrome-music.apple.com__browse-Default" = "Music";

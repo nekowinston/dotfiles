@@ -7,6 +7,8 @@
     gaming.enable = true;
   };
 
+  hardware.keyboard.uhk.enable = true;
+
   networking = {
     networkmanager.enable = true;
     firewall.enable = true;

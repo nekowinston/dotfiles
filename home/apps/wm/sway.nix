@@ -31,6 +31,20 @@ let
   swayosd-server = "${config.services.swayosd.package}/bin/swayosd-server";
 
   cfg = config.wayland.windowManager.sway.config;
+
+  mkColors' =
+    fg: bg: accent:
+    "${accent} ${bg} ${fg} ${accent} ${accent}";
+  mkColors =
+    colors: with colors; [
+      "client.focused          ${mkColors' fg core rose}"
+      "client.focused_inactive ${mkColors' fg core indigo}"
+      "client.unfocused        ${mkColors' fg core indigo}"
+      "client.urgent           ${mkColors' fg core red}"
+      "client.placeholder      ${mkColors' fg core indigo}"
+      "client.background       ${bg}"
+    ];
+  mkSwayMsgs = colors: lib.concatLines (builtins.map (msg: "swaymsg '${msg}'") (mkColors colors));
 in
 {
   config = lib.mkIf isWindowManager {
@@ -166,15 +180,14 @@ in
 
           # modes
           "${mod}+r" = "mode \"resize\"";
-          "${mod}+p" = "mode \"power: (l)ock, (e)xit, (r)eboot, (s)uspend, (h)ibernate, (S)hut off\"";
+          "${mod}+p" = "mode \"power: (l)ock, (e)xit, (r)eboot, (s)uspend, (S)hut off\"";
         };
         modes = {
-          "power: (l)ock, (e)xit, (r)eboot, (s)uspend, (h)ibernate, (S)hut off" = {
+          "power: (l)ock, (e)xit, (r)eboot, (s)uspend, (S)hut off" = {
             l = "exec --no-startup-id swaylock, mode \"default\"";
             e = "exec --no-startup-id swaymsg exit, mode \"default\"";
             r = "exec --no-startup-id systemctl reboot, mode \"default\"";
-            s = "exec --no-startup-id systemctl suspend, mode \"default\"";
-            h = "exec --no-startup-id systemctl hibernate, mode \"default\"";
+            s = "exec --no-startup-id systemctl sleep, mode \"default\"";
             "Shift+s" = "exec --no-startup-id systemctl poweroff, mode \"default\"";
             Escape = "mode default";
             Return = "mode default";
@@ -196,35 +209,6 @@ in
           ];
           size = 12.0;
         };
-        colors =
-          let
-            theme = milspec.dark;
-          in
-          rec {
-            focused = {
-              text = theme.fg;
-              background = theme.core;
-              border = theme.rose;
-              childBorder = theme.rose;
-              indicator = theme.rose;
-            };
-            urgent = {
-              text = theme.fg;
-              background = theme.core;
-              border = theme.red;
-              childBorder = theme.red;
-              indicator = theme.red;
-            };
-            unfocused = {
-              text = theme.fg;
-              background = theme.core;
-              border = theme.indigo;
-              childBorder = theme.indigo;
-              indicator = theme.indigo;
-            };
-            focusedInactive = unfocused;
-            placeholder = unfocused;
-          };
         window = {
           titlebar = false;
           hideEdgeBorders = "none";
@@ -243,6 +227,7 @@ in
           # floating sticky
           for_window [class="1Password"] floating enable sticky enable
           for_window [window_role="PictureInPicture"] floating enable sticky enable
+          for_window [title="Picture in picture"] floating enable sticky enable
 
           # floating
           for_window [class="GParted"] floating enable
@@ -268,6 +253,7 @@ in
 
           # keep apps in scratchpad
           for_window [app_id="discord"] move scratchpad sticky
+          for_window [app_id="vesktop"] move scratchpad sticky
 
           # fullscreen apps inhibit idle
           for_window [class=".*"] inhibit_idle fullscreen
@@ -307,6 +293,7 @@ in
             bindsym Return mode "$mode_gaps"
             bindsym Escape mode "default"
           }
+          ${lib.concatLines (mkColors milspec.dark)}
         ''
         + lib.optionalString isSwayFx ''
           shadows             enable
@@ -335,6 +322,11 @@ in
           "PATH"
         ];
       };
+    };
+
+    services.darkman = {
+      darkModeScripts.sway = mkSwayMsgs milspec.dark;
+      lightModeScripts.sway = mkSwayMsgs milspec.light;
     };
   };
 }

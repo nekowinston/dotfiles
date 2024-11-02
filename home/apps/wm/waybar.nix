@@ -83,12 +83,16 @@ let
   swayConfig = {
     modules-left = [
       "sway/workspaces"
+      "sway/mode"
       "mpris"
     ];
     modules-center = [ "sway/window" ];
     "sway/workspaces" = {
       format = "{icon}";
       on-click = "activate";
+    };
+    "sway/mode" = {
+      tooltip = false;
     };
   };
   hyprlandConfig = {

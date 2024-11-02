@@ -15,12 +15,11 @@ let
     }
   );
 
-  mkAliases =
-    aliases: lib.concatStringsSep "\n" (lib.mapAttrsToList (k: v: "alias ${k} = ${v}") aliases);
+  mkAliases = aliases: lib.concatLines (lib.mapAttrsToList (k: v: "alias ${k} = ${v}") aliases);
 
   mkCompletions =
     completions:
-    lib.concatStringsSep "\n" (
+    lib.concatLines (
       builtins.map (
         el: "source ${nu_scripts}/custom-completions/${el.name or el}/${el.filename or el}-completions.nu"
       ) completions
@@ -49,8 +48,7 @@ let
   ];
 
   mkPlugins =
-    plugins:
-    lib.concatStringsSep "\n" (builtins.map (plugin: "plugin add ${lib.getExe plugin}") plugins);
+    plugins: lib.concatLines (builtins.map (plugin: "plugin add ${lib.getExe plugin}") plugins);
 
   plugins = mkPlugins (
     with pkgs.nushellPlugins;
@@ -88,7 +86,7 @@ in
         source ${nu_scripts}/aliases/git/git-aliases.nu
         source ${./nu/keybindings.nu}
 
-        ${lib.concatStringsSep "\n" [
+        ${lib.concatLines [
           completions
           plugins
           aliases
