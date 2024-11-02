@@ -16,14 +16,8 @@ let
 
   inherit (config.fonts.fontconfig) defaultFonts;
   fontSans = builtins.head defaultFonts.sansSerif;
-  ctp = {
-    base = "#1e1e2e";
-    crust = "#11111b";
-    text = "#cdd6f4";
-    pink = "#f5c2e7";
-    red = "#f38ba8";
-    mauve = "#cba6f7";
-  };
+
+  inherit (lib) milspec;
 
   mod = "Mod4";
   modMove = "${mod}+Shift";
@@ -202,31 +196,35 @@ in
           ];
           size = 12.0;
         };
-        colors = rec {
-          focused = {
-            background = ctp.base;
-            border = ctp.pink;
-            childBorder = ctp.pink;
-            indicator = ctp.pink;
-            inherit (ctp) text;
+        colors =
+          let
+            theme = milspec.dark;
+          in
+          rec {
+            focused = {
+              text = theme.fg;
+              background = theme.core;
+              border = theme.rose;
+              childBorder = theme.rose;
+              indicator = theme.rose;
+            };
+            urgent = {
+              text = theme.fg;
+              background = theme.core;
+              border = theme.red;
+              childBorder = theme.red;
+              indicator = theme.red;
+            };
+            unfocused = {
+              text = theme.fg;
+              background = theme.core;
+              border = theme.indigo;
+              childBorder = theme.indigo;
+              indicator = theme.indigo;
+            };
+            focusedInactive = unfocused;
+            placeholder = unfocused;
           };
-          urgent = {
-            background = ctp.base;
-            border = ctp.red;
-            childBorder = ctp.red;
-            indicator = ctp.red;
-            inherit (ctp) text;
-          };
-          unfocused = {
-            background = ctp.base;
-            border = ctp.mauve;
-            childBorder = ctp.mauve;
-            indicator = ctp.mauve;
-            inherit (ctp) text;
-          };
-          focusedInactive = unfocused;
-          placeholder = unfocused;
-        };
         window = {
           titlebar = false;
           hideEdgeBorders = "none";

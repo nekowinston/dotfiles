@@ -8,5 +8,6 @@
       pulse.enable = true;
       alsa.enable = true;
     };
+    playerctld.enable = true;
   };
 }

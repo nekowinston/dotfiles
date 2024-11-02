@@ -8,6 +8,8 @@ let
   inherit (pkgs.stdenv) isLinux;
   inherit (config.fonts.fontconfig) defaultFonts;
   fontSans = builtins.head defaultFonts.sansSerif;
+
+  theme = lib.milspec.dark;
 in
 {
   config = lib.mkIf config.wayland.windowManager.sway.enable {
@@ -24,28 +26,28 @@ in
 
         screenshots = true;
 
-        text-color = "cdd6f4";
-        text-clear-color = "11111b";
-        text-ver-color = "11111b";
-        text-wrong-color = "11111b";
+        text-color = theme.fg;
+        text-clear-color = theme.core;
+        text-ver-color = theme.core;
+        text-wrong-color = theme.core;
 
-        ring-color = "1e1e2e";
-        key-hl-color = "f5c2e7";
-        line-color = "f5c2e7";
+        ring-color = theme.bg;
+        key-hl-color = theme.rose;
+        line-color = theme.rose;
         inside-color = "00000088";
         separator-color = "00000000";
 
-        inside-clear-color = "f2cdcd88";
-        line-clear-color = "f2cdcd";
-        ring-clear-color = "f2cdcd";
+        inside-clear-color = theme.orange + "88";
+        line-clear-color = theme.orange;
+        ring-clear-color = theme.orange;
 
-        inside-ver-color = "89dceb88";
-        line-ver-color = "89dceb";
-        ring-ver-color = "89dceb";
+        inside-ver-color = theme.blue + "88";
+        line-ver-color = theme.blue;
+        ring-ver-color = theme.blue;
 
-        inside-wrong-color = "f38ba888";
-        line-wrong-color = "f38ba8";
-        ring-wrong-color = "f38ba8";
+        inside-wrong-color = theme.red + "88";
+        line-wrong-color = theme.red;
+        ring-wrong-color = theme.red;
 
         clock = true;
         timestr = "%H:%M";

@@ -1,18 +1,19 @@
 { config, pkgs, ... }:
 {
-  programs.zsh.initExtra = ''
-    # kubecolor
-    compdef kubecolor=kubectl
-    # konf
-    source <(konf-go shellwrapper zsh)
-    source <(konf completion zsh)
-    # ignore if konf store hasn't been initialized
-    konf set - >/dev/null 2>&1
-  '';
+  programs.zsh.initExtra = # bash
+    ''
+      # kubecolor
+      compdef kubecolor=kubectl
+      # konf
+      source <(konf-go shellwrapper zsh)
+      source <(konf completion zsh)
+      # ignore if konf store hasn't been initialized
+      konf set - >/dev/null 2>&1
+    '';
 
   home = {
     packages = with pkgs; [
-      (wrapHelm kubernetes-helm { plugins = [ kubernetes-helmPlugins.helm-diff ]; })
+      (wrapHelm kubernetes-helm { plugins = with kubernetes-helmPlugins; [ helm-diff ]; })
       cmctl
       dyff
       gojq

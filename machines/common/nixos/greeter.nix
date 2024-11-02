@@ -5,27 +5,17 @@
   ...
 }:
 let
-  inherit (config.dotfiles) desktop;
-  condition = (
-    builtins.elem desktop [
-      "hyprland"
-      "sway"
-      "swayfx"
-    ]
-  );
-  binary =
-    {
-      hyprland = "Hyprland";
-      sway = "sway";
-      swayfx = "sway";
-    }
-    .${desktop} or (throw "greetd: desktop not supported");
+  isWindowManager = builtins.elem config.dotfiles.desktop [
+    "hyprland"
+    "sway"
+    "swayfx"
+  ];
 in
 {
-  config = lib.mkIf condition {
+  config = lib.mkIf isWindowManager {
     services.greetd = {
       enable = true;
-      settings.default_session.command = "${lib.getExe pkgs.greetd.tuigreet} --remember --cmd ${binary}";
+      settings.default_session.command = lib.getExe pkgs.greetd.tuigreet;
     };
     services.gnome.gnome-keyring.enable = true;
     security.pam.services.greetd = {

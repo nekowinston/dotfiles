@@ -1,5 +1,7 @@
 { inputs, overlays }:
 let
+  lib = inputs.nixpkgs.lib.extend (final: prev: (import ../lib final));
+
   hmCommonConfig =
     { username }:
     (
@@ -35,7 +37,6 @@ let
     }:
     let
       pkgs = inputs.nixpkgs.legacyPackages.${system};
-      inherit (pkgs) lib;
 
       ldTernary =
         l: d:
@@ -80,7 +81,7 @@ let
           ++ lib.optionals pkgs.stdenv.isLinux linuxModules
           ++ extraModules;
         specialArgs = {
-          inherit inputs;
+          inherit inputs lib;
         };
       };
     };

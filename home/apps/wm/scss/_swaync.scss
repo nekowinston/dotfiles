@@ -1,0 +1,458 @@
+@use "milspec" as *;
+
+/// @param {bool} dark
+///   Whether to render a dark appearance
+/// @param {bool} fancy
+///   Whether to round the start & end of waybar
+///   (intended for SwayFX and Hyprland)
+@mixin main($dark: true, $fancy: false) {
+  @include colors($dark: $dark);
+
+  $radius: if($fancy, 5px, 0);
+
+  $noti-border-color: $rose;
+  $bg-hover: lighten($bg, 5%);
+
+  * {
+    font-family: Symbols Nerd Font, IBM Plex Sans;
+  }
+
+  .notification-row {
+
+    &:focus,
+    &:hover {
+      background: $rose;
+    }
+
+    .notification-background {
+      .notification {
+        border-radius: $radius;
+        border: 1px solid $noti-border-color;
+        padding: 0;
+
+        transition: background 0.4s ease-in-out;
+        background: $bg;
+
+        .notification-default-action {
+          border-radius: $radius;
+
+          &:not(:only-child) {
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 0px;
+          }
+
+          .notification-content {
+            background: transparent;
+            border-radius: $radius;
+            padding: 4px;
+
+            .image {
+              -gtk-icon-effect: none;
+              margin: 4px;
+            }
+
+            .app-icon {
+              -gtk-icon-effect: none;
+              -gtk-icon-shadow: 0 1px 4px black;
+              margin: 6px;
+            }
+
+            .text-box {
+              .summary {
+                font-size: 16px;
+                font-weight: bold;
+                background: transparent;
+                color: $fg;
+                text-shadow: none;
+              }
+
+              .time {
+                font-size: 16px;
+                font-weight: bold;
+                background: transparent;
+                color: $fg;
+                text-shadow: none;
+                margin-right: 30px;
+              }
+
+              .body {
+                font-size: 15px;
+                font-weight: normal;
+                background: transparent;
+                color: $fg;
+                text-shadow: none;
+              }
+            }
+
+            progressbar {
+              margin-top: 4px;
+            }
+
+            .body-image {
+              margin-top: 4px;
+              background-color: white;
+              border-radius: $radius;
+              -gtk-icon-effect: none;
+            }
+
+            .inline-reply {
+              margin-top: 4px;
+
+              .inline-reply-entry {
+                background: darken($bg, 5%);
+                color: $fg;
+                caret-color: $fg;
+                border: 1px solid $noti-border-color;
+                border-radius: $radius;
+              }
+
+              .inline-reply-button {
+                margin-left: 4px;
+                background: $bg;
+                border: 1px solid $noti-border-color;
+                border-radius: $radius;
+                color: $fg;
+
+                &:disabled {
+                  background: initial;
+                  color: $bgGray;
+                  border: 1px solid $noti-border-color;
+                  border-color: transparent;
+                }
+
+                &:hover {
+                  background: $bg-hover;
+                }
+              }
+            }
+          }
+        }
+
+        .notification-action {
+          border-top: 1px solid $noti-border-color;
+          border-radius: 0;
+          border-right: 1px solid $noti-border-color;
+
+          &:first-child {
+            border-bottom-left-radius: $radius;
+          }
+
+          &:last-child {
+            border-bottom-right-radius: $radius;
+            border-right: none;
+          }
+        }
+
+        .notification-action,
+        .notification-default-action {
+          border-radius: 0;
+          padding: 4px;
+          margin: 0;
+          box-shadow: none;
+          background: transparent;
+          border: none;
+          color: $fg;
+          transition: background 0.15s ease-in-out;
+
+          &:hover {
+            -gtk-icon-effect: none;
+            background: $bg-hover;
+          }
+
+          &:active {
+            color: $core;
+            background: $rose;
+          }
+        }
+      }
+
+      .close-button {
+        background: transparent;
+        border: 2px solid $red;
+        color: $fg;
+        border-radius: 100%;
+        padding: 0;
+        min-height: 24px;
+        min-width: 24px;
+        margin-right: 5px;
+        margin-top: 5px;
+
+        &:hover {
+          background: $red;
+          color: $core;
+          transition-property: background, color;
+          transition-duration: 0.15s;
+          transition-timing-function: ease-in-out;
+        }
+      }
+    }
+  }
+
+  .notification-group {
+    .notification-group-headers {
+      .notification-group-icon {
+        color: $fg;
+      }
+
+      .notification-group-header {
+        color: $fg;
+      }
+    }
+
+    .notification-group-collapse-button,
+    .notification-group-close-all-button {
+      color: $fg;
+      background: lighten($bg, 5%);
+
+      &:hover {
+        background: lighten($bg, 10%);
+      }
+    }
+
+    .notification-group-buttons,
+    .notification-group-headers {
+      margin: 0 16px;
+      color: $fg;
+    }
+
+    &.collapsed {
+      .notification-row {
+        .notification {
+          background-color: $bg;
+        }
+      }
+
+      .notification-row:not(:last-child) {
+
+        .notification-action,
+        .notification-default-action {
+          opacity: 0;
+        }
+      }
+
+      &:hover {
+        .notification-row {
+          &:not(:only-child) {
+            .notification {
+              background-color: $bg-hover;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .control-center {
+    background: $bg;
+    color: $fg;
+    border-radius: $radius;
+    border-left: 2px solid $rose;
+
+    .control-center-list-placeholder {
+      opacity: 0.5;
+    }
+
+    .control-center-list {
+      background: transparent;
+
+      .notification {
+        box-shadow: none;
+
+        .notification-default-action,
+        .notification-action {
+          transition: opacity 400ms ease-in-out, background 0.15s ease-in-out;
+
+          :hover {
+            background-color: $bg-hover;
+          }
+        }
+      }
+    }
+  }
+
+  .blank-window {
+    background: transparent;
+  }
+
+  .floating-notifications {
+    background: transparent;
+
+    .notification {
+      box-shadow: none;
+    }
+  }
+
+  .widget-title {
+    color: $fg;
+    margin: 8px;
+    font-size: 1.5rem;
+
+    &>button {
+      font-size: initial;
+      color: $fg;
+      text-shadow: none;
+      background: $bg;
+      box-shadow: none;
+      border-radius: $radius;
+
+      &:hover {
+        background: $bg-hover;
+      }
+
+      &:active {
+        color: $core;
+        background: $rose;
+      }
+    }
+  }
+
+  .widget-dnd {
+    color: $fg;
+    margin: 8px;
+    font-size: 1.1rem;
+
+    &>switch {
+      font-size: initial;
+      border-radius: $radius;
+      background: $bg;
+
+      &:checked {
+        background: $rose;
+      }
+
+      slider {
+        background: $fg;
+        border-radius: $radius;
+      }
+    }
+  }
+
+  .widget-label {
+    margin: 8px;
+
+    &>label {
+      font-size: 1.1rem;
+    }
+  }
+
+  .widget-mpris {
+    .widget-mpris-player {
+      padding: 8px;
+      margin: 16px 20px;
+      background-color: $bg-hover;
+      border-radius: $radius;
+      box-shadow: none;
+
+      button {
+        &:hover {
+          background: $bg-hover;
+        }
+      }
+
+      .widget-mpris-album-art {
+        border-radius: $radius;
+        box-shadow: none;
+      }
+
+      .widget-mpris-title {
+        font-weight: bold;
+        font-size: 1.25rem;
+      }
+
+      .widget-mpris-subtitle {
+        font-size: 1.1rem;
+      }
+    }
+
+    &>box {
+      &>button {
+        border-radius: 0;
+        border: 0;
+        padding: 0;
+        margin: 16px 0;
+
+        &:disabled {
+          color: $bgGray;
+        }
+
+        &:hover {
+          color: $rose;
+          background: mix($rose, $bg, 10%);
+        }
+      }
+    }
+  }
+
+  .widget-buttons-grid {
+    background-color: $bg;
+    border-radius: $radius;
+    padding: 8px;
+    margin: 8px;
+
+    button {
+      background: lighten($bg, 5%);
+      border-radius: $radius;
+
+      &:hover {
+        background: lighten($bg, 10%);
+      }
+    }
+  }
+
+  .widget-menubar {
+    margin: 8px;
+
+    button {
+      background: lighten($bg, 5%);
+      border: 1px solid $core;
+      border-radius: $radius;
+
+      &:hover {
+        background: lighten($bg, 10%);
+      }
+
+      &:active {
+        color: $core;
+        background: $rose;
+      }
+    }
+  }
+
+  .topbar-buttons {
+    &>button {
+      border: none;
+      background: transparent;
+    }
+  }
+
+  .widget-volume {
+    background-color: $bg;
+    padding: 8px;
+    margin: 8px;
+    border-radius: $radius;
+
+    trough>highlight {
+      border: 0;
+      background-color: $rose;
+    }
+
+    &>box>button {
+      background: transparent;
+      border: none;
+    }
+  }
+
+  .per-app-volume {
+    background-color: $bg;
+    padding: 4px 8px 8px 8px;
+    margin: 0px 8px 8px 8px;
+    border-radius: $radius;
+  }
+
+  .widget-backlight {
+    background-color: $bg;
+    padding: 8px;
+    margin: 8px;
+    border-radius: $radius;
+  }
+}

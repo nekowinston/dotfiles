@@ -44,6 +44,7 @@ in
         ];
       })
       ibm-plex
+      monaspace
       twitter-color-emoji
       xkcd-font
     ];

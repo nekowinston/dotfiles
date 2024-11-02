@@ -13,6 +13,13 @@ let
       name = src.name;
       inherit (plugin) file src;
     }) plugins);
+
+  linuxOpen = # bash
+    ''
+      function open() {
+        nohup xdg-open "$*" > /dev/null 2>&1
+      }
+    '';
 in
 {
   programs.zsh = {
@@ -20,16 +27,17 @@ in
     autosuggestion.enable = true;
     enableCompletion = true;
 
-    initExtraFirst = ''
-      zvm_config() {
-        ZVM_INIT_MODE=sourcing
-        ZVM_CURSOR_STYLE_ENABLED=false
-        ZVM_VI_HIGHLIGHT_BACKGROUND=black
-        ZVM_VI_HIGHLIGHT_EXTRASTYLE=bold,underline
-        ZVM_VI_HIGHLIGHT_FOREGROUND=white
-      }
-    '';
-    initExtra =
+    initExtraFirst = # bash
+      ''
+        zvm_config() {
+          ZVM_INIT_MODE=sourcing
+          ZVM_CURSOR_STYLE_ENABLED=false
+          ZVM_VI_HIGHLIGHT_BACKGROUND=black
+          ZVM_VI_HIGHLIGHT_EXTRASTYLE=bold,underline
+          ZVM_VI_HIGHLIGHT_FOREGROUND=white
+        }
+      '';
+    initExtra = # bash
       ''
         function incognito() {
           if [[ -n $ZSH_INCOGNITO ]]; then
@@ -50,11 +58,8 @@ in
         }
 
         add-zsh-hook chpwd onefetch_in_git_dir
-      ''
-      + lib.optionalString isLinux ''
-        function open() {
-          nohup xdg-open "$*" > /dev/null 2>&1
-        }
+
+        ${lib.optionalString isLinux linuxOpen}
       '';
 
     dotDir = ".config/zsh";

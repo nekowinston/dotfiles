@@ -6,20 +6,26 @@
 }:
 let
   tomlFormat = pkgs.formats.toml { };
+  icons = {
+    discord = "󰙯";
+    nvim = "";
+    term = "";
+  };
   swaywsrConfig = tomlFormat.generate "config.toml" {
     icons = {
       "1Password" = "";
       "chrome-music.apple.com__browse-Default" = "󰝚";
       "org.gnome.Nautilus" = "󰉋";
-      "org.wezfurlong.wezterm" = "";
+      "org.wezfurlong.wezterm" = icons.term;
       chromium-browser = "";
-      discord = "󰙯";
+      discord = icons.discord;
       firefox = "";
-      foot = "";
-      kitty = "";
-      neovide = "";
+      foot = icons.term;
+      kitty = icons.term;
+      neovide = icons.nvim;
       obsidian = "";
       steam = "󰓓";
+      vesktop = icons.discord;
     };
     aliases = {
       "com.obsproject.Studio" = "OBS";
@@ -32,6 +38,7 @@ let
       neovide = "Neovide";
       obsidian = "Obsidian";
       steam = "Steam";
+      vesktop = "Vesktop";
     };
     general.seperator = "|";
   };

@@ -1,0 +1,22 @@
+@mixin colors($dark: false) {
+  $fg: if($dark, #ffffff, #111418) !global;
+  $bg: if($dark, #1c2127, #f6f7f9) !global;
+  $gray: if($dark, #c5cbd3, #5f6b7c) !global;
+  $bgGray: if($dark, #404854, #d3d8de) !global;
+  $fgGray: if($dark, #d3d8de, #404854) !global;
+  $core: if($dark, #111418, #ffffff) !global;
+  $blue: if($dark, #8abbff, #2d72d2) !global;
+  $green: if($dark, #72ca9b, #238551) !global;
+  $orange: if($dark, #fbb360, #c87619) !global;
+  $red: if($dark, #fa999c, #cd4246) !global;
+  $vermilion: if($dark, #ff9980, #d33d17) !global;
+  $rose: if($dark, #ff66a1, #db2c6f) !global;
+  $violet: if($dark, #d69fd6, #9d3f9d) !global;
+  $indigo: if($dark, #bdadff, #7961db) !global;
+  $cerulean: if($dark, #68c1ee, #147eb3) !global;
+  $turquoise: if($dark, #7ae1d8, #00a396) !global;
+  $forest: if($dark, #62d96b, #29a634) !global;
+  $lime: if($dark, #d4f17e, #8eb125) !global;
+  $gold: if($dark, #fbd065, #d1980b) !global;
+  $sepia: if($dark, #d0b090, #946638) !global;
+}

@@ -1,0 +1,54 @@
+@use "milspec" as *;
+
+/// @param {bool} dark
+///   Whether to render a dark appearance
+/// @param {bool} fancy
+///   Whether to round the start & end of waybar
+///   (intended for SwayFX and Hyprland)
+@mixin main($dark: true, $fancy: false) {
+  @include colors($dark: $dark);
+
+  $radius: if($fancy, 999px, 0);
+
+  window#osd {
+    padding: 12px 20px;
+    border-radius: $radius;
+    border: none;
+    background: lighten($bg, 5%);
+
+    #container {
+      margin: 16px;
+    }
+
+    image,
+    label {
+      color: $fg;
+    }
+
+    progressbar:disabled,
+    image:disabled {
+      opacity: 0.5;
+    }
+
+    progressbar {
+      min-height: 6px;
+      border-radius: $radius;
+      background: transparent;
+      border: none;
+    }
+
+    trough {
+      min-height: inherit;
+      border-radius: inherit;
+      border: none;
+      background: change-color($color: $rose, $alpha: 0.5);
+    }
+
+    progress {
+      min-height: inherit;
+      border-radius: inherit;
+      border: none;
+      background: $rose;
+    }
+  }
+}

@@ -1,0 +1,89 @@
+@use "milspec" as *;
+
+/// @param {bool} dark
+///   Whether to render a dark appearance
+/// @param {bool} fancy
+///   Whether to round the start & end of waybar
+///   (intended for SwayFX and Hyprland)
+@mixin main($dark: true, $fancy: false, ) {
+  @include colors($dark: $dark);
+
+  // radius at the start/end of the bar
+  $radius: if($fancy, 5px, 0);
+  // padding between waybar elements
+  $padding: 5px;
+
+  * {
+    font-family: Symbols Nerd Font, IBM Plex Sans;
+    font-size: 14px;
+  }
+
+  window#waybar {
+    color: $fg;
+    background-color: $core;
+    border-radius: $radius;
+
+    @if $fancy {
+      border: 2px solid $core;
+    }
+  }
+
+  #workspaces {
+    padding-right: $padding;
+  }
+
+  #workspaces button {
+    color: mix($fg, $bg, 40%);
+    padding: 0 $padding;
+    margin: 0;
+    box-shadow: unset;
+    border-radius: 0;
+    border-top: 2px solid $bgGray;
+    border-bottom: 2px solid $bgGray;
+
+    &:hover {
+      color: $fg;
+      background: mix($rose, $bgGray, 10%);
+    }
+
+    &:first-child {
+      border-radius: $radius 0 0 $radius;
+      border-left: 2px solid $bgGray;
+    }
+
+    &:last-child {
+      border-right: 2px solid $bgGray;
+      border-radius: 0 $radius $radius 0;
+    }
+
+    &.active,
+    &.focused {
+      color: $fg;
+      border-top: 2px solid $rose;
+      border-bottom: 2px solid $rose;
+
+      &:first-child {
+        border-left: 2px solid $rose;
+      }
+
+      &:last-child {
+        border-right: 2px solid $rose;
+      }
+    }
+
+    &.urgent {
+      color: $core;
+      background-color: $red;
+    }
+  }
+
+  #mpris,
+  window#waybar,
+  #tray,
+  #idle_inhibitor,
+  #pulseaudio,
+  #clock,
+  #custom-swaync {
+    padding: 0 $padding;
+  }
+}
