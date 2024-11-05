@@ -1,13 +1,15 @@
-{ config, ... }:
+{ config, lib, ... }:
 {
-  programs.noisetorch.enable = config.isGraphical;
-  security.rtkit.enable = true;
-  services = {
-    pipewire = {
-      enable = config.isGraphical;
-      pulse.enable = true;
-      alsa.enable = true;
+  config = lib.mkIf config.isGraphical {
+    programs.noisetorch.enable = true;
+    security.rtkit.enable = true;
+    services = {
+      pipewire = {
+        enable = true;
+        pulse.enable = true;
+        alsa.enable = true;
+      };
+      playerctld.enable = true;
     };
-    playerctld.enable = true;
   };
 }
