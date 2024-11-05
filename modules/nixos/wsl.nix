@@ -25,5 +25,9 @@ in
 
     # skip installing the bootloader
     system.build.installBootLoader = mkForce "${pkgs.coreutils}/bin/true";
+
+    services = {
+      unbound.enable = mkForce false;
+    };
   };
 }

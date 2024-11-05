@@ -83,5 +83,6 @@ in
     security.sudo.wheelNeedsPassword = false;
 
     virtualisation.podman.enable = mkForce false;
+    services.unbound.enable = mkForce false;
   };
 }
