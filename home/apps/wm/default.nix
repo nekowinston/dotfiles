@@ -1,4 +1,16 @@
-{ pkgs, ... }:
+{
+  lib,
+  osConfig,
+  pkgs,
+  ...
+}:
+let
+  isWindowManager = builtins.elem osConfig.dotfiles.desktop [
+    "hyprland"
+    "sway"
+    "swayfx"
+  ];
+in
 {
   imports = [
     ./hyprland.nix
@@ -13,14 +25,16 @@
     ./waybar.nix
   ];
 
-  home = {
-    packages = with pkgs; [
-      kooha
-      overskride
-      pwvucontrol
-      sway-contrib.grimshot
-      swayosd
-      wl-clipboard
-    ];
+  config = lib.mkIf isWindowManager {
+    home = {
+      packages = with pkgs; [
+        kooha
+        overskride
+        pwvucontrol
+        sway-contrib.grimshot
+        swayosd
+        wl-clipboard
+      ];
+    };
   };
 }

@@ -6,7 +6,7 @@
   ...
 }:
 let
-  isWindowManager = (
+  isSway = (
     builtins.elem osConfig.dotfiles.desktop [
       "sway"
       "swayfx"
@@ -47,7 +47,7 @@ let
   mkSwayMsgs = colors: lib.concatLines (builtins.map (msg: "swaymsg '${msg}'") (mkColors colors));
 in
 {
-  config = lib.mkIf isWindowManager {
+  config = lib.mkIf isSway {
     wayland.windowManager.sway = {
       enable = true;
       package = null;
