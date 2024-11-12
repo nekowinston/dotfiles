@@ -64,18 +64,13 @@ if (not ($cachePath | path exists) or $alwaysCompile) {
 }
 
 let result = osascript $cachePath
-  | lines
-  | {
-    state: ($in.0?),
-    artist: ($in.1?)
-    track: ($in.2?)
-    progress: (
-      $in.3?
-        | str replace "," "."
-        | into float
-        | $in * 100.0
-    )
-  }
+| lines
+| {
+  state: ($in.0?),
+  artist: ($in.1?)
+  track: ($in.2?)
+  progress: ($in.3? | str replace "," "." | into float | $in * 100.0)
+}
 
 let label = if ($result.state == "playing") {
   $"($result.artist) - ($result.track)"

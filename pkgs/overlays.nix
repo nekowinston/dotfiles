@@ -8,6 +8,8 @@
       srcs = final.callPackages ../_sources/generated.nix { };
     in
     {
+      apple-music = final.callPackage ./apple-music.nix { };
+      dark-mode-ternary = final.callPackage ./dark-mode-ternary.nix { };
       nur = import inputs.nur {
         nurpkgs = final;
         pkgs = final;
@@ -18,24 +20,6 @@
       nushellPlugins = (prev.nushellPlugins or { }) // {
         clipboard = final.callPackage ./nu_plugin_clipboard.nix { };
       };
-      # sway-unwrapped = (prev.sway-unwrapped.override { wlroots = final.wlroots_0_18; }).overrideAttrs (
-      #   finalAttrs: prevAttrs: {
-      #     version = "1.10";
-      #     src = prevAttrs.src.override {
-      #       hash = "sha256-PzeU/niUdqI6sf2TCG19G2vNgAZJE5JCyoTwtO9uFTk=";
-      #     };
-      #
-      #     mesonFlags =
-      #       let
-      #         inherit (final.lib.strings) mesonEnable mesonOption;
-      #         sd-bus-provider = if finalAttrs.systemdSupport then "libsystemd" else "basu";
-      #       in
-      #       [
-      #         (mesonOption "sd-bus-provider" sd-bus-provider)
-      #         (mesonEnable "tray" finalAttrs.trayEnabled)
-      #       ];
-      #   }
-      # );
       starship = prev.starship.overrideAttrs (old: {
         patches = [
           (final.fetchpatch {

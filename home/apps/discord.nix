@@ -69,9 +69,10 @@ in
             throw "unsupported platform";
       in
       # gets written as a file after the writeBoundary to keep it mutable
-      lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        mkdir -p "$(dirname "${path}")"
-        cp -f "${json}" "${path}"
-      '';
+      lib.hm.dag.entryAfter [ "writeBoundary" ] # bash
+        ''
+          mkdir -p "$(dirname "${path}")"
+          cp -f "${json}" "${path}"
+        '';
   };
 }

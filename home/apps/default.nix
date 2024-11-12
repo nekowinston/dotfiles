@@ -1,6 +1,7 @@
 {
   imports = [
     ./wm
+    ./aerospace.nix
     ./browsers.nix
     ./cli.nix
     ./colorscheme-sync.nix

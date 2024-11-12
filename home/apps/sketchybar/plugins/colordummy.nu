@@ -57,12 +57,19 @@ let theme = if ((defaults read -g AppleInterfaceStyle err>/dev/null) != "Dark") 
   "dark"
 }
 
+def "math clamp" [min: float, max: float] {
+  if ($in | is-empty) {
+    error make -u {
+      msg: "Pipeline empty."
+      help: "No input value was piped in"
+    }
+  }
+  [$min ([$in $max] | math min)] | math max
+}
+
 def color [name: string, alpha: float = 1.0] {
-  let color = ($variants) | get -i $theme | get -i $name | default null
-  let alpha = [0.0 ([$alpha 1.0] | math min)] | math max
-    | $in * 255
-    | math round
-    | bits shl 24 -n 4
+  let color = $variants | get -i $theme | get -i $name | default null
+  let alpha = $alpha | math clamp 0.0 1.0 | $in * 255 | math round | bits shl 24 -n 4
 
   if $color == null {
     error make {
@@ -76,40 +83,39 @@ def color [name: string, alpha: float = 1.0] {
   }
 
   $alpha bit-or $color
-    | fmt
-    | get lowerhex
-    | str replace "0x" ""
-    | fill --alignment "right" --character "0" --width 8
-    | "0x" + $in
+  | fmt
+  | get lowerhex
+  | str replace "0x" ""
+  | fill --alignment "right" --character "0" --width 8
+  | "0x" + $in
 }
 
-(sketchybar
-  --bar
-    $"color=(color bg)"
-  --default
-    $"icon.color=(color fg)"
-    $"label.color=(color fg)"
-  --set /space/
-    $"icon.color=(color bgGray)"
-    $"icon.highlight_color=(color blue)"
-  --set music
-    $"icon.color=(color fgGray)"
-    $"label.color=(color fgGray)"
-  --set music_progress
-    $"slider.highlight_color=(color blue)"
-    $"slider.background.color=(color bgGray)"
-  --set "Mullvad VPN"
-    $"alias.color=(color orange)"
-  --set "Control Center,Battery"
-    $"alias.color=(color gold)"
-  --set clock
-    $"icon.color=(color violet)"
-    $"label.color=(color violet)")
+def main [] {
+  (sketchybar
+    --bar
+      $"color=(color bg)"
+    --default
+      $"icon.color=(color fg)"
+      $"label.color=(color fg)"
+    --set /space/
+      $"icon.color=(color bgGray)"
+      $"icon.highlight_color=(color blue)"
+    --set music
+      $"icon.color=(color fgGray)"
+      $"label.color=(color fgGray)"
+    --set music_progress
+      $"slider.highlight_color=(color blue)"
+      $"slider.background.color=(color bgGray)"
+    --set "Mullvad VPN"
+      $"alias.color=(color orange)"
+    --set "Control Center,Battery"
+      $"alias.color=(color gold)"
+    --set clock
+      $"icon.color=(color violet)"
+      $"label.color=(color violet)")
 
-# set the jankyborders colors as well
-if ((which borders).type?.0? == "external") {
-  (borders
-    $"active_color=(color blue)"
-    $"inactive_color=(color gray)"
-    width=5.0)
+  # set the jankyborders colors as well
+  if ((which borders).0?.path | is-not-empty) {
+    (borders $"active_color=(color blue)" $"inactive_color=(color gray)" width=5.0)
+  }
 }

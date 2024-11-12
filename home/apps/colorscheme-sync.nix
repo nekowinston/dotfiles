@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (pkgs.stdenv) isDarwin isLinux;
+  inherit (pkgs.stdenv) isLinux;
 
   milspec = (pkgs.callPackage ../../_sources/generated.nix { }).milspec;
 
@@ -18,35 +18,7 @@ let
 in
 {
   config = lib.mkIf config.isGraphical {
-    home.packages = [
-      (pkgs.writeShellApplication {
-        name = "dark-mode-ternary";
-        runtimeInputs = lib.optionals isLinux [
-          pkgs.dbus
-          pkgs.gnugrep
-        ];
-        text =
-          let
-            queryCommand =
-              if isLinux then
-                "dbus-send --session --print-reply=literal --reply-timeout=5 --dest=org.freedesktop.portal.Desktop /org/freedesktop/portal/desktop org.freedesktop.portal.Settings.Read string:'org.freedesktop.appearance' string:'color-scheme' 2>/dev/null | grep -q 'uint32 1'"
-              else if isDarwin then
-                "defaults read -g AppleInterfaceStyle &>/dev/null"
-              else
-                throw "Unsupported platform";
-          in
-          # bash
-          ''
-            [[ -z "''${1-}" ]] && [[ -z "''${2-}" ]] && echo "Usage: $0 <dark> <light>" && exit 1
-
-            if ${queryCommand}; then
-              echo "$1"
-            else
-              echo "$2"
-            fi
-          '';
-      })
-    ];
+    home.packages = [ pkgs.dark-mode-ternary ];
 
     services.darkman = {
       enable = isLinux;

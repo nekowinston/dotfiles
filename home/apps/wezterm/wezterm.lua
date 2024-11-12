@@ -21,7 +21,6 @@ require("config.keys").apply(c)
 require("config.zen-mode")
 
 c.front_end = "WebGpu"
-c.default_prog = { "/etc/profiles/per-user/winston/bin/nu", "-l" }
 
 if utils.is_darwin() then
   c.macos_window_background_blur = 20

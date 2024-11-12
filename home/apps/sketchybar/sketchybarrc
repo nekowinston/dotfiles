@@ -1,28 +1,26 @@
 #!/usr/bin/env nu
-# vim:fileencoding=utf-8:foldmethod=marker
 let pluginDir = $env.XDG_CONFIG_HOME?
-  | default $"($env.HOME)/.config"
-  | path join "sketchybar/plugins"
+| default $"($env.HOME)/.config"
+| path join "sketchybar/plugins"
 
 let spacesCmd = ["Ⅰ" "Ⅱ" "Ⅲ" "Ⅳ" "Ⅴ" "Ⅵ" "Ⅶ" "Ⅷ" "Ⅸ" "Ⅹ"]
-  | enumerate
-  | reduce --fold [] {|it, acc|
-      let i = $it.index + 1
-      $acc | append [
-        "--add" "space" $"space.($i)" "left"
-        "--set" $"space.($i)"
-        $"associated_space=($i)"
-        $"icon=($it.item)"
-        "icon.padding_left=8"
-        "icon.padding_right=8"
-        "background.padding_left=1"
-        "background.padding_right=1"
-        "background.height=32"
-        "label.drawing=off"
-        $"script=($pluginDir)/space.nu"
-        $"click_script=yabai -m space --focus ($i)"
-      ]
-    }
+| enumerate
+| reduce --fold [] {|it, acc|
+    let i = $it.index + 1
+    $acc | append [
+      "--add" "space" $"space.($i)" "left"
+      "--set" $"space.($i)"
+      $"icon=($it.item)"
+      "icon.padding_left=8"
+      "icon.padding_right=8"
+      "background.padding_left=1"
+      "background.padding_right=1"
+      "background.height=32"
+      "label.drawing=off"
+      $"script=($pluginDir)/space.nu"
+      $"click_script=aerospace workspace ($i)"
+    ]
+  }
 
 (sketchybar
   --bar

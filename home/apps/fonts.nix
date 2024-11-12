@@ -25,8 +25,7 @@ in
       };
     };
     home.activation.installCustomFonts =
-      lib.hm.dag.entryAfter [ "writeBoundary" ]
-        # bash
+      lib.hm.dag.entryAfter [ "writeBoundary" ] # bash
         ''
           mkdir -p "${fontDirectory}"
           install -Dm644 ${fontPath}/* "${fontDirectory}"
