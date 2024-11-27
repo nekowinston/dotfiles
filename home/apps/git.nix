@@ -1,4 +1,12 @@
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  inherit (pkgs.stdenv) isDarwin;
+in
 {
   programs.git.includes = [
     {
@@ -16,6 +24,10 @@
     pkgs.rs-git-fsmonitor
     pkgs.watchman
   ];
+
+  # disable loading the systme config on Darwin, where Nix tells it to use the
+  # osxkeychain credential manager.
+  home.sessionVariables.GIT_CONFIG_NOSYSTEM = lib.mkIf isDarwin 1;
 
   programs.git = {
     enable = true;
