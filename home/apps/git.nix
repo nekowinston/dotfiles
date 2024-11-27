@@ -27,7 +27,9 @@ in
 
   # disable loading the systme config on Darwin, where Nix tells it to use the
   # osxkeychain credential manager.
-  home.sessionVariables.GIT_CONFIG_NOSYSTEM = lib.mkIf isDarwin 1;
+  home.sessionVariables = lib.mkIf isDarwin {
+    GIT_CONFIG_NOSYSTEM = 1;
+  };
 
   programs.git = {
     enable = true;
