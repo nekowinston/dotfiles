@@ -106,8 +106,6 @@ def main [] {
     --set music_progress
       $"slider.highlight_color=(color blue)"
       $"slider.background.color=(color bgGray)"
-    --set "Mullvad VPN"
-      $"alias.color=(color orange)"
     --set "Control Center,Battery"
       $"alias.color=(color gold)"
     --set clock

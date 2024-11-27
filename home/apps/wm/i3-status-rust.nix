@@ -6,14 +6,6 @@
       bars.top = {
         blocks = [
           {
-            block = "vpn";
-            driver = "mullvad";
-            format_connected = "";
-            format_disconnected = "";
-            state_connected = "good";
-            state_disconnected = "critical";
-          }
-          {
             block = "tea_timer";
             done_cmd = "notify-send 'Timer Finished'";
           }

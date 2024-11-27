@@ -33,8 +33,6 @@ in
       "keka"
       "little-snitch"
       "macfuse"
-      "mullvad-browser"
-      "mullvadvpn"
       "orbstack"
       "orion"
       "rustdesk"

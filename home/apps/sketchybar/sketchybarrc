@@ -83,9 +83,6 @@ let spacesCmd = ["Ⅰ" "Ⅱ" "Ⅲ" "Ⅳ" "Ⅴ" "Ⅵ" "Ⅶ" "Ⅷ" "Ⅸ" "Ⅹ"]
   --add alias "Control Center,Battery" right
     icon.padding_left=0
     icon.padding_right=0
-  --add alias "Mullvad VPN" right
-    icon.padding_left=0
-    icon.padding_right=0
 )
 
 sketchybar --update

@@ -14,7 +14,6 @@ in
     home.packages = with pkgs.gnomeExtensions; [
       appindicator
       blur-my-shell
-      mullvad-indicator
       native-window-placement
       noannoyance-fork
       pop-shell
@@ -44,7 +43,6 @@ in
           "appindicatorsupport@rgcjonas.gmail.com"
           "blur-my-shell@aunetx"
           "drive-menu@gnome-shell-extensions.gcampax.github.com"
-          "mullvadindicator@pobega.github.com"
           "noannoyance-fork@vrba.dev"
           "user-theme@gnome-shell-extensions.gcampax.github.com"
         ];

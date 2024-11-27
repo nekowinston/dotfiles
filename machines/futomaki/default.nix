@@ -22,7 +22,6 @@
   time.timeZone = "Europe/Vienna";
 
   services = {
-    mullvad-vpn.enable = true;
     openssh.enable = true;
     pcscd.enable = true;
   };
