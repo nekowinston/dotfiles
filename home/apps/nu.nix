@@ -50,13 +50,7 @@ let
   mkPlugins =
     plugins: lib.concatLines (builtins.map (plugin: "plugin add ${lib.getExe plugin}") plugins);
 
-  plugins = mkPlugins (
-    with pkgs.nushellPlugins;
-    [
-      clipboard
-      query
-    ]
-  );
+  plugins = mkPlugins (with pkgs.nushellPlugins; [ query ]);
 
   command-not-found = pkgs.writeShellScript "command-not-found" ''
     source ${config.programs.nix-index.package}/etc/profile.d/command-not-found.sh

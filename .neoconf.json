@@ -1,0 +1,13 @@
+{
+  "lspconfig": {
+    "lua_ls": {
+      "Lua.workspace.checkThirdParty": true,
+      "Lua.workspace.library": [
+        "/Users/winston/Code/winston/luacats-types/wezterm/library"
+      ],
+      "Lua.workspace.userThirdParty": [
+        "/Users/winston/Code/winston/luacats-types"
+      ]
+    }
+  }
+}
