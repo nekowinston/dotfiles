@@ -19,7 +19,10 @@ in
     flake.setFlakeRegistry = false;
   };
   nix = {
-    gc.automatic = true;
+    gc = {
+      automatic = true;
+      dates = "weekly";
+    };
     settings = {
       # breaks the Nix Store on macOS
       # https://github.com/NixOS/nix/issues/7273
