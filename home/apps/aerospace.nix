@@ -19,7 +19,6 @@ in
       after-startup-command = [
         "layout tiles"
         "balance-sizes"
-        "exec-and-forget ${lib.getExe pkgs.jankyborders} style=square active_color=0xffff66a1 blur_radius=0 inactive_color=0xffd69fd6 hidpi=on width=3"
       ];
 
       exec.inherit-env-vars = true;

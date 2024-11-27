@@ -50,9 +50,6 @@
   services.nix-daemon.enable = true;
   services.sketchybar = {
     enable = false;
-    extraPackages = with pkgs; [
-      jankyborders
-      nushell
-    ];
+    extraPackages = with pkgs; [ nushell ];
   };
 }
