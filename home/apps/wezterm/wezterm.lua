@@ -23,8 +23,6 @@ require("config.zen-mode")
 c.front_end = "WebGpu"
 
 if utils.is_darwin() then
-  c.macos_window_background_blur = 20
-  c.window_background_opacity = 0.95
   c.window_decorations = "RESIZE|INTEGRATED_BUTTONS"
   c.window_padding = { left = 0, right = 0, top = 50, bottom = 0 }
 else
