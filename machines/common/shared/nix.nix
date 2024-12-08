@@ -21,7 +21,8 @@ in
   nix = {
     gc = {
       automatic = true;
-      dates = "weekly";
+      dates = lib.mkIf isLinux "weekly";
+      interval = lib.mkIf isLinux "weekly";
     };
     settings = {
       # breaks the Nix Store on macOS
