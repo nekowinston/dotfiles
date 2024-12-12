@@ -1,3 +1,4 @@
+{ config, ... }:
 {
   imports = [ ./brew.nix ];
 
@@ -18,10 +19,9 @@
       {
         hostName = "orb";
         sshUser = "nixos";
-        protocol = "ssh-ng";
 
         mandatoryFeatures = [ ];
-        maxJobs = 1;
+        maxJobs = 8;
         speedFactor = 1;
         supportedFeatures = [
           "nixos-test"
