@@ -41,7 +41,8 @@ let
     '';
 in
 {
-  config = lib.mkIf config.isGraphical {
+  # Discord is installed via Brew on macOS atm
+  config = lib.mkIf (config.isGraphical && isLinux) {
     home.packages = [ (pkgs.discord.override { withOpenASAR = true; }) ];
 
     home.activation.discordSettings =

@@ -24,6 +24,7 @@ in
       "affinity-publisher"
       "alfred"
       "blender"
+      "discord"
       "easy-move+resize"
       "element"
       "elgato-wave-link"
