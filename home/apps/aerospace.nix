@@ -8,7 +8,9 @@ let
   inherit (lib) listToAttrs nameValuePair range;
   inherit (pkgs.stdenv) isDarwin;
 
-  genWorkspaceBind = lhs: rhs: map (i: nameValuePair (lhs i) (rhs i)) (map toString (range 0 9));
+  genWorkspaceBind =
+    lhs: rhs:
+    map (i: nameValuePair (lhs i) (rhs (if i == "0" then "10" else i))) (map toString (range 0 9));
 in
 {
   programs.aerospace = {
@@ -22,11 +24,6 @@ in
       ];
 
       exec.inherit-env-vars = true;
-      exec-on-workspace-change = lib.mkIf false [
-        "/bin/sh"
-        "-c"
-        "sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=\"$AEROSPACE_FOCUSED_WORKSPACE\""
-      ];
 
       gaps.inner = {
         horizontal = 3;
