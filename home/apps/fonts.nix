@@ -31,17 +31,13 @@ in
           install -Dm644 ${fontPath}/* "${fontDirectory}"
         '';
     home.packages = with pkgs; [
-      (nerdfonts.override {
-        fonts = [
-          "CascadiaCode"
-          "IBMPlexMono"
-          "IntelOneMono"
-          "JetBrainsMono"
-          "Monaspace"
-          "NerdFontsSymbolsOnly"
-          "VictorMono"
-        ];
-      })
+      nerd-fonts.caskaydia-cove
+      nerd-fonts.blex-mono
+      nerd-fonts.intone-mono
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.monaspace
+      nerd-fonts.symbols-only
+      nerd-fonts.victor-mono
       ibm-plex
       monaspace
       twitter-color-emoji

@@ -106,6 +106,4 @@ plugins {
 
 copy_on_select false
 
-theme "catppuccin-mocha"
 pane_frames false
-

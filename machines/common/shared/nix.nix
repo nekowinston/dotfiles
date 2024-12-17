@@ -19,11 +19,22 @@ in
     flake.setFlakeRegistry = false;
   };
   nix = {
-    gc = {
-      automatic = true;
-      dates = lib.mkIf isLinux "weekly";
-      interval = lib.mkIf isLinux "weekly";
-    };
+    gc =
+      {
+        automatic = true;
+      }
+      // (
+        if isDarwin then
+          {
+            interval = {
+              Weekday = 0;
+              Hour = 0;
+              Minute = 0;
+            };
+          }
+        else
+          { dates = "weekly"; }
+      );
     settings = {
       # breaks the Nix Store on macOS
       # https://github.com/NixOS/nix/issues/7273

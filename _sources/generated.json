@@ -1,27 +1,7 @@
 {
-    "catppuccin-bat": {
-        "cargoLocks": null,
-        "date": "2024-08-05",
-        "extract": null,
-        "name": "catppuccin-bat",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "catppuccin",
-            "repo": "bat",
-            "rev": "d3feec47b16a8e99eabb34cdfbaa115541d374fc",
-            "sha256": "sha256-s0CHTihXlBMCKmbBBb8dUhfgOOQu9PBCQ+uviy7o47w=",
-            "type": "github"
-        },
-        "version": "d3feec47b16a8e99eabb34cdfbaa115541d374fc"
-    },
     "milspec": {
         "cargoLocks": null,
-        "date": "2024-06-08",
+        "date": "2024-11-28",
         "extract": null,
         "name": "milspec",
         "passthru": null,
@@ -33,11 +13,11 @@
             "name": null,
             "owner": "nekowinston",
             "repo": "milspec.nvim",
-            "rev": "3988464c4514e441b4f81599507bdf2815b2f9e2",
-            "sha256": "sha256-2U8yqLqTnal0CAZOD8bWrv/bprl7Tusg1H5gnasbfVY=",
+            "rev": "b6697c604b8323ce768334df14f0725537d8dccf",
+            "sha256": "sha256-tu+YaVg5UfoZJRieSaVtPgbiAGQaIRvJt2Q57yQjr1U=",
             "type": "github"
         },
-        "version": "3988464c4514e441b4f81599507bdf2815b2f9e2"
+        "version": "b6697c604b8323ce768334df14f0725537d8dccf"
     },
     "nekowinston-wezterm-bar": {
         "cargoLocks": null,
@@ -58,21 +38,6 @@
             "type": "github"
         },
         "version": "e96b81460b3ad11a7461934dcb7889ce5079f97f"
-    },
-    "yabai": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "yabai",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-eq7nUb/a8fjXiyy+tRmAr+gv1JYNCB5MYjualCL6JaU=",
-            "type": "url",
-            "url": "https://github.com/koekeishiya/yabai/releases/download/v7.1.3/yabai-v7.1.3.tar.gz"
-        },
-        "version": "v7.1.3"
     },
     "zsh-fast-syntax-highlighting": {
         "cargoLocks": null,

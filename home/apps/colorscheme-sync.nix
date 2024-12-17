@@ -9,7 +9,7 @@ let
 
   milspec = (pkgs.callPackage ../../_sources/generated.nix { }).milspec;
 
-  vividMilspec = pkgs.runCommand "vivid-catppuccin" { nativeBuildInputs = [ pkgs.vivid ]; } ''
+  vividMilspec = pkgs.runCommand "vivid-milspec" { nativeBuildInputs = [ pkgs.vivid ]; } ''
     mkdir -p $out
     for variant in dark light; do
       vivid generate "${milspec.src}/extras/vivid/milspec-''${variant}.yml" > "$out/''${variant}"
@@ -33,10 +33,9 @@ in
     programs.zsh.initExtra = # bash
       ''
         zadm_sync() {
-          local flavor="$(dark-mode-ternary mocha latte)"
           local variant="$(dark-mode-ternary dark light)"
 
-          export BAT_THEME="Catppuccin ''${(C)flavor}"
+          export BAT_THEME="OneHalf''${(C)variant}"
           export LS_COLORS="$(cat "${vividMilspec}/''${variant}")"
           export STARSHIP_CONFIG__PALETTE="milspec_''${variant}"
 
@@ -53,14 +52,13 @@ in
           $env.config.hooks.pre_prompt?
           | default []
           | append {||
-            let flavor = dark-mode-ternary "mocha" "latte"
             let variant = dark-mode-ternary "dark" "light"
 
             use ${milspec.src}/extras/nu/milspec.nu
             $env.config = $env.config? | default {}
             $env.config.color_config = (milspec -R $variant)
 
-            $env.BAT_THEME = $"Catppuccin ($flavor | str capitalize)"
+            $env.BAT_THEME = $"OneHalf($variant | str capitalize)"
             $env.LS_COLORS = (^cat $"${vividMilspec}/($variant)")
             $env.STARSHIP_CONFIG__PALETTE = "milspec_" + $variant
           }

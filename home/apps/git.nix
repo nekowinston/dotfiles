@@ -77,7 +77,6 @@ in
       rebase.autosquash = true;
       url = {
         "https://github.com/".insteadOf = "gh:";
-        "https://github.com/catppuccin/".insteadOf = "ctp:";
         "https://github.com/nekowinston/".insteadOf = "winston:";
         "https://gitlab.com/".insteadOf = "gl:";
       };

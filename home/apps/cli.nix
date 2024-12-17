@@ -6,10 +6,7 @@ in
 {
   home = {
     packages = [ pkgs.onefetch ];
-    sessionVariables = {
-      LESS = "-R --use-color";
-      LESSHISTFILE = "-";
-    };
+    sessionVariables.LESS = "-R --use-color";
     shellAliases = {
       # switch between yubikeys for the same GPG key
       switch_yubikeys = ''gpg-connect-agent "scd serialno" "learn --force" "/bye"'';
@@ -31,27 +28,7 @@ in
         sync_frequency = "5m";
       };
     };
-    bat = {
-      enable = true;
-      themes = {
-        "Catppuccin Latte" = {
-          src = "${srcs.catppuccin-bat.src}/themes";
-          file = "Catppuccin Latte.tmTheme";
-        };
-        "Catppuccin Frappe" = {
-          src = "${srcs.catppuccin-bat.src}/themes";
-          file = "Catppuccin Frappe.tmTheme";
-        };
-        "Catppuccin Macchiato" = {
-          src = "${srcs.catppuccin-bat.src}/themes";
-          file = "Catppuccin Macchiato.tmTheme";
-        };
-        "Catppuccin Mocha" = {
-          src = "${srcs.catppuccin-bat.src}/themes";
-          file = "Catppuccin Mocha.tmTheme";
-        };
-      };
-    };
+    bat.enable = true;
     btop = {
       enable = true;
       settings = {

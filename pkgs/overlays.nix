@@ -29,9 +29,6 @@
         ];
       });
       wezterm-nightly = inputs.wezterm.packages.${system}.default;
-      yabai = prev.yabai.overrideAttrs (_: {
-        inherit (srcs.yabai) version src;
-      });
     }
   )
 ]

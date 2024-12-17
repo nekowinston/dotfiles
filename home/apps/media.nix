@@ -11,7 +11,7 @@ in
   config = lib.mkIf config.isGraphical {
     programs.imv.enable = isLinux;
     programs.mpv.enable = isLinux;
-    programs.zathura.enable = isLinux;
+    programs.zathura.enable = true;
 
     home.packages = lib.mkIf isLinux [ pkgs.apple-music ];
 
