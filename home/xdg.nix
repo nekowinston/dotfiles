@@ -34,10 +34,12 @@ in
       GRADLE_USER_HOME = "${dataHome}/gradle";
       HISTFILE = "${stateHome}/bash/history";
       IPYTHONDIR = "${configHome}/ipython";
+      LESSHISTFILE = "${stateHome}/less_history";
       MC_CONFIG_DIR = "${configHome}/mc";
-      NODE_REPL_HISTORY = "${dataHome}/node_repl_history";
+      NODE_REPL_HISTORY = "${stateHome}/node_repl_history";
       NPM_CONFIG_USERCONFIG = "${configHome}/npm/npmrc";
       RUSTUP_HOME = "${dataHome}/rustup";
+      SQLITE_HISTORY = "${stateHome}/sqlite_history";
       STACK_ROOT = "${dataHome}/stack";
       W3M_DIR = "${dataHome}/w3m";
       WAKATIME_HOME = "${dataHome}/wakatime";
