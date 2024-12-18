@@ -31,6 +31,7 @@ in
           gocryptfs
           imagemagick
           just
+          ltex-ls
           mdcat
           minio-client
           nix-output-monitor
