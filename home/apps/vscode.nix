@@ -33,7 +33,6 @@ in
         ms-python.python
         ms-python.vscode-pylance
         # locked to the latest release
-        ms-kubernetes-tools.vscode-kubernetes-tools
         ms-vscode-remote.remote-ssh
         ms-vscode.hexeditor
         ms-vscode.live-server
@@ -46,7 +45,6 @@ in
       ])
       # pinned releases; these install the latest rather than the nightly version
       ++ (with pkgs.vscode-marketplace-release; [
-        eamodio.gitlens
         rust-lang.rust-analyzer
         vadimcn.vscode-lldb
       ])
@@ -110,19 +108,17 @@ in
         esbenp.prettier-vscode
         geequlim.godot-tools
         github.vscode-github-actions
-        haskell.haskell
-        justusadam.language-haskell
-        gitlab.gitlab-workflow
         golang.go
         graphql.vscode-graphql-syntax
         gruntfuggly.todo-tree
+        haskell.haskell
         hbenl.vscode-test-explorer
         jock.svg
-        leonardssh.vscord
-        lunuan.kubernetes-templates
+        justusadam.language-haskell
         mikestead.dotenv
         mkhl.direnv
         oscarotero.vento-syntax
+        pkief.material-icon-theme
         redhat.vscode-yaml
         ryanluker.vscode-coverage-gutters
         serayuzgur.crates
@@ -137,14 +133,14 @@ in
   };
 
   home.file = lib.mkIf isDarwin {
-    "Library/Application Support/Code/User/keybindings.json".source = keybindingsJSON;
-    "Library/Application Support/Code/User/settings.json".source = settingsJSON;
-    "Library/Application Support/Code/User/snippets".source = snippetsDir;
+    "Library/Application Support/VSCodium/User/keybindings.json".source = keybindingsJSON;
+    "Library/Application Support/VSCodium/User/settings.json".source = settingsJSON;
+    "Library/Application Support/VSCodium/User/snippets".source = snippetsDir;
   };
   xdg.configFile = lib.mkIf isLinux {
-    "Code/User/keybindings.json".source = keybindingsJSON;
-    "Code/User/settings.json".source = settingsJSON;
-    "Code/User/snippets".source = snippetsDir;
+    "VSCodium/User/keybindings.json".source = keybindingsJSON;
+    "VSCodium/User/settings.json".source = settingsJSON;
+    "VSCodium/User/snippets".source = snippetsDir;
   };
   xdg.mimeApps.defaultApplications."text/plain" = "code.desktop";
 

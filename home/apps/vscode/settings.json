@@ -24,7 +24,7 @@
   "editor.fontSize": 15,
   "editor.inlayHints.fontSize": 8,
   "terminal.integrated.fontSize": 14,
-  "editor.fontFamily": "Cascadia Code, Symbols Nerd Font, monospace",
+  "editor.fontFamily": "IBM Plex Mono, Symbols Nerd Font, monospace",
   // Use these with Cascadia Code for cursive
   "editor.fontLigatures": "'calt', 'ss01'",
   "markdown.preview.fontFamily": "IBM Plex Sans, sans-serif",
@@ -38,10 +38,13 @@
   "window.autoDetectColorScheme": true,
   "window.commandCenter": false,
   "window.titleBarStyle": "custom",
-  "workbench.iconTheme": "bearded-icons",
   "workbench.layoutControl.enabled": false,
-  "workbench.productIconTheme": "icons-carbon",
   "workbench.tree.indent": 20,
+  // icon theme
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.productIconTheme": "icons-carbon",
+  "material-icon-theme.activeIconPack": "none",
+  "material-icon-theme.files.color": "#ff69b4",
 
   "zenMode.centerLayout": false,
   "zenMode.fullScreen": false,
@@ -106,7 +109,8 @@
   "gopls": {
     "ui.semanticTokens": true
   },
-  "tailwindCSS.emmetCompletions": true,
+  "haskell.formattingProvider": "fourmolu",
+  "haskell.plugin.semanticTokens.globalOn": true,
   "[javascript]": {
     "editor.snippetSuggestions": "top",
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -140,6 +144,7 @@
     "editor.semanticHighlighting.enabled": true
   },
   "rust-analyzer.check.command": "clippy",
+  "tailwindCSS.emmetCompletions": true,
   "typescript.inlayHints.parameterNames.enabled": "all",
   "[typescript]": {
     "editor.snippetSuggestions": "top",
@@ -243,43 +248,13 @@
     {
       "before": ["<C-W>", "-"],
       "commands": ["workbench.action.splitEditorDown"]
+    },
+    {
+      "before": ["<Esc>"],
+      "commands": [":nohl"],
+      "when": "editorFocus"
     }
   ],
   "vim.replaceWithRegister": true,
-  "vim.smartRelativeLine": true,
-
-  // vscord
-  "vscord.app.whitelist": ["505490445468696576"],
-  "vscord.app.whitelistEnabled": true,
-  "vscord.ignore.workspaces": [
-    "/Users/winston/Code/freelance",
-    "/Users/winston/Code/work",
-    "/home/winston/Code/freelance",
-    "/home/winston/Code/work"
-  ],
-  "vscord.ignore.workspacesText": {
-    "/Users/winston/Code/freelance": "Freelancing",
-    "/Users/winston/Code/work": "Working",
-    "/home/winston/Code/freelance": "Freelancing",
-    "/home/winston/Code/work": "Working"
-  },
-  "vscord.status.buttons.button1.git.active.enabled": true,
-  "vscord.status.idle.check": true,
-  "vscord.status.idle.timeout": 180,
-  "vscord.status.image.large.idle.key": "https://cdn.discordapp.com/emojis/936610646181695498.png",
-  "vscord.status.image.large.idle.text": "eepy",
-  "vscord.status.image.large.notInFile.key": "https://cdn.discordapp.com/emojis/743724645018107964.png",
-  "vscord.status.image.large.notInFile.text": "comfy",
-  "vscord.status.image.small.debugging.key": "https://cdn.discordapp.com/emojis/743723396692443206.png",
-  "vscord.status.image.small.debugging.text": "thonking",
-  "vscord.status.image.small.editing.key": "https://cdn.discordapp.com/emojis/886512498772168755.gif",
-  "vscord.status.image.small.editing.text": "hecking",
-  "vscord.status.image.small.viewing.key": "https://cdn.discordapp.com/emojis/903437275881439285.png",
-  "vscord.status.image.small.viewing.text": "looking",
-
-  // annoying impurity
-  "vs-kubernetes": {
-    "vs-kubernetes.crd-code-completion": "enabled",
-    "vs-kubernetes.minikube-show-information-expiration": "2024-06-09T06:56:22.175Z"
-  }
+  "vim.smartRelativeLine": true
 }
