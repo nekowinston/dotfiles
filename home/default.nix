@@ -34,6 +34,7 @@ in
           ltex-ls
           mdcat
           minio-client
+          neovide
           nix-output-monitor
           nur.repos.nekowinston.icat
           nvd

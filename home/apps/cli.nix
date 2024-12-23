@@ -6,7 +6,7 @@ in
 {
   home = {
     packages = [ pkgs.onefetch ];
-    sessionVariables.LESS = "-R --use-color";
+    sessionVariables.LESS = "-i -R --use-color";
     shellAliases = {
       # switch between yubikeys for the same GPG key
       switch_yubikeys = ''gpg-connect-agent "scd serialno" "learn --force" "/bye"'';
