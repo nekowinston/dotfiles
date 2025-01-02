@@ -20,7 +20,7 @@ in
       defaultFonts = {
         sansSerif = [ "IBM Plex Sans" ];
         serif = [ "IBM Plex Serif" ];
-        monospace = [ "MonaspiceXe Nerd Font Mono" ];
+        monospace = [ "Monospace Xenon" ];
         emoji = [ "Twitter Color Emoji" ];
       };
     };
@@ -31,16 +31,14 @@ in
           install -Dm644 ${fontPath}/* "${fontDirectory}"
         '';
     home.packages = with pkgs; [
-      nerd-fonts.caskaydia-cove
-      nerd-fonts.blex-mono
-      nerd-fonts.intone-mono
-      nerd-fonts.jetbrains-mono
-      nerd-fonts.monaspace
-      nerd-fonts.symbols-only
-      nerd-fonts.victor-mono
+      cascadia-code
       ibm-plex
+      intel-one-mono
+      jetbrains-mono
       monaspace
+      nerd-fonts.symbols-only
       twitter-color-emoji
+      victor-mono
       xkcd-font
     ];
   };

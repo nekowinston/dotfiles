@@ -10,6 +10,7 @@ local io = require("io")
 
 ---@class FontOption
 ---@field font Font
+---@field label? string
 ---@field size? number
 ---@field command_palette_font Font
 
@@ -80,9 +81,15 @@ wezterm.on("switch-font", function(window, pane)
   for id, value in ipairs(wezterm.GLOBAL.fonts) do
     local id_string = tostring(id)
     if type(value.font) == "userdata" then
-      table.insert(font_choices, { label = value.font.family, id = id_string })
+      table.insert(
+        font_choices,
+        { label = value.label or value.font.family, id = id_string }
+      )
     else
-      table.insert(font_choices, { label = value.font, id = id_string })
+      table.insert(
+        font_choices,
+        { label = value.label or value.font, id = id_string }
+      )
     end
   end
 

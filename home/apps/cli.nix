@@ -1,6 +1,5 @@
 { pkgs, lib, ... }:
 let
-  srcs = pkgs.callPackage ../../_sources/generated.nix { };
   inherit (pkgs.stdenv) isLinux;
 in
 {

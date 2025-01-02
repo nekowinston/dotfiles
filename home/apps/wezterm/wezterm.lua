@@ -4,17 +4,17 @@ local utils = require("config.utils")
 
 require("config.font-switcher").apply(c, {
   fonts = {
-    { font = "BerkeleyMono Nerd Font" },
-    { font = "BlexMono Nerd Font" },
-    { font = "CaskaydiaMonoNF Nerd Font" },
-    { font = "ComicCodeLigatures Nerd Font" },
-    { font = "IntoneMono Nerd Font" },
-    { font = "JetBrainsMono Nerd Font" },
-    { font = "MonaspiceAr Nerd Font" },
-    { font = "MonaspiceKr Nerd Font" },
-    { font = "MonaspiceNe Nerd Font" },
-    { font = "MonaspiceRn Nerd Font" },
-    { font = "MonaspiceXe Nerd Font" },
+    { font = "IBM Plex Mono" },
+    { label = "Berkeley Mono", font = "TX-02" },
+    { font = "Cascadia Code" },
+    { font = "Comic Code Ligatures" },
+    { font = "Intel One Mono" },
+    { font = "JetBrains Mono" },
+    { font = "Monaspace Argon" },
+    { font = "Monaspace Krypton" },
+    { font = "Monaspace Neon" },
+    { font = "Monaspace Radon" },
+    { font = "Monaspace Xenon" },
   },
 })
 require("config.keys").apply(c)
