@@ -47,7 +47,6 @@ confirm-switch *args:
   @just rebuild switch {{args}}
 
 clean:
-  @sudo true
-  nix-env --profile /nix/var/nix/profiles/system --delete-generations old
+  sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations old
   nix-collect-garbage -d
   nix store optimise
