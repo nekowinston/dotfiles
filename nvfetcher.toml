@@ -6,6 +6,10 @@ fetch.github = "nekowinston/milspec.nvim"
 src.git = "https://github.com/nekowinston/wezterm-bar"
 fetch.github = "nekowinston/wezterm-bar"
 
+[nu_scripts]
+src.git = "https://github.com/nushell/nu_scripts"
+fetch.github = "nushell/nu_scripts"
+
 [zsh-fast-syntax-highlighting]
 src.git = "https://github.com/zdharma-continuum/fast-syntax-highlighting"
 fetch.github = "zdharma-continuum/fast-syntax-highlighting"

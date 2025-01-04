@@ -5,6 +5,7 @@
     final: prev:
     let
       inherit (final.stdenv) system;
+      nvfetcherSrcs = final.callPackage ../_sources/generated.nix { };
     in
     {
       apple-music = final.callPackage ./apple-music.nix { };
@@ -19,6 +20,10 @@
       nushellPlugins = (prev.nushellPlugins or { }) // {
         clipboard = final.callPackage ./nu_plugin_clipboard.nix { };
       };
+      nu_scripts = prev.nu_scripts.overrideAttrs (old: {
+        inherit (nvfetcherSrcs.nu_scripts) src;
+        version = "0-unstable-${nvfetcherSrcs.nu_scripts.date}";
+      });
       starship = prev.starship.overrideAttrs (old: {
         patches = [
           # to allow loading config values from env vars

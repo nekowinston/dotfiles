@@ -1,7 +1,7 @@
 {
     "milspec": {
         "cargoLocks": null,
-        "date": "2024-11-28",
+        "date": "2024-12-21",
         "extract": null,
         "name": "milspec",
         "passthru": null,
@@ -13,11 +13,11 @@
             "name": null,
             "owner": "nekowinston",
             "repo": "milspec.nvim",
-            "rev": "b6697c604b8323ce768334df14f0725537d8dccf",
-            "sha256": "sha256-tu+YaVg5UfoZJRieSaVtPgbiAGQaIRvJt2Q57yQjr1U=",
+            "rev": "11d492e7c3ef3b16a446415b303d239a26643f2b",
+            "sha256": "sha256-xk8gvWAuaBKjv2ZYMuE3NCozq6ahP7KA/BIoMd8tjmA=",
             "type": "github"
         },
-        "version": "b6697c604b8323ce768334df14f0725537d8dccf"
+        "version": "11d492e7c3ef3b16a446415b303d239a26643f2b"
     },
     "nekowinston-wezterm-bar": {
         "cargoLocks": null,
@@ -38,6 +38,26 @@
             "type": "github"
         },
         "version": "e96b81460b3ad11a7461934dcb7889ce5079f97f"
+    },
+    "nu_scripts": {
+        "cargoLocks": null,
+        "date": "2025-01-03",
+        "extract": null,
+        "name": "nu_scripts",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "nushell",
+            "repo": "nu_scripts",
+            "rev": "2dadab779b456667456eeb274bdf5c6a51f6d602",
+            "sha256": "sha256-42TCEJCKaqnBML7r7b9AUUCgh48FKAjbmeixYdFbQ3M=",
+            "type": "github"
+        },
+        "version": "2dadab779b456667456eeb274bdf5c6a51f6d602"
     },
     "zsh-fast-syntax-highlighting": {
         "cargoLocks": null,

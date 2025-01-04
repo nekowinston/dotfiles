@@ -3,15 +3,15 @@
 {
   milspec = {
     pname = "milspec";
-    version = "b6697c604b8323ce768334df14f0725537d8dccf";
+    version = "11d492e7c3ef3b16a446415b303d239a26643f2b";
     src = fetchFromGitHub {
       owner = "nekowinston";
       repo = "milspec.nvim";
-      rev = "b6697c604b8323ce768334df14f0725537d8dccf";
+      rev = "11d492e7c3ef3b16a446415b303d239a26643f2b";
       fetchSubmodules = false;
-      sha256 = "sha256-tu+YaVg5UfoZJRieSaVtPgbiAGQaIRvJt2Q57yQjr1U=";
+      sha256 = "sha256-xk8gvWAuaBKjv2ZYMuE3NCozq6ahP7KA/BIoMd8tjmA=";
     };
-    date = "2024-11-28";
+    date = "2024-12-21";
   };
   nekowinston-wezterm-bar = {
     pname = "nekowinston-wezterm-bar";
@@ -24,6 +24,18 @@
       sha256 = "sha256-3acxqJ9HMA5hASWq/sVL9QQjfEw5Xrh2fT9nFuGjzHM=";
     };
     date = "2023-05-10";
+  };
+  nu_scripts = {
+    pname = "nu_scripts";
+    version = "2dadab779b456667456eeb274bdf5c6a51f6d602";
+    src = fetchFromGitHub {
+      owner = "nushell";
+      repo = "nu_scripts";
+      rev = "2dadab779b456667456eeb274bdf5c6a51f6d602";
+      fetchSubmodules = false;
+      sha256 = "sha256-42TCEJCKaqnBML7r7b9AUUCgh48FKAjbmeixYdFbQ3M=";
+    };
+    date = "2025-01-03";
   };
   zsh-fast-syntax-highlighting = {
     pname = "zsh-fast-syntax-highlighting";
