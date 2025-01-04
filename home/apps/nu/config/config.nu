@@ -201,7 +201,7 @@ $env.config = {
     env_change: {
       PWD: [
         {if ((".git" | path exists) and not (which onefetch | is-empty)) {
-          onefetch --no-merges --no-bots --no-color-palette --true-color=never --text-colors 1 1 3 4 4
+          onefetch --no-merges --no-bots --no-color-palette --text-colors 1 1 3 4 4
           | complete
           | get stdout
         }}

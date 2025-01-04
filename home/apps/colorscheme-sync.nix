@@ -1,13 +1,13 @@
 {
   config,
   lib,
+  nvfetcherSrcs,
   pkgs,
   ...
 }:
 let
   inherit (pkgs.stdenv) isLinux;
-
-  milspec = (pkgs.callPackage ../../_sources/generated.nix { }).milspec;
+  inherit (nvfetcherSrcs) milspec;
 
   vividMilspec = pkgs.runCommand "vivid-milspec" { nativeBuildInputs = [ pkgs.vivid ]; } ''
     mkdir -p $out

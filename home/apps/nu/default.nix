@@ -67,7 +67,7 @@ in
   programs.nushell = {
     enable = true;
 
-    configFile.source = ./nu/config.nu;
+    configFile.source = ./config/config.nu;
 
     extraConfig = # nu
       ''
@@ -78,7 +78,7 @@ in
         }
 
         source ${nu_scripts}/aliases/git/git-aliases.nu
-        source ${./nu/keybindings.nu}
+        source ${./config/keybindings.nu}
 
         ${lib.concatLines [
           completions

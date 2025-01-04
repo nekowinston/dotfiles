@@ -24,9 +24,10 @@ let
 in
 {
   extraSpecialArgs = {
+    inherit inputs isNixOS;
     flakePath =
       if isDarwin then "/Users/${username}/.config/flake" else "/home/${username}/.config/flake";
-    inherit inputs isNixOS;
+    nvfetcherSrcs = pkgs.callPackage ../_sources/generated.nix { };
   };
 
   inherit hmStandaloneConfig;

@@ -1,13 +1,18 @@
 {
   imports = [
+    ./git
+    ./jetbrains
+    ./nu
+    ./vscode
+    ./wezterm
     ./wm
+    ./zellij
     ./aerospace.nix
     ./browsers.nix
     ./cli.nix
     ./colorscheme-sync.nix
     ./discord.nix
     ./fonts.nix
-    ./git.nix
     ./gnome.nix
     ./gpg.nix
     ./gtk.nix
@@ -16,11 +21,7 @@
     ./media.nix
     ./neovim.nix
     ./newsboat.nix
-    ./nu.nix
     ./tmux.nix
-    ./vscode.nix
-    ./wezterm.nix
-    ./zellij.nix
     ./zsh.nix
   ];
 }

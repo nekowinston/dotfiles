@@ -1,11 +1,12 @@
 {
   config,
   lib,
+  nvfetcherSrcs,
   pkgs,
   ...
 }:
 let
-  milspec = (pkgs.callPackage ../../_sources/generated.nix { }).milspec;
+  inherit (nvfetcherSrcs) milspec;
 in
 {
   config = lib.mkIf config.isGraphical {

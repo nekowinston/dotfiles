@@ -1,12 +1,12 @@
 {
   config,
   lib,
+  nvfetcherSrcs,
   pkgs,
   ...
 }:
 let
   inherit (pkgs.stdenv) isLinux;
-  srcs = pkgs.callPackage ../../_sources/generated.nix { };
   zshPlugins =
     plugins:
     (map (plugin: rec {
@@ -53,7 +53,7 @@ in
 
         onefetch_in_git_dir() {
           if [[ -d '.git' ]]; then
-            ${pkgs.onefetch}/bin/onefetch --no-merges --no-bots --no-color-palette --true-color=never --text-colors 1 1 3 4 4
+            ${pkgs.onefetch}/bin/onefetch --no-merges --no-bots --no-color-palette --text-colors 1 1 3 4 4
           fi
         }
 
@@ -88,7 +88,7 @@ in
       }
       {
         src = pkgs.zsh-fast-syntax-highlighting.overrideAttrs (_: {
-          src = srcs.zsh-fast-syntax-highlighting.src;
+          src = nvfetcherSrcs.zsh-fast-syntax-highlighting.src;
         });
         file = "share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh";
       }
