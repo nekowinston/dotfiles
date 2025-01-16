@@ -61,12 +61,16 @@ in
       # nix-specific
       ".direnv/"
       ".envrc"
-      "repl-result-dev/"
-      "repl-result-doc/"
-      "repl-result-info/"
-      "repl-result-man/"
-      "repl-result-out/"
-      "result/"
+      "repl-result-dev"
+      "repl-result-doc"
+      "repl-result-info"
+      "repl-result-man"
+      "repl-result-out"
+      "result"
+      "result-dev"
+      "result-doc"
+      "result-info"
+      "result-man"
     ];
 
     extraConfig = {
