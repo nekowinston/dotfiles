@@ -39,7 +39,6 @@ $env.config.keybindings = [
     modifier: none
     keycode: escape
     mode: [vi_normal, vi_insert]
-    # NOTE: does not appear to work
     event: { send: esc }
   }
   {

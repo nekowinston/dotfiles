@@ -20,7 +20,7 @@ in
       defaultFonts = {
         sansSerif = [ "IBM Plex Sans" ];
         serif = [ "IBM Plex Serif" ];
-        monospace = [ "Monospace Xenon" ];
+        monospace = [ "Monaspace Xenon" ];
         emoji = [ "Twitter Color Emoji" ];
       };
     };

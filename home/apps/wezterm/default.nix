@@ -17,9 +17,8 @@ in
 
     (lib.mkIf config.isGraphical {
       programs.wezterm = {
-        # TODO: broken, again
         enable = true;
-        package = lib.mkIf pkgs.stdenv.isLinux pkgs.wezterm-nightly;
+        # package = lib.mkIf pkgs.stdenv.isLinux pkgs.wezterm-nightly;
       };
 
       xdg.configFile = {

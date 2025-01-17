@@ -49,6 +49,7 @@ let
     mpris = {
       format = "";
       format-playing = "{dynamic}";
+      tooltip = false;
       dynamic-order = [
         "artist"
         "title"
@@ -93,6 +94,12 @@ let
     };
     "sway/mode" = {
       tooltip = false;
+    };
+    "sway/window" = {
+      rewrite = with lib.icons; {
+        "(.*) - Chromium" = "${chromium} $1";
+        "• Discord( \\| )(.+)( \\| )(.+)" = "${discord} $4 - $2";
+      };
     };
   };
   hyprlandConfig = {

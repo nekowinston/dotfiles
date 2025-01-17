@@ -44,9 +44,9 @@ in
     enable = true;
     scdaemonSettings."disable-ccid" = true;
     settings = {
+      # last updated: 2025-01-17
       # https://github.com/drduh/config/blob/master/gpg.conf
-      # https://www.gnupg.org/documentation/manuals/gnupg/GPG-Configuration-Options.html
-      # https://www.gnupg.org/documentation/manuals/gnupg/GPG-Esoteric-Options.html
+      # https://gnupg.org/documentation/manuals/gnupg/GPG-Options.html
       # Use AES256, 192, or 128 as cipher
       personal-cipher-preferences = "AES256 AES192 AES";
       # Use SHA512, 384, or 256 as digest
@@ -63,8 +63,6 @@ in
       s2k-cipher-algo = "AES256";
       # UTF-8 support for compatibility
       charset = "utf-8";
-      # Show Unix timestamps
-      fixed-list-mode = true;
       # No comments in signature
       no-comments = true;
       # No version in output
@@ -79,11 +77,13 @@ in
       # Display all keys and their fingerprints
       with-fingerprint = true;
       # Display key origins and updates
-      with-key-origin = true;
+      #with-key-origin = true;
       # Cross-certify subkeys are present and valid
       require-cross-certification = true;
       # Disable caching of passphrase for symmetrical ops
       no-symkey-cache = true;
+      # Output ASCII instead of binary
+      armor = true;
       # Enable smartcard
       use-agent = true;
 
@@ -95,13 +95,18 @@ in
       default-key = key;
       trusted-key = key;
       # Group recipient keys (preferred ID last)
-      #group keygroup = 0xFF00000000000001 0xFF00000000000002 0xFF3E7D88647EBCDB
+      #"group keygroup" = "0xFF00000000000001 0xFF00000000000002 0xFF3E7D88647EBCDB";
       # Keyserver URL
       keyserver = "hkps://keys.openpgp.org";
-      # Verbose output
-      #verbose
+      # Enable key retrieval using WKD and DANE
+      #auto-key-locate = "wkd,dane,local";
+      #auto-key-retrieve = true;
+      # Trust delegation mechanism
+      #trust-model = "tofu+pgp";
       # Show expired subkeys
-      # list-options = "show-unusable-subkeys";
+      #list-options = "show-unusable-subkeys";
+      # Verbose output
+      #verbose = true;
     };
   };
   services.gpg-agent = {

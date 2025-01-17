@@ -71,8 +71,7 @@ in
           { command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"; }
         ];
         workspaceAutoBackAndForth = true;
-        # TODO: change this back to wezterm whenever it works on sway
-        terminal = lib.getExe config.programs.kitty.package;
+        terminal = lib.getExe config.programs.wezterm.package;
         menu = "${lib.getExe config.programs.rofi.package} -show drun -dpi $dpi";
         defaultWorkspace = "workspace number 1";
         input."type:keyboard".xkb_options = "ctrl:nocaps,compose:ralt";
@@ -293,8 +292,8 @@ in
             bindsym Return mode "$mode_gaps"
             bindsym Escape mode "default"
           }
-          ${lib.concatLines (mkColors milspec.dark)}
         ''
+        + lib.concatLines (mkColors milspec.dark)
         + lib.optionalString isSwayFx ''
           shadows             enable
           shadow_color        #11111b99

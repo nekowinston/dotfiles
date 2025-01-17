@@ -29,6 +29,7 @@ in
           gh
           git-crypt
           gocryptfs
+          ghostty
           imagemagick
           just
           ltex-ls

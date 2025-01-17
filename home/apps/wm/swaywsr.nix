@@ -6,34 +6,30 @@
 }:
 let
   tomlFormat = pkgs.formats.toml { };
-  icons = {
-    discord = "󰙯";
-    nvim = "";
-    term = "";
-  };
   swaywsrConfig = tomlFormat.generate "config.toml" {
-    icons = {
-      "1Password" = "";
-      "chrome-music.apple.com__browse-Default" = "";
-      "org.gnome.Fractal" = "";
-      "org.gnome.Nautilus" = "󰉋";
-      "org.wezfurlong.wezterm" = icons.term;
-      chromium-browser = "";
-      discord = icons.discord;
-      firefox = "";
-      foot = icons.term;
-      kitty = icons.term;
-      neovide = icons.nvim;
-      obsidian = "";
-      steam = "󰓓";
-      vesktop = icons.discord;
+    icons = with lib.icons; {
+      "1Password" = _1password;
+      "chrome-music.apple.com__browse-Default" = applemusic;
+      "org.gnome.Fractal" = generic.messenger;
+      "org.gnome.Nautilus" = generic.filemanager;
+      "org.wezfurlong.wezterm" = generic.term;
+      chromium-browser = chromium;
+      discord = discord;
+      firefox = firefox;
+      foot = generic.term;
+      kitty = generic.term;
+      neovide = nvim;
+      obsidian = obsidian;
+      steam = steam;
+      vesktop = discord;
     };
     aliases = {
+      "chrome-music.apple.com__browse-Default" = "Music";
       "com.obsproject.Studio" = "OBS";
+      "com.saivert.pwvucontrol" = "pwvucontrol";
       "org.gnome.Fractal" = "Fractal";
       "org.gnome.Nautilus" = "Files";
       "org.wezfurlong.wezterm" = "WezTerm";
-      "chrome-music.apple.com__browse-Default" = "Music";
       chromium-browser = "Chromium";
       discord = "Discord";
       firefox = "Firefox";

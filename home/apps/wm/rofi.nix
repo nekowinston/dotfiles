@@ -142,7 +142,7 @@ in
     package = pkgs.rofi-wayland;
     font = "${fontSans} 14";
     extraConfig.icon-theme = config.gtk.iconTheme.name;
-    terminal = "kitty";
+    terminal = "wezterm";
     theme = "custom";
   };
   services.darkman = {

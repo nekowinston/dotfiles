@@ -45,4 +45,19 @@ lib: {
       violet = "9d3f9d";
     };
   };
+  icons = {
+    generic = {
+      filemanager = "󰉋";
+      messenger = "";
+      term = "";
+    };
+    _1password = "";
+    chromium = "";
+    discord = "󰙯";
+    firefox = "";
+    nvim = "";
+    obsidian = "";
+    steam = "󰓓";
+    applemusic = "";
+  };
 }
