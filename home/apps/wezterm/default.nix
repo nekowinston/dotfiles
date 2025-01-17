@@ -13,13 +13,12 @@ in
 {
   # use the GUI version & config when we have a gui, else just get terminfo
   config = lib.mkMerge [
-    (lib.mkIf (!config.isGraphical) { home.packages = [ pkgs.wezterm.terminfo ]; })
+    (lib.mkIf (!config.isGraphical) {
+      home.packages = [ pkgs.wezterm.terminfo ];
+    })
 
     (lib.mkIf config.isGraphical {
-      programs.wezterm = {
-        enable = true;
-        # package = lib.mkIf pkgs.stdenv.isLinux pkgs.wezterm-nightly;
-      };
+      programs.wezterm.enable = true;
 
       xdg.configFile = {
         "wezterm/wezterm.lua".source = mkSymlink "wezterm.lua";

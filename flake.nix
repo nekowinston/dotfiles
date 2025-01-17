@@ -35,7 +35,7 @@
           isGraphical = false;
         }
       ];
-      imports = [ inputs.pre-commit-hooks.flakeModule ];
+      imports = [ inputs.git-hooks.flakeModule ];
       perSystem =
         {
           config,
@@ -108,25 +108,9 @@
       ];
     };
 
-  nixConfig = {
-    extra-substituters = [
-      "https://nix-community.cachix.org"
-      "https://cosmic.cachix.org"
-      "https://pre-commit-hooks.cachix.org"
-      "https://nekowinston.cachix.org"
-      "https://mic92.cachix.org"
-    ];
-    extra-trusted-public-keys = [
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
-      "pre-commit-hooks.cachix.org-1:Pkk3Panw5AW24TOv6kz3PvLhlH8puAsJTBbOPmBo7Rc="
-      "nekowinston.cachix.org-1:lucpmaO+JwtoZj16HCO1p1fOv68s/RL1gumpVzRHRDs="
-      "mic92.cachix.org-1:gi8IhgiT3CYZnJsaW7fxznzTkMUOn1RY4GmXdT/nXYQ="
-    ];
-  };
-
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # extensions
     darwin = {
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -141,16 +125,28 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # libraries
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+    flake-utils.url = "github:numtide/flake-utils";
 
-    nur.url = "github:nix-community/nur";
-    nekowinston-nur.url = "github:nekowinston/nur";
-
+    # utilities
     agenix = {
       url = "github:ryantm/agenix";
       inputs.darwin.follows = "darwin";
       inputs.home-manager.follows = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.systems.follows = "flake-utils/systems";
+    };
+    git-hooks.url = "github:cachix/git-hooks.nix";
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+      inputs.flake-compat.follows = "";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.pre-commit-hooks-nix.follows = "git-hooks";
     };
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
@@ -168,30 +164,25 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nixpkgs";
-    };
-    flake-utils.url = "github:numtide/flake-utils";
-    pre-commit-hooks = {
-      url = "github:cachix/pre-commit-hooks.nix";
-      inputs.flake-compat.follows = "";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # packages
+    # not overriding input to preserve caches
+    nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
+    nur.url = "github:nix-community/nur";
+    nekowinston-nur.url = "github:nekowinston/nur";
+  };
 
-    nixos-cosmic = {
-      url = "github:lilyinstarlight/nixos-cosmic";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    wezterm = {
-      url = "github:wez/wezterm?dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.rust-overlay.follows = "rust-overlay";
-    };
+  nixConfig = {
+    extra-substituters = [
+      "https://nix-community.cachix.org"
+      "https://cosmic.cachix.org"
+      "https://pre-commit-hooks.cachix.org"
+      "https://nekowinston.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
+      "pre-commit-hooks.cachix.org-1:Pkk3Panw5AW24TOv6kz3PvLhlH8puAsJTBbOPmBo7Rc="
+      "nekowinston.cachix.org-1:lucpmaO+JwtoZj16HCO1p1fOv68s/RL1gumpVzRHRDs="
+    ];
   };
 }

@@ -34,7 +34,6 @@
           })
         ];
       });
-      wezterm-nightly = inputs.wezterm.packages.${system}.default;
     }
   )
 ]

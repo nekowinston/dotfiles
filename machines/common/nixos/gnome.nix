@@ -14,7 +14,7 @@
 
     environment.systemPackages = with pkgs; [ gnomeExtensions.appindicator ];
 
-    hardware.pulseaudio.enable = false;
+    services.pulseaudio.enable = false;
 
     # https://github.com/NixOS/nixpkgs/blob/nixos-23.11/nixos/modules/services/x11/desktop-managers/gnome.nix#L467
     environment.gnome.excludePackages = with pkgs.gnome; [

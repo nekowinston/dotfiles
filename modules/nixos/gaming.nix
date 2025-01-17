@@ -29,8 +29,8 @@ in
         enable = true;
         enable32Bit = true;
       };
-      pulseaudio.support32Bit = true;
     };
+    services.pulseaudio.support32Bit = true;
 
     programs = {
       gamemode = {
