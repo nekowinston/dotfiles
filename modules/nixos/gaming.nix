@@ -6,29 +6,15 @@
 }:
 let
   cfg = config.dotfiles.gaming;
-  gamePkgs = with pkgs; [
-    corefonts
-    gamescope
-    mangohud
-    wineWowPackages.staging
-    winetricks
-  ];
 in
 {
   options.dotfiles.gaming.enable = lib.mkEnableOption "gaming configuration";
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      discover-overlay
-      (lutris.override { extraPkgs = (pkgs: gamePkgs); })
-    ];
-
     # enable 32bit support for Steam
-    hardware = {
-      graphics = {
-        enable = true;
-        enable32Bit = true;
-      };
+    hardware.graphics = {
+      enable = true;
+      enable32Bit = true;
     };
     services.pulseaudio.support32Bit = true;
 
@@ -44,7 +30,13 @@ in
       };
       steam = {
         enable = true;
-        extraPackages = gamePkgs;
+        extraPackages = with pkgs; [
+          corefonts
+          gamescope
+          mangohud
+          wineWowPackages.staging
+          winetricks
+        ];
       };
     };
   };

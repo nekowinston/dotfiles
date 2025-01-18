@@ -140,7 +140,7 @@ in
           # Show the next scratchpad window or hide the focused scratchpad window.
           # If there are multiple scratchpad windows, this command cycles through them.
           "${mod}+Tab" = "scratchpad show";
-          "${mod}+m" = "[app_id=\"discord\"] scratchpad show";
+          "${mod}+m" = "[app_id=\"WebCord\"] scratchpad show";
 
           # switch to workspace
           "${modFocus}+1" = "workspace number 1";
@@ -251,8 +251,7 @@ in
           for_window [title="Steam Guard*"] floating enable
 
           # keep apps in scratchpad
-          for_window [app_id="discord"] move scratchpad sticky
-          for_window [app_id="vesktop"] move scratchpad sticky
+          for_window [app_id="WebCord"] move scratchpad sticky
 
           # fullscreen apps inhibit idle
           for_window [class=".*"] inhibit_idle fullscreen

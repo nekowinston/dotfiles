@@ -99,6 +99,7 @@ let
       rewrite = with lib.icons; {
         "(.*) - Chromium" = "${chromium} $1";
         "• Discord( \\| )(.+)( \\| )(.+)" = "${discord} $4 - $2";
+        "\\*?WebCord - (.*)" = "${discord} $1";
       };
     };
   };

@@ -13,19 +13,7 @@ in
     programs.mpv.enable = isLinux;
     programs.zathura.enable = true;
 
-    home.packages = lib.mkIf isLinux [ pkgs.apple-music ];
-
-    services.mopidy = lib.mkIf isLinux {
-      enable = true;
-      extensionPackages = with pkgs; [
-        mopidy-bandcamp
-        mopidy-iris
-        mopidy-local
-        mopidy-mpd
-        mopidy-mpris
-        mopidy-podcast
-      ];
-    };
+    home.packages = lib.mkIf isLinux [ pkgs.supersonic-wayland ];
 
     xdg.mimeApps.defaultApplications = {
       "application/pdf" = "zathura.desktop";

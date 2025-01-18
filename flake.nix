@@ -69,8 +69,9 @@
           devShells.default = pkgs.mkShellNoCC {
             inherit (config.pre-commit.devShell) shellHook;
             RULES = "./home/secrets/secrets.nix";
-            buildInputs =
+            packages =
               (with pkgs; [
+                git
                 just
                 nix-output-monitor
                 nixd

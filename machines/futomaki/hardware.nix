@@ -8,6 +8,9 @@
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+
   boot = {
     initrd.availableKernelModules = [
       "nvme"
@@ -29,6 +32,8 @@
     ];
   };
 
+  hardware.bluetooth.enable = true;
+
   # Intel Arc A770
   environment.sessionVariables.LIBVA_DRIVER_NAME = "iHD";
   boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
@@ -38,35 +43,47 @@
     extraPackages = with pkgs; [
       intel-compute-runtime
       intel-media-driver
-      libvdpau-va-gl
       vaapiIntel
-      vaapiVdpau
       vpl-gpu-rt
     ];
   };
 
-  hardware.bluetooth.enable = true;
-
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/018963d2-463f-451d-a54c-dc6f29f24daa";
-    fsType = "ext4";
+  boot.swraid = {
+    enable = true;
+    mdadmConf = ''
+      ARRAY /dev/md0 level=raid1 num-devices=2 metadata=1.2 UUID=ce2bd085:2b7e0014:c58c6c06:10223743
+          devices=/dev/sda1,/dev/sdb1
+    '';
+  };
+  boot.initrd.luks.devices = {
+    "root" = {
+      device = "/dev/disk/by-uuid/b9e2d484-b41e-437f-bc98-8b48383f1613";
+      allowDiscards = true;
+      preLVM = true;
+    };
+    "raid" = {
+      device = "/dev/disk/by-uuid/e6d39800-4e2b-4a03-b504-abe3beed0404";
+      allowDiscards = true;
+    };
   };
 
-  boot.initrd.luks.devices."luks-b8839f86-af3a-4cb7-a906-108ece087aa0".device =
-    "/dev/disk/by-uuid/b8839f86-af3a-4cb7-a906-108ece087aa0";
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/1D0D-B170";
-    fsType = "vfat";
+  fileSystems = {
+    "/boot" = {
+      device = "/dev/disk/by-uuid/1C5A-3C51";
+      fsType = "vfat";
+    };
+    "/" = {
+      device = "/dev/disk/by-uuid/8f9c9b30-a046-4c30-acce-db3e771aaadc";
+      fsType = "ext4";
+      options = [
+        "noatime"
+        "nodiratime"
+        "discard"
+      ];
+    };
+    "/data/ssd-raid" = {
+      device = "/dev/disk/by-uuid/dce157dd-5d1c-4086-a60c-17f6aa50c256";
+      options = [ "nofail" ];
+    };
   };
-
-  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
-  # (the default) this is the recommended approach. When using systemd-networkd it's
-  # still possible to use this option, but it's recommended to use it in conjunction
-  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
-  networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp37s0.useDHCP = lib.mkDefault true;
-
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

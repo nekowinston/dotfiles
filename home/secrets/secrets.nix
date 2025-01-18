@@ -11,7 +11,7 @@ let
   );
 
   homes = {
-    futomaki = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAFFAuJa9TYB3IsHly1Z4WjQrr4cEkubNWQyhIClh6bH";
+    futomaki = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILUxWrrHUYHVvBhqoopb49CLFbMqrwkkz/+5dJrxZ+R7";
     sashimi = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICgFwSZPS1B3wndghjmgmamdM5LZ7hqv4fZsbcmYBQWT";
     yuba = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHw8KqsIrn0SMTkBu0qZ5uHNXD0h6hpchTmWt54HhB5Z";
   };

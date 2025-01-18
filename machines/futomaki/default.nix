@@ -53,5 +53,5 @@
     virtiofsd
   ];
 
-  system.stateVersion = "22.11";
+  system.stateVersion = "24.11";
 }
