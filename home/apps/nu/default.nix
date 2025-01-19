@@ -7,13 +7,7 @@
 let
   nu_scripts = "${pkgs.nu_scripts}/share/nu_scripts";
 
-  aliases = mkAliases (
-    (config.home.shellAliases or { })
-    // {
-      clipcopy = "clipboard copy";
-      clippaste = "clipboard paste";
-    }
-  );
+  aliases = mkAliases (config.home.shellAliases or { });
 
   mkAliases = aliases: lib.concatLines (lib.mapAttrsToList (k: v: "alias ${k} = ${v}") aliases);
 

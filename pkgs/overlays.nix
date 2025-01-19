@@ -8,8 +8,11 @@
       nvfetcherSrcs = final.callPackage ../_sources/generated.nix { };
     in
     {
-      apple-music = final.callPackage ./apple-music.nix { };
       dark-mode-ternary = final.callPackage ./dark-mode-ternary.nix { };
+      nu_scripts = prev.nu_scripts.overrideAttrs (old: {
+        inherit (nvfetcherSrcs.nu_scripts) src;
+        version = "0-unstable-${nvfetcherSrcs.nu_scripts.date}";
+      });
       nur = import inputs.nur {
         nurpkgs = final;
         pkgs = final;
@@ -17,13 +20,6 @@
           nekowinston = inputs.nekowinston-nur.packages.${system};
         };
       };
-      nushellPlugins = (prev.nushellPlugins or { }) // {
-        clipboard = final.callPackage ./nu_plugin_clipboard.nix { };
-      };
-      nu_scripts = prev.nu_scripts.overrideAttrs (old: {
-        inherit (nvfetcherSrcs.nu_scripts) src;
-        version = "0-unstable-${nvfetcherSrcs.nu_scripts.date}";
-      });
       starship = prev.starship.overrideAttrs (old: {
         patches = [
           # to allow loading config values from env vars
