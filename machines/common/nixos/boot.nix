@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   boot = {
     loader.efi.canTouchEfiVariables = true;
@@ -6,6 +7,10 @@
 
     supportedFilesystems = [ "ntfs" ];
 
-    plymouth.enable = true;
+    plymouth = {
+      enable = true;
+      themePackages = [ pkgs.plymouth-blahaj-theme ];
+      theme = "blahaj";
+    };
   };
 }
