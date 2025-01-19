@@ -1,8 +1,8 @@
 {
-  pkgs,
   osConfig ? {
     dotfiles.vscode.enable = false;
   },
+  pkgs,
   ...
 }:
 {
