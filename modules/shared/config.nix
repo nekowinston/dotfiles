@@ -27,6 +27,7 @@ in
             description = "The username of the user";
             type = types.str;
           };
+          vscode.enable = mkEnableOption "VSCode";
         };
       };
     };

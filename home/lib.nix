@@ -37,7 +37,6 @@ in
       agenix.homeManagerModules.age
       nekowinston-nur.homeManagerModules.default
       nix-index-database.hmModules.nix-index
-      vscode-server.homeModules.default
       ../modules/hm
     ])
     ++ pkgs.lib.optionals (!isNixOS) [ hmStandaloneConfig ]

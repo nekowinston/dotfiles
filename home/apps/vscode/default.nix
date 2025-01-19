@@ -1,12 +1,7 @@
 {
-  config,
   pkgs,
   osConfig ? {
-    dotfiles = {
-      wsl = {
-        enable = false;
-      };
-    };
+    dotfiles.vscode.enable = false;
   },
   ...
 }:
@@ -17,12 +12,9 @@
   ];
 
   programs.vscode = {
-    enable = config.isGraphical;
+    enable = osConfig.dotfiles.vscode.enable;
     package = pkgs.vscodium;
   };
 
   xdg.mimeApps.defaultApplications."text/plain" = "code.desktop";
-
-  # enable VSCode server to allow editing on Windows, when running in WSL
-  services.vscode-server.enable = osConfig.dotfiles.wsl.enable;
 }
