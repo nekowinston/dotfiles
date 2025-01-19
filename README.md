@@ -30,6 +30,16 @@ Here's what you can find:
 This flake technically has an impurity at its core, because it assumes that it will be stored in `~/.config/flake` and will create symlinks pointing there.
 This is so I can edit some dotfiles (e.g. VSCode `settings.json`) in place and have programs hot reload them.
 
+#### Fixing the initial git clone
+
+You might need to fix LFS and/or Git-Crypt not being initialized after cloning:
+
+```console
+$ git lfs pull
+$ curl https://winston.sh/pub.txt | gpg --import
+$ git crypt unlock
+```
+
 #### macOS
 
 ##### Install the [Xcode Command Line Tools](https://developer.apple.com/download/all/)
