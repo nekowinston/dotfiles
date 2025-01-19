@@ -12,6 +12,7 @@
     ./greeter.nix
     ./hyprland.nix
     ./network.nix
+    ./openssh.nix
     ./podman.nix
     ./sound.nix
     ./sway.nix
