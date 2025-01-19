@@ -7,19 +7,21 @@
 let
   inherit (pkgs.stdenv) isLinux;
 
-  defaultBrowser = "chromium.desktop";
+  defaultBrowser = "firefox.desktop";
 in
 {
   config = lib.mkIf config.isGraphical {
+    home.packages = lib.mkIf isLinux [ pkgs.tor-browser ];
+
     programs.chromium = {
       enable = isLinux;
       package = pkgs.ungoogled-chromium;
     };
 
     programs.firefox = {
-      enable = false;
+      enable = isLinux;
       profiles.default = {
-        search.default = "DuckDuckGo";
+        search.default = "Kagi";
         search.force = true;
         extensions = with pkgs.nur.repos.rycee.firefox-addons; [
           clearurls
@@ -29,16 +31,13 @@ in
           istilldontcareaboutcookies
           kagi-search
           languagetool
-          mailvelope
           multi-account-containers
           onepassword-password-manager
-          refined-github
           sponsorblock
           temporary-containers
           ublock-origin
-          vimium
         ];
-        # Note: last updated 2024-09-10
+        # Note: last updated 2025-01-18
         settings = {
           "app.normandy.api_url" = "";
           "app.normandy.enabled" = false;
@@ -56,7 +55,6 @@ in
           "browser.formfill.enable" = false;
           "browser.newtab.preload" = false;
           "browser.newtabpage.activity-stream.section.highlights.includePocket" = false;
-          "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
           "browser.newtabpage.enabled" = false;
           "browser.newtabpage.enhanced" = false;
           "browser.newtabpage.introShown" = true;
@@ -75,7 +73,6 @@ in
           "browser.shell.checkDefaultBrowser" = false;
           "browser.startup.homepage_override.mstone" = "ignore";
           "browser.tabs.crashReporting.sendReport" = false;
-          "browser.tabs.firefox-view" = false;
           "browser.urlbar.groupLabels.enabled" = false;
           "browser.urlbar.quicksuggest.enabled" = false;
           "browser.urlbar.speculativeConnect.enabled" = false;
@@ -105,8 +102,10 @@ in
           "extensions.shield-recipe-client.api_url" = "";
           "extensions.shield-recipe-client.enabled" = false;
           "extensions.webservice.discoverURL" = "";
-          "media.autoplay.default" = 2;
+          "media.autoplay.default" = 1;
+          "media.autoplay.enabled" = false;
           "media.navigator.enabled" = false;
+          "media.peerconnection.enabled" = false;
           "media.video_stats.enabled" = false;
           "network.IDN_show_punycode" = true;
           "network.allow-experiments" = false;
@@ -150,8 +149,10 @@ in
           "webgl.renderer-string-override" = " ";
           "webgl.vendor-string-override" = " ";
 
-          # set these to false if you're copying this config...
-          # it's to *enable* DRM, not disable it
+          # switch these if you're copying this config:
+          # allow webgl
+          "webgl.disabled" = false;
+          # these are to *enable* DRM, not to disable it
           "media.eme.enabled" = true;
           "media.gmp-widevinecdm.enabled" = true;
         };
