@@ -24,27 +24,23 @@ in
           age-plugin-yubikey
           attic-client
           fd
-          ffmpeg
           file
           gh
           git-crypt
           gocryptfs
-          ghostty
           imagemagick
           just
           ltex-ls
           mdcat
           minio-client
-          neovide
           nix-output-monitor
           nur.repos.nekowinston.icat
           nvd
-          ranger
           ripgrep
           sd
-          watchexec
         ]
         ++ lib.optionals (config.isGraphical && isLinux) [
+          ghostty
           neovide
           nextcloud-client
           uhk-agent

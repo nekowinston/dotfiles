@@ -26,14 +26,7 @@
     pcscd.enable = true;
   };
 
-  virtualisation = {
-    libvirtd.enable = true;
-    podman.enable = true;
-  };
-
-  users.users."${config.dotfiles.username}".extraGroups = [
-    "libvirtd"
-  ];
+  virtualisation.podman.enable = true;
 
   environment.systemPackages = with pkgs; [
     (pkgs.wrapOBS {
@@ -49,8 +42,6 @@
         wlrobs
       ];
     })
-    virt-manager
-    virtiofsd
   ];
 
   system.stateVersion = "24.11";
