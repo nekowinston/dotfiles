@@ -22,7 +22,6 @@ in
       enable = isLinux;
       profiles.default = {
         search.default = "Kagi";
-        search.force = true;
         extensions = with pkgs.nur.repos.rycee.firefox-addons; [
           clearurls
           darkreader
