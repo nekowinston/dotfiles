@@ -19,7 +19,10 @@
       "usbhid"
       "sd_mod"
     ];
-    initrd.kernelModules = [ "dm-snapshot" ];
+    initrd.kernelModules = [
+      "dm-snapshot"
+      "i915" # early Intel graphics
+    ];
     kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = [
       "kvm-amd"

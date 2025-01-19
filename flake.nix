@@ -20,6 +20,7 @@
           system = "x86_64-linux";
           username = "winston";
           isGraphical = true;
+          extraModules = [ inputs.lanzaboote.nixosModules.lanzaboote ];
         }
         {
           host = "yuba";

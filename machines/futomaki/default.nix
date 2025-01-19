@@ -1,6 +1,9 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
-  imports = [ ./hardware.nix ];
+  imports = [
+    ./hardware.nix
+    ./secure-boot.nix
+  ];
 
   dotfiles = {
     desktop = "sway";
