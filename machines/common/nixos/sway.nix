@@ -32,6 +32,7 @@ in
     programs.sway = {
       enable = true;
       package = if (config.dotfiles.desktop == "swayfx") then pkgs.swayfx else pkgs.sway;
+      extraPackages = with pkgs; [ brightnessctl ];
       extraSessionCommands = # bash
         ''
           # session
