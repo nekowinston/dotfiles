@@ -13,6 +13,7 @@
     ./colorscheme-sync.nix
     ./discord.nix
     ./fonts.nix
+    ./ghostty.nix
     ./gnome.nix
     ./gpg.nix
     ./gtk.nix

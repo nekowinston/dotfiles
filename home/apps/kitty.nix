@@ -7,11 +7,12 @@
 }:
 let
   inherit (nvfetcherSrcs) milspec;
+  cfg = config.programs.kitty;
 in
 {
   config = lib.mkIf config.isGraphical {
     programs.kitty = {
-      enable = true;
+      enable = false;
       settings = {
         font_family = "Monaspace Xenon";
         font_size = 12;
@@ -103,9 +104,11 @@ in
       '';
     };
 
-    xdg.configFile."kitty/themes".source = "${milspec.src}/extras/kitty";
+    xdg.configFile."kitty/themes" = lib.mkIf cfg.enable {
+      source = "${milspec.src}/extras/kitty";
+    };
 
-    services.darkman = lib.mkIf config.services.darkman.enable {
+    services.darkman = lib.mkIf (cfg.enable && config.services.darkman.enable) {
       lightModeScripts.kitty-theme = ''
         ${config.programs.kitty.package}/bin/kitten themes --config-file-name=themes.conf "milspec-light"
         ${pkgs.psmisc}/bin/killall -sUSR1 .kitty-wrapped
