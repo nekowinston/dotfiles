@@ -13,6 +13,23 @@ let
 in
 {
   config = lib.mkIf config.wayland.windowManager.sway.enable {
+    services.swayidle = {
+      enable = true;
+      events = [
+        {
+          event = "before-sleep";
+          command = "${lib.getExe config.programs.swaylock.package} -f";
+        }
+      ];
+      timeouts = [
+        {
+          timeout = 300;
+          command = "swaymsg 'output * dpms off'";
+          resumeCommand = "swaymsg 'output * dpms on'";
+        }
+      ];
+    };
+
     programs.swaylock = lib.mkIf isLinux {
       enable = true;
       package = pkgs.swaylock-effects;

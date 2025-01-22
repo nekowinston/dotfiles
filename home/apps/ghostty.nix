@@ -34,10 +34,11 @@ in
     enable = true;
     settings = mkMerge [
       {
-        # appearance
         font-family = "TX-02";
-        font-size = 18;
+        font-size = 12;
         theme = "light:milspec-light,dark:milspec-dark";
+
+        mouse-hide-while-typing = true;
 
         inherit keybind;
       }

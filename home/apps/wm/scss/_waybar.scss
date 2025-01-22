@@ -83,7 +83,10 @@
   #idle_inhibitor,
   #pulseaudio,
   #clock,
-  #custom-swaync {
+  #custom-swaync,
+  #cpu,
+  #memory,
+  #systemd-failed-units {
     padding: 0 $padding;
   }
 }

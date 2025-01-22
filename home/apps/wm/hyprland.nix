@@ -111,7 +111,6 @@
             "SUPER, mouse:273, resizewindow"
           ];
           exec = [
-            "${pkgs.swayosd}/bin/swayosd-server"
             "${pkgs.swaybg}/bin/swaybg -o '*' -m fill -i ${../../wallpapers/dhm_1610.png}"
           ];
           exec-once = [ "${config.programs.waybar.package}/bin/waybar -b hyprland" ];

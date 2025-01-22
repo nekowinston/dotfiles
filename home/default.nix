@@ -40,7 +40,7 @@ in
           sd
         ]
         ++ lib.optionals (config.isGraphical && isLinux) [
-          ghostty
+          fractal
           neovide
           nextcloud-client
           uhk-agent

@@ -28,7 +28,6 @@ let
   playerctl = lib.getExe pkgs.playerctl;
   screenshot = "${lib.getExe pkgs.sway-contrib.grimshot} copy area";
   swayosd-client = "${config.services.swayosd.package}/bin/swayosd-client";
-  swayosd-server = "${config.services.swayosd.package}/bin/swayosd-server";
 
   cfg = config.wayland.windowManager.sway.config;
 
@@ -54,20 +53,7 @@ in
         wrapping = "no";
         mouseWarping = "container";
       };
-      startup = [
-        { command = "${lib.getExe pkgs.autotiling} -l2"; }
-        { command = "1password --silent"; }
-        {
-          command = ''
-            ${lib.getExe pkgs.swayidle} -w \
-              timeout 300 'swaymsg "output * dpms off"' \
-              resume 'swaymsg "output * dpms on"' \
-              before-sleep '${lib.getExe config.programs.swaylock.package} -f'
-          '';
-        }
-        { command = swayosd-server; }
-        { command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"; }
-      ];
+      startup = [ { command = "1password --silent"; } ];
       workspaceAutoBackAndForth = true;
       terminal = lib.getExe config.programs.ghostty.package;
       menu = "${lib.getExe config.programs.rofi.package} -show drun -dpi $dpi";
@@ -138,7 +124,7 @@ in
         # Show the next scratchpad window or hide the focused scratchpad window.
         # If there are multiple scratchpad windows, this command cycles through them.
         "${mod}+Tab" = "scratchpad show";
-        "${mod}+m" = "[app_id=\"WebCord\"] scratchpad show";
+        "${mod}+m" = "[app_id='vesktop'] scratchpad show";
 
         # switch to workspace
         "${modFocus}+1" = "workspace number 1";
@@ -165,7 +151,7 @@ in
         # rofi instead of drun
         "${mod}+space" = "exec ${cfg.menu}";
         # 1password
-        "${mod}+Shift+space" = "exec ${lib.getExe pkgs._1password-gui} --quick-access";
+        "${mod}+Shift+space" = "exec 1password --quick-access";
 
         # audio
         "XF86AudioRaiseVolume" = "exec ${swayosd-client} --output-volume 5";
@@ -176,8 +162,8 @@ in
         "XF86AudioPlay" = "exec --no-startup-id ${playerctl} play-pause";
 
         # modes
-        "${mod}+r" = "mode \"resize\"";
-        "${mod}+p" = "mode \"power: (l)ock, (e)xit, (r)eboot, (s)uspend, (S)hut off\"";
+        "${mod}+r" = "mode resize";
+        "${mod}+p" = "mode 'power: (l)ock, (e)xit, (r)eboot, (s)uspend, (S)hut off'";
       };
       modes = {
         "power: (l)ock, (e)xit, (r)eboot, (s)uspend, (S)hut off" = {
@@ -263,45 +249,45 @@ in
           [title="Steam Guard*"] floating enable
 
           # keep apps in scratchpad
-          [app_id="WebCord"] move scratchpad
+          [app_id="vesktop"] move scratchpad
         }
 
         set {
-          $mode_gaps Gaps: (o)uter, (i)nner
-          $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
-          $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+          $mode_gaps       "Gaps: (o)uter, (i)nner"
+          $mode_gaps_outer "Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)"
+          $mode_gaps_inner "Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)"
         }
-        bindsym ${mod}+Shift+g mode "$mode_gaps"
+        bindsym ${mod}+Shift+g mode $mode_gaps
 
-        mode "$mode_gaps" {
-          bindsym o      mode "$mode_gaps_outer"
-          bindsym i      mode "$mode_gaps_inner"
-          bindsym Return mode "$mode_gaps"
-          bindsym Escape mode default
+        mode $mode_gaps bindsym {
+          o      mode $mode_gaps_outer
+          i      mode $mode_gaps_inner
+          Return mode $mode_gaps
+          Escape mode default
         }
-        mode "$mode_gaps_outer" {
-          bindsym plus        gaps outer current plus 5
-          bindsym minus       gaps outer current minus 5
-          bindsym 0           gaps outer current set 0
+        mode $mode_gaps_outer bindsym {
+          plus        gaps outer current plus 5
+          minus       gaps outer current minus 5
+          0           gaps outer current set 0
 
-          bindsym Shift+plus  gaps outer all     plus 5
-          bindsym Shift+minus gaps outer all     minus 5
-          bindsym Shift+0     gaps outer all     set 0
+          Shift+plus  gaps outer all     plus 5
+          Shift+minus gaps outer all     minus 5
+          Shift+0     gaps outer all     set 0
 
-          bindsym Return mode "$mode_gaps"
-          bindsym Escape mode default
+          Return mode $mode_gaps
+          Escape mode default
         }
-        mode "$mode_gaps_inner" {
-          bindsym plus        gaps inner current plus 5
-          bindsym minus       gaps inner current minus 5
-          bindsym 0           gaps inner current set 0
+        mode $mode_gaps_inner bindsym {
+          plus        gaps inner current plus 5
+          minus       gaps inner current minus 5
+          0           gaps inner current set 0
 
-          bindsym Shift+plus  gaps inner all     plus 5
-          bindsym Shift+minus gaps inner all     minus 5
-          bindsym Shift+0     gaps inner all     set 0
+          Shift+plus  gaps inner all     plus 5
+          Shift+minus gaps inner all     minus 5
+          Shift+0     gaps inner all     set 0
 
-          bindsym Return mode "$mode_gaps"
-          bindsym Escape mode default
+          Return mode $mode_gaps
+          Escape mode default
         }
       ''
       + lib.concatLines (mkColors milspec.dark)
@@ -337,5 +323,20 @@ in
   services.darkman = lib.mkIf isSway {
     darkModeScripts.sway = mkSwayMsgs milspec.dark;
     lightModeScripts.sway = mkSwayMsgs milspec.light;
+  };
+
+  systemd.user.services = lib.mkIf isSway {
+    autotiling = {
+      Unit = {
+        Description = "Script for sway and i3 to automatically switch the horizontal / vertical window split orientation";
+        After = [ config.wayland.systemd.target ];
+        PartOf = [ config.wayland.systemd.target ];
+      };
+      Service = {
+        ExecStart = "${lib.getExe pkgs.autotiling} -l2";
+        Restart = "on-failure";
+      };
+      Install.WantedBy = [ config.wayland.systemd.target ];
+    };
   };
 }

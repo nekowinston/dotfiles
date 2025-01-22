@@ -19,6 +19,9 @@ let
     margin = lib.mkIf isSwayFx "2";
 
     modules-right = [
+      "systemd-failed-units"
+      "cpu"
+      "memory"
       "tray"
       "idle_inhibitor"
       "pulseaudio"
@@ -54,6 +57,23 @@ let
         "artist"
         "title"
       ];
+    };
+
+    cpu = {
+      interval = 5;
+      format = "  {usage:2}%";
+    };
+
+    memory = {
+      interval = 5;
+      format = "  {percentage:2}%";
+    };
+
+    systemd-failed-units = {
+      hide-on-ok = true;
+      format = " {nr_failed}";
+      system = true;
+      user = true;
     };
   };
 

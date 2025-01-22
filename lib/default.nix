@@ -49,15 +49,18 @@ lib: {
     generic = {
       filemanager = "󰉋";
       messenger = "";
+      music = "󰥠";
       term = "";
     };
     _1password = "";
+    applemusic = "";
     chromium = "";
     discord = "󰙯";
     firefox = "";
+    ghostty = "";
+    jetbrains-idea = "";
     nvim = "";
     obsidian = "";
     steam = "󰓓";
-    applemusic = "";
   };
 }
