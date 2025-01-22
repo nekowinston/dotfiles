@@ -21,12 +21,10 @@ in
     programs.firefox = {
       enable = isLinux;
       profiles.default = {
-        search.default = "Kagi";
         extensions = with pkgs.nur.repos.rycee.firefox-addons; [
           clearurls
           darkreader
           dearrow
-          decentraleyes
           istilldontcareaboutcookies
           kagi-search
           languagetool
