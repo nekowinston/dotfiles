@@ -24,8 +24,6 @@ let
       neovide = nvim;
       obsidian = obsidian;
       steam = steam;
-      vesktop = discord;
-      WebCord = discord;
     };
     aliases = {
       "chrome-music.apple.com__browse-Default" = "Music";
@@ -42,7 +40,6 @@ let
       neovide = "Neovide";
       obsidian = "Obsidian";
       steam = "Steam";
-      vesktop = "Discord";
     };
     general.seperator = "|";
   };

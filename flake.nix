@@ -126,7 +126,6 @@
     nixos-wsl = {
       url = "github:nix-community/nixos-wsl";
       inputs.flake-compat.follows = "";
-      inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # libraries

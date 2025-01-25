@@ -13,7 +13,8 @@ in
     programs.mpv.enable = isLinux;
     programs.zathura.enable = true;
 
-    home.packages = lib.mkIf isLinux [ pkgs.feishin ];
+    # TODO: maybe reenable if feishin ever bumps electron
+    # home.packages = lib.mkIf isLinux [ pkgs.feishin ];
 
     xdg.mimeApps.defaultApplications = {
       "application/pdf" = "zathura.desktop";

@@ -10,6 +10,9 @@ in
 {
   # Discord is installed via Brew on macOS atm
   config = lib.mkIf (config.isGraphical && isLinux) {
-    home.packages = [ pkgs.vesktop ];
+    home.packages = [
+      pkgs.discord
+      pkgs.discover-overlay
+    ];
   };
 }

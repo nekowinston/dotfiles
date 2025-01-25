@@ -124,7 +124,7 @@ in
         # Show the next scratchpad window or hide the focused scratchpad window.
         # If there are multiple scratchpad windows, this command cycles through them.
         "${mod}+Tab" = "scratchpad show";
-        "${mod}+m" = "[app_id='vesktop'] scratchpad show";
+        "${mod}+m" = "[app_id='discord'] scratchpad show";
 
         # switch to workspace
         "${modFocus}+1" = "workspace number 1";
@@ -249,7 +249,7 @@ in
           [title="Steam Guard*"] floating enable
 
           # keep apps in scratchpad
-          [app_id="vesktop"] move scratchpad
+          [app_id="discord"] move scratchpad
         }
 
         set {

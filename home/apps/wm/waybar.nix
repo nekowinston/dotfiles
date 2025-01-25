@@ -117,9 +117,9 @@ let
     };
     "sway/window" = {
       rewrite = with lib.icons; {
-        "(.*) - Chromium" = "${chromium} $1";
-        "• Discord( \\| )(.+)( \\| )(.+)" = "${discord} $4 - $2";
-        "\\*?WebCord - (.*)" = "${discord} $1";
+        "^(.*) - Chromium$" = "${chromium} $1";
+        "^(.+) - Discord$" = "${discord} $1";
+        "^(.+) — Mozilla Firefox$" = "${firefox} $1";
       };
     };
   };
