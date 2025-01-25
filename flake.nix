@@ -78,6 +78,7 @@
                 nix-output-monitor
                 nixd
                 nvd
+                inputs'.home-manager.packages.home-manager
               ])
               ++ [
                 inputs'.agenix.packages.agenix
@@ -97,7 +98,16 @@
             {
               ${username} = inputs.home-manager.lib.homeManagerConfiguration {
                 inherit pkgs;
-                inherit (homeLib) extraSpecialArgs modules;
+                inherit (homeLib) modules;
+                extraSpecialArgs = homeLib.extraSpecialArgs // {
+                  osConfig = {
+                    dotfiles = {
+                      inherit username;
+                      desktop = null;
+                      vscode.enable = false;
+                    };
+                  };
+                };
               };
             };
 
