@@ -1,15 +1,12 @@
+{ pkgs, ... }:
 {
-  config,
-  lib,
-  pkgs,
-  modulesPath,
-  ...
-}:
-{
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+  nixpkgs.hostPlatform = "x86_64-linux";
 
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  hardware = {
+    enableRedistributableFirmware = true;
+    cpu.amd.updateMicrocode = true;
+    bluetooth.enable = true;
+  };
 
   boot = {
     initrd.availableKernelModules = [
@@ -21,13 +18,11 @@
     ];
     initrd.kernelModules = [
       "dm-snapshot"
-      "i915" # early Intel graphics
     ];
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_lqx;
     kernelModules = [
       "kvm-amd"
       "nct6775"
-      "v4l2loopback"
     ];
     kernelParams = [
       "quiet"
@@ -35,25 +30,10 @@
     ];
   };
 
-  hardware.bluetooth.enable = true;
-
-  # Intel Arc A770
-  environment.sessionVariables.LIBVA_DRIVER_NAME = "iHD";
-  boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-    extraPackages = with pkgs; [
-      intel-compute-runtime
-      intel-media-driver
-      vaapiIntel
-      vpl-gpu-rt
-    ];
-  };
-
   boot.swraid = {
     enable = true;
     mdadmConf = ''
+      PROGRAM ${pkgs.coreutils}/bin/true
       ARRAY /dev/md0 level=raid1 num-devices=2 metadata=1.2 UUID=ce2bd085:2b7e0014:c58c6c06:10223743
           devices=/dev/sda1,/dev/sdb1
     '';

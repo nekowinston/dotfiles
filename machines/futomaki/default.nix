@@ -2,6 +2,7 @@
 {
   imports = [
     ./hardware.nix
+    ./intel-arc.nix
     ./secure-boot.nix
   ];
 
