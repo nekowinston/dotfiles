@@ -11,6 +11,9 @@
       dark-mode-ternary = final.callPackage ./dark-mode-ternary.nix { };
       nu_scripts = prev.nu_scripts.overrideAttrs (old: {
         inherit (nvfetcherSrcs.nu_scripts) src;
+        postPatch = ''
+          rm -rf themes/screenshots
+        '';
         version = "0-unstable-${nvfetcherSrcs.nu_scripts.date}";
       });
       nur = import inputs.nur {

@@ -76,7 +76,6 @@
                 git-crypt
                 just
                 nix-output-monitor
-                nixd
                 nvd
                 inputs'.home-manager.packages.home-manager
               ])
@@ -87,6 +86,7 @@
               ++ lib.optionals pkgs.stdenv.isDarwin [ inputs'.darwin.packages.darwin-rebuild ];
           };
 
+          packages.nu_scripts = pkgs.nu_scripts;
           legacyPackages.homeConfigurations =
             let
               homeLib = import ./home/lib.nix {
