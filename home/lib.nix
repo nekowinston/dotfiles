@@ -1,16 +1,17 @@
 {
   inputs,
+  isNixOS ? true,
   pkgs,
   username,
-  isNixOS ? true,
 }:
 let
   inherit (pkgs.stdenv) isLinux isDarwin;
   inherit (pkgs.lib)
+    filterAttrs
     mkDefault
     mkForce
-    filterAttrs
     optionalAttrs
+    optionals
     ;
   inherit (builtins) attrValues mapAttrs;
   flakeInputs = filterAttrs (name: value: (value ? outputs) && (name != "self")) inputs;
@@ -63,15 +64,11 @@ in
       };
     };
 
-  inherit hmStandaloneConfig;
-
-  modules =
-    (with inputs; [
-      agenix.homeManagerModules.age
-      nekowinston-nur.homeManagerModules.default
-      nix-index-database.hmModules.nix-index
-      ../modules/hm
-    ])
-    ++ pkgs.lib.optionals (!isNixOS) [ hmStandaloneConfig ]
-    ++ [ ./. ];
+  modules = [
+    inputs.agenix.homeManagerModules.age
+    inputs.nekowinston-nur.homeManagerModules.default
+    inputs.nix-index-database.hmModules.nix-index
+    ../modules/hm
+    ./default.nix
+  ] ++ optionals (!isNixOS) [ hmStandaloneConfig ];
 }
