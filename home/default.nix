@@ -23,14 +23,16 @@ in
           age
           age-plugin-yubikey
           attic-client
+          dyff
           fd
           file
           gh
           git-crypt
           gocryptfs
+          gojq
           imagemagick
+          jqp
           just
-          ltex-ls
           mdcat
           minio-client
           nix-output-monitor

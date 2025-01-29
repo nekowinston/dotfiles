@@ -5,7 +5,7 @@ let
 
   mkPrefixed = mapAttrs' (
     name: value: {
-      name = "home/secrets/" + name;
+      name = "home/secrets/${name}.age";
       inherit value;
     }
   );
@@ -20,8 +20,8 @@ let
   default = [ yubikeys._5ci ] ++ (builtins.attrValues homes);
 in
 mkPrefixed {
-  "aerc-personal.conf.age".publicKeys = default;
-  "gitconfig-freelance.age".publicKeys = default;
-  "gitconfig-work.age".publicKeys = default;
-  "wakatime.cfg.age".publicKeys = default;
+  "aerc-personal.conf".publicKeys = default;
+  "gitconfig-freelance".publicKeys = default;
+  "gitconfig-work".publicKeys = default;
+  "wakatime.cfg".publicKeys = default;
 }

@@ -1,6 +1,5 @@
 {
   imports = [
-    ./kubernetes.nix
-    ./rust.nix
+    # ./kubernetes.nix
   ];
 }

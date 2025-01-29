@@ -15,9 +15,6 @@
     packages = with pkgs; [
       (wrapHelm kubernetes-helm { plugins = with kubernetes-helmPlugins; [ helm-diff ]; })
       cmctl
-      dyff
-      gojq
-      jqp
       konf
       kubecolor
       kubeconform

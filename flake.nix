@@ -98,16 +98,7 @@
             {
               ${username} = inputs.home-manager.lib.homeManagerConfiguration {
                 inherit pkgs;
-                inherit (homeLib) modules;
-                extraSpecialArgs = homeLib.extraSpecialArgs // {
-                  osConfig = {
-                    dotfiles = {
-                      inherit username;
-                      desktop = null;
-                      vscode.enable = false;
-                    };
-                  };
-                };
+                inherit (homeLib) modules extraSpecialArgs;
               };
             };
 

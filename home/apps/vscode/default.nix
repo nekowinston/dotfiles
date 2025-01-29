@@ -1,4 +1,5 @@
 {
+  lib,
   osConfig ? {
     dotfiles.vscode.enable = false;
   },
@@ -11,10 +12,12 @@
     ./symlinks.nix
   ];
 
-  programs.vscode = {
-    enable = osConfig.dotfiles.vscode.enable;
-    package = pkgs.vscodium;
-  };
+  config = lib.mkIf osConfig.dotfiles.vscode.enable {
+    programs.vscode = {
+      enable = true;
+      package = pkgs.vscodium;
+    };
 
-  xdg.mimeApps.defaultApplications."text/plain" = "code.desktop";
+    xdg.mimeApps.defaultApplications."text/plain" = "code.desktop";
+  };
 }

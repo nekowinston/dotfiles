@@ -14,7 +14,7 @@ let
   fontPath = ../secrets/fonts;
 in
 {
-  config = lib.mkIf config.isGraphical {
+  config = {
     fonts.fontconfig = {
       enable = isLinux;
       defaultFonts = {
