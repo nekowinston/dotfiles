@@ -51,7 +51,7 @@ let
       module = ldTernary "nixosModules" "darwinModules";
       target = ldTernary "nixosConfigurations" "darwinConfigurations";
 
-      darwinModules = [ inputs.nekowinston-nur.darwinModules.default ];
+      darwinModules = [ ];
       linuxModules = [
         inputs.nixos-cosmic.nixosModules.default
         inputs.nixos-wsl.nixosModules.default

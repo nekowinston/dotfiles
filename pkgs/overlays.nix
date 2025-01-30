@@ -19,9 +19,6 @@
       nur = import inputs.nur {
         nurpkgs = final;
         pkgs = final;
-        repoOverrides = {
-          nekowinston = inputs.nekowinston-nur.packages.${system};
-        };
       };
       starship = prev.starship.overrideAttrs (old: {
         patches = [

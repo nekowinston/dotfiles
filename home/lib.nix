@@ -66,9 +66,8 @@ in
 
   modules = [
     inputs.agenix.homeManagerModules.age
-    inputs.nekowinston-nur.homeManagerModules.default
     inputs.nix-index-database.hmModules.nix-index
     ../modules/hm
-    ./default.nix
+    ./.
   ] ++ optionals (!isNixOS) [ hmStandaloneConfig ];
 }

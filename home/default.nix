@@ -18,36 +18,33 @@ in
   home = {
     packages =
       with pkgs;
-      (
-        [
-          age
-          age-plugin-yubikey
-          attic-client
-          dyff
-          fd
-          file
-          gh
-          git-crypt
-          gocryptfs
-          gojq
-          imagemagick
-          jqp
-          just
-          mdcat
-          minio-client
-          nix-output-monitor
-          nur.repos.nekowinston.icat
-          nvd
-          ripgrep
-          sd
-        ]
-        ++ lib.optionals (config.isGraphical && isLinux) [
-          fractal
-          neovide
-          nextcloud-client
-          uhk-agent
-        ]
-      );
+      [
+        age
+        age-plugin-yubikey
+        attic-client
+        dyff
+        fd
+        file
+        gh
+        git-crypt
+        gocryptfs
+        gojq
+        imagemagick
+        jqp
+        just
+        mdcat
+        minio-client
+        nix-output-monitor
+        nvd
+        ripgrep
+        sd
+      ]
+      ++ lib.optionals (config.isGraphical && isLinux) [
+        fractal
+        neovide
+        nextcloud-client
+        uhk-agent
+      ];
     sessionVariables.SSH_AUTH_SOCK = lib.optionalString isDarwin "${config.programs.gpg.homedir}/S.gpg-agent.ssh";
     stateVersion = "23.05";
 

@@ -166,7 +166,6 @@
     # not overriding input to preserve caches
     nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
     nur.url = "github:nix-community/nur";
-    nekowinston-nur.url = "github:nekowinston/nur";
   };
 
   nixConfig = {
