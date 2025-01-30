@@ -15,6 +15,7 @@
             "repo": "milspec.nvim",
             "rev": "11d492e7c3ef3b16a446415b303d239a26643f2b",
             "sha256": "sha256-xk8gvWAuaBKjv2ZYMuE3NCozq6ahP7KA/BIoMd8tjmA=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "11d492e7c3ef3b16a446415b303d239a26643f2b"
@@ -35,13 +36,14 @@
             "repo": "wezterm-bar",
             "rev": "e96b81460b3ad11a7461934dcb7889ce5079f97f",
             "sha256": "sha256-3acxqJ9HMA5hASWq/sVL9QQjfEw5Xrh2fT9nFuGjzHM=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "e96b81460b3ad11a7461934dcb7889ce5079f97f"
     },
     "nu_scripts": {
         "cargoLocks": null,
-        "date": "2025-01-03",
+        "date": "2025-01-29",
         "extract": null,
         "name": "nu_scripts",
         "passthru": null,
@@ -53,11 +55,12 @@
             "name": null,
             "owner": "nushell",
             "repo": "nu_scripts",
-            "rev": "2dadab779b456667456eeb274bdf5c6a51f6d602",
-            "sha256": "sha256-42TCEJCKaqnBML7r7b9AUUCgh48FKAjbmeixYdFbQ3M=",
+            "rev": "dbcecf265399554ccabaddd1521fc4d022f86b89",
+            "sha256": "sha256-u2sIRk3VhP49Wum1iKWQOnah6xdlifzpE3CIaW0wGws=",
+            "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2dadab779b456667456eeb274bdf5c6a51f6d602"
+        "version": "dbcecf265399554ccabaddd1521fc4d022f86b89"
     },
     "zsh-fast-syntax-highlighting": {
         "cargoLocks": null,
@@ -75,6 +78,7 @@
             "repo": "fast-syntax-highlighting",
             "rev": "cf318e06a9b7c9f2219d78f41b46fa6e06011fd9",
             "sha256": "sha256-RVX9ZSzjBW3LpFs2W86lKI6vtcvDWP6EPxzeTcRZua4=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "cf318e06a9b7c9f2219d78f41b46fa6e06011fd9"

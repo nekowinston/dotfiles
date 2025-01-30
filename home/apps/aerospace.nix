@@ -15,7 +15,7 @@ in
 {
   programs.aerospace = {
     enable = isDarwin;
-    settings = {
+    userSettings = {
       start-at-login = true;
 
       after-startup-command = [

@@ -8,8 +8,6 @@ let
   inherit (pkgs.stdenv) isDarwin;
 in
 {
-  imports = [ ./fsmonitor.nix ];
-
   programs.git.includes = [
     {
       condition = "gitdir:~/Code/work/";
@@ -74,6 +72,7 @@ in
     ];
 
     extraConfig = {
+      core.fsmonitor = true;
       credential.helper = "gopass";
       init.defaultBranch = "main";
       push.default = "current";
