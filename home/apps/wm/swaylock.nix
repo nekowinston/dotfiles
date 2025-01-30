@@ -5,7 +5,6 @@
   ...
 }:
 let
-  inherit (pkgs.stdenv) isLinux;
   inherit (config.fonts.fontconfig) defaultFonts;
   fontSans = builtins.head defaultFonts.sansSerif;
 
@@ -24,13 +23,13 @@ in
       timeouts = [
         {
           timeout = 300;
-          command = "swaymsg 'output * dpms off'";
-          resumeCommand = "swaymsg 'output * dpms on'";
+          command = "swaymsg 'output * power off'";
+          resumeCommand = "swaymsg 'output * power on'";
         }
       ];
     };
 
-    programs.swaylock = lib.mkIf isLinux {
+    programs.swaylock = {
       enable = true;
       package = pkgs.swaylock-effects;
       settings = {
