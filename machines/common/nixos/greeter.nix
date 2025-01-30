@@ -13,34 +13,42 @@ let
 in
 {
   config = lib.mkIf isWindowManager {
-    services.greetd = {
+    programs.regreet = {
       enable = true;
-      settings.default_session.command = lib.getExe pkgs.greetd.tuigreet;
-    };
-    services.gnome.gnome-keyring.enable = true;
-    security.pam.services.greetd = {
-      enableGnomeKeyring = true;
-      u2fAuth = true;
-    };
-    security.polkit.enable = true;
 
-    # start a keyring daemon for sway
-    systemd = {
-      packages = [ pkgs.polkit_gnome ];
-      user.services.polkit-gnome-authentication-agent-1 = {
-        unitConfig = {
-          Description = "polkit-gnome-authentication-agent-1";
-          Wants = [ "graphical-session.target" ];
-          WantedBy = [ "graphical-session.target" ];
-          After = [ "graphical-session.target" ];
-        };
-        serviceConfig = {
-          ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-          Restart = "on-failure";
-          RestartSec = 1;
-          TimeoutStopSec = 10;
-        };
+      font = {
+        name = "IBM Plex Sans";
+        size = 16;
+        package = pkgs.ibm-plex;
+      };
+
+      cursorTheme = {
+        name = "Yaru";
+        package = pkgs.yaru-theme;
+      };
+      iconTheme = {
+        name = "Yaru-dark";
+        package = pkgs.yaru-theme;
+      };
+      theme = {
+        name = "Yaru-dark";
+        package = pkgs.yaru-theme;
+      };
+
+      settings.background = {
+        path = ../../../home/wallpapers/blahaj-blue.png;
+        fit = "Cover";
       };
     };
+
+    security = {
+      pam.services.greetd = {
+        enableGnomeKeyring = true;
+        u2fAuth = true;
+      };
+      polkit.enable = true;
+      soteria.enable = true;
+    };
+    services.gnome.gnome-keyring.enable = true;
   };
 }
