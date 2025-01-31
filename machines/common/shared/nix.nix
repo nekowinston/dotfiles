@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   inputs,
   pkgs,
@@ -12,43 +13,50 @@ let
 in
 {
   nixpkgs = {
-    config.allowUnfree = true;
-
+    config.allowUnfreePredicate =
+      pkg:
+      builtins.elem (lib.getName pkg) [
+        "1password"
+        "1password-cli"
+        "discord"
+        "steam"
+        "steam-unwrapped"
+        "uhk-agent"
+        "uhk-udev-rules"
+        "xkcd-font"
+        # firefox extensions
+        "languagetool"
+        "onepassword-password-manager"
+      ];
     # prefer my own registry & path pinning for *all* inputs
     flake.setNixPath = false;
     flake.setFlakeRegistry = false;
   };
+
   nix = {
     gc =
       {
         automatic = true;
       }
-      // (
-        if isDarwin then
-          {
-            interval = {
-              Weekday = 0;
-              Hour = 0;
-              Minute = 0;
-            };
-          }
-        else
-          { dates = "weekly"; }
-      );
+      // lib.optionalAttrs isDarwin {
+        interval = {
+          Weekday = 0;
+          Hour = 0;
+          Minute = 0;
+        };
+      }
+      // lib.optionalAttrs isLinux {
+        dates = "weekly";
+      };
     settings = {
       # breaks the Nix Store on macOS
       # https://github.com/NixOS/nix/issues/7273
       auto-optimise-store = isLinux;
       experimental-features = [
-        "auto-allocate-uids"
         "flakes"
         "nix-command"
       ];
-      trusted-users = [
-        "@sudo"
-        "@wheel"
-        "winston"
-      ];
+      trusted-users = [ config.dotfiles.username ];
       use-xdg-base-directories = true;
       warn-dirty = false;
     } // (import ../../../flake.nix).nixConfig;

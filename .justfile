@@ -35,7 +35,7 @@ check *args:
 
 [linux]
 check *args:
-  @just rebuild test {{args}}
+  @just rebuild dry-build {{args}}
 
 switch *args:
   @just build {{args}}

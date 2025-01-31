@@ -16,28 +16,27 @@ let
   };
 in
 {
-  home.packages =
-    with pkgs;
-    (
+  home = {
+    # two amazing examples of glorious XDG compliance
+    file = lib.mkIf false {
+      "Library/Application Support/Mozilla/NativeMessagingHosts/gpgmejson.json" = {
+        enable = isDarwin;
+        text = mailvelopeConfig;
+      };
+      ".mozilla/native-messaging-hosts/gpgmejson.json" = {
+        enable = isLinux;
+        text = mailvelopeConfig;
+      };
+    };
+    packages =
+      with pkgs;
       [
         git-credential-gopass
         gopass
         gopass-jsonapi
         yubikey-personalization
       ]
-      ++ lib.optionals isDarwin [ pinentry_mac ]
-    );
-
-  # two amazing examples of glorious XDG compliance
-  home.file = lib.mkIf config.isGraphical {
-    "Library/Application Support/Mozilla/NativeMessagingHosts/gpgmejson.json" = {
-      enable = isDarwin;
-      text = mailvelopeConfig;
-    };
-    ".mozilla/native-messaging-hosts/gpgmejson.json" = {
-      enable = isLinux;
-      text = mailvelopeConfig;
-    };
+      ++ lib.optionals isDarwin [ pinentry_mac ];
   };
 
   programs.gpg = {
@@ -109,6 +108,7 @@ in
       #verbose = true;
     };
   };
+
   services.gpg-agent = {
     enable = isLinux;
     enableExtraSocket = true;

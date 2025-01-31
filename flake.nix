@@ -36,7 +36,7 @@
           isGraphical = false;
         }
       ];
-      imports = [ inputs.git-hooks.flakeModule ];
+
       perSystem =
         {
           config,
@@ -50,43 +50,28 @@
         {
           _module.args.pkgs = import inputs.nixpkgs {
             inherit overlays system;
-            config.allowUnfree = true;
-          };
-
-          pre-commit = {
-            check.enable = true;
-            settings.excludes = [ "_sources/" ];
-            settings.hooks = {
-              commitizen.enable = true;
-              editorconfig-checker.enable = true;
-              luacheck.enable = true;
-              nil.enable = true;
-              nixfmt-rfc-style.enable = true;
-              shellcheck.enable = true;
-              stylua.enable = true;
-            };
           };
 
           devShells.default = pkgs.mkShellNoCC {
             inherit (config.pre-commit.devShell) shellHook;
-            RULES = "./home/secrets/secrets.nix";
             packages =
-              (with pkgs; [
+              with pkgs;
+              [
                 git
                 git-crypt
                 just
                 nix-output-monitor
                 nvd
-                inputs'.home-manager.packages.home-manager
-              ])
-              ++ [
                 inputs'.agenix.packages.agenix
+                inputs'.home-manager.packages.home-manager
                 self'.formatter
               ]
               ++ lib.optionals pkgs.stdenv.isDarwin [ inputs'.darwin.packages.darwin-rebuild ];
+            env.RULES = "./home/secrets/secrets.nix";
           };
 
-          packages.nu_scripts = pkgs.nu_scripts;
+          formatter = pkgs.nixfmt-rfc-style;
+
           legacyPackages.homeConfigurations =
             let
               homeLib = import ./home/lib.nix {
@@ -102,8 +87,23 @@
               };
             };
 
-          formatter = pkgs.nixfmt-rfc-style;
+          pre-commit = {
+            check.enable = true;
+            settings.excludes = [ "_sources/" ];
+            settings.hooks = {
+              commitizen.enable = true;
+              editorconfig-checker.enable = true;
+              luacheck.enable = true;
+              nil.enable = true;
+              nixfmt-rfc-style.enable = true;
+              shellcheck.enable = true;
+              stylua.enable = true;
+            };
+          };
         };
+
+      imports = [ inputs.git-hooks.flakeModule ];
+
       systems = [
         "aarch64-darwin"
         "aarch64-linux"
