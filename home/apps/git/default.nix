@@ -19,7 +19,10 @@ in
     }
   ];
 
-  home.packages = [ pkgs.git-ignore ];
+  home.packages = with pkgs; [
+    git-ignore
+    watchman
+  ];
 
   # disable loading the system config on Darwin, where Nix tells it to use the
   # osxkeychain credential manager.
@@ -72,7 +75,7 @@ in
     ];
 
     extraConfig = {
-      core.fsmonitor = true;
+      core.fsmonitor = lib.getExe pkgs.rs-git-fsmonitor;
       credential.helper = "gopass";
       init.defaultBranch = "main";
       push.default = "current";
