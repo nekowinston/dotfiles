@@ -19,7 +19,7 @@
     initrd.kernelModules = [
       "dm-snapshot"
     ];
-    kernelPackages = pkgs.linuxPackages_lqx;
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = [
       "kvm-amd"
       "nct6775"
