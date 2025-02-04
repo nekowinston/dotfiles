@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   imports = [
     ./hardware.nix
@@ -32,21 +37,30 @@
 
   virtualisation.podman.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    (pkgs.wrapOBS {
-      plugins = with pkgs.obs-studio-plugins; [
-        input-overlay
-        obs-backgroundremoval
-        obs-composite-blur
-        obs-gstreamer
-        obs-move-transition
-        obs-pipewire-audio-capture
-        obs-vaapi
-        obs-vkcapture
-        wlrobs
-      ];
-    })
-  ];
+  programs.obs-studio = {
+    enable = true;
+    plugins = with pkgs.obs-studio-plugins; [
+      input-overlay
+      obs-backgroundremoval
+      obs-composite-blur
+      obs-gstreamer
+      obs-move-transition
+      obs-pipewire-audio-capture
+      obs-vaapi
+      obs-vkcapture
+      wlrobs
+    ];
+  };
+  boot = lib.mkIf config.programs.obs-studio.enable {
+    kernelModules = [ "v4l2loopback" ];
+    extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
+
+    # extra config for the v4l2loopback module,
+    # allowing for an extra loopback device created via gstreamer
+    extraModprobeConfig = ''
+      options v4l2loopback devices=2 video_nr=1,2 card_label="OBS Virtual Camera","iPhone Magic Webcam" exclusive_caps=1,1
+    '';
+  };
 
   system.stateVersion = "24.11";
 }
