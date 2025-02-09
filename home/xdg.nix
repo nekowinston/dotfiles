@@ -19,31 +19,53 @@ in
 {
   home = {
     sessionVariables = {
-      AZURE_CONFIG_DIR = "${configHome}/azure";
-      BUNDLE_USER_CACHE = "${cacheHome}/bundle";
-      BUNDLE_USER_CONFIG = "${configHome}/bundle";
-      BUNDLE_USER_PLUGIN = "${dataHome}/bundle";
-      CARGO_HOME = "${dataHome}/cargo";
-      CUDA_CACHE_PATH = "${dataHome}/nv";
-      DENO_INSTALL_ROOT = "${dataHome}/deno";
-      DOCKER_CONFIG = "${configHome}/docker";
-      ELM_HOME = "${dataHome}/elm";
-      GEM_HOME = "${dataHome}/gem";
-      GEM_SPEC_CACHE = "${cacheHome}/gem";
-      GOPATH = "${dataHome}/go";
-      GRADLE_USER_HOME = "${dataHome}/gradle";
+      # histories
       HISTFILE = "${stateHome}/bash/history";
-      IPYTHONDIR = "${configHome}/ipython";
       LESSHISTFILE = "${stateHome}/less_history";
-      MC_CONFIG_DIR = "${configHome}/mc";
-      NODE_REPL_HISTORY = "${stateHome}/node_repl_history";
-      NPM_CONFIG_USERCONFIG = "${configHome}/npm/npmrc";
-      RUSTUP_HOME = "${dataHome}/rustup";
       SQLITE_HISTORY = "${stateHome}/sqlite_history";
-      STACK_ROOT = "${dataHome}/stack";
+      # CLIs
+      AZURE_CONFIG_DIR = "${configHome}/azure";
+      CUDA_CACHE_PATH = "${dataHome}/nv";
+      DOCKER_CONFIG = "${configHome}/docker";
+      MC_CONFIG_DIR = "${configHome}/mc";
       W3M_DIR = "${dataHome}/w3m";
       WAKATIME_HOME = "${dataHome}/wakatime";
       WINEPREFIX = "${dataHome}/wine";
+
+      ## Languages
+      # DotNET
+      DOTNET_CLI_HOME = "${dataHome}/dotnet";
+      NUGET_PACKAGES = "${configHome}/NuGetPackages";
+      # Elm
+      ELM_HOME = "${dataHome}/elm";
+      # Go
+      GOPATH = "${dataHome}/go";
+      # Haskell
+      STACK_ROOT = "${dataHome}/stack";
+      # Java
+      _JAVA_OPTIONS = lib.concatStringsSep " " (
+        lib.mapAttrsToList lib.mesonOption {
+          "java.util.prefs.userRoot" = "${configHome}/java";
+          "javafx.cachedir" = "${cacheHome}/openjfx";
+          "sbt.global.base" = "${dataHome}/sbt";
+        }
+      );
+      GRADLE_USER_HOME = "${dataHome}/gradle";
+      # JavaScript
+      DENO_INSTALL_ROOT = "${dataHome}/deno";
+      NODE_REPL_HISTORY = "${stateHome}/node_repl_history";
+      NPM_CONFIG_USERCONFIG = "${configHome}/npm/npmrc";
+      # Python
+      IPYTHONDIR = "${configHome}/ipython";
+      # Ruby
+      BUNDLE_USER_CACHE = "${cacheHome}/bundle";
+      BUNDLE_USER_CONFIG = "${configHome}/bundle";
+      BUNDLE_USER_PLUGIN = "${dataHome}/bundle";
+      GEM_HOME = "${dataHome}/gem";
+      GEM_SPEC_CACHE = "${cacheHome}/gem";
+      # Rust
+      CARGO_HOME = "${dataHome}/cargo";
+      RUSTUP_HOME = "${dataHome}/rustup";
     };
     sessionPath =
       [
