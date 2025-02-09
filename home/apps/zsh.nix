@@ -41,10 +41,13 @@ in
       ''
         function incognito() {
           if [[ -n $ZSH_INCOGNITO ]]; then
+            export HISTFILE="$_HISTFILE"
             add-zsh-hook precmd _atuin_precmd
             add-zsh-hook preexec _atuin_preexec
             unset ZSH_INCOGNITO
           else
+            export _HISTFILE="$HISTFILE"
+            unset HISTFILE
             add-zsh-hook -d precmd _atuin_precmd
             add-zsh-hook -d preexec _atuin_preexec
             export ZSH_INCOGNITO=1
@@ -67,8 +70,6 @@ in
       enable = true;
       plugins =
         [
-          "colored-man-pages"
-          "colorize"
           "git"
           "kubectl"
         ]
@@ -87,15 +88,12 @@ in
         file = "share/zsh-nix-shell/nix-shell.plugin.zsh";
       }
       {
-        src = pkgs.zsh-fast-syntax-highlighting.overrideAttrs (_: {
-          src = nvfetcherSrcs.zsh-fast-syntax-highlighting.src;
-        });
+        src = pkgs.zsh-fast-syntax-highlighting.overrideAttrs {
+          inherit (nvfetcherSrcs.zsh-fast-syntax-highlighting) src;
+        };
         file = "share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh";
       }
     ];
-    sessionVariables = {
-      MANPAGER = "sh -c 'col -bx | bat -l man -p'";
-    };
     shellAliases = {
       ls = "eza";
       ll = "eza -l";

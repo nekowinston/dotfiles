@@ -27,15 +27,15 @@
   };
   nu_scripts = {
     pname = "nu_scripts";
-    version = "dbcecf265399554ccabaddd1521fc4d022f86b89";
+    version = "a31f8490fbe7f91925bc43b90ed535ea19daaeda";
     src = fetchFromGitHub {
       owner = "nushell";
       repo = "nu_scripts";
-      rev = "dbcecf265399554ccabaddd1521fc4d022f86b89";
+      rev = "a31f8490fbe7f91925bc43b90ed535ea19daaeda";
       fetchSubmodules = false;
-      sha256 = "sha256-u2sIRk3VhP49Wum1iKWQOnah6xdlifzpE3CIaW0wGws=";
+      sha256 = "sha256-S080pwABIEp/ZT/gLyme7ozmWBiM37BbjHqftUieK3Y=";
     };
-    date = "2025-01-29";
+    date = "2025-02-09";
   };
   zsh-fast-syntax-highlighting = {
     pname = "zsh-fast-syntax-highlighting";

@@ -32,7 +32,7 @@
           sha256 = "sha256-VdF7FamqveSJLrcspTLZ0LGk7SMgYG1+muryCYLjP78=";
         };
 
-        cargoHash = "sha256-gcWi2gczg6eiYIJrrP76e9PqMBll0MTnAFT5BA/30as=";
+        cargoHash = "sha256-X3Gx1k6Q8noRSClnNC1/X8AkIuNsWmX0WZI5p6NrHgw=";
 
         nativeBuildInputs = [ final.makeWrapper ];
 
