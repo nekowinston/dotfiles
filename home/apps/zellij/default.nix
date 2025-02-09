@@ -1,4 +1,8 @@
 {
-  programs.zellij.enable = true;
+  programs.zellij = {
+    enable = true;
+    enableBashIntegration = false;
+    enableZshIntegration = false;
+  };
   xdg.configFile."zellij".source = ./config;
 }
