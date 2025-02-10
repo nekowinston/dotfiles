@@ -36,6 +36,7 @@ in
       # DotNET
       DOTNET_CLI_HOME = "${dataHome}/dotnet";
       NUGET_PACKAGES = "${configHome}/NuGetPackages";
+      OMNISHARPHOME = "${configHome}/omnisharp";
       # Elm
       ELM_HOME = "${dataHome}/elm";
       # Go
