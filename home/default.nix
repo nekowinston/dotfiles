@@ -41,7 +41,9 @@ in
       ]
       ++ lib.optionals (config.isGraphical && isLinux) [
         fractal
+        gnome-podcasts
         neovide
+        newsflash
         nextcloud-client
         uhk-agent
       ];

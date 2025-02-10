@@ -14,21 +14,23 @@ let
 in
 {
   config = lib.mkIf condition {
-    environment.systemPackages = with pkgs; [
-      # file management
-      nautilus
-      nautilus-python
-      nautilus-open-any-terminal
-      # thumbnails
-      webp-pixbuf-loader
-      ffmpegthumbnailer
-    ];
+    environment = {
+      systemPackages = with pkgs; [
+        # file management
+        nautilus
+        nautilus-python
+        nautilus-open-any-terminal
+        # screen recording
+        gpu-screen-recorder-gtk
+      ];
+      pathsToLink = [ "/share/nautilus-python/extensions" ];
+      sessionVariables.NAUTILUS_4_EXTENSION_DIR = "${config.system.path}/lib/nautilus/extensions-4";
+    };
+
     programs.dconf.enable = true;
-
-    environment.pathsToLink = [ "/share/nautilus-python/extensions" ];
-    environment.sessionVariables.NAUTILUS_4_EXTENSION_DIR = "/var/run/current-system/sw/lib/nautilus/extensions-4";
-
     programs.file-roller.enable = true;
+    programs.gpu-screen-recorder.enable = true;
+
     programs.sway = {
       enable = true;
       package = if (config.dotfiles.desktop == "swayfx") then pkgs.swayfx else pkgs.sway;
@@ -41,9 +43,8 @@ in
           export XDG_CURRENT_DESKTOP=sway
           # wayland
           export NIXOS_OZONE_WL=1
-          export MOZ_ENABLE_WAYLAND=1
-          export QT_QPA_PLATFORM=wayland
-          export SDL_VIDEODRIVER=wayland
+          export QT_QPA_PLATFORM="wayland;xcb"
+          export SDL_VIDEODRIVER="wayland,x11"
           export _JAVA_AWT_WM_NONREPARENTING=1
         '';
       wrapperFeatures = {
@@ -58,28 +59,31 @@ in
     ];
     xdg.portal = {
       enable = true;
-      config.sway = {
-        "org.freedesktop.impl.portal.Settings" = [ "darkman" ];
+      config = {
+        common.default = [ "gtk" ];
+        sway = {
+          "org.freedesktop.impl.portal.ScreenCast" = "wlr";
+          "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
+          "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
+          "org.freedesktop.impl.portal.Settings" = [ "darkman" ];
+        };
       };
       extraPortals = with pkgs; [
-        xdg-desktop-portal-gtk
         darkman
+        xdg-desktop-portal-gtk
       ];
       wlr.enable = true;
       xdgOpenUsePortal = true;
     };
 
     services = {
-      # mounting
+      # mounting and fs support
       gvfs.enable = true;
       udisks2.enable = true;
-      devmon.enable = true;
       # previews
       gnome.sushi.enable = true;
       # search metadata
       gnome.localsearch.enable = true;
-      # thumbnails
-      tumbler.enable = true;
     };
   };
 }

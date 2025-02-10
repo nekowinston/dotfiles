@@ -58,7 +58,7 @@
     # extra config for the v4l2loopback module,
     # allowing for an extra loopback device created via gstreamer
     extraModprobeConfig = ''
-      options v4l2loopback devices=2 video_nr=1,2 card_label="OBS Virtual Camera","iPhone Magic Webcam" exclusive_caps=1,1
+      options v4l2loopback devices=2 video_nr=1,2 card_label="OBS Virtual Camera,iPhone Magic Webcam" exclusive_caps=1,1
     '';
   };
 

@@ -28,7 +28,6 @@ in
   config = lib.mkIf isWindowManager {
     home = {
       packages = with pkgs; [
-        kooha
         overskride
         pwvucontrol
         sway-contrib.grimshot

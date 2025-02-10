@@ -27,11 +27,11 @@ in
         package = pkgs.yaru-theme;
       };
       iconTheme = {
-        name = "Yaru-dark";
+        name = "Yaru";
         package = pkgs.yaru-theme;
       };
       theme = {
-        name = "Yaru-dark";
+        name = "Yaru";
         package = pkgs.yaru-theme;
       };
 

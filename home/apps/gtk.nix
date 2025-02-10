@@ -15,8 +15,26 @@ let
     dark = "Yaru-dark";
     light = "Yaru";
   };
-  dconfWrite = "${pkgs.dconf}/bin/dconf write";
   inherit (config.fonts.fontconfig) defaultFonts;
+  sharedGtkSettings = {
+    gtk-decoration-layout = if isWindowManager then ":menu" else "close,maximize,minimize:menu";
+    gtk-enable-event-sounds = true;
+    gtk-enable-input-feedback-sounds = true;
+    gtk-sound-theme-name = theme.light;
+  };
+
+  mkDconfSwitchScript' =
+    input:
+    lib.concatLines (
+      lib.flatten (
+        lib.mapAttrsToList (
+          basepath: opts:
+          lib.mapAttrsToList (
+            key: value: "${lib.getExe pkgs.dconf} write /${basepath}/${key} ${lib.escapeShellArg value}"
+          ) opts
+        ) input
+      )
+    );
 in
 {
   config = lib.mkIf (config.isGraphical && pkgs.stdenv.isLinux) {
@@ -30,13 +48,33 @@ in
       enable = true;
       font.name = builtins.head defaultFonts.sansSerif;
       iconTheme = {
-        name = theme.dark;
+        name = theme.light;
         package = pkgs.yaru-theme;
       };
       theme = {
-        name = theme.dark;
+        name = theme.light;
         package = pkgs.yaru-theme;
       };
+      gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+      gtk3.extraConfig = sharedGtkSettings;
+      gtk4.extraConfig = sharedGtkSettings;
+    };
+
+    dconf.settings = {
+      "org/gnome/desktop/sound" = {
+        event-sounds = true;
+        input-feedback-sounds = true;
+        theme-name = theme.light;
+      };
+      "org/gnome/desktop/wm/preferences" = {
+        button-layout = if isWindowManager then ":appmenu" else "close,maximize,minimize:appmenu";
+      };
+    };
+
+    # don't want stuff that doesn't use XDG specs
+    home.file = {
+      ".icons/default/index.theme".enable = false;
+      ".icons/${config.gtk.iconTheme.name}".enable = false;
     };
 
     qt = {
@@ -45,18 +83,20 @@ in
     };
 
     services.darkman = lib.mkIf isWindowManager {
-      lightModeScripts.gtk-theme = # bash
-        ''
-          ${dconfWrite} /org/gnome/desktop/interface/color-scheme "'prefer-light'"
-          ${dconfWrite} /org/gnome/desktop/interface/gtk-theme "'${theme.light}'"
-          ${dconfWrite} /org/gnome/desktop/interface/icon-theme "'${theme.light}'"
-        '';
-      darkModeScripts.gtk-theme = # bash
-        ''
-          ${dconfWrite} /org/gnome/desktop/interface/color-scheme "'prefer-dark'"
-          ${dconfWrite} /org/gnome/desktop/interface/gtk-theme "'${theme.dark}'"
-          ${dconfWrite} /org/gnome/desktop/interface/icon-theme "'${theme.dark}'"
-        '';
+      lightModeScripts.gtk-theme = mkDconfSwitchScript' {
+        "org/gnome/desktop/interface" = {
+          color-scheme = "prefer-light";
+          gtk-theme = theme.light;
+          icon-theme = theme.light;
+        };
+      };
+      darkModeScripts.gtk-theme = mkDconfSwitchScript' {
+        "org/gnome/desktop/interface" = {
+          color-scheme = "prefer-dark";
+          gtk-theme = theme.dark;
+          icon-theme = theme.dark;
+        };
+      };
     };
   };
 }

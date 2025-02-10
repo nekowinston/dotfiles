@@ -8,38 +8,33 @@
   config = lib.mkIf (config.dotfiles.desktop == "gnome") {
     services.xserver = {
       enable = true;
-      displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
+      desktopManager.gnome = {
+        enable = true;
+        sessionPath = [ pkgs.gnomeExtensions.appindicator ];
+      };
     };
 
-    environment.systemPackages = with pkgs; [ gnomeExtensions.appindicator ];
-
-    services.pulseaudio.enable = false;
-
-    # https://github.com/NixOS/nixpkgs/blob/nixos-23.11/nixos/modules/services/x11/desktop-managers/gnome.nix#L467
-    environment.gnome.excludePackages = with pkgs.gnome; [
-      # baobab
-      epiphany
-      # gnome-calculator
-      gnome-calendar
-      gnome-characters
-      gnome-clocks
-      gnome-contacts
-      gnome-font-viewer
-      gnome-logs
-      gnome-maps
-      gnome-music
-      gnome-system-monitor
-      gnome-weather
-      # nautilus
-      pkgs.gnome-connections
-      # pkgs.gnome-console
+    # https://github.com/NixOS/nixpkgs/blob/nixos-24.11/nixos/modules/services/x11/desktop-managers/gnome.nix#L418
+    environment.gnome.excludePackages = [
+      pkgs.epiphany
       pkgs.gnome-text-editor
+      pkgs.gnome-calculator
+      pkgs.gnome-characters
+      pkgs.gnome-clocks
+      pkgs.gnome-console
+      pkgs.gnome-contacts
+      pkgs.gnome-font-viewer
+      pkgs.gnome-logs
+      pkgs.gnome-maps
+      pkgs.gnome-music
+      pkgs.gnome-system-monitor
+      pkgs.gnome-weather
       pkgs.loupe
-      # pkgs.snapshot
-      simple-scan
-      totem
-      yelp
+      pkgs.gnome-connections
+      pkgs.simple-scan
+      pkgs.totem
+      pkgs.yelp
+      pkgs.gnome-software
     ];
   };
 }
