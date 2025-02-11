@@ -11,8 +11,10 @@ let
       "1Password" = _1password;
       "chrome-music.apple.com__browse-Default" = applemusic;
       "com.mitchellh.ghostty" = ghostty;
+      "io.gitlab.news_flash.NewsFlash" = generic.news;
       "org.gnome.Fractal" = generic.messenger;
       "org.gnome.Nautilus" = generic.filemanager;
+      "org.gnome.Podcasts" = generic.podcast;
       "org.wezfurlong.wezterm" = generic.term;
       chromium-browser = chromium;
       discord = discord;
@@ -29,9 +31,10 @@ let
       "chrome-music.apple.com__browse-Default" = "Music";
       "com.mitchellh.ghostty" = "Ghostty";
       "com.obsproject.Studio" = "OBS";
-      "com.saivert.pwvucontrol" = "pwvucontrol";
+      "io.gitlab.news_flash.NewsFlash" = "NewsFlash";
       "org.gnome.Fractal" = "Fractal";
       "org.gnome.Nautilus" = "Files";
+      "org.gnome.Podcasts" = "Podcasts";
       "org.wezfurlong.wezterm" = "WezTerm";
       chromium-browser = "Chromium";
       discord = "Discord";

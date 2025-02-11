@@ -77,16 +77,17 @@
     }
   }
 
-  #mpris,
   window#waybar,
-  #tray,
-  #idle_inhibitor,
-  #pulseaudio,
+  #bluetooth,
   #clock,
-  #custom-swaync,
   #cpu,
+  #custom-swaync,
+  #idle_inhibitor,
   #memory,
-  #systemd-failed-units {
+  #mpris,
+  #pulseaudio,
+  #systemd-failed-units,
+  #tray {
     padding: 0 $padding;
   }
 }

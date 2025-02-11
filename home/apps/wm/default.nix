@@ -28,8 +28,6 @@ in
   config = lib.mkIf isWindowManager {
     home = {
       packages = with pkgs; [
-        overskride
-        pwvucontrol
         sway-contrib.grimshot
         swayosd
         wl-clipboard

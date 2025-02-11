@@ -210,7 +210,6 @@ in
     extraConfig =
       ''
         for_window {
-          [floating] border pixel 2
           # fullscreen apps inhibit idle
           [class=".*"] inhibit_idle fullscreen
 
@@ -219,34 +218,34 @@ in
           [title="(?i)picture[\s-]?in[\s-]?picture"] floating enable; sticky enable; border pixel 2
 
           # floating
-          [title="Blender Render"] floating enable
+          [title="Blender Render"] floating enable; border pixel 2
 
           # general WM role settings
-          [title="splash"] floating enable
+          [title="splash"] floating enable; border pixel 2
           [urgent=latest] focus
-          [window_role="pop-up,dialog,task_dialog,About"] floating enable
-          [window_type="dialog"] floating enable
-          [window_type="utility"] floating enable
-          [window_type="toolbar"] floating enable
-          [window_type="splash"] floating enable
-          [window_type="menu"] floating enable
-          [window_type="dropdown_menu"] floating enable
-          [window_type="popup_menu"] floating enable
-          [window_type="tooltip"] floating enable
-          [window_type="notification"] floating enable
+          [window_role="pop-up,dialog,task_dialog,About"] floating enable; border pixel 2
+          [window_type="dialog"] floating enable; border pixel 2
+          [window_type="utility"] floating enable; border pixel 2
+          [window_type="toolbar"] floating enable; border pixel 2
+          [window_type="splash"] floating enable; border pixel 2
+          [window_type="menu"] floating enable; border pixel 2
+          [window_type="dropdown_menu"] floating enable; border pixel 2
+          [window_type="popup_menu"] floating enable; border pixel 2
+          [window_type="tooltip"] floating enable; border pixel 2
+          [window_type="notification"] floating enable; border pixel 2
 
-          [app_id="jetbrains*" title="Welcome*"] floating enable
-          [class="jetbrains*" title="Welcome*"] floating enable
+          [app_id="jetbrains*" title="Welcome*"] floating enable; border pixel 2
+          [class="jetbrains*" title="Welcome*"] floating enable; border pixel 2
 
-          [app_id="org.gnome.NautilusPreviewer"] floating enable
-          [app_id="org.pulseaudio.pavucontrol"] floating enable
-          [class="Yad" title="Authentication"] floating enable
-          [title="File Transfer*"] floating enable
+          [app_id="org.gnome.NautilusPreviewer"] floating enable; border pixel 2
+          [app_id="swaysettings"] floating enable; border pixel 2
+          [class="Yad" title="Authentication"] floating enable; border pixel 2
+          [title="File Transfer*"] floating enable; border pixel 2
 
           # steam
           [class="steam"] max_render_time off
           [instance="steamwebhelper"] max_render_time off
-          [title="Steam Guard*"] floating enable
+          [title="Steam Guard*"] floating enable; border pixel 2
 
           # keep apps in scratchpad
           [app_id="discord"] move scratchpad

@@ -22,6 +22,33 @@ let
     gtk-enable-input-feedback-sounds = true;
     gtk-sound-theme-name = theme.light;
   };
+  sharedGtkCss = # css
+    ''
+      window, decoration, decoration-overlay {
+        border-radius: 0;
+        box-shadow: unset;
+      }
+      window-frame, .window-frame:backdrop {
+        box-shadow: 0 0 0 black;
+        border-style: none;
+        margin: 0;
+        border-radius: 0;
+      }
+      .titlebar {
+        border-radius: 0;
+      }
+      .window-frame.csd.popup {
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.13);
+      }
+      .header-bar {
+        background-image: none;
+        background-color: #ededed;
+        box-shadow: none;
+      }
+      GtkLabel.title {
+        opacity: 0;
+      }
+    '';
 
   mkDconfSwitchScript' =
     input:
@@ -56,8 +83,14 @@ in
         package = pkgs.yaru-theme;
       };
       gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
-      gtk3.extraConfig = sharedGtkSettings;
-      gtk4.extraConfig = sharedGtkSettings;
+      gtk3 = {
+        extraConfig = sharedGtkSettings;
+        extraCss = lib.mkIf isWindowManager sharedGtkCss;
+      };
+      gtk4 = {
+        extraConfig = sharedGtkSettings;
+        extraCss = lib.mkIf isWindowManager sharedGtkCss;
+      };
     };
 
     dconf.settings = {

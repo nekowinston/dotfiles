@@ -50,6 +50,8 @@ lib: {
       filemanager = "󰉋";
       messenger = "";
       music = "󰥠";
+      news = "󱀁";
+      podcast = "󰦔";
       term = "";
     };
     _1password = "";

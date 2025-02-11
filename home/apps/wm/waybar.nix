@@ -24,6 +24,7 @@ let
       "memory"
       "tray"
       "idle_inhibitor"
+      "bluetooth"
       "pulseaudio"
       "clock"
       (lib.mkIf config.services.swaync.enable "custom/swaync")
@@ -46,7 +47,17 @@ let
         ""
         ""
       ];
-      on-click = "pwvucontrol";
+      on-click = "swaysettings -p sound";
+    };
+
+    bluetooth = lib.mkIf osConfig.hardware.bluetooth.enable {
+      format = "";
+      format-disabled = "";
+      format-connected = " {num_connections}";
+      tooltip-format = "{controller_alias}\t{controller_address}";
+      tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{device_enumerate}";
+      tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
+      on-click = "swaysettings -p bluetooth";
     };
 
     mpris = {
