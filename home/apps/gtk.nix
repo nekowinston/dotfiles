@@ -30,7 +30,7 @@ let
         lib.mapAttrsToList (
           basepath: opts:
           lib.mapAttrsToList (
-            key: value: "${lib.getExe pkgs.dconf} write /${basepath}/${key} ${lib.escapeShellArg value}"
+            key: value: "${lib.getExe pkgs.dconf} write /${basepath}/${key} \"'${value}'\""
           ) opts
         ) input
       )
