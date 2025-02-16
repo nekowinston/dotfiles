@@ -48,10 +48,20 @@ in
       // lib.optionalAttrs isLinux {
         dates = "weekly";
       };
+    optimise =
+      {
+        automatic = true;
+      }
+      // lib.optionalAttrs isDarwin {
+        Hour = 0;
+        Minute = 30;
+      }
+      // lib.optionalAttrs isLinux {
+        dates = [ "00:30" ];
+      };
     settings = {
       # breaks the Nix Store on macOS
       # https://github.com/NixOS/nix/issues/7273
-      auto-optimise-store = isLinux;
       experimental-features = [
         "flakes"
         "nix-command"
@@ -59,7 +69,7 @@ in
       trusted-users = [ config.dotfiles.username ];
       use-xdg-base-directories = true;
       warn-dirty = false;
-    } // (import ../../../flake.nix).nixConfig;
+    } // (import "${inputs.self.outPath}/flake.nix").nixConfig;
     registry = mapAttrs (name: v: { flake = v; }) flakeInputs;
     nixPath =
       if isDarwin then
