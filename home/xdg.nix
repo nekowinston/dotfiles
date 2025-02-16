@@ -71,7 +71,6 @@ in
     sessionPath =
       [
         "$HOME/.local/bin"
-        "${dataHome}/krew/bin"
         "${sessionVariables.GOPATH}/bin"
         "${sessionVariables.CARGO_HOME}/bin"
         "${sessionVariables.DENO_INSTALL_ROOT}/bin"
