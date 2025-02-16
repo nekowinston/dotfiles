@@ -19,10 +19,7 @@ in
     }
   ];
 
-  home.packages = with pkgs; [
-    git-ignore
-    watchman
-  ];
+  home.packages = with pkgs; [ git-ignore ];
 
   # disable loading the system config on Darwin, where Nix tells it to use the
   # osxkeychain credential manager.
@@ -89,12 +86,5 @@ in
     };
   };
 
-  programs.zsh.initExtra = # bash
-    ''
-      export WATCHMAN_SOCK="$(watchman get-sockname | gojq -r .unix_domain)"
-    '';
-  programs.nushell.extraConfig = # nu
-    ''
-      $env.WATCHMAN_SOCK = (^watchman get-sockname | from json | get unix_domain)
-    '';
+  services.watchman.enable = true;
 }
