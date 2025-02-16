@@ -27,6 +27,7 @@ $c\
 $cmake\
 $cobol\
 $crystal\
+$daml\
 $dart\
 $deno\
 $dotnet\
@@ -34,7 +35,9 @@ $elixir\
 $elm\
 $erlang\
 $fennel\
+$gleam\
 $golang\
+$gradle\
 $haskell\
 $haxe\
 $helm\
@@ -42,18 +45,25 @@ $java\
 $julia\
 $kotlin\
 $lua\
+$meson\
+$mojo\
 $nim\
 $nodejs\
 $ocaml\
+$opa\
 $perl\
 $php\
 $purescript\
 $python\
+$raku\
 $red\
+$rlang\
 $ruby\
 $rust\
 $scala\
+$solidity\
 $spack\
+$typst\
 $swift\
 $vagrant\
 $vlang\
@@ -190,16 +200,17 @@ style = 'fg:green'
 [bun]
 format = '[$symbol($version) ]($style)'
 style = 'fg:green'
+symbol = ' '
 
 [c]
 format = '[$symbol($version(-$name)) ]($style)'
 style = 'fg:green'
-symbol = '󰙱 '
+symbol = ' '
 
 [cmake]
 format = '[$symbol($version) ]($style)'
-symbol = '△'
 style = 'fg:green'
+symbol = ' '
 
 [cobol]
 format = '[$symbol($version) ]($style)'
@@ -208,11 +219,16 @@ style = 'fg:green'
 [conda]
 format = '[$symbol$environment ]($style)'
 style = 'fg:green'
+symbol = ' '
 
 [crystal]
 format = '[$symbol($version) ]($style)'
 style = 'fg:green'
 symbol = ' '
+
+[daml]
+format = '[$symbol($version) ]($style)'
+style = 'fg:green'
 
 [dart]
 format = '[$symbol($version) ]($style)'
@@ -222,11 +238,12 @@ symbol = ' '
 [deno]
 format = '[$symbol($version) ]($style)'
 style = 'fg:green'
+symbol = ' '
 
 [dotnet]
 format = '[$symbol($version)( $tfm) ]($style)'
 style = 'fg:green'
-symbol = ' '
+symbol = '󰪮 '
 
 [elixir]
 format = '[$symbol($version \(OTP $otp_version\)) ]($style)'
@@ -246,11 +263,22 @@ symbol = ' '
 [fennel]
 format = '[$symbol($version) ]($style)'
 style = 'fg:green'
+symbol = ' '
+
+[gleam]
+format = '[$symbol($version) ]($style)'
+style = 'fg:green'
+symbol = '󰦥 '
 
 [golang]
 format = '[$symbol($version) ]($style)'
 style = 'fg:green'
 symbol = ' '
+
+[gradle]
+format = '[$symbol($version) ]($style)'
+style = 'fg:green'
+symbol = ' '
 
 [haskell]
 format = '[$symbol($version) ]($style)'
@@ -287,6 +315,16 @@ format = '[$symbol($version) ]($style)'
 style = 'fg:green'
 symbol = ' '
 
+[meson]
+format = '[$symbol($version) ]($style)'
+style = 'fg:green'
+symbol = '󰋘 '
+
+[mojo]
+format = '[$symbol($version) ]($style)'
+style = 'fg:green'
+symbol = '󰈸 '
+
 [nim]
 format = '[$symbol($version) ]($style)'
 style = 'fg:green'
@@ -309,6 +347,11 @@ format = '[$symbol($version)(\($switch_indicator$switch_name\)) ]($style)'
 style = 'fg:green'
 symbol = ' '
 
+[opa]
+format = '[$symbol($version) ]($style)'
+style = 'fg:green'
+symbol = ' '
+
 [perl]
 format = '[$symbol($version) ]($style)'
 style = 'fg:green'
@@ -329,10 +372,20 @@ format = '[${symbol}${pyenv_prefix}(${version})(\($virtualenv\)) ]($style)'
 style = 'fg:green'
 symbol = ' '
 
+[raku]
+format = '[$symbol($version) ]($style)'
+style = 'fg:green'
+symbol = ' '
+
 [red]
 format = '[$symbol($version) ]($style)'
 style = 'fg:green'
 symbol = '󱥒 '
+
+[rlang]
+format = '[$symbol($version) ]($style)'
+style = 'fg:green'
+symbol = ' '
 
 [ruby]
 format = '[$symbol($version) ]($style)'
@@ -349,22 +402,34 @@ format = '[$symbol($version) ]($style)'
 style = 'fg:green'
 symbol = ' '
 
+[solidity]
+format = '[$symbol($version) ]($style)'
+style = 'fg:green'
+
 [spack]
 format = '[$symbol$environment ]($style)'
 style = 'fg:green'
+symbol = ' '
 
 [swift]
 format = '[$symbol($version) ]($style)'
 style = 'fg:green'
 symbol = ' '
 
+[typst]
+format = '[$symbol($version) ]($style)'
+style = 'fg:green'
+symbol = ' '
+
 [vagrant]
 format = '[$symbol($version) ]($style)'
 style = 'fg:green'
+symbol = ' '
 
 [vlang]
 format = '[$symbol($version) ]($style)'
 style = 'fg:green'
+symbol = ' '
 
 [zig]
 format = '[$symbol($version) ]($style)'
@@ -408,7 +473,7 @@ symbol = ' '
 disabled = false
 format = '[$symbol$account(@$domain)(\($region\)) ]($style)'
 style = 'fg:violet'
-symbol = ' '
+symbol = ' '
 
 [kubernetes]
 disabled = false
@@ -420,12 +485,13 @@ symbol = '󱃾 '
 disabled = false
 format = '[$symbol$cloud(\($project\)) ]($style)'
 style = 'fg:violet'
-symbol = ' '
+symbol = ' '
 
 [pulumi]
 disabled = false
 format = '[$symbol$stack ]($style)'
 style = 'fg:blue'
+symbol = ' '
 
 [terraform]
 disabled = false
