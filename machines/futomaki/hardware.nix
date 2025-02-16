@@ -28,6 +28,9 @@
       "quiet"
       "splash"
     ];
+    plymouth.extraConfig = ''
+      DeviceScale=2
+    '';
   };
 
   boot.swraid = {
