@@ -4,10 +4,13 @@ local utils = require("config.utils")
 
 require("config.font-switcher").apply(c, {
   fonts = {
-    { font = "IBM Plex Mono" },
-    { label = "Berkeley Mono", font = "TX-02" },
+    {
+      label = "Berkeley Mono",
+      font = "TX-02",
+    },
     { font = "Cascadia Code" },
     { font = "Comic Code Ligatures" },
+    { font = "IBM Plex Mono" },
     { font = "Intel One Mono" },
     { font = "JetBrains Mono" },
     { font = "Monaspace Argon" },
@@ -32,7 +35,8 @@ end
 
 c.adjust_window_size_when_changing_font_size = false
 c.audible_bell = "Disabled"
-c.default_cursor_style = "BlinkingBar"
+c.cursor_blink_rate = 0
+c.default_cursor_style = "SteadyBar"
 c.inactive_pane_hsb = { brightness = 0.90 }
 
 require("bar.plugin").apply_to_config(c)
