@@ -11,10 +11,13 @@ let
       "swayfx"
     ]
   );
+  isSwayFx = config.dotfiles.desktop == "swayfx";
 in
 {
   config = lib.mkIf condition {
     environment = {
+      pathsToLink = [ "/share/nautilus-python/extensions" ];
+      sessionVariables.NAUTILUS_4_EXTENSION_DIR = "${config.system.path}/lib/nautilus/extensions-4";
       systemPackages = with pkgs; [
         # file management
         nautilus
@@ -23,17 +26,14 @@ in
         # screen recording
         gpu-screen-recorder-gtk
       ];
-      pathsToLink = [ "/share/nautilus-python/extensions" ];
-      sessionVariables.NAUTILUS_4_EXTENSION_DIR = "${config.system.path}/lib/nautilus/extensions-4";
     };
 
     programs.dconf.enable = true;
     programs.file-roller.enable = true;
     programs.gpu-screen-recorder.enable = true;
-
     programs.sway = {
       enable = true;
-      package = if (config.dotfiles.desktop == "swayfx") then pkgs.swayfx else pkgs.sway;
+      package = lib.mkIf isSwayFx pkgs.swayfx;
       extraPackages = with pkgs; [ brightnessctl ];
       extraSessionCommands = # bash
         ''
@@ -53,10 +53,20 @@ in
       };
     };
 
-    services.dbus.packages = with pkgs; [
-      darkman
-      nautilus-open-any-terminal
-    ];
+    services = {
+      dbus.packages = with pkgs; [
+        darkman
+        nautilus-open-any-terminal
+      ];
+      # mounting and fs support
+      gvfs.enable = true;
+      udisks2.enable = true;
+      # previews
+      gnome.sushi.enable = true;
+      # search metadata
+      gnome.localsearch.enable = true;
+    };
+
     xdg.portal = {
       enable = true;
       config = {
@@ -74,16 +84,6 @@ in
       ];
       wlr.enable = true;
       xdgOpenUsePortal = true;
-    };
-
-    services = {
-      # mounting and fs support
-      gvfs.enable = true;
-      udisks2.enable = true;
-      # previews
-      gnome.sushi.enable = true;
-      # search metadata
-      gnome.localsearch.enable = true;
     };
   };
 }
