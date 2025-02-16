@@ -61,6 +61,7 @@ lib: {
     firefox = "";
     ghostty = "";
     jetbrains-idea = "";
+    jetbrains-rider = "";
     nvim = "";
     obsidian = "";
     steam = "󰓓";

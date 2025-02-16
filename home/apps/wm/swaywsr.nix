@@ -22,6 +22,7 @@ let
       firefox = firefox;
       foot = generic.term;
       jetbrains-idea = jetbrains-idea;
+      jetbrains-rider = jetbrains-rider;
       kitty = generic.term;
       neovide = nvim;
       obsidian = obsidian;
@@ -40,6 +41,7 @@ let
       discord = "Discord";
       firefox = "Firefox";
       jetbrains-idea = "IDEA";
+      jetbrains-rider = "Rider";
       neovide = "Neovide";
       obsidian = "Obsidian";
       steam = "Steam";
