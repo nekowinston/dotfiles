@@ -47,7 +47,6 @@
   };
 
   # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
   services.sketchybar = {
     enable = false;
     extraPackages = with pkgs; [ nushell ];

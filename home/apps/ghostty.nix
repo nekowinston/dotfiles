@@ -36,7 +36,7 @@ let
 in
 {
   programs.ghostty = {
-    enable = config.isGraphical;
+    enable = config.isGraphical && isLinux; # currently marked as broken for Darwin
     settings = mkMerge [
       {
         font-family = "TX-02";

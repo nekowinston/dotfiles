@@ -4,7 +4,7 @@ local wezterm = require("wezterm")
 local utils = require("config.utils")
 
 M.apply = function(c)
-  if not utils.is_linux then
+  if not utils.is_linux() then
     return
   end
 

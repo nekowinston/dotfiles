@@ -53,8 +53,10 @@ in
         automatic = true;
       }
       // lib.optionalAttrs isDarwin {
-        Hour = 0;
-        Minute = 30;
+        interval = {
+          Hour = 0;
+          Minute = 30;
+        };
       }
       // lib.optionalAttrs isLinux {
         dates = [ "00:30" ];
