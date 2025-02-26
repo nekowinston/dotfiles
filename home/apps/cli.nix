@@ -41,6 +41,7 @@ in
 
     eza = {
       enable = true;
+      enableNushellIntegration = false;
       icons = "auto";
       extraOptions = [
         "--group"

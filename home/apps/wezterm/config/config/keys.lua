@@ -44,7 +44,7 @@ end
 map("0", { "LEADER", "SUPER" }, act.ActivateTab(-1))
 -- use Ctrl-Tab/Ctrl-Shift-Tab for next/previous tab
 map("Tab", "CTRL", act.ActivateTabRelative(1))
-map("Tab", "SHIFT|CTRL", act.ActivateTabRelative(1))
+map("Tab", "SHIFT|CTRL", act.ActivateTabRelative(-1))
 -- 'hjkl' to move between panes
 map("h", { "LEADER", "SUPER" }, act.ActivatePaneDirection("Left"))
 map("j", { "LEADER", "SUPER" }, act.ActivatePaneDirection("Down"))
