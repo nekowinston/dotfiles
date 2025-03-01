@@ -41,6 +41,13 @@ let zoxide_completer = {|spans: list<string>|
   $spans | skip 1 | zoxide query -l ...$in | lines | where {|x| $x != $env.PWD}
 }
 
+def nix-gc-roots [] {
+  ^nix-store --gc --print-roots
+  | parse -r "(\/\\S+) -> (\/\\S+)"
+  | rename path store-path
+  | sort-by path
+}
+
 let external_completer = {|spans: list<string>|
   let expanded_alias = scope aliases
   | where name == $spans.0
