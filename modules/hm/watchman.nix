@@ -1,4 +1,3 @@
-# TODO: macOS launchd implementation
 {
   config,
   lib,
@@ -9,7 +8,7 @@ let
   cfg = config.services.watchman;
 
   inherit (lib) mkEnableOption mkPackageOption;
-  inherit (pkgs.stdenv) isLinux;
+  inherit (pkgs.stdenv) isDarwin isLinux;
 in
 {
   options.services.watchman = {
@@ -20,8 +19,30 @@ in
   config = lib.mkIf cfg.enable {
     home = {
       packages = [ cfg.package ];
-      sessionVariables = lib.mkIf isLinux {
-        WATCHMAN_SOCK = "$XDG_RUNTIME_DIR/watchman.sock";
+      sessionVariables =
+        lib.optionalAttrs isLinux {
+          WATCHMAN_SOCK = "$XDG_RUNTIME_DIR/watchman.sock";
+        }
+        // lib.optionalAttrs isDarwin {
+          WATCHMAN_SOCK = "/tmp/watchman.${config.home.username}.sock";
+        };
+    };
+
+    launchd.agents = lib.mkIf isDarwin {
+      watchman = {
+        enable = true;
+        config = {
+          ProgramArguments = [
+            (lib.getExe cfg.package)
+            "--foreground"
+            "--unix-listener-path"
+            "/tmp/watchman.${config.home.username}.sock"
+          ];
+          KeepAlive = true;
+          RunAtLoad = true;
+          StandardOutPath = "${config.xdg.cacheHome}/watchman.log";
+          StandardErrorPath = "${config.xdg.cacheHome}/watchman.log";
+        };
       };
     };
 
