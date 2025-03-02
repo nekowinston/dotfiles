@@ -59,6 +59,9 @@
           })
         ];
       });
+      watchman = prev.watchman.overrideAttrs (old: {
+        patches = old.patches ++ [ ./patches/00-watchman.patch ];
+      });
     }
   )
 ]

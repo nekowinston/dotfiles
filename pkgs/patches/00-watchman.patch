@@ -1,0 +1,33 @@
+diff --git a/watchman/main.cpp b/watchman/main.cpp
+index fc9f496dc..a78b9b63a 100644
+--- a/watchman/main.cpp
++++ b/watchman/main.cpp
+@@ -545,7 +545,7 @@ static SpawnResult spawn_via_launchd() {
+       "--foreground",
+       fmt::format("--logfile={}", logging::log_name),
+       fmt::format("--log-level={}", logging::log_level),
+-      fmt::format("--sockname={}", get_unix_sock_name()),
++      fmt::format("--unix-listener-path={}", get_unix_sock_name()),
+       fmt::format("--statefile={}", flags.watchman_state_file),
+       fmt::format("--pidfile={}", flags.pid_file)};
+   std::string watchman_spawning_command;
+@@ -837,7 +837,18 @@ static void setup_sock_name() {
+     flags.named_pipe_path = fmt::format("\\\\.\\pipe\\watchman-{}", user);
+   }
+ #endif
+-  compute_file_name(flags.unix_sock_name, user, "sock", "sockname");
++
++  auto sock = getenv("WATCHMAN_SOCK");
++  if (sock) {
++    auto sockdir = dirname(sock);
++    if (mkdir(sockdir, 0700) == 0 || errno == EEXIST) {
++      flags.unix_sock_name = sock;
++    } else {
++      log(FATAL, "base directory specified by \n");
++    }
++  } else {
++    compute_file_name(flags.unix_sock_name, user, "sock", "sockname");
++  }
+
+   compute_file_name(flags.watchman_state_file, user, "state", "statefile");
+   compute_file_name(
