@@ -9,6 +9,16 @@
       nvfetcherSrcs = final.callPackage ../_sources/generated.nix { };
     in
     {
+      aerospace = prev.aerospace.overrideAttrs (
+        finalAttrs: prevAttrs: {
+          version = "0.17.1-Beta";
+
+          src = final.fetchzip {
+            url = "https://github.com/nikitabobko/AeroSpace/releases/download/v${finalAttrs.version}/AeroSpace-v${finalAttrs.version}.zip";
+            sha256 = "sha256-IMU0s57dpes7Vm2Wv191LwkRgiF+ZIqNWHzrl4a1Pm0=";
+          };
+        }
+      );
       dark-mode-ternary = final.callPackage ./dark-mode-ternary.nix { };
       nu_scripts = prev.nu_scripts.overrideAttrs (old: {
         inherit (nvfetcherSrcs.nu_scripts) src;

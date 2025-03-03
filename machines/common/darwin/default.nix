@@ -5,7 +5,7 @@
   # manipulate the global /etc/zshenv for PATH, etc.
   programs.zsh.enable = true;
 
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
   system = {
     defaults = {
       CustomSystemPreferences = {

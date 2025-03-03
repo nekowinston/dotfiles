@@ -114,7 +114,7 @@ let
 in
 {
   programs.vscode = {
-    extensions = extNixpkgs ++ extPinnedFlake ++ extRollingFlake;
+    profiles.default.extensions = extNixpkgs ++ extPinnedFlake ++ extRollingFlake;
     mutableExtensionsDir = true;
   };
 }
