@@ -1,14 +1,4 @@
 { config, ... }:
-let
-  noQuarantine = name: {
-    inherit name;
-    args.no_quarantine = true;
-  };
-  skipSha = name: {
-    inherit name;
-    args.require_sha = false;
-  };
-in
 {
   # make brew available in PATH
   environment.systemPath = [ config.homebrew.brewPrefix ];
@@ -34,20 +24,25 @@ in
       "jetbrains-toolbox"
       "jordanbaird-ice"
       "keka"
+      {
+        name = "librewolf";
+        args.no_quarantine = true;
+      }
       "little-snitch"
       "macfuse"
       "netnewswire"
       "nextcloud"
+      "obs"
       "obsidian"
       "orbstack"
-      "orion"
       "rustdesk"
+      "setapp"
       "signal"
-      (skipSha "sizzy")
       "syntax-highlight"
       "tor-browser"
       "uhk-agent"
       "uninstallpkg"
+      "whisky"
       "yubico-yubikey-manager"
     ];
     onActivation = {
