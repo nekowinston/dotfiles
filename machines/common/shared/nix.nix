@@ -34,33 +34,15 @@ in
   };
 
   nix = {
-    gc =
-      {
-        automatic = true;
-      }
-      // lib.optionalAttrs isDarwin {
-        interval = {
-          Weekday = 0;
-          Hour = 0;
-          Minute = 0;
-        };
-      }
-      // lib.optionalAttrs isLinux {
-        dates = "weekly";
-      };
-    optimise =
-      {
-        automatic = true;
-      }
-      // lib.optionalAttrs isDarwin {
-        interval = {
-          Hour = 0;
-          Minute = 30;
-        };
-      }
-      // lib.optionalAttrs isLinux {
-        dates = [ "00:30" ];
-      };
+    enable = isLinux;
+    gc = lib.mkIf isLinux {
+      automatic = true;
+      dates = "weekly";
+    };
+    optimise = lib.mkIf isLinux {
+      automatic = true;
+      dates = [ "00:30" ];
+    };
     settings = {
       # breaks the Nix Store on macOS
       # https://github.com/NixOS/nix/issues/7273
