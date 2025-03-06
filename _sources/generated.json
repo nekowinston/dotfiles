@@ -43,7 +43,7 @@
     },
     "nu_scripts": {
         "cargoLocks": null,
-        "date": "2025-02-09",
+        "date": "2025-03-04",
         "extract": null,
         "name": "nu_scripts",
         "passthru": null,
@@ -55,12 +55,12 @@
             "name": null,
             "owner": "nushell",
             "repo": "nu_scripts",
-            "rev": "a31f8490fbe7f91925bc43b90ed535ea19daaeda",
-            "sha256": "sha256-S080pwABIEp/ZT/gLyme7ozmWBiM37BbjHqftUieK3Y=",
+            "rev": "c517cd00757db5c4311116dc4cc94b28cb3a00e6",
+            "sha256": "sha256-sbTfjglLacX6/S8QT44ER+5TDBf/xarbxYs6UfGI9sg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "a31f8490fbe7f91925bc43b90ed535ea19daaeda"
+        "version": "c517cd00757db5c4311116dc4cc94b28cb3a00e6"
     },
     "zsh-fast-syntax-highlighting": {
         "cargoLocks": null,
