@@ -114,6 +114,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
     # extensions
     darwin = {
       url = "github:lnl7/nix-darwin";
@@ -163,6 +164,7 @@
 
     # packages
     # not overriding input to preserve caches
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3.*.*";
     nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
     nur.url = "github:nix-community/nur";
   };

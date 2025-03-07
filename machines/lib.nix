@@ -53,6 +53,7 @@ let
 
       darwinModules = [ ];
       linuxModules = [
+        inputs.determinate.nixosModules.default
         inputs.nixos-cosmic.nixosModules.default
         inputs.nixos-wsl.nixosModules.default
       ];
