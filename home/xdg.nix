@@ -7,7 +7,7 @@
   ...
 }:
 let
-  inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
+  inherit (pkgs.stdenv) isDarwin isLinux;
   inherit (config.xdg)
     cacheHome
     configHome

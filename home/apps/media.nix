@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (pkgs.stdenv.hostPlatform) isLinux;
+  inherit (pkgs.stdenv) isLinux;
 in
 {
   config = lib.mkIf config.isGraphical {

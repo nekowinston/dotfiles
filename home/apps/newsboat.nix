@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  inherit (pkgs.stdenv.hostPlatform) isLinux;
+  inherit (pkgs.stdenv) isLinux;
   cfg = config.programs.newsboat;
 in
 {
