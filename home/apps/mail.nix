@@ -11,7 +11,7 @@ in
   age.secrets."aerc-personal.conf".path = "${config.xdg.configHome}/aerc/accounts.conf";
 
   programs.aerc = {
-    enable = false;
+    enable = true;
     extraConfig = {
       general = {
         default-save-path = "~/Downloads";
