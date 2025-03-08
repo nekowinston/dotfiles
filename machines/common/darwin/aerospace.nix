@@ -1,23 +1,16 @@
-{
-  lib,
-  pkgs,
-  ...
-}:
+{ lib, ... }:
 let
   inherit (builtins) map toString;
   inherit (lib) listToAttrs nameValuePair range;
-  inherit (pkgs.stdenv) isDarwin;
 
   genWorkspaceBind =
     lhs: rhs:
     map (i: nameValuePair (lhs i) (rhs (if i == "0" then "10" else i))) (map toString (range 0 9));
 in
 {
-  programs.aerospace = {
-    enable = isDarwin;
-    userSettings = {
-      start-at-login = true;
-
+  services.aerospace = {
+    enable = true;
+    settings = {
       after-startup-command = [
         "layout tiles"
         "balance-sizes"

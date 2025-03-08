@@ -1,6 +1,9 @@
 { pkgs, ... }:
 {
-  imports = [ ./options.nix ];
+  imports = [
+    ./aerospace.nix
+    ./options.nix
+  ];
 
   # manipulate the global /etc/zshenv for PATH, etc.
   programs.zsh.enable = true;

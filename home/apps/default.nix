@@ -7,7 +7,6 @@
     ./wezterm
     ./wm
     ./zellij
-    ./aerospace.nix
     ./browsers.nix
     ./cli.nix
     ./colorscheme-sync.nix
