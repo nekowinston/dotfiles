@@ -8,6 +8,9 @@
   # manipulate the global /etc/zshenv for PATH, etc.
   programs.zsh.enable = true;
 
+  # generate nix config inside /etc/nix/nix.custom.conf
+  determinate-nix.enable = true;
+
   security.pam.services.sudo_local.touchIdAuth = true;
   system = {
     defaults = {

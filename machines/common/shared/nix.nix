@@ -34,7 +34,7 @@ in
   };
 
   nix = {
-    enable = isLinux;
+    enable = true;
     gc = lib.mkIf isLinux {
       automatic = true;
       dates = "weekly";

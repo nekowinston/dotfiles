@@ -1,1 +1,5 @@
-{ }
+{
+  imports = [
+    ./determinate-nix.nix
+  ];
+}
