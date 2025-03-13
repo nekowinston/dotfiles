@@ -21,20 +21,50 @@ in
     programs.firefox = {
       enable = isLinux;
       profiles.default = {
-        extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-          clearurls
-          darkreader
-          dearrow
-          istilldontcareaboutcookies
-          kagi-search
-          languagetool
-          multi-account-containers
-          onepassword-password-manager
-          sponsorblock
-          temporary-containers
-          ublock-origin
-        ];
-        # Note: last updated 2025-01-18
+        containersForce = true;
+        containers = {
+          Personal = {
+            color = "blue";
+            icon = "fingerprint";
+            id = 1;
+          };
+          Work = {
+            color = "orange";
+            icon = "briefcase";
+            id = 2;
+          };
+          Shopping = {
+            color = "pink";
+            icon = "cart";
+            id = 3;
+          };
+          YouTube = {
+            color = "red";
+            icon = "chill";
+            id = 4;
+          };
+        };
+        extensions = {
+          force = true;
+          packages = with pkgs.nur.repos.rycee.firefox-addons; [
+            clearurls
+            dearrow
+            istilldontcareaboutcookies
+            kagi-search
+            languagetool
+            multi-account-containers
+            onepassword-password-manager
+            refined-github
+            sponsorblock
+            temporary-containers
+            ublock-origin
+          ];
+          settings."@testpilot-containers".settings = {
+            onboarding-stage = 8;
+            syncEnabled = false;
+          };
+        };
+        # Note: last updated 2025-03-13
         settings = {
           "app.normandy.api_url" = "";
           "app.normandy.enabled" = false;
@@ -99,8 +129,7 @@ in
           "extensions.shield-recipe-client.api_url" = "";
           "extensions.shield-recipe-client.enabled" = false;
           "extensions.webservice.discoverURL" = "";
-          "media.autoplay.default" = 1;
-          "media.autoplay.enabled" = false;
+          "media.autoplay.default" = 2;
           "media.navigator.enabled" = false;
           "media.peerconnection.enabled" = false;
           "media.video_stats.enabled" = false;
@@ -146,12 +175,10 @@ in
           "webgl.renderer-string-override" = " ";
           "webgl.vendor-string-override" = " ";
 
-          # switch these if you're copying this config:
-          # allow webgl
-          "webgl.disabled" = false;
-          # these are to *enable* DRM, not to disable it
+          # customized settings
           "media.eme.enabled" = true;
           "media.gmp-widevinecdm.enabled" = true;
+          "webgl.disabled" = false;
         };
       };
     };
