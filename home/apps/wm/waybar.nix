@@ -167,6 +167,7 @@ let
 in
 {
   config = lib.mkIf (isHyprland || isSway) {
+    home.packages = [ pkgs.swaysettings ];
     programs.waybar = {
       enable = true;
       settings.main = lib.recursiveUpdate commonSettings wmSpecific;
