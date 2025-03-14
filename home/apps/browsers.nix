@@ -47,6 +47,7 @@ in
         extensions = {
           force = true;
           packages = with pkgs.nur.repos.rycee.firefox-addons; [
+            canvasblocker
             clearurls
             dearrow
             istilldontcareaboutcookies
@@ -62,6 +63,7 @@ in
           settings."@testpilot-containers".settings = {
             onboarding-stage = 8;
             syncEnabled = false;
+            containerTabsOpened = 10000;
           };
         };
         # Note: last updated 2025-03-13
@@ -81,6 +83,7 @@ in
           "browser.fixup.alternate.enabled" = false;
           "browser.formfill.enable" = false;
           "browser.newtab.preload" = false;
+          "browser.newtabpage.activity-stream.feeds.topsites" = false;
           "browser.newtabpage.activity-stream.section.highlights.includePocket" = false;
           "browser.newtabpage.enabled" = false;
           "browser.newtabpage.enhanced" = false;
@@ -118,7 +121,6 @@ in
           "dom.private-attribution.submission.enabled" = false;
           "dom.security.https_only_mode" = true;
           "dom.security.https_only_mode_ever_enabled" = true;
-          "dom.webaudio.enabled" = false;
           "experiments.activeExperiment" = false;
           "experiments.enabled" = false;
           "experiments.manifest.uri" = "";
@@ -176,8 +178,14 @@ in
           "webgl.vendor-string-override" = " ";
 
           # customized settings
+          "sidebar.main.tools" = "";
+          "sidebar.revamp" = true;
+          "sidebar.verticalTabs" = true;
+          # digital rights management
           "media.eme.enabled" = true;
           "media.gmp-widevinecdm.enabled" = true;
+          # canvasblocker
+          "dom.webaudio.enabled" = true;
           "webgl.disabled" = false;
         };
       };
