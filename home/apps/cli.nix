@@ -20,6 +20,7 @@ in
     atuin = {
       enable = true;
       flags = [ "--disable-up-arrow" ];
+      daemon.enable = true;
       settings = {
         inline_height = 30;
         style = "compact";
