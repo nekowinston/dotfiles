@@ -1,7 +1,27 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.determinate-nix;
   inherit (lib.generators) toPretty;
+
+  defaultSystemFeatures =
+    [
+      "nixos-test"
+      "benchmark"
+      "big-parallel"
+      "kvm"
+    ]
+    ++ lib.optionals (pkgs.stdenv.hostPlatform ? gcc.arch) (
+      # a builder can run code for `gcc.arch` and inferior architectures
+      [ "gccarch-${pkgs.stdenv.hostPlatform.gcc.arch}" ]
+      ++ map (x: "gccarch-${x}") (
+        lib.systems.architectures.inferiors.${pkgs.stdenv.hostPlatform.gcc.arch} or [ ]
+      )
+    );
 in
 {
   options.determinate-nix = {
@@ -57,11 +77,14 @@ in
         '';
       };
 
-    # let Determinate manage /etc/nix/nix.conf
     nix = {
-      enable = lib.mkForce false;
+      # let the Determinate system installer manage /etc/nix/nix.conf
+      enable = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin (lib.mkForce false);
+
+      # https://github.com/NixOS/nixpkgs/blob/da044451c6a70518db5b730fe277b70f494188f1/nixos/modules/config/nix.nix#L376-L388
       settings = {
         substituters = lib.mkAfter [ "https://cache.nixos.org/" ];
+        system-features = lib.mkDefault defaultSystemFeatures;
         trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
         trusted-users = [ "root" ];
       };

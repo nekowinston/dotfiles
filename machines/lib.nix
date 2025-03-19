@@ -68,6 +68,7 @@ let
                 dotfiles.username = username;
                 isGraphical = isGraphical;
                 networking.hostName = lib.mkDefault host;
+                determinate-nix.enable = true;
               };
             }
             ../modules/shared
