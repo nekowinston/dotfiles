@@ -61,6 +61,8 @@
         };
       };
       starship = prev.starship.overrideAttrs (old: {
+        doCheck = false;
+
         patches = [
           # to allow loading config values from env vars
           # https://github.com/starship/starship/pull/4439
