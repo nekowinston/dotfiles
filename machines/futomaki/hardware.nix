@@ -23,6 +23,7 @@
     kernelModules = [
       "kvm-amd"
       "nct6775"
+      "ntsync"
     ];
     kernelParams = [
       "quiet"
@@ -32,6 +33,9 @@
       DeviceScale=2
     '';
   };
+  services.udev.extraRules = ''
+    KERNEL=="ntsync", MODE="0644"
+  '';
 
   boot.swraid = {
     enable = true;
