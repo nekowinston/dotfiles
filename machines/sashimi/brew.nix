@@ -19,15 +19,12 @@
       "element"
       "elgato-wave-link"
       "eloston-chromium"
+      "firefox"
       "iina"
       "imageoptim"
       "jetbrains-toolbox"
       "jordanbaird-ice"
       "keka"
-      {
-        name = "librewolf";
-        args.no_quarantine = true;
-      }
       "little-snitch"
       "macfuse"
       "netnewswire"
@@ -44,6 +41,7 @@
       "uninstallpkg"
       "whisky"
       "yubico-yubikey-manager"
+      "zulip"
     ];
     onActivation = {
       autoUpdate = true;

@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (pkgs.stdenv) isLinux;
+  inherit (pkgs.stdenv) isDarwin isLinux;
 
   defaultBrowser = "firefox.desktop";
 in
@@ -19,7 +19,8 @@ in
     };
 
     programs.firefox = {
-      enable = isLinux;
+      enable = true;
+      package = lib.mkIf isDarwin pkgs.emptyDirectory;
       profiles.default = {
         containersForce = true;
         containers = {
