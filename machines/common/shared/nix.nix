@@ -35,6 +35,7 @@ in
 
   nix = {
     enable = true;
+    channel.enable = false;
     gc = lib.mkIf isLinux {
       automatic = true;
       dates = "weekly";
@@ -43,17 +44,11 @@ in
       automatic = true;
       dates = [ "00:30" ];
     };
-    settings = {
-      # breaks the Nix Store on macOS
-      # https://github.com/NixOS/nix/issues/7273
-      experimental-features = [
-        "flakes"
-        "nix-command"
-      ];
+    settings = lib.recursiveUpdate (import "${inputs.self.outPath}/flake.nix").nixConfig {
       trusted-users = [ config.dotfiles.username ];
       use-xdg-base-directories = true;
       warn-dirty = false;
-    } // (import "${inputs.self.outPath}/flake.nix").nixConfig;
+    };
     registry = mapAttrs (name: v: { flake = v; }) flakeInputs;
     nixPath =
       if isDarwin then
