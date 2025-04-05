@@ -1,11 +1,15 @@
 { lib, ... }:
+let
+  inherit (builtins) attrNames listToAttrs map;
+  inherit (lib) removePrefix removeSuffix;
+in
 {
-  age.secrets = builtins.listToAttrs (
-    builtins.map (k: {
-      name = lib.removePrefix "home/secrets/" (lib.removeSuffix ".age" k);
+  age.secrets = listToAttrs (
+    map (k: {
+      name = removePrefix "home/secrets/" (removeSuffix ".age" k);
       value = {
         file = ./../.. + "/${k}";
       };
-    }) (builtins.attrNames (import ./secrets.nix))
+    }) (attrNames (import ./secrets.nix))
   );
 }
