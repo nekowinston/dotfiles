@@ -55,8 +55,6 @@ in
     fzf = {
       enable = true;
       colors = {
-        fg = "#cdd6f4";
-        "fg+" = "#cdd6f4";
         hl = "#f38ba8";
         "hl+" = "#f38ba8";
         header = "#ff69b4";
