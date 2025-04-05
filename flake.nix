@@ -47,6 +47,9 @@
           system,
           ...
         }:
+        let
+          inherit (pkgs.stdenv) isDarwin isLinux;
+        in
         {
           _module.args.pkgs = import inputs.nixpkgs {
             inherit overlays system;
@@ -66,7 +69,8 @@
                 inputs'.home-manager.packages.home-manager
                 self'.formatter
               ]
-              ++ lib.optionals pkgs.stdenv.isDarwin [ inputs'.darwin.packages.darwin-rebuild ];
+              ++ lib.optionals isDarwin [ inputs'.darwin.packages.darwin-rebuild ]
+              ++ lib.optionals isLinux [ pkgs.nixos-rebuild-ng ];
             env.RULES = "./home/secrets/secrets.nix";
           };
 
@@ -181,6 +185,10 @@
       "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
       "pre-commit-hooks.cachix.org-1:Pkk3Panw5AW24TOv6kz3PvLhlH8puAsJTBbOPmBo7Rc="
       "nekowinston.cachix.org-1:lucpmaO+JwtoZj16HCO1p1fOv68s/RL1gumpVzRHRDs="
+    ];
+    extra-experimental-features = [
+      "flakes"
+      "nix-command"
     ];
   };
 }
