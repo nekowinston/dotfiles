@@ -148,7 +148,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.systems.follows = "flake-utils/systems";
     };
-    git-hooks.url = "github:cachix/git-hooks.nix";
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.flake-compat.follows = "";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
       inputs.flake-compat.follows = "";
