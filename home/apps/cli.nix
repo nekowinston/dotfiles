@@ -96,4 +96,11 @@ in
 
     zoxide.enable = true;
   };
+
+  xdg.configFile."sqlite/sqliterc".text = ''
+    .headers on
+    .mode column --wrap 80 --wordwrap off --noquote
+    .nullvalue NULL
+    .separator ROW "\n"
+  '';
 }
