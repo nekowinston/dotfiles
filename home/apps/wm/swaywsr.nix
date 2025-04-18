@@ -17,6 +17,7 @@ let
       "org.gnome.Podcasts" = generic.podcast;
       "org.wezfurlong.wezterm" = generic.term;
       chromium-browser = chromium;
+      codium = lib.icons.vscodium;
       discord = discord;
       feishin = generic.music;
       firefox = firefox;
@@ -38,6 +39,7 @@ let
       "org.gnome.Podcasts" = "Podcasts";
       "org.wezfurlong.wezterm" = "WezTerm";
       chromium-browser = "Chromium";
+      codium = "VSCodium";
       discord = "Discord";
       firefox = "Firefox";
       jetbrains-idea = "IDEA";

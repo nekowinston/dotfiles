@@ -12,7 +12,7 @@
   ];
 
   dotfiles = {
-    desktop = "sway";
+    desktop = "swayfx";
     gaming.enable = true;
   };
 

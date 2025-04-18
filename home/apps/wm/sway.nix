@@ -194,7 +194,7 @@ in
       };
       window = {
         border = 2;
-        hideEdgeBorders = "both";
+        hideEdgeBorders = if isSwayFx then "none" else "both";
         titlebar = false;
       };
       floating = {
@@ -296,7 +296,6 @@ in
         shadow_blur_radius  20
 
         corner_radius       5
-        smart_corner_radius enable
 
         blur                enable
         blur_passes         2

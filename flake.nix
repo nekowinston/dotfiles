@@ -178,19 +178,21 @@
   };
 
   nixConfig = {
-    extra-substituters = [
+    substituters = [
+      "https://cache.nixos.org"
       "https://nix-community.cachix.org"
       "https://cosmic.cachix.org"
       "https://pre-commit-hooks.cachix.org"
       "https://nekowinston.cachix.org"
     ];
-    extra-trusted-public-keys = [
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
       "pre-commit-hooks.cachix.org-1:Pkk3Panw5AW24TOv6kz3PvLhlH8puAsJTBbOPmBo7Rc="
       "nekowinston.cachix.org-1:lucpmaO+JwtoZj16HCO1p1fOv68s/RL1gumpVzRHRDs="
     ];
-    extra-experimental-features = [
+    experimental-features = [
       "flakes"
       "nix-command"
     ];
