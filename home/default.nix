@@ -45,7 +45,6 @@ in
         neovide
         newsflash
         nextcloud-client
-        uhk-agent
       ];
     sessionVariables.SSH_AUTH_SOCK = lib.optionalString isDarwin "${config.programs.gpg.homedir}/S.gpg-agent.ssh";
     stateVersion = "23.05";

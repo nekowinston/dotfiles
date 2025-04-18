@@ -17,6 +17,7 @@
   };
 
   hardware.keyboard.uhk.enable = true;
+  environment.systemPackages = [ pkgs.uhk-agent ];
 
   networking = {
     networkmanager.enable = true;
