@@ -56,6 +56,8 @@ in
       DENO_INSTALL_ROOT = "${dataHome}/deno";
       NODE_REPL_HISTORY = "${stateHome}/node_repl_history";
       NPM_CONFIG_USERCONFIG = "${configHome}/npm/npmrc";
+      # Lean
+      ELAN_HOME = "${dataHome}/elan";
       # Python
       IPYTHONDIR = "${configHome}/ipython";
       # Ruby
