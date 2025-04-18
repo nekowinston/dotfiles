@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   nixpkgs.hostPlatform = "x86_64-linux";
 
@@ -6,6 +11,22 @@
     enableRedistributableFirmware = true;
     cpu.amd.updateMicrocode = true;
     bluetooth.enable = true;
+  };
+
+  services.hardware.openrgb = {
+    enable = true;
+    motherboard = "amd";
+  };
+
+  systemd.services.no-rgb = {
+    description = "no-rgb";
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      ExecStart = "${lib.getExe config.services.hardware.openrgb.package} --color 000000";
+      Type = "oneshot";
+      Requires = [ "openrgb.service" ];
+      After = [ "openrgb.service" ];
+    };
   };
 
   boot = {
