@@ -5,6 +5,7 @@
   "editor.accessibilitySupport": "off",
   "editor.cursorSmoothCaretAnimation": "on",
   "editor.formatOnSave": true,
+  "editor.experimental.treeSitterTelemetry": false,
   "editor.guides.bracketPairs": true,
   "editor.inlayHints.enabled": "onUnlessPressed",
   "editor.inlayHints.padding": true,
@@ -24,9 +25,9 @@
   "editor.fontSize": 15,
   "editor.inlayHints.fontSize": 8,
   "terminal.integrated.fontSize": 14,
-  "editor.fontFamily": "IBM Plex Mono, Symbols Nerd Font, monospace",
+  "editor.fontFamily": "Monaspace Xenon, Symbols Nerd Font, monospace",
   // Use these with Cascadia Code for cursive
-  "editor.fontLigatures": "'calt', 'ss01'",
+  // "editor.fontLigatures": "'calt', 'ss01'",
   "markdown.preview.fontFamily": "IBM Plex Sans, sans-serif",
 
   // disable updates
@@ -41,10 +42,12 @@
   "workbench.layoutControl.enabled": false,
   "workbench.tree.indent": 20,
   // icon theme
-  "workbench.iconTheme": "material-icon-theme",
+  "workbench.iconTheme": "catppuccin-mocha",
   "workbench.productIconTheme": "icons-carbon",
-  "material-icon-theme.activeIconPack": "none",
-  "material-icon-theme.files.color": "#ff69b4",
+  "workbench.preferredLightColorTheme": "Catppuccin Latte",
+  "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
+  "catppuccin.accentColor": "pink",
+  "catppuccin.italicKeywords": false,
 
   "zenMode.centerLayout": false,
   "zenMode.fullScreen": false,
@@ -73,6 +76,7 @@
     "deno.json": "deno.lock",
     "flake.nix": "flake.lock",
     "package.json": "package-lock.json, pnpm-lock.yaml, yarn.lock, yarn.config.cjs, .yarn*, jsconfig.json, tsconfig.json, *config.js, *.config.cjs, *.config.mjs, .pnp.*, .eslint*, .prettier*, .npmrc",
+    "package.yaml": "*.cabal,.hlint.yaml,fourmolu.yaml",
     "readme*": "authors, backers*, changelog*, citation*, code_of_conduct*, codeowners, contributing*, contributors, copying*, credits, governance.md, history.md, license*, maintainers, readme*, security.md, sponsors*",
     "release-please-config.json": ".release-please-manifest.json"
   },
@@ -80,6 +84,18 @@
     "dep5": "debian-copyright"
   },
   "files.autoSave": "afterDelay",
+
+  "catppuccin-icons.associations.folders": {
+    "result": "folder_dist"
+  },
+  "catppuccin-icons.associations.extensions": {
+    "license": "license"
+  },
+  "catppuccin-icons.associations.files": {
+    "package.yaml": "cabal",
+    "cc0-1.0.txt": "license",
+    "agpl-3.0-only.txt": "license"
+  },
 
   "remote.SSH.useLocalServer": false,
   "remote.SSH.remotePlatform": {
@@ -110,6 +126,7 @@
     "ui.semanticTokens": true
   },
   "haskell.formattingProvider": "fourmolu",
+  "haskell.manageHLS": "PATH",
   "haskell.plugin.semanticTokens.globalOn": true,
   "[javascript]": {
     "editor.snippetSuggestions": "top",
@@ -256,5 +273,15 @@
     }
   ],
   "vim.replaceWithRegister": true,
-  "vim.smartRelativeLine": true
+  "vim.smartRelativeLine": true,
+
+  // "AI" bullshit and other MS shenanigans
+  "chat.agent.enabled": false,
+  "chat.commandCenter.enabled": false,
+  "chat.edits2.enabled": false,
+  "chat.mcp.discovery.enabled": false,
+  "chat.mcp.enabled": false,
+  "editor.inlineSuggest.showToolbar": "never",
+  "editor.inlineSuggest.suppressSuggestions": true,
+  "telemetry.feedback.enabled": false
 }

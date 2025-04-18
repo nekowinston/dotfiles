@@ -65,5 +65,6 @@ lib: {
     nvim = "";
     obsidian = "";
     steam = "󰓓";
+    vscodium = "";
   };
 }

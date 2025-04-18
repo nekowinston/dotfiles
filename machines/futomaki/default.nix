@@ -14,6 +14,7 @@
   dotfiles = {
     desktop = "swayfx";
     gaming.enable = true;
+    vscode.enable = true;
   };
 
   hardware.keyboard.uhk.enable = true;

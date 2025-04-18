@@ -1,14 +1,9 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 let
   # pulling from different package sets:
   # - pkgs.vscode-extensions:
   #   pinned releases from inputs.nixpkgs.
   extNixpkgs = with pkgs.vscode-extensions; [
-    # patches
-    ms-python.python
-    ms-python.vscode-pylance
-    # locked to the latest release
-    ms-vscode-remote.remote-ssh
     ms-vscode.hexeditor
     ms-vscode.live-server
     ms-vscode.test-adapter-converter
@@ -35,44 +30,31 @@ let
     # other extensions like Go/Rust are only really used with devShells,
     # nix & shell are universal enough for me to want them everywhere.
     (jnoortheen.nix-ide.overrideAttrs (prev: {
-      nativeBuildInputs = prev.nativeBuildInputs ++ [
-        pkgs.jq
-        pkgs.moreutils
-      ];
+      nativeBuildInputs = prev.nativeBuildInputs ++ [ pkgs.nushell ];
       postInstall = ''
         cd "$out/$installPrefix"
-        jq -e '
-          .contributes.configuration.properties."nix.enableLanguageServer".default =
-            "true" |
-          .contributes.configuration.properties."nix.serverPath".default =
-            "${pkgs.nixd}/bin/nixd"
-        ' < package.json | sponge package.json
+        nu -c 'open package.json
+          | upsert contributes.configuration.properties."nix.enableLanguageServer".default "true"
+          | upsert contributes.configuration.properties."nix.serverPath".default "${lib.getExe pkgs.nixd}"
+          | save -f package.json'
       '';
     }))
     (mads-hartmann.bash-ide-vscode.overrideAttrs (prev: {
-      nativeBuildInputs = prev.nativeBuildInputs ++ [
-        pkgs.jq
-        pkgs.moreutils
-      ];
+      nativeBuildInputs = prev.nativeBuildInputs ++ [ pkgs.nushell ];
       postInstall = ''
         cd "$out/$installPrefix"
-        jq -e '
-          .contributes.configuration.properties."bashIde.shellcheckPath".default =
-            "${pkgs.shellcheck}/bin/shellcheck"
-        ' < package.json | sponge package.json
+        nu -c 'open package.json
+          | upsert contributes.configuration.properties."bashIde.shellcheckPath".default "${lib.getExe pkgs.shellcheck}"
+          | save -f package.json'
       '';
     }))
     (mkhl.shfmt.overrideAttrs (prev: {
-      nativeBuildInputs = prev.nativeBuildInputs ++ [
-        pkgs.jq
-        pkgs.moreutils
-      ];
+      nativeBuildInputs = prev.nativeBuildInputs ++ [ pkgs.nushell ];
       postInstall = ''
         cd "$out/$installPrefix"
-        jq -e '
-          .contributes.configuration.properties."shfmt.executablePath".default =
-            "${pkgs.shfmt}/bin/shfmt"
-        ' < package.json | sponge package.json
+        nu -c 'open package.json
+          | upsert contributes.configuration.properties."shfmt.executablePath".default "${lib.getExe pkgs.shfmt}"
+          | save -f package.json'
       '';
     }))
     adrianwilczynski.alpine-js-intellisense
@@ -107,7 +89,6 @@ let
     tamasfe.even-better-toml
     tobermory.es6-string-html
     tomoki1207.pdf
-    unifiedjs.vscode-mdx
     usernamehw.errorlens
     vscodevim.vim
   ];
