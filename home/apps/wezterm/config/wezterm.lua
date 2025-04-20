@@ -4,10 +4,7 @@ local utils = require("config.utils")
 
 require("config.font-switcher").apply(c, {
   fonts = {
-    {
-      label = "Berkeley Mono",
-      font = "TX-02",
-    },
+    { font = "Berkeley Mono" },
     { font = "Cascadia Code" },
     { font = "Comic Code Ligatures" },
     { font = "IBM Plex Mono" },
