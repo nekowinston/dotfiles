@@ -12,7 +12,7 @@
   ];
 
   dotfiles = {
-    desktop = "swayfx";
+    desktop = "sway";
     gaming.enable = true;
     vscode.enable = true;
   };

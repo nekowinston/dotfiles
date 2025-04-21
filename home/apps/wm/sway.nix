@@ -55,7 +55,7 @@ in
       };
       startup = [ { command = "1password --silent"; } ];
       workspaceAutoBackAndForth = true;
-      terminal = lib.getExe config.programs.ghostty.package;
+      terminal = lib.getExe config.programs.wezterm.package;
       menu = "${lib.getExe config.programs.rofi.package} -show drun -dpi $dpi";
       defaultWorkspace = "workspace number 1";
       input."type:keyboard".xkb_options = "ctrl:nocaps,compose:ralt";

@@ -10,7 +10,7 @@
     in
     {
       aerospace = prev.aerospace.overrideAttrs (
-        finalAttrs: prevAttrs: {
+        finalAttrs: _: {
           version = "0.17.1-Beta";
 
           src = final.fetchzip {
@@ -19,18 +19,22 @@
           };
         }
       );
+
       dark-mode-ternary = final.callPackage ./dark-mode-ternary.nix { };
-      nu_scripts = prev.nu_scripts.overrideAttrs (old: {
+
+      nu_scripts = prev.nu_scripts.overrideAttrs (prevAttrs: {
         inherit (nvfetcherSrcs.nu_scripts) src;
         postPatch = ''
           rm -rf themes/screenshots
         '';
         version = "0-unstable-${nvfetcherSrcs.nu_scripts.date}";
       });
+
       nur = import inputs.nur {
         nurpkgs = final;
         pkgs = final;
       };
+
       rs-git-fsmonitor = final.rustPlatform.buildRustPackage rec {
         pname = "rs-git-fsmonitor";
         version = "0.2.0-git-rust-client";
@@ -56,14 +60,15 @@
           homepage = "https://github.com/jgavris/rs-git-fsmonitor";
           changelog = "https://github.com/jgavris/rs-git-fsmonitor/releases/tag/v${version}";
           license = lib.licenses.mit;
-          maintainers = [ ];
+          maintainers = [ lib.maintainers.nekowinston ];
           mainProgram = "rs-git-fsmonitor";
         };
       };
-      starship = prev.starship.overrideAttrs (old: {
+
+      starship = prev.starship.overrideAttrs (prevAttrs: {
         doCheck = false;
 
-        patches = [
+        patches = (prevAttrs.patches or [ ]) ++ [
           # to allow loading config values from env vars
           # https://github.com/starship/starship/pull/4439
           (final.fetchpatch {
@@ -72,9 +77,41 @@
           })
         ];
       });
+
+      sway = prev.sway.override { sway-unwrapped = final.sway-unwrapped_1_11; };
+
+      sway-unwrapped_1_11 =
+        (prev.sway-unwrapped.overrideAttrs (
+          finalAttrs: _: {
+            version = "1.11-rc1";
+
+            src = final.fetchFromGitHub {
+              owner = "swaywm";
+              repo = "sway";
+              rev = finalAttrs.version;
+              hash = "sha256-YTrZOBVyrYSc9u8okQDLgCIAf28NoDpBI7YKQXi4X94=";
+            };
+          }
+        )).override
+          { wlroots = final.wlroots_0_19; };
+
       watchman = prev.watchman.overrideAttrs (old: {
         patches = old.patches ++ [ ./patches/00-watchman.patch ];
       });
+
+      wlroots_0_19 = prev.wlroots.overrideAttrs (
+        finalAttrs: _: {
+          version = "0.19.0-rc2";
+
+          src = final.fetchFromGitLab {
+            domain = "gitlab.freedesktop.org";
+            owner = "wlroots";
+            repo = "wlroots";
+            rev = finalAttrs.version;
+            hash = "sha256-+cF0odURhKjhHSIitPrdk9HNw7+Ug+AGHfmVSXtmLDs=";
+          };
+        }
+      );
     }
   )
 ]
