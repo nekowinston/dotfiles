@@ -5,6 +5,7 @@
   ...
 }:
 let
+  inherit (config.fonts.fontconfig) defaultFonts;
   inherit (pkgs.stdenv) isDarwin isLinux;
   inherit (lib) mkIf mkMerge;
 
@@ -39,7 +40,7 @@ in
     enable = config.isGraphical && isLinux; # currently marked as broken for Darwin
     settings = mkMerge [
       {
-        font-family = "TX-02";
+        font-family = builtins.head defaultFonts.monospace;
         font-size = 12;
         theme = "light:milspec-light,dark:milspec-dark";
 
