@@ -45,12 +45,8 @@
       input-overlay
       obs-backgroundremoval
       obs-composite-blur
-      obs-gstreamer
       obs-move-transition
       obs-pipewire-audio-capture
-      obs-vaapi
-      obs-vkcapture
-      wlrobs
     ];
   };
   boot = lib.mkIf config.programs.obs-studio.enable {
