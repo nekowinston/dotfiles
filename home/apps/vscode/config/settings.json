@@ -4,8 +4,8 @@
   "diffEditor.ignoreTrimWhitespace": false,
   "editor.accessibilitySupport": "off",
   "editor.cursorSmoothCaretAnimation": "on",
-  "editor.formatOnSave": true,
   "editor.experimental.treeSitterTelemetry": false,
+  "editor.formatOnSave": true,
   "editor.guides.bracketPairs": true,
   "editor.inlayHints.enabled": "onUnlessPressed",
   "editor.inlayHints.padding": true,
@@ -13,6 +13,7 @@
   "editor.lineNumbers": "relative",
   "editor.minimap.enabled": false,
   "editor.minimap.renderCharacters": false,
+  "editor.rulers": [80, 120],
   "editor.smoothScrolling": true,
   "git.autofetch": true,
   "git.openRepositoryInParentFolders": "never",
@@ -23,9 +24,12 @@
 
   // fonts
   "editor.fontSize": 15,
-  "editor.inlayHints.fontSize": 8,
+  "editor.inlayHints.fontSize": 12,
   "terminal.integrated.fontSize": 14,
-  "editor.fontFamily": "Monaspace Xenon, Symbols Nerd Font, monospace",
+  "editor.fontFamily": "Berkeley Mono",
+  "editor.inlayHints.fontFamily": "Berkeley Mono",
+  "editor.fontLigatures": true,
+  "terminal.integrated.fontFamily": "Berkeley Mono, Symbols Nerd Font",
   // Use these with Cascadia Code for cursive
   // "editor.fontLigatures": "'calt', 'ss01'",
   "markdown.preview.fontFamily": "IBM Plex Sans, sans-serif",
@@ -38,18 +42,57 @@
   // appearance settings
   "window.autoDetectColorScheme": true,
   "window.commandCenter": false,
+  "window.controlsStyle": "hidden",
+  "window.menuBarVisibility": "compact",
   "window.titleBarStyle": "custom",
   "workbench.layoutControl.enabled": false,
-  "workbench.tree.indent": 20,
+  "workbench.navigationControl.enabled": false,
+  "workbench.tree.indent": 10,
   // icon theme
-  "workbench.iconTheme": "catppuccin-mocha",
+  "workbench.iconTheme": "catppuccin-latte",
   "workbench.productIconTheme": "icons-carbon",
   "workbench.preferredLightColorTheme": "Catppuccin Latte",
   "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
   "catppuccin.accentColor": "pink",
   "catppuccin.italicKeywords": false,
+  "catppuccin.colorOverrides": {
+    "mocha": {
+      "text": "#ffffff", // fg
+      "base": "#1c2127", // bg
+      "crust": "#111418", // core
+      "mantle": "#111418", // core
+      "blue": "#8abbff", // blue
+      "green": "#72ca9b", // green
+      "peach": "#fbb360", // orange
+      "red": "#fa999c", // red
+      "maroon": "#ff9980", // vermilion
+      "pink": "#ff66a1", // rose
+      "lavender": "#d69fd6", // violet
+      "mauve": "#bdadff", // indigo
+      "sky": "#68c1ee", //  cerulean
+      "teal": "#7ae1d8", // turquoise
+      "yellow": "#fbd065" // gold
+    },
+    "latte": {
+      "text": "#111418",
+      "base": "#f6f7f9",
+      "mantle": "#ffffff",
+      "crust": "#ffffff",
+      "blue": "#2d72d2",
+      "green": "#238551",
+      "peach": "#c87619",
+      "red": "#cd4246",
+      "maroon": "#d33d17",
+      "pink": "#db2c6f",
+      "lavender": "#9d3f9d",
+      "mauve": "#7961db",
+      "sky": "#147eb3",
+      "teal": "#00a396",
+      "yellow": "#d1980b"
+    }
+  },
 
-  "zenMode.centerLayout": false,
+  "zenMode.centerLayout": true,
   "zenMode.fullScreen": false,
   "zenMode.showTabs": "none",
 
@@ -122,6 +165,7 @@
   "d.alwaysShowDubStatusButtons": true,
   "d.servedReleaseChannel": "nightly",
   "d.stdlibPath": "auto",
+  "go.showWelcome": false,
   "gopls": {
     "ui.semanticTokens": true
   },
@@ -144,9 +188,8 @@
   "[nix]": {
     "editor.defaultFormatter": "jnoortheen.nix-ide"
   },
-  "[python]": {
-    "editor.defaultFormatter": "charliermarsh.ruff"
-  },
+  "[python]": {},
+  "basedpyright.importStrategy": "fromEnvironment",
   "rubyLsp.rubyVersionManager": "none",
   "[ruby]": {
     "editor.defaultFormatter": "Shopify.ruby-lsp",
@@ -211,8 +254,16 @@
       "commands": ["editor.action.showHover"]
     },
     {
+      "before": ["<leader>", "c", "a"],
+      "commands": ["editor.action.quickFix"]
+    },
+    {
       "before": ["<leader>", "f", "d"],
       "commands": ["workbench.action.quickOpen"]
+    },
+    {
+      "before": ["<leader>", "r", "n"],
+      "commands": ["editor.action.rename"]
     },
     {
       "before": ["<leader>", "f", "t"],
@@ -277,11 +328,11 @@
 
   // "AI" bullshit and other MS shenanigans
   "chat.agent.enabled": false,
-  "chat.commandCenter.enabled": false,
   "chat.edits2.enabled": false,
   "chat.mcp.discovery.enabled": false,
   "chat.mcp.enabled": false,
   "editor.inlineSuggest.showToolbar": "never",
   "editor.inlineSuggest.suppressSuggestions": true,
-  "telemetry.feedback.enabled": false
+  "telemetry.feedback.enabled": false,
+  "chat.commandCenter.enabled": false
 }

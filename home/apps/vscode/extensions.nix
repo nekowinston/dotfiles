@@ -8,18 +8,11 @@ let
     ms-vscode.live-server
     ms-vscode.test-adapter-converter
     sumneko.lua
-    # needs a pinned release
+    # needs a pinned release, and/or pulling in extra binaries; patched for nix
     github.vscode-pull-request-github
-    # pulling in extra binaries, patched for nix
-    valentjn.vscode-ltex
-  ];
-
-  # - pkgs.vscode-marketplace-release:
-  #   pinned releases from inputs.nix-vscode-extensions.
-  #   these install the latest rather than the nightly version
-  extPinnedFlake = with pkgs.vscode-marketplace-release; [
     rust-lang.rust-analyzer
     vadimcn.vscode-lldb
+    valentjn.vscode-ltex
   ];
 
   # - pkgs.vscode-marketplace:
@@ -95,7 +88,7 @@ let
 in
 {
   programs.vscode = {
-    profiles.default.extensions = extNixpkgs ++ extPinnedFlake ++ extRollingFlake;
+    profiles.default.extensions = extNixpkgs ++ extRollingFlake;
     mutableExtensionsDir = true;
   };
 }
