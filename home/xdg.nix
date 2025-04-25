@@ -104,7 +104,7 @@ in
         "application/x-compressed-tar"
         "application/x-tar"
         "application/zip"
-      ] (_: "nautilus.desktop;org.gnome.Nautilus.desktop");
+      ] (_: "org.gnome.Nautilus.desktop");
     };
   };
 }
