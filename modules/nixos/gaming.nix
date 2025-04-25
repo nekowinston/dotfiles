@@ -46,8 +46,10 @@ in
             '').outPath;
         };
       };
+      gamescope.enable = true;
       steam = {
         enable = true;
+        gamescopeSession.enable = true;
         extraPackages = with pkgs; [
           gamemode
           liberation_ttf
