@@ -1,3 +1,5 @@
 {
-  imports = [ ];
+  imports = [
+    ./determinate-nix.nix
+  ];
 }

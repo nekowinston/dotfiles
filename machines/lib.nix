@@ -53,7 +53,6 @@ let
 
       darwinModules = [ ];
       linuxModules = [
-        inputs.determinate.nixosModules.default
         inputs.nixos-cosmic.nixosModules.default
         inputs.nixos-wsl.nixosModules.default
       ];
@@ -68,7 +67,6 @@ let
                 dotfiles.username = username;
                 isGraphical = isGraphical;
                 networking.hostName = lib.mkDefault host;
-                determinate-nix.enable = true;
               };
             }
             ../modules/shared
