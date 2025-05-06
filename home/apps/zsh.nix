@@ -27,17 +27,20 @@ in
     autosuggestion.enable = true;
     enableCompletion = true;
 
-    initExtraFirst = # bash
-      ''
-        zvm_config() {
-          ZVM_INIT_MODE=sourcing
-          ZVM_CURSOR_STYLE_ENABLED=false
-          ZVM_VI_HIGHLIGHT_BACKGROUND=black
-          ZVM_VI_HIGHLIGHT_EXTRASTYLE=bold,underline
-          ZVM_VI_HIGHLIGHT_FOREGROUND=white
-        }
-      '';
-    initExtra = # bash
+    initContent = lib.mkMerge [
+      (lib.mkBefore
+        # bash
+        ''
+          zvm_config() {
+            ZVM_INIT_MODE=sourcing
+            ZVM_CURSOR_STYLE_ENABLED=false
+            ZVM_VI_HIGHLIGHT_BACKGROUND=black
+            ZVM_VI_HIGHLIGHT_EXTRASTYLE=bold,underline
+            ZVM_VI_HIGHLIGHT_FOREGROUND=white
+          }
+        ''
+      )
+      # bash
       ''
         function incognito() {
           if [[ -n $ZSH_INCOGNITO ]]; then
@@ -63,7 +66,8 @@ in
         add-zsh-hook chpwd onefetch_in_git_dir
 
         ${lib.optionalString isLinux linuxOpen}
-      '';
+      ''
+    ];
 
     dotDir = ".config/zsh";
     oh-my-zsh = {

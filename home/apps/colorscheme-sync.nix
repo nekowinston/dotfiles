@@ -30,7 +30,7 @@ in
     };
 
     xdg.configFile.fsh.source = "${milspec.src}/extras/zsh-fast-syntax-highlighting";
-    programs.zsh.initExtra = # bash
+    programs.zsh.initContent = # bash
       ''
         zadm_sync() {
           local variant="$(dark-mode-ternary dark light)"

@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-  programs.zsh.initExtra = # bash
+  programs.zsh.initContent = # bash
     ''
       # kubecolor
       compdef kubecolor=kubectl

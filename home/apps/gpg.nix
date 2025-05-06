@@ -113,6 +113,6 @@ in
     enable = isLinux;
     enableExtraSocket = true;
     enableSshSupport = true;
-    pinentryPackage = if config.isGraphical then pkgs.pinentry-gnome3 else pkgs.pinentry-curses;
+    pinentry.package = if config.isGraphical then pkgs.pinentry-gnome3 else pkgs.pinentry-curses;
   };
 }
