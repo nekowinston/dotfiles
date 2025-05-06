@@ -11,10 +11,23 @@ in
   config = lib.mkIf config.isGraphical {
     programs.imv.enable = isLinux;
     programs.mpv.enable = isLinux;
-    programs.zathura.enable = true;
 
-    # TODO: maybe reenable if feishin ever bumps electron
-    # home.packages = lib.mkIf isLinux [ pkgs.feishin ];
+    programs.zathura = {
+      enable = true;
+      options = {
+        database = "sqlite";
+
+        adjust-open = "best-fit";
+        guioptions = "s";
+        scroll-page-aware = true;
+
+        recolor = true;
+        recolor-keephue = true;
+
+        statusbar-home-tilde = true;
+        window-title-basename = true;
+      };
+    };
 
     xdg.mimeApps.defaultApplications = {
       "application/pdf" = "org.pwmt.zathura.desktop";
