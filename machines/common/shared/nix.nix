@@ -13,21 +13,6 @@ let
 in
 {
   nixpkgs = {
-    config.allowUnfreePredicate =
-      pkg:
-      builtins.elem (lib.getName pkg) [
-        "1password"
-        "1password-cli"
-        "discord"
-        "steam"
-        "steam-unwrapped"
-        "uhk-agent"
-        "uhk-udev-rules"
-        "xkcd-font"
-        # firefox extensions
-        "languagetool"
-        "onepassword-password-manager"
-      ];
     # prefer my own registry & path pinning for *all* inputs
     flake.setNixPath = false;
     flake.setFlakeRegistry = false;

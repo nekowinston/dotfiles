@@ -13,7 +13,10 @@ let
         config = {
           nixpkgs = {
             overlays = overlays;
-            config.permittedInsecurePackages = [ ];
+            config = {
+              allowUnfreePredicate = import ../pkgs/allowed-unfree.nix { inherit lib; };
+              permittedInsecurePackages = [ ];
+            };
           };
           home-manager = {
             backupFileExtension = "backup";

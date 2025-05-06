@@ -53,6 +53,7 @@
         {
           _module.args.pkgs = import inputs.nixpkgs {
             inherit overlays system;
+            config.allowUnfreePredicate = import ./pkgs/allowed-unfree.nix { inherit lib; };
           };
 
           devShells.default = pkgs.mkShellNoCC {

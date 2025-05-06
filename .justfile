@@ -23,7 +23,7 @@ rebuild *args:
   nvd diff /run/current-system result
 
 home *args:
-  nix run ".#homeConfigurations.winston.activationPackage" {{args}}
+  home-manager switch --flake . {{args}} |& nom
 
 [linux]
 @boot *args:
