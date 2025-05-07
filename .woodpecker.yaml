@@ -1,0 +1,9 @@
+when:
+  - event: [push, pull_request]
+    branch: "**"
+
+steps:
+  check:
+    image: bash
+    commands:
+      - nix flake check --show-trace --accept-flake-config
