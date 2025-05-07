@@ -43,7 +43,7 @@ in
         anki-bin
         cinny-desktop
         gnome-podcasts
-        mumble_overlay
+        mumble
         neovide
         newsflash
         nextcloud-client
