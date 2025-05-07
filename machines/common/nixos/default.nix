@@ -46,7 +46,20 @@
     nix-ld.enable = true;
     zsh.enable = true;
   };
-  environment.systemPackages = [ pkgs.xdg-utils ];
+  environment.systemPackages =
+    with pkgs;
+    [
+      xdg-utils
+    ]
+    ++ lib.optionals config.isGraphical [
+      # gnome stuff
+      baobab
+      gnome-disk-utility
+      gnome-system-monitor
+    ];
+
+  # for pinentry-gnome3
+  services.dbus.packages = lib.mkIf config.isGraphical [ pkgs.gcr ];
 
   # enable yubikey u2f support
   security.pam.u2f = {
