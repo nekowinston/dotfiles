@@ -14,7 +14,10 @@
   };
 
   hardware.keyboard.uhk.enable = true;
-  environment.systemPackages = [ pkgs.uhk-agent ];
+  environment.systemPackages = [
+    pkgs.libreoffice-fresh
+    pkgs.uhk-agent
+  ];
 
   networking = {
     networkmanager.enable = true;
