@@ -61,7 +61,7 @@ in
       input."type:keyboard".xkb_options = "ctrl:nocaps,compose:ralt";
       output."*" = {
         scale = "2";
-        bg = "${../../wallpapers/dhm_1610.png} fill #171320";
+        bg = "${../../wallpapers/blahaj-blue.png} fill #000000";
       };
       keybindings = {
         "${mod}+Shift+b" = "border none";
