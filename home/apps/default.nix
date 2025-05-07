@@ -21,6 +21,7 @@
     ./media.nix
     ./neovim.nix
     ./newsboat.nix
+    ./qt.nix
     ./tmux.nix
     ./zsh.nix
   ];

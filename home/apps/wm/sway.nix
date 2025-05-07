@@ -305,6 +305,7 @@ in
       enable = true;
       xdgAutostart = true;
       variables = [
+        # default variables
         "DISPLAY"
         "WAYLAND_DISPLAY"
         "SWAYSOCK"
@@ -313,7 +314,10 @@ in
         "NIXOS_OZONE_WL"
         "XCURSOR_THEME"
         "XCURSOR_SIZE"
+        # extended
         "PATH"
+        "QT_QPA_PLATFORMTHEME"
+        "XDG_SESSION_ID"
       ];
     };
   };

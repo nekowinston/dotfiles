@@ -110,11 +110,6 @@ in
       ".icons/${config.gtk.iconTheme.name}".enable = false;
     };
 
-    qt = {
-      enable = true;
-      platformTheme.name = "gtk3";
-    };
-
     services.darkman = lib.mkIf isWindowManager {
       lightModeScripts.gtk-theme = mkDconfSwitchScript' {
         "org/gnome/desktop/interface" = {
