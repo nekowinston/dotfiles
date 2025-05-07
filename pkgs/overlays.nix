@@ -83,13 +83,13 @@
       sway-unwrapped_1_11 =
         (prev.sway-unwrapped.overrideAttrs (
           finalAttrs: _: {
-            version = "1.11-rc1";
+            version = "1.11-rc2";
 
             src = final.fetchFromGitHub {
               owner = "swaywm";
               repo = "sway";
               rev = finalAttrs.version;
-              hash = "sha256-YTrZOBVyrYSc9u8okQDLgCIAf28NoDpBI7YKQXi4X94=";
+              hash = "sha256-WsAUZqeOlSHO8vMhAqwqb/DqE82MCSz0CJCDBCWbU9g=";
             };
           }
         )).override
